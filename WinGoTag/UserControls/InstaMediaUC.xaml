@@ -36,6 +36,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center"/>
+            <Button Content="..." Grid.Column="2" Click="OptionsBTN_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <FlipView ItemsSource="{Binding Images}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">

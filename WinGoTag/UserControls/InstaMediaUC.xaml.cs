@@ -89,5 +89,10 @@ namespace WinGoTag.UserControls
             txtCaption.MaxLines = 0;
             (sender as HyperlinkButton).Visibility = Visibility.Collapsed;
         }
+
+        private void OptionsBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
