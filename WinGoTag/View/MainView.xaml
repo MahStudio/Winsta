@@ -5,9 +5,25 @@
     xmlns:local="using:WinGoTag.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:View="using:WinGoTag.UserControls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="StoriesPartition">
+        </Grid>
+        <Grid Grid.Row="1" x:Name="MediaPartition">
+            <ListView x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <View:InstaMediaUC Media="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

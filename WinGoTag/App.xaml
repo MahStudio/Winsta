@@ -5,4 +5,14 @@
     xmlns:local="using:WinGoTag"
     RequestedTheme="Light">
 
+    <Application.Resources>
+        <Style TargetType="ListViewItem" x:Key="ListViewStrecher">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Application.Resources>
 </Application>

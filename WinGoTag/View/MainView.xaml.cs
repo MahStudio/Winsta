@@ -30,7 +30,7 @@ namespace WinGoTag.View
         {
             base.OnNavigatedTo(e);
             var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(2));
-            
+            mylist.ItemsSource = res.Value.Medias;
         }
     }
 }
