@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -46,8 +47,24 @@ namespace WinGoTag.UserControls
         public InstaMediaUC()
         {
             this.InitializeComponent();
+            this.DataContextChanged += InstaMediaUC_DataContextChanged;
         }
 
+        private async void InstaMediaUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            try
+            {
+                if(args.NewValue.GetType() == typeof(InstaMedia))
+                {
+                    await Task.Delay(100);
+                    if (!txtCaption.IsTextTrimmed)
+                        MoreBTN.Visibility = Visibility.Collapsed;
+                    else MoreBTN.Visibility = Visibility.Visible;
+                }
+            }
+            catch { }
+        }
+        
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
             if (!Media.HasLiked)
@@ -65,6 +82,12 @@ namespace WinGoTag.UserControls
         private void CommentBTN_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MoreBTN_Click(object sender, RoutedEventArgs e)
+        {
+            txtCaption.MaxLines = 0;
+            (sender as HyperlinkButton).Visibility = Visibility.Collapsed;
         }
     }
 }

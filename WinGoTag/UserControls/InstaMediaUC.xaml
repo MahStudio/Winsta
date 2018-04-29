@@ -56,7 +56,14 @@
             <Button Content="Comment" Grid.Column="1" Click="CommentBTN_Click"/>
         </Grid>
         <Grid Grid.Row="3">
-            <TextBlock TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}"/>
+            <HyperlinkButton x:Name="MoreBTN" Grid.Row="1" Click="MoreBTN_Click">
+                <TextBlock Text="More" FontWeight="SemiBold"/>
+            </HyperlinkButton>
         </Grid>
     </Grid>
 </UserControl>
