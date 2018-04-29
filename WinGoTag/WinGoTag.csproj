@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="AppCommand.cs" />
     <Compile Include="AppCore.cs" />
+    <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

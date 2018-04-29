@@ -89,6 +89,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 case InstaLoginResult.Success:
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
                     {
+                        AppCore.SaveUserInfo(User.UserName, User.Password);
                         MainPage.MainFrame.Navigate(typeof(MainView));
                     });
                     break;
@@ -101,6 +102,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 case InstaLoginResult.TwoFactorRequired:
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
                     {
+                        AppCore.SaveUserInfo(User.UserName, User.Password,false);
                         MainPage.MainFrame.Navigate(typeof(TwoStepFactorView));
                     });
                     break;

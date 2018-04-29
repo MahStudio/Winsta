@@ -61,6 +61,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
             switch (res.Value)
             {
                 case InstaLoginTwoFactorResult.Success:
+                    AppCore.SaveUserInfo(null, null, true);
                     MainPage.MainFrame.Navigate(typeof(MainView));
                     //NavigateToMainView
                     break;

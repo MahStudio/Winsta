@@ -20,7 +20,7 @@
             <ListView x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <View:InstaMediaUC Media="{Binding}"/>
+                        <View:InstaMediaUC Media="{Binding Mode=OneWay}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

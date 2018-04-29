@@ -1,6 +1,7 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace WinGoTag.UserControls
 {
-    public sealed partial class InstaMediaUC : UserControl
+    public sealed partial class InstaMediaUC : UserControl, INotifyPropertyChanged
     {
         public InstaMedia Media
         {
@@ -29,6 +30,8 @@ namespace WinGoTag.UserControls
             set
             {
                 SetValue(MediaProperty, value);
+                this.DataContext = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Media"));
             }
         }
         public static readonly DependencyProperty MediaProperty = DependencyProperty.Register(
@@ -37,15 +40,31 @@ namespace WinGoTag.UserControls
          typeof(InstaMediaUC),
          new PropertyMetadata(null)
         );
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public InstaMediaUC()
         {
             this.InitializeComponent();
-            this.Loaded += InstaMediaUC_Loaded;
         }
 
-        private void InstaMediaUC_Loaded(object sender, RoutedEventArgs e)
+        private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
-            this.DataContext = Media;
+            if (!Media.HasLiked)
+            {
+                if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
+                    Media.HasLiked = true;
+            }
+            else
+            {
+                if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
+                    Media.HasLiked = false;
+            }
+        }
+
+        private void CommentBTN_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

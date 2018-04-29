@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,7 +30,19 @@ namespace WinGoTag.View
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
+        }
+
+        private async void LoadPage()
+        {
             var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(2));
+            if(res.Info.Message == "login_required")
+            {
+                AppCore.InstaApi = null;
+                AppCore.SaveUserInfo(null, null, false);
+                MainPage.MainFrame.GoBack();
+                return;
+            }
             mylist.ItemsSource = res.Value.Medias;
         }
     }
