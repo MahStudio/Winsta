@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="WinGoTag.View.SignInSignUp.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.View.SignInSignUp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:VM="using:WinGoTag.ViewModel.SignInSignUp"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <VM:LoginViewModel/>
+    </Page.DataContext>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid MinWidth="200" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" Text="{Binding UserName, Mode=TwoWay}" Header="Username"/>
+            <PasswordBox Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" Header="Password"/>
+            <Button Grid.Row="2" Content="Login" Command="{Binding LoginCmd}"/>
+        </Grid>
+    </Grid>
+</Page>
