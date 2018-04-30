@@ -44,6 +44,7 @@ namespace WinGoTag.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        int _tapscount = 0;
         public InstaMediaUC()
         {
             this.InitializeComponent();
@@ -54,7 +55,7 @@ namespace WinGoTag.UserControls
         {
             try
             {
-                if(args.NewValue.GetType() == typeof(InstaMedia))
+                if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
                     await Task.Delay(100);
                     if (!txtCaption.IsTextTrimmed)
@@ -64,8 +65,13 @@ namespace WinGoTag.UserControls
             }
             catch { }
         }
-        
+
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
+        }
+
+        private async void LikeDislikeRunner()
         {
             if (!Media.HasLiked)
             {
@@ -93,6 +99,27 @@ namespace WinGoTag.UserControls
         private void OptionsBTN_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _tapscount++;
+            await Task.Delay(350);
+            if (_tapscount == 0) return;
+            if (_tapscount == 1)
+            {
+                if (MedEl.Source != null)
+                {
+                    if (MedEl.CurrentState == MediaElementState.Playing)
+                        MedEl.IsMuted = !MedEl.IsMuted;
+                }
+            }
+            if (_tapscount == 2)
+            {
+                await Task.Delay(10);
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
+            }
+            _tapscount = 0;
         }
     }
 }

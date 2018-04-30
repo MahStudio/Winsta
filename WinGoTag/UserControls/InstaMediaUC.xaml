@@ -39,7 +39,7 @@
             <Button Content="..." Grid.Column="2" Click="OptionsBTN_Click"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}"/>
+            <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped"/>
             <!--<FlipView ItemsSource="{Binding Images}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
@@ -47,11 +47,7 @@
                     </DataTemplate>
                 </FlipView.ItemTemplate>
             </FlipView>-->
-            <MediaElement AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}">
-                <MediaElement.TransportControls>
-                    <MediaTransportControls IsSeekBarVisible="True"/>
-                </MediaElement.TransportControls>
-            </MediaElement>
+            <MediaElement x:Name="MedEl" AutoPlay="True" AreTransportControlsEnabled="False" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
