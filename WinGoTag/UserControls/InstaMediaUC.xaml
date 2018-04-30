@@ -47,7 +47,7 @@
                     </DataTemplate>
                 </FlipView.ItemTemplate>
             </FlipView>-->
-            <MediaElement x:Name="MedEl" AutoPlay="True" AreTransportControlsEnabled="False" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped"/>
+            <MediaElement x:Name="MedEl" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

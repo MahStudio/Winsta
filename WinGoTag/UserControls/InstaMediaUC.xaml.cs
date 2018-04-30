@@ -1,20 +1,13 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -66,25 +59,12 @@ namespace WinGoTag.UserControls
             catch { }
         }
 
+        #region Buttons Events
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
         }
-
-        private async void LikeDislikeRunner()
-        {
-            if (!Media.HasLiked)
-            {
-                if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
-                    Media.HasLiked = true;
-            }
-            else
-            {
-                if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
-                    Media.HasLiked = false;
-            }
-        }
-
+        
         private void CommentBTN_Click(object sender, RoutedEventArgs e)
         {
 
@@ -100,6 +80,7 @@ namespace WinGoTag.UserControls
         {
 
         }
+        #endregion
 
         private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -112,6 +93,7 @@ namespace WinGoTag.UserControls
                 {
                     if (MedEl.CurrentState == MediaElementState.Playing)
                         MedEl.IsMuted = !MedEl.IsMuted;
+                    else MedEl.Play();
                 }
             }
             if (_tapscount == 2)
@@ -120,6 +102,20 @@ namespace WinGoTag.UserControls
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
             }
             _tapscount = 0;
+        }
+
+        private async void LikeDislikeRunner()
+        {
+            if (!Media.HasLiked)
+            {
+                if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
+                    Media.HasLiked = true;
+            }
+            else
+            {
+                if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
+                    Media.HasLiked = false;
+            }
         }
     }
 }
