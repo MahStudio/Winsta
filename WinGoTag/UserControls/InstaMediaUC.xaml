@@ -39,13 +39,19 @@
             <Button Content="..." Grid.Column="2" Click="OptionsBTN_Click"/>
         </Grid>
         <Grid Grid.Row="1">
-            <FlipView ItemsSource="{Binding Images}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">
+            <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}"/>
+            <!--<FlipView ItemsSource="{Binding Images}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
                         <Image Source="{Binding URI}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
-            </FlipView>
+            </FlipView>-->
+            <MediaElement AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}">
+                <MediaElement.TransportControls>
+                    <MediaTransportControls IsSeekBarVisible="True"/>
+                </MediaElement.TransportControls>
+            </MediaElement>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

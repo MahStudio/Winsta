@@ -12,15 +12,15 @@ namespace WinGoTag.Converters
             try
             {
                 var med = (InstaMedia)value;
-                if (med.Images.Count > 0)
-                {
-                    if (parameter.ToString() == "1")
-                        return Visibility.Visible;
-                    else return Visibility.Collapsed;
-                }
                 if (med.Videos.Count > 0)
                 {
                     if (parameter.ToString() == "2")
+                        return Visibility.Visible;
+                    else return Visibility.Collapsed;
+                }
+                if (med.Images.Count > 0)
+                {
+                    if (parameter.ToString() == "1")
                         return Visibility.Visible;
                     else return Visibility.Collapsed;
                 }
