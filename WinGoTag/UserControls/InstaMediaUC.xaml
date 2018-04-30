@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="using:WinGoTag.Converters"
-    mc:Ignorable="d"
+             xmlns:View="using:WinGoTag.UserControls"
+             mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
@@ -40,14 +41,15 @@
         </Grid>
         <Grid Grid.Row="1">
             <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped"/>
-            <!--<FlipView ItemsSource="{Binding Images}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}">
+            <MediaElement x:Name="MedEl" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped"/>
+
+            <FlipView ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding URI}"/>
+                        <View:CarouselItemUC CarouselItem="{Binding Mode=OneWay}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
-            </FlipView>-->
-            <MediaElement x:Name="MedEl" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped"/>
+            </FlipView>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
