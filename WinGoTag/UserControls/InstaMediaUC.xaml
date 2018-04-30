@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="using:WinGoTag.Converters"
-             xmlns:View="using:WinGoTag.UserControls"
-             mc:Ignorable="d"
+    xmlns:View="using:WinGoTag.UserControls"
+    mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
@@ -38,12 +38,11 @@
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center"/>
-            <Button Content="..." Grid.Column="2" Click="OptionsBTN_Click"/>
+            <Button Content="..." Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent"/>
         </Grid>
         <Grid Grid.Row="1">
             <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
             <MediaElement x:Name="MedEl" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}"/>
-
             <FlipView ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped">
                 <FlipView.ItemTemplate>
                     <DataTemplate>

@@ -6,13 +6,23 @@
     RequestedTheme="Light">
 
     <Application.Resources>
-        <Style TargetType="ListViewItem" x:Key="ListViewStrecher">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ContentDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            
+            <SolidColorBrush x:Key="SystemControlPageBackgroundBaseMediumBrush" Color="Transparent"/>
+            
+            
+            <Style TargetType="ListViewItem" x:Key="ListViewStrecher">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

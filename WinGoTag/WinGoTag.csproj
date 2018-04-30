@@ -100,6 +100,9 @@
     </Compile>
     <Compile Include="AppCommand.cs" />
     <Compile Include="AppCore.cs" />
+    <Compile Include="ContentDialogs\InstaMediaContentDialog.xaml.cs">
+      <DependentUpon>InstaMediaContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
@@ -154,9 +157,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ContentDialogs\InstaMediaContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CarouselItemUC.xaml">
       <SubType>Designer</SubType>

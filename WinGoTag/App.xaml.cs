@@ -86,17 +86,12 @@ namespace WinGoTag
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            var state = AppCore.InstaApi.GetStateDataAsStream();
-            //MemoryStream mem = new MemoryStream();
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
-            //await state.CopyToAsync(mem);
-            //var r = WindowsRuntimeBufferExtensions.GetWindowsRuntimeBuffer(mem);
-            //var fo = await file.OpenAsync(FileAccessMode.ReadWrite);
-            //await fo.WriteAsync(r);
-            //state.Dispose();
-            //fo.Dispose();
-            //mem.Dispose();
-            await FileIO.WriteTextAsync(file, state);
+            if(AppCore.InstaApi != null)
+            {
+                var state = AppCore.InstaApi.GetStateDataAsStream();
+                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
+                await FileIO.WriteTextAsync(file, state);
+            }
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }

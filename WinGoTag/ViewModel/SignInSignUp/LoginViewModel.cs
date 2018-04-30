@@ -61,6 +61,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 if (AppCore.InstaApi.IsUserAuthenticated)
                 {
                     MainPage.MainFrame.Navigate(typeof(MainView));
+                    return;
                 }
             }
         }

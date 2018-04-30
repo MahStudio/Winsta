@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using WinGoTag.ContentDialogs;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -74,9 +75,9 @@ namespace WinGoTag.UserControls
             (sender as HyperlinkButton).Visibility = Visibility.Collapsed;
         }
 
-        private void OptionsBTN_Click(object sender, RoutedEventArgs e)
+        private async void OptionsBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            await new InstaMediaContentDialog(Media).ShowAsync();
         }
         #endregion
 
