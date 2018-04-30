@@ -15,6 +15,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" x:Name="StoriesPartition">
+            <ListView x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollMode="Enabled" SelectionMode="None" IsItemClickEnabled="True"
+                ScrollViewer.VerticalScrollMode="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Background="Transparent" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <View:InstaStoryFeedUC Story="{Binding}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         <Grid Grid.Row="1" x:Name="MediaPartition">
             <ListView x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">

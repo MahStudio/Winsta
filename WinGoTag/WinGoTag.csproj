@@ -101,6 +101,7 @@
     <Compile Include="AppCommand.cs" />
     <Compile Include="AppCore.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
+    <Compile Include="Converters\StorySeenToColorConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +112,9 @@
     </Compile>
     <Compile Include="UserControls\InstaMediaUC.xaml.cs">
       <DependentUpon>InstaMediaUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\InstaStoryFeedUC.xaml.cs">
+      <DependentUpon>InstaStoryFeedUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\SignInSignUp\LoginViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\TwoStepFactorViewModel.cs" />
@@ -158,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InstaMediaUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\InstaStoryFeedUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

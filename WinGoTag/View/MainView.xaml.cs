@@ -43,6 +43,8 @@ namespace WinGoTag.View
                 MainPage.MainFrame.GoBack();
                 return;
             }
+            var strs = await AppCore.InstaApi.GetStoryFeedAsync();
+            StoriesList.ItemsSource = strs.Value.Items; var f = strs.Value.Items.First();
             mylist.ItemsSource = res.Value.Medias;
         }
     }

@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="WinGoTag.UserControls.InstaStoryFeedUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converter="using:WinGoTag.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="110"
+    d:DesignWidth="85">
+
+    <UserControl.Resources>
+        <Converter:StorySeenToColorConverter x:Key="StorySeenToColorConverter"/>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Ellipse Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.5" Stroke="{Binding Converter={StaticResource StorySeenToColorConverter}, Mode=OneWay}"/>
+            <Ellipse Width="75" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Ellipse.Fill>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage UriSource="{Binding User.ProfilePicture}"/>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" TextWrapping="Wrap"/>
+    </Grid>
+</UserControl>
