@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Image x:Name="CarouImage" Source="{Binding Images[0].URI}"/>
-        <MediaElement x:Name="CarouVideo" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Tapped="Media_Tapped"/>
+        <Image x:Name="CarouImage" Source="{Binding Images[0].URI}" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
+        <MediaElement x:Name="CarouVideo" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}"/>
     </Grid>
 </UserControl>
