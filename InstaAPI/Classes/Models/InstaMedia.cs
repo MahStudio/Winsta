@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace InstaSharper.Classes.Models
 {
-    public class InstaMedia
+    public class InstaMedia : INotifyPropertyChanged
     {
         public DateTime TakenAt { get; set; }
         public string Pk { get; set; }
@@ -38,7 +39,8 @@ namespace InstaSharper.Classes.Models
 
         public bool PhotoOfYou { get; set; }
 
-        public bool HasLiked { get; set; }
+        private bool _hasliked { get; set; }
+        public bool HasLiked { get { return _hasliked; } set { _hasliked = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HasLiked")); } }
 
         public List<InstaUserTag> Tags { get; set; } = new List<InstaUserTag>();
 
@@ -52,5 +54,7 @@ namespace InstaSharper.Classes.Models
         public bool IsMultiPost => Carousel != null;
         public List<InstaComment> PreviewComments { get; set; } = new List<InstaComment>();
         public InstaLocation Location { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

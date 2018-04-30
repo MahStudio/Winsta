@@ -36,7 +36,7 @@ namespace WinGoTag.View
         private async void LoadPage()
         {
             var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(5));
-            if(res.Info.Message == "login_required")
+            if (res.Info.Message == "login_required")
             {
                 AppCore.InstaApi = null;
                 AppCore.SaveUserInfo(null, null, false);
@@ -44,7 +44,7 @@ namespace WinGoTag.View
                 return;
             }
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
-            StoriesList.ItemsSource = strs.Value.Items; var f = strs.Value.Items.First();
+            StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
             mylist.ItemsSource = res.Value.Medias;
         }
     }

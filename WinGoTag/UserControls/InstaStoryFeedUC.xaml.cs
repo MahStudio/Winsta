@@ -47,20 +47,17 @@ namespace WinGoTag.UserControls
         public InstaStoryFeedUC()
         {
             this.InitializeComponent();
-            this.DataContextChanged += InstaStoryFeedUC_DataContextChanged;
+            //this.DataContextChanged += InstaStoryFeedUC_DataContextChanged;
         }
 
-        private void InstaStoryFeedUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-            if (args.NewValue != null)
-                if(args.NewValue.GetType() == typeof(InstaReelFeed))
-                {
-                    var value = DataContext as InstaReelFeed;
-                    if(value.Seen != 0)
-                    {
-
-                    }
-                }
-        }
+        //private void InstaStoryFeedUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        //{
+        //    if (args.NewValue != null)
+        //        if(args.NewValue.GetType() == typeof(InstaReelFeed))
+        //        {
+        //            var value = DataContext as InstaReelFeed;
+        //            
+        //        }
+        //}
     }
 }

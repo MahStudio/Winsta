@@ -12,6 +12,7 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
         <Converters:InstaMediaControlVisibilityConverter x:Key="InstaMediaControlVisibilityConverter"/>
     </UserControl.Resources>
     <Grid>
@@ -57,8 +58,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Content="like" Grid.Column="0" Click="LikeBTN_Click"/>
-            <Button Content="Comment" Grid.Column="1" Click="CommentBTN_Click"/>
+            <Button Content="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="18"/>
+            <Button Content="" Grid.Column="1" Click="CommentBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="18"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
