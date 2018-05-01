@@ -39,6 +39,7 @@ namespace WinGoTag.ContentDialogs
                 Commands.Items.Add(new LVItem { Text = "Copy URL", Tag = "Copy" });
                 Commands.Items.Add(new LVItem { Text = "Download content", Tag = "Download" });
             }
+            Commands.Items.Add(new LVItem { Text = "Copy caption", Tag = "CC" });
             Commands.Items.Add(new LVItem { Text = "Cancel", Tag = "Cancel" });
         }
 
@@ -56,13 +57,19 @@ namespace WinGoTag.ContentDialogs
         {
             switch ((e.ClickedItem as LVItem).Tag)
             {
+                case "CC":
+                    var dp = new DataPackage();
+                    dp.SetText(_med.Caption.Text);
+                    Clipboard.SetContent(dp);
+                    Hide();
+                    break;
                 case "Download":
                     DownloadMediaContent();
                     break;
                 case "Copy":
-                    var dp = new DataPackage();
-                    dp.SetText("https://instagram.com/p/" + _med.Code);
-                    Clipboard.SetContent(dp);
+                    var dp2 = new DataPackage();
+                    dp2.SetText("https://instagram.com/p/" + _med.Code);
+                    Clipboard.SetContent(dp2);
                     Hide();
                     break;
                 case "Cancel":
