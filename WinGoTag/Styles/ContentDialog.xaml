@@ -5,7 +5,7 @@
     <!-- Default style for Windows.UI.Xaml.Controls.ContentDialog -->
     <Style x:Key="MGSContentDialog" TargetType="ContentDialog">
         <Setter Property="Foreground" Value="{ThemeResource ContentDialogForeground}" />
-        <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" />
+        <Setter Property="Background" Value="{ThemeResource ContentDialogBackgroundThemeBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource ContentDialogBorderBrush}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />

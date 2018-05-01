@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="WinGoTag.View.DirectMessages.DirectsListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.View.DirectMessages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:VM="using:WinGoTag.ViewModel.DirectMessages"
+    xmlns:View="using:WinGoTag.UserControls.DirectMessageUCs"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <VM:DirectsListViewModel/>
+    </Page.DataContext>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView ItemsSource="{Binding InboxContainer.Inbox.Threads, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <View:DirectThreadItemProviderUC DirectItem="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

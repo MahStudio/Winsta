@@ -65,6 +65,7 @@ namespace WinGoTag.ContentDialogs
                     break;
                 case "Download":
                     DownloadMediaContent();
+                    Hide();
                     break;
                 case "Copy":
                     var dp2 = new DataPackage();

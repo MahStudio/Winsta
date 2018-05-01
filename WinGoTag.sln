@@ -7,6 +7,36 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGoTag", "WinGoTag\WinGoT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaAPI", "InstaAPI\InstaAPI.csproj", "{EC7065C7-6FBF-48C0-879D-EE7A767A0E2C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prebuilt", "Prebuilt", "{53F69782-E7AB-4591-95E6-C406A8D81B14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "arm", "arm", "{DF75417E-75B3-4905-8D3D-5AE05C446B49}"
+	ProjectSection(SolutionItems) = preProject
+		Prebuilt\arm\Microsoft.UI.Xaml.dll = Prebuilt\arm\Microsoft.UI.Xaml.dll
+		Prebuilt\arm\Microsoft.UI.Xaml.pri = Prebuilt\arm\Microsoft.UI.Xaml.pri
+		Prebuilt\arm\Microsoft.UI.Xaml.winmd = Prebuilt\arm\Microsoft.UI.Xaml.winmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{9CCC19E4-106F-44FD-B0F9-57122FE2C31D}"
+	ProjectSection(SolutionItems) = preProject
+		Prebuilt\Temp\Microsoft.UI.Xaml.dll = Prebuilt\Temp\Microsoft.UI.Xaml.dll
+		Prebuilt\Temp\Microsoft.UI.Xaml.pri = Prebuilt\Temp\Microsoft.UI.Xaml.pri
+		Prebuilt\Temp\Microsoft.UI.Xaml.winmd = Prebuilt\Temp\Microsoft.UI.Xaml.winmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x64", "x64", "{164AF706-587B-4D0F-9910-293B45FB44FA}"
+	ProjectSection(SolutionItems) = preProject
+		Prebuilt\x64\Microsoft.UI.Xaml.dll = Prebuilt\x64\Microsoft.UI.Xaml.dll
+		Prebuilt\x64\Microsoft.UI.Xaml.pri = Prebuilt\x64\Microsoft.UI.Xaml.pri
+		Prebuilt\x64\Microsoft.UI.Xaml.winmd = Prebuilt\x64\Microsoft.UI.Xaml.winmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x86", "x86", "{E42A7663-6529-466A-AAC4-3BA37C8C9DB5}"
+	ProjectSection(SolutionItems) = preProject
+		Prebuilt\x86\Microsoft.UI.Xaml.dll = Prebuilt\x86\Microsoft.UI.Xaml.dll
+		Prebuilt\x86\Microsoft.UI.Xaml.pri = Prebuilt\x86\Microsoft.UI.Xaml.pri
+		Prebuilt\x86\Microsoft.UI.Xaml.winmd = Prebuilt\x86\Microsoft.UI.Xaml.winmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +88,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF75417E-75B3-4905-8D3D-5AE05C446B49} = {53F69782-E7AB-4591-95E6-C406A8D81B14}
+		{9CCC19E4-106F-44FD-B0F9-57122FE2C31D} = {53F69782-E7AB-4591-95E6-C406A8D81B14}
+		{164AF706-587B-4D0F-9910-293B45FB44FA} = {53F69782-E7AB-4591-95E6-C406A8D81B14}
+		{E42A7663-6529-466A-AAC4-3BA37C8C9DB5} = {53F69782-E7AB-4591-95E6-C406A8D81B14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F49369E6-3699-49A6-BA7B-852322F64B3B}
