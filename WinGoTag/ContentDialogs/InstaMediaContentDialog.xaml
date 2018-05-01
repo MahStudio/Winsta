@@ -14,8 +14,8 @@
         <ListView x:Name="Commands" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemContainerStyle="{StaticResource ListViewStrecher}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <TextBlock Text="{Binding Text}"/>
+                    <Grid Margin="0,0,0,3" CornerRadius="5" BorderThickness="3" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <TextBlock Text="{Binding Text}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
