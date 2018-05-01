@@ -7,12 +7,14 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -35,6 +37,7 @@ namespace WinGoTag.ContentDialogs
             if (!Media.User.IsPrivate)
             {
                 Commands.Items.Add(new LVItem { Text = "Copy URL", Tag = "Copy" });
+                Commands.Items.Add(new LVItem { Text = "Download content", Tag = "Download" });
             }
             Commands.Items.Add(new LVItem { Text = "Cancel", Tag = "Cancel" });
         }
@@ -53,6 +56,9 @@ namespace WinGoTag.ContentDialogs
         {
             switch ((e.ClickedItem as LVItem).Tag)
             {
+                case "Download":
+                    DownloadMediaContent();
+                    break;
                 case "Copy":
                     var dp = new DataPackage();
                     dp.SetText("https://instagram.com/p/" + _med.Code);
@@ -61,6 +67,43 @@ namespace WinGoTag.ContentDialogs
                     break;
                 case "Cancel":
                     Hide();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private async void DownloadMediaContent()
+        {
+            var dt = DateTime.Now;
+            var f = await DownloadsFolder.CreateFolderAsync((dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day.ToString() + "-" + dt.Hour + "-" + dt.Minute), CreationCollisionOption.GenerateUniqueName);
+            List<StorageFile> Files = new List<StorageFile>();
+            switch (_med.MediaType)
+            {
+                case InstaMediaType.Image:
+                    Files.Add(await f.CreateFileAsync("Img.jpg", CreationCollisionOption.GenerateUniqueName));
+                    var file = Files.FirstOrDefault();
+                    var tsk = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Images[0].URI, UriKind.RelativeOrAbsolute), file).StartAsync().AsTask();
+                    break;
+                case InstaMediaType.Video:
+                    Files.Add(await f.CreateFileAsync("Video.mp4", CreationCollisionOption.GenerateUniqueName));
+                    var file2 = Files.FirstOrDefault();
+                    var tsk2 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Videos[0].Url, UriKind.RelativeOrAbsolute), file2).StartAsync().AsTask();
+                    break;
+                case InstaMediaType.Carousel:
+                    foreach (var item in _med.Carousel)
+                    {
+                        if (item.MediaType == InstaMediaType.Image)
+                        {
+                            var file3 = await f.CreateFileAsync("Img.jpg", CreationCollisionOption.GenerateUniqueName);
+                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
+                        }
+                        else
+                        {
+                            var file3 = await f.CreateFileAsync("Video.mp4", CreationCollisionOption.GenerateUniqueName);
+                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
+                        }
+                    }
                     break;
                 default:
                     break;
