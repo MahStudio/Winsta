@@ -18,6 +18,7 @@ namespace InstaSharper.API
 
         #endregion
 
+        UserSessionData GetLoggedUser();
         /// <summary>
         ///     Get current state info as Memory stream
         /// </summary>

@@ -56,5 +56,8 @@ namespace InstaSharper.Classes.Models
         public InstaLocation Location { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool _play = false;
+        public bool Play { get { return _play; } set { _play = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Play")); } }
     }
 }

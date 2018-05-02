@@ -46,6 +46,11 @@ namespace InstaSharper.API
             _httpRequestProcessor = httpRequestProcessor;
         }
 
+        public UserSessionData GetLoggedUser()
+        {
+            return _user;
+        }
+
         /// <summary>
         ///     Get user timeline feed (feed of recent posts from users you follow) asynchronously.
         /// </summary>

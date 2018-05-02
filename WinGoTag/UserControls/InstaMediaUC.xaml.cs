@@ -50,6 +50,7 @@ namespace WinGoTag.UserControls
                 if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
                     await Task.Delay(100);
+                    Media.PropertyChanged += Media_PropertyChanged;
                     if (!txtCaption.IsTextTrimmed)
                         MoreBTN.Visibility = Visibility.Collapsed;
                     else MoreBTN.Visibility = Visibility.Visible;
@@ -58,12 +59,22 @@ namespace WinGoTag.UserControls
             catch { }
         }
 
+        private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Play")
+            {
+                if (MedEl.Source != null)
+                    if (Media.Play) MedEl.Play();
+                    else MedEl.Pause();
+            }
+        }
+
         #region Buttons Events
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
         }
-        
+
         private void CommentBTN_Click(object sender, RoutedEventArgs e)
         {
 

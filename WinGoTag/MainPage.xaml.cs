@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View;
+using WinGoTag.View.DirectMessages;
 using WinGoTag.View.SignInSignUp;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -41,9 +43,48 @@ namespace WinGoTag
             Fr.Navigated += Fr_Navigated;
             Fr.Navigate(typeof(LoginView));
         }
-
         private void Fr_Navigated(object sender, NavigationEventArgs e)
         {
+            if (Fr.Content is LoginView)
+            {
+                InstaBar.Visibility = Visibility.Collapsed;
+            }
+            if (Fr.Content is DirectsListView)
+            {
+                InstaBar.Visibility = Visibility.Collapsed;
+            }
+            if (Fr.Content is MainView)
+            {
+                InstaBar.Visibility = Visibility.Visible;
+                if(AppCore.InstaApi != null)
+                { ProfilePivotItem.Content = new ProfileView(); }
+            }
+
+        }
+
+        private void HomeBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainPivot.SelectedIndex = 0;
+        }
+
+        private void FindBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainPivot.SelectedIndex = 1;
+        }
+
+        private void AddBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainPivot.SelectedIndex = 2;
+        }
+
+        private void LoveBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainPivot.SelectedIndex = 3;
+        }
+
+        private void UserBT_Click(object sender, RoutedEventArgs e)
+        {
+            MainPivot.SelectedIndex = 4;
         }
     }
 }

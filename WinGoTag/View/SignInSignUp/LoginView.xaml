@@ -11,17 +11,34 @@
     <Page.DataContext>
         <VM:LoginViewModel/>
     </Page.DataContext>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid MinWidth="200" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Height="130" VerticalAlignment="Top" Background="{ThemeResource CustomAcrylicBackgroundBrushColor}">
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Assets/logo-Instagram.png" Stretch="Uniform" Width="200"/>
+        </Grid>
+
+        <Grid Grid.Row="1" MinWidth="280" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Text="{Binding UserName, Mode=TwoWay}" Header="Username"/>
-            <PasswordBox Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" Header="Password"/>
-            <Button Grid.Row="2" Content="Login" Command="{Binding LoginCmd}"/>
+            <TextBox Style="{ThemeResource TextBoxStyleInsta}" Grid.Row="0" PlaceholderText="Username" Text="{Binding UserName, Mode=TwoWay}" Margin="0,0,0,12" Height="42"/>
+            <PasswordBox Style="{ThemeResource PasswordBoxStyleInsta}" Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password" Margin="0,0,0,20" Height="42"/>
+            <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Login" Command="{Binding LoginCmd}" HorizontalAlignment="Stretch" Height="42"/>
         </Grid>
     </Grid>
 </Page>

@@ -1,0 +1,112 @@
+﻿<Page
+    x:Class="WinGoTag.View.ProfileView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:VM="using:WinGoTag.ViewModel"
+    xmlns:View="using:WinGoTag.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+    </Page.Resources>
+    
+    <Page.DataContext>
+        <VM:ProfileViewModel/>
+    </Page.DataContext>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="10,20,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Ellipse Width="85" Height="85" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding UserInfo.ProfilePicUrl, Mode=OneWay}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+            <Grid Grid.Column="1" Padding="20,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock TextAlignment="Center" Text="{Binding UserInfo.MediaCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                        <TextBlock TextAlignment="Center" Text="Posts" Foreground="Gray" Grid.Row="1"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowerCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                        <TextBlock TextAlignment="Center" Text="Followers" Foreground="Gray" Grid.Row="1"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowingCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                        <TextBlock TextAlignment="Center" Text="Following" Foreground="Gray" Grid.Row="1"/>
+                    </Grid>
+                </Grid>
+                <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Edit Profile"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0"/>
+            <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1"/>
+            <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
+            <Pivot Grid.Row="1">
+                <PivotItem Header="Thumbnail">
+                    
+                </PivotItem>
+                
+                <PivotItem Header="List">
+                    <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <View:InstaMediaUC Media="{Binding}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+</Page>

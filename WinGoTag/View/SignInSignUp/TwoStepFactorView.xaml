@@ -11,14 +11,29 @@
     <Page.DataContext>
         <VM:TwoStepFactorViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid MinWidth="200" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Height="130" VerticalAlignment="Top" Background="{ThemeResource CustomAcrylicBackgroundBrushColor}">
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Assets/logo-Instagram.png" Stretch="Uniform" Width="200"/>
+        </Grid>
+        <Grid MinWidth="280" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Text="{Binding VerificationCode, Mode=TwoWay}" Header="Verification code"/>
-            <Button Grid.Row="2" Content="Verify" Command="{Binding LoginCmd}"/>
+            <TextBox Style="{ThemeResource TextBoxStyleInsta}" Grid.Row="0" Text="{Binding VerificationCode, Mode=TwoWay}" PlaceholderText="Verification code" Margin="0,0,0,20"/>
+            <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="1" Content="Verify" Command="{Binding LoginCmd}" HorizontalAlignment="Stretch"/>
         </Grid>
     </Grid>
 </Page>

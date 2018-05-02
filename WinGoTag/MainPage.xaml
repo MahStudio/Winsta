@@ -7,7 +7,56 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/Pivots.xaml"/>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Frame x:Name="Fr"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+
+        <Pivot Style="{ThemeResource CustomPivot}" x:Name="MainPivot" Grid.Row="0">
+
+            <PivotItem Margin="0">
+                <Frame x:Name="Fr"/>
+            </PivotItem>
+
+            <PivotItem Margin="0">
+                <TextBlock Text="Search" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </PivotItem>
+
+            <PivotItem Margin="0">
+                <TextBlock Text="Add" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </PivotItem>
+
+            <PivotItem Margin="0">
+                <TextBlock Text="Loves" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </PivotItem>
+
+            <PivotItem Margin="0" x:Name="ProfilePivotItem">
+                <TextBlock Text="User" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </PivotItem>
+        </Pivot>
+
+        <Grid x:Name="InstaBar" Grid.Row="1" Height="48" VerticalAlignment="Bottom" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+              HorizontalAlignment="Stretch">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name="HomeBT" Icon="Home" Grid.Column="0" Click="HomeBT_Click" />
+            <AppBarButton x:Name="FindBT" Icon="Find" Grid.Column="1" Click="FindBT_Click" />
+            <AppBarButton x:Name="AddBT" Icon="Add" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center"/>
+            <AppBarButton x:Name="LoveBT" Icon="Favorite" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right"/>
+            <AppBarButton x:Name="UserBT" Icon="Contact" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right"/>
+        </Grid>
     </Grid>
 </Page>
