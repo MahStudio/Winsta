@@ -1,10 +1,14 @@
 ﻿using InstaSharper.Classes.Models;
+using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
+using Windows.Media.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -46,13 +50,18 @@ namespace WinGoTag.UserControls
                 if (args.NewValue.GetType() == typeof(InstaCarouselItem))
                 {
                     var value = DataContext as InstaCarouselItem;
-                    if (value.Videos.Count > 0)
-                    {
-                        CarouImage.Visibility = Visibility.Collapsed;
-                    }
-                    else if (value.Images.Count > 0)
+                    if(value.MediaType == InstaMediaType.Image)
                     {
                         CarouVideo.Visibility = Visibility.Collapsed;
+                        CarouImage.Visibility = Visibility.Visible;
+                        CarouImage.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                    }
+                    else
+                    {
+                        CarouImage.Visibility = Visibility.Collapsed;
+                        CarouVideo.Visibility = Visibility.Visible;
+                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                        CarouVideo.Source = new Uri(value.Videos.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
                     }
                 }
         }

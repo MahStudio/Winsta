@@ -12,6 +12,7 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <Converters:CarouselSizeConverter x:Key="CarouselSizeConverter"/>
         <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
         <Converters:InstaMediaControlVisibilityConverter x:Key="InstaMediaControlVisibilityConverter"/>
     </UserControl.Resources>
@@ -43,7 +44,7 @@
         <Grid Grid.Row="1">
             <Image Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
             <MediaElement x:Name="MedEl" AutoPlay="False" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}"/>
-            <FlipView ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped">
+            <FlipView ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
                         <View:CarouselItemUC CarouselItem="{Binding Mode=OneWay}"/>

@@ -104,6 +104,7 @@
       <DependentUpon>InstaMediaContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
+    <Compile Include="Converters\CarouselSizeConverter.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
