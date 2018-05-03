@@ -1,22 +1,16 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.DataBinding;
 using WinGoTag.View.DirectMessages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -29,7 +23,7 @@ namespace WinGoTag.View
     public sealed partial class MainView : Page
     {
         bool _loadDirect = true;
-
+        public GenerateHomePage<InstaMedia> HomePageItemssource;
         internal static dynamic itemList;
         public MainView()
         {
@@ -59,7 +53,7 @@ namespace WinGoTag.View
         private async void LoadPage()
         {
             _ProgressBar.IsIndeterminate = true;
-            var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(5));
+            var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(1));
             if (res.Info.Message == "login_required")
             {
                 AppCore.InstaApi = null;
@@ -69,14 +63,24 @@ namespace WinGoTag.View
             }
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
             StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
-
-            for (int a = 0; a < res.Value.Medias.Count; a++)
+            if (HomePageItemssource != null)
             {
-                mylist.Items.Add(res.Value.Medias[a]);
+                HomePageItemssource.CollectionChanged -= HomePageItemssource_CollectionChanged;
             }
+            HomePageItemssource = new GenerateHomePage<InstaMedia>(100000, (count) =>
+            {
+                //return tres[count];
+                return new InstaMedia();
+            });
+            HomePageItemssource.CollectionChanged += HomePageItemssource_CollectionChanged;
+            //MediasCVS.Source = HomePageItemssource;
+            mylist.ItemsSource = HomePageItemssource;
+            //await HomePageItemssource.LoadMoreItemsAsync(20);
             //mylist.ItemsSource = res.Value.Medias;
-
+            //mylist.ItemsSource = res.Value.Medias;
             _ProgressBar.IsIndeterminate = false;
+            var sv = FindChildOfType<ScrollViewer>(mylist);
+            sv.ViewChanged += Sv_ViewChanged; 
 
             //await Task.Delay(2000);
 
@@ -84,10 +88,20 @@ namespace WinGoTag.View
             //MainPage.MainFrame.Navigate(typeof(DirectsListView));
         }
 
+        private void HomePageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Sv_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            VisibleItems().Play = true;
+        }
+
         private void DirectBT_Click(object sender, RoutedEventArgs e)
         {
             PivotView.SelectedIndex = 1;
-            Scroller.ChangeView(null, 0, null);
+            //Scroller.ChangeView(null, 0, null);
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
@@ -126,11 +140,15 @@ namespace WinGoTag.View
         private InstaMedia VisibleItems()
         {
             List<InstaMedia> med = new List<InstaMedia>();
-            var meds = mylist.ItemsSource as List<InstaMedia>;
+            var meds = mylist.ItemsSource as GenerateHomePage<InstaSharper.Classes.Models.InstaMedia>;
             int i = 0;
-            foreach (var item in meds)
+            foreach (InstaMedia item in meds)
             {
-                //var p = mylist.ItemContainerGenerator
+                var p = (ListViewItem)mylist.ContainerFromItem(item);
+                if (IsVisibileToUser(p, mylist))
+                {
+                    med.Add(item);
+                }
                 i++;
             }
             

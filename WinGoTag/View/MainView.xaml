@@ -12,7 +12,9 @@
         <ResourceDictionary Source="/Styles/Pivots.xaml"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.Resources>
+            <CollectionViewSource x:Name="MediasCVS" IsSourceGrouped="False"/>
+        </Grid.Resources>
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
 
         <Pivot Style="{StaticResource CustomPivot}" x:Name="PivotView" Margin="0,0,0,0" SelectionChanged="PivotView_SelectionChanged">
@@ -36,8 +38,8 @@
                         <AppBarButton x:Name="DirectBT" Icon="AddFriend" Grid.Column="2" Width="48" Click="DirectBT_Click"/>
                     </Grid>
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
-                    <ScrollViewer x:Name="Scroller" Grid.Row="1">
-                        <Grid>
+                    <!--<ScrollViewer x:Name="Scroller" Grid.Row="1">-->
+                        <Grid Grid.Row="1">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -47,8 +49,8 @@
 
                             <Grid Grid.Row="0" BorderThickness="0,0.5,0,0.5" x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,0,0">
                                 <ListView x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      ScrollViewer.HorizontalScrollMode="Enabled" SelectionMode="None" IsItemClickEnabled="True"
-                                      ScrollViewer.VerticalScrollMode="Disabled" Margin="0,6,0,6" ItemClick="StoriesList_ItemClick">
+                                      ScrollViewer.HorizontalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemsSource="{Binding Source={StaticResource MediasCVS}}"
+                                      ScrollViewer.VerticalScrollMode="Enabled" Margin="0,6,0,6" ItemClick="StoriesList_ItemClick">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Background="Transparent" Orientation="Horizontal" />
@@ -63,7 +65,7 @@
                             </Grid>
 
                             <Grid Grid.Row="1" x:Name="MediaPartition">
-                                <ListView ScrollViewer.VerticalScrollMode="Disabled" x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">
+                                <ListView ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <View:InstaMediaUC Media="{Binding Mode=OneWay}"/>
@@ -73,9 +75,9 @@
                             </Grid>
 
                         </Grid>
-                    </ScrollViewer>
+                        <!--</ScrollViewer>-->
                 </Grid>
-
+               
             </PivotItem>
 
             <PivotItem Margin="0">
