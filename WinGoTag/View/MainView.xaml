@@ -6,18 +6,44 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:View="using:WinGoTag.UserControls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary Source="/Styles/Pivots.xaml"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <Grid.Resources>
             <CollectionViewSource x:Name="MediasCVS" IsSourceGrouped="False"/>
         </Grid.Resources>
+        
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
 
-        <Pivot Style="{StaticResource CustomPivot}" x:Name="PivotView" Margin="0,0,0,0" SelectionChanged="PivotView_SelectionChanged">
+        <Pivot Style="{StaticResource CustomPivot}" x:Name="PivotView" SelectedIndex="1"
+               Margin="0,0,0,0" SelectionChanged="PivotView_SelectionChanged">
+
+            <PivotItem x:Name="PivotCamera" Margin="0">
+                <Grid>
+                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="48"/>
+                        </Grid.ColumnDefinitions>
+
+                        <AppBarButton x:Name="BackFromCameraBT" Grid.Column="2" Width="48" Click="BackFromCameraBT_Click">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00F;" Foreground="White" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                       
+                    </Grid>
+                    <Frame Grid.Row="1" x:Name="CameraFr"/>
+                </Grid>
+            </PivotItem>
+
 
             <PivotItem Margin="0">
                 <Grid>
@@ -26,81 +52,101 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top">
+                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="48"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="48"/>
                         </Grid.ColumnDefinitions>
 
-                        <AppBarButton Icon="Camera" Grid.Column="0" Width="48"/>
-                        <Image Grid.Column="1" Source="ms-appx:///Icons/logo-InstagramBlack.png" Stretch="Uniform" VerticalAlignment="Center" Width="120"/>
+                        <AppBarButton x:Name="CameraBT" Icon="Camera" Grid.Column="0" Width="48" Click="CameraBT_Click"/>
+                        <Image Grid.Column="1" Source="ms-appx:///Logos/logo-InstagramBlack.png" Stretch="Uniform" VerticalAlignment="Center" Width="100"/>
                         <AppBarButton x:Name="DirectBT" Icon="AddFriend" Grid.Column="2" Width="48" Click="DirectBT_Click"/>
                     </Grid>
+                    
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
-                    <!--<ScrollViewer x:Name="Scroller" Grid.Row="1">-->
-                        <Grid Grid.Row="1">
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" BorderThickness="0,0.5,0,0.5" x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,0,0">
-                                <ListView x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      ScrollViewer.HorizontalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemsSource="{Binding Source={StaticResource MediasCVS}}"
-                                      ScrollViewer.VerticalScrollMode="Enabled" Margin="0,6,0,6" ItemClick="StoriesList_ItemClick">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Background="Transparent" Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <View:InstaStoryFeedUC Story="{Binding}"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Grid>
+                    <Grid Grid.Row="1" x:Name="MediaPartition">
+                        <ListView ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
+                                  ItemContainerStyle="{StaticResource ListViewStrecher}" 
+                                  IsItemClickEnabled="False" SelectionMode="None">
 
-                            <Grid Grid.Row="1" x:Name="MediaPartition">
-                                <ListView ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" SelectionMode="None">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <View:InstaMediaUC Media="{Binding Mode=OneWay}"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Grid>
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:FadeHeaderBehavior />
+                            </interactivity:Interaction.Behaviors>
+                            <ListView.Header>
+                                
+                                <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
+                                      x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
 
-                        </Grid>
-                        <!--</ScrollViewer>-->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <TextBlock Text="Stories" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,0,12,0"/>
+                                    </Grid>
+                                    
+                                    <GridView Grid.Row="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                          ScrollViewer.HorizontalScrollMode="Enabled" 
+                                          ScrollViewer.VerticalScrollMode="Disabled"
+                                          SelectionMode="None" IsItemClickEnabled="True"
+                                          Margin="0,6,0,0" ItemClick="StoriesList_ItemClick" MinHeight="60">
+                                        
+                                        <GridView.ItemTemplate>
+                                            <DataTemplate>
+                                                <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
+                                            </DataTemplate>
+                                        </GridView.ItemTemplate>
+
+                                        <GridView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </GridView.ItemsPanel>
+                                        
+                                    </GridView>
+                                </Grid>
+                            </ListView.Header>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <View:InstaMediaUC Media="{Binding Mode=OneWay}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </Grid>
+
                 </Grid>
-               
             </PivotItem>
 
             <PivotItem Margin="0">
                 <Grid>
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top">
+                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="48"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="48"/>
                         </Grid.ColumnDefinitions>
 
-                        <AppBarButton x:Name="ToBackBT" Icon="Back" Grid.Column="0" Width="48" Click="ToBackBT_Click"/>
+                        <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                         <TextBlock Grid.Column="1" Text="Direct" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
                         <AppBarButton Icon="Add" Grid.Column="2" Width="48"/>
                     </Grid>
-
-                    <Frame Grid.Row="1"  x:Name="DirectFr"/>
+                    <Frame Grid.Row="1" x:Name="DirectFr"/>
+                   
                 </Grid>
 
             </PivotItem>

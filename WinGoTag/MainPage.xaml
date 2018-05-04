@@ -18,13 +18,13 @@
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
 
-        <Pivot Style="{ThemeResource CustomPivot}" x:Name="MainPivot" Grid.Row="0">
+        <Pivot IsLocked="True" ManipulationMode="None" Style="{ThemeResource CustomMainPivot}" x:Name="MainPivot" Grid.Row="0">
 
             <PivotItem Margin="0">
                 <Frame x:Name="Fr"/>
             </PivotItem>
 
-            <PivotItem Margin="0">
+            <PivotItem Margin="0" x:Name="SearchPivotItem">
                 <TextBlock Text="Search" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </PivotItem>
 
@@ -53,9 +53,17 @@
             </Grid.ColumnDefinitions>
 
             <AppBarButton x:Name="HomeBT" Icon="Home" Grid.Column="0" Click="HomeBT_Click" />
-            <AppBarButton x:Name="FindBT" Icon="Find" Grid.Column="1" Click="FindBT_Click" />
+            <AppBarButton x:Name="FindBT" Grid.Column="1" Click="FindBT_Click">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarButton x:Name="AddBT" Icon="Add" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center"/>
-            <AppBarButton x:Name="LoveBT" Icon="Favorite" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right"/>
+            <AppBarButton x:Name="LoveBT" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarButton x:Name="UserBT" Icon="Contact" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>

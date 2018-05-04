@@ -11,23 +11,23 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="5">
+        <Grid Grid.Column="0" Margin="6">
             <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{Binding Users[0].ProfilePicture, Mode=OneWay}"/>
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
-        <Grid Grid.Column="1" VerticalAlignment="Center">
+        <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="{Binding Users[0].UserName, Mode=OneWay}" FontWeight="SemiBold"/>
-            <TextBlock Grid.Row="1" Text="{Binding Items[0].Text}" MaxLines="1" TextWrapping="Wrap" Foreground="Gray"/>
+            <TextBlock Grid.Row="1" Text="{Binding Items[0].Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
         </Grid>
     </Grid>
 </UserControl>

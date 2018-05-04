@@ -15,11 +15,11 @@ namespace WinGoTag.UserControls
 {
     public sealed partial class CarouselItemUCStories : UserControl, INotifyPropertyChanged
     {
-        public InstaCarouselItem CarouselItem
+        public InstaStoryItem CarouselItem
         {
             get
             {
-                return (InstaCarouselItem)GetValue(CarouselItemProperty);
+                return (InstaStoryItem)GetValue(CarouselItemProperty);
             }
             set
             {
@@ -31,7 +31,7 @@ namespace WinGoTag.UserControls
 
         public static readonly DependencyProperty CarouselItemProperty = DependencyProperty.Register(
          "CarouselItem",
-         typeof(InstaCarouselItem),
+         typeof(InstaStoryItem),
          typeof(CarouselItemUCStories),
          new PropertyMetadata(null)
         );
@@ -46,73 +46,64 @@ namespace WinGoTag.UserControls
         
         private void CarouselItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
+            
+
             if (args.NewValue != null)
 
-                if (args.NewValue.GetType() == typeof(InstaCarouselItem))
-
+                if (args.NewValue.GetType() == typeof(InstaStoryItem))
                 {
+                    var value = DataContext as InstaStoryItem;
 
-                    var value = DataContext as InstaCarouselItem;
-
-                    if (value.MediaType == InstaMediaType.Image)
-
+                    if (value.MediaType == 1)
                     {
-
                         CarouVideo.Visibility = Visibility.Collapsed;
-
                         CarouImage.Visibility = Visibility.Visible;
-
-                        CarouImage.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-
+                        CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                     }
 
                     else
 
                     {
-
                         CarouImage.Visibility = Visibility.Collapsed;
-
                         CarouVideo.Visibility = Visibility.Visible;
-
-                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-
-                        CarouVideo.Source = new Uri(value.Videos.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
-
+                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                        CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
                     }
-
                 }
-
         }
 
 
 
-        private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Media_Tapped(object sender, TappedRoutedEventArgs e)
 
         {
 
-            _tapscount++;
+            //_tapscount++;
 
-            await Task.Delay(350);
+            //await Task.Delay(350);
 
-            if (_tapscount == 0) return;
+            //if (_tapscount == 0) return;
 
-            if (_tapscount == 1)
+            //if (_tapscount == 1)
 
-            {
+            //{
 
-                if (CarouVideo.Source != null)
+            //    if (CarouVideo.Source != null)
 
-                {
+            //    {
 
-                    if (CarouVideo.CurrentState == MediaElementState.Playing)
+            //        if (CarouVideo.CurrentState == MediaElementState.Playing)
 
-                        CarouVideo.IsMuted = !CarouVideo.IsMuted;
+            //            CarouVideo.IsMuted = !CarouVideo.IsMuted;
 
-                    else CarouVideo.Play();
+            //        else CarouVideo.Play();
 
-                }
-            }
-            _tapscount = 0;
+            //    }
+            //}
+            //_tapscount = 0;
         }
+
+       
+        
     }
 }
