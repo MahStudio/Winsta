@@ -5,7 +5,8 @@
     xmlns:local="using:WinGoTag"
     xmlns:fluent="using:Microsoft.UI.Xaml.Controls" 
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
-    xmlns:Windows10CreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)">
+    xmlns:Windows10CreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 5)"
+    RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -30,6 +31,28 @@
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="Padding" Value="0"/>
             </Style>
+
+            <!--<DataTemplate x:Key="ItemStoy">
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Ellipse Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.5"/>
+                        <Ellipse Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Ellipse.Fill>
+                                <ImageBrush>
+                                    <ImageBrush.ImageSource>
+                                        <BitmapImage UriSource="{Binding User.ProfilePicture}"/>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="80" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="14"/>
+                </Grid>
+            </DataTemplate>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

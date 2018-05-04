@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
@@ -59,6 +61,22 @@ namespace WinGoTag.UserControls
 
                     //var s = Story.Items.First();
                 }
+        }
+
+        private void bit_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            //DoubleAnimation fade = new DoubleAnimation()
+            //{
+            //    From = 0,
+            //    To = 1,
+            //    Duration = TimeSpan.FromSeconds(0.2),
+            //    EnableDependentAnimation = true
+            //};
+            //Storyboard.SetTarget(fade, (BitmapImage)sender);
+            //Storyboard.SetTargetProperty(fade, "Opacity");
+            //Storyboard openpane = new Storyboard();
+            //openpane.Children.Add(fade);
+            //openpane.Begin();
         }
     }
 }

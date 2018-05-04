@@ -14,10 +14,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Height="48" VerticalAlignment="Top">
@@ -39,18 +37,14 @@
             <AppBarButton x:Name="BackBT" Icon="Clear" Grid.Column="2" Click="BackBT_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Width="48"/>
         </Grid>
 
-        <FlipView x:Name="Flipviews" Grid.Row="1" Style="{ThemeResource CustomFlip}">
+        <ProgressBar x:Name="_BarSecond" Maximum="15" VerticalAlignment="Bottom" Background="{x:Null}"/>
 
+        <FlipView x:Name="Flipviews" Grid.Row="1">
             <FlipView.ItemTemplate>
-
                 <DataTemplate>
-
                     <View:CarouselItemUCStories CarouselItem="{Binding Mode=OneWay}"/>
-
                 </DataTemplate>
-
             </FlipView.ItemTemplate>
-
         </FlipView>
     </Grid>
 </Page>

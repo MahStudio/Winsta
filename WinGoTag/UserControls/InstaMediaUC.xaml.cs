@@ -6,6 +6,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -127,5 +129,39 @@ namespace WinGoTag.UserControls
                     Media.HasLiked = false;
             }
         }
+
+        private void Cover_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fade = new DoubleAnimation()
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.3),
+                EnableDependentAnimation = true
+            };
+            Storyboard.SetTarget(fade, (Image)sender);
+            Storyboard.SetTargetProperty(fade, "Opacity");
+            Storyboard openpane = new Storyboard();
+            openpane.Children.Add(fade);
+            openpane.Begin();
+        }
+
+        private void bit_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            //DoubleAnimation fade = new DoubleAnimation()
+            //{
+            //    From = 0,
+            //    To = 1,
+            //    Duration = TimeSpan.FromSeconds(0.3),
+            //    EnableDependentAnimation = true
+            //};
+            //Storyboard.SetTarget(fade, (BitmapImage)sender);
+            //Storyboard.SetTargetProperty(fade, "Opacity");
+            //Storyboard openpane = new Storyboard();
+            //openpane.Children.Add(fade);
+            //openpane.Begin();
+        }
+
+        
     }
 }

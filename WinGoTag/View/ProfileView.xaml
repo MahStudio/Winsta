@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:VM="using:WinGoTag.ViewModel"
     xmlns:View="using:WinGoTag.UserControls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -86,19 +87,42 @@
             <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2"/>
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
-            <Pivot Grid.Row="1">
-                <PivotItem Header="Thumbnail">
-                    
+            <Pivot Grid.Row="1"  >
+
+                <Pivot.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Margin="20,0,0,0">
+                            <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets"/>
+                        </Grid>
+                        
+                    </DataTemplate>
+                </Pivot.HeaderTemplate>
+
+                <PivotItem Header="&#xE154;" Margin="0">
+                    <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
+                                               OneRowModeEnabled="False"
+                                               ItemHeight="150"
+                                               ItemsSource="{Binding GridList}"
+                                               DesiredWidth="150"
+                                               SelectionMode="Single"
+                                               IsItemClickEnabled="True">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate>
+                                <View:GridItemUC/>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                                               
                 </PivotItem>
-                
-                <PivotItem Header="List">
-                    <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}">
+
+                <PivotItem Header="&#xEA42;" Margin="0">
+                    <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <View:InstaMediaUC Media="{Binding}"/>

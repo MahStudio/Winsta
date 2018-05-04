@@ -19,17 +19,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Ellipse Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.5" Stroke="{Binding Converter={StaticResource StorySeenToColorConverter}, Mode=OneWay}"/>
+            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="{Binding Converter={StaticResource StorySeenToColorConverter}, Mode=OneWay}"/>
             <Ellipse Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage UriSource="{Binding User.ProfilePicture}"/>
+                            <BitmapImage ImageOpened="bit_ImageOpened" UriSource="{Binding User.ProfilePicture}"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
-        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="80" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="14"/>
+        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="70" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
     </Grid>
 </UserControl>

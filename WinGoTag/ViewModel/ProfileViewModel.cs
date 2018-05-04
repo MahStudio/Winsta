@@ -32,6 +32,12 @@ namespace WinGoTag.ViewModel
             set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MediaList")); }
         }
 
+        public InstaMediaList GridList
+        {
+            get { return _medlst; }
+            set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GridList")); }
+        }
+
         CoreDispatcher Dispatcher { get; set; }
         public ProfileViewModel()
         {
@@ -51,7 +57,7 @@ namespace WinGoTag.ViewModel
             UserInfo = user.Value;
             var media = await AppCore.InstaApi.GetUserMediaAsync(username, PaginationParameters.MaxPagesToLoad(1));
             MediaList = media.Value;
-            
+            GridList = media.Value;
         }
     }
 }
