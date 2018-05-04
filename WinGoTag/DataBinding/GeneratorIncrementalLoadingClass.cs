@@ -56,4 +56,50 @@ namespace WinGoTag.DataBinding
 
         #endregion 
     }
+    public class GenerateDirectsList<T> : IncrementalLoadingBase
+    {
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateDirectsList(uint maxCount, Func<int, T> generator)
+        {
+            _generator = generator;
+            _maxCount = maxCount;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+            //http://getsongg.com/dapp/getnewcases?lang=en&tested
+            IEnumerable<InstaDirectInboxThread> tres = null;//
+            var res = await AppCore.InstaApi.GetDirectInboxAsync();
+            tres = res.Value.Inbox.Threads;
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaMedia>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
 }

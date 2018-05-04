@@ -13,18 +13,20 @@ namespace InstaSharper.Classes.Android.DeviceInfo
         public string device_id { get; set; }
         public string password { get; set; }
         public string login_attempt_count { get; set; } = "0";
-
+        public static ApiRequestMessage CurrentDevice { get; private set; }
         internal string GetMessageString()
         {
             return JsonConvert.SerializeObject(this);
         }
 
-        internal string GenerateSignature(string signatureKey)
+        internal string GenerateSignature(string signatureKey, out string deviceid)
         {
             if (string.IsNullOrEmpty(signatureKey))
                 signatureKey = InstaApiConstants.IG_SIGNATURE_KEY;
-            return CryptoHelper.CalculateHash(signatureKey,
+            var res = CryptoHelper.CalculateHash(signatureKey,
                 JsonConvert.SerializeObject(this));
+            deviceid = device_id;
+            return res;
         }
 
         internal bool IsEmpty()
