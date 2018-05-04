@@ -17,7 +17,6 @@ namespace InstaSharper.API
         bool IsUserAuthenticated { get; }
 
         #endregion
-
         UserSessionData GetLoggedUser();
         /// <summary>
         ///     Get current state info as Memory stream
@@ -25,6 +24,7 @@ namespace InstaSharper.API
         /// <returns>State data</returns>
         string GetStateDataAsStream();
 
+        Task<IResult<bool>> GetChallengeChoices();
         /// <summary>
         ///     Set state data from provided stream
         /// </summary>
