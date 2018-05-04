@@ -82,6 +82,8 @@ namespace WinGoTag.View.StoryView
         {
             base.OnNavigatedTo(e);
 
+            //var test = AppCore.InstaApi.GetUserStoryFeedAsync(((InstaReelFeed)e.Parameter).User.Pk);
+
             if (e.Parameter is InstaReelFeed)
             {
                 this.DataContext = ((InstaReelFeed)e.Parameter);
