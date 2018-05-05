@@ -116,7 +116,7 @@
 
                 <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>
-                        <View:GridItemUC/>
+                        <View:GridItemUC Media="{Binding}"/>
                     </DataTemplate>
                 </controls:AdaptiveGridView.ItemTemplate>
 
