@@ -40,7 +40,7 @@ namespace WinGoTag.View.SearchView
         private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             var query = SearchBox.Text;
-            var ForTag = await AppCore.InstaApi.SearchLocation(0,0,query);
+            
 
             switch (PivotSearch.SelectedIndex)
             {
@@ -53,11 +53,12 @@ namespace WinGoTag.View.SearchView
                     break;
 
                 case 2:
-
+                    var ForTag = await AppCore.InstaApi.SearchHashtag(query);
                     break;
 
                 case 3:
-                    PlacesList.ItemsSource = ForTag.Value;
+                    var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+                    PlacesList.ItemsSource = ForLocation.Value;
                     break;
             }
         }

@@ -56,7 +56,10 @@
                 <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
                     <Pivot.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="16" FontWeight="SemiBold"/>
+                            <Grid>
+                                <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            </Grid>
+                            
                         </DataTemplate>
                     </Pivot.HeaderTemplate>
                     
@@ -73,7 +76,7 @@
                     </PivotItem>
 
                     <PivotItem Header="Places" Margin="0">
-                        <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}"/>
+                        <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
                     </PivotItem>
                 </Pivot>
             </Grid>
