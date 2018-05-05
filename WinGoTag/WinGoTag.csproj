@@ -144,6 +144,9 @@
     <Compile Include="View\DirectMessages\DirectsListView.xaml.cs">
       <DependentUpon>DirectsListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditProfile\EditProfile.xaml.cs">
+      <DependentUpon>EditProfile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,10 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\white_instagram_text_logo1.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Logos\LogoText.png" />
+    <Content Include="Logos\LogoTextW.png" />
+    <Content Include="Logos\WinstaApp.png" />
+    <Content Include="Logos\WinstaAppW.png" />
     <Content Include="Microsoft.UI.Xaml\Assets\NoiseAsset_256X256_PNG.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -326,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DirectMessages\DirectsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditProfile\EditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

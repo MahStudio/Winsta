@@ -17,7 +17,7 @@ namespace WinGoTag.DataBinding
         {
             _generator = generator;
             _maxCount = maxCount;
-            pagination =  PaginationParameters.MaxPagesToLoad(1);
+            pagination = PaginationParameters.MaxPagesToLoad(1);
         }
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)

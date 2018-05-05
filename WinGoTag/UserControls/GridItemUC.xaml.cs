@@ -44,8 +44,6 @@ namespace WinGoTag.UserControls
         );
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        int _tapscount = 0;
         public GridItemUC()
         {
             this.InitializeComponent();
@@ -58,23 +56,21 @@ namespace WinGoTag.UserControls
             {
                 if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
-                    var value = DataContext as InstaMedia;
-
-                    switch (value.MediaType)
+                    switch (Media.MediaType)
                     {
                         case InstaMediaType.Image:
                             SymbolType.Text = "";
-                            Image.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
 
                         case InstaMediaType.Carousel:
                             SymbolType.Text = "\ue923";
-                            Image.Source = new BitmapImage(new Uri(value.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                          
                         case InstaMediaType.Video:
                             SymbolType.Text = "\ue714";
-                            Image.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                     }
                     

@@ -60,7 +60,7 @@
                         </Grid.ColumnDefinitions>
 
                         <AppBarButton x:Name="CameraBT" Icon="Camera" Grid.Column="0" Width="48" Click="CameraBT_Click"/>
-                        <Image Grid.Column="1" Source="ms-appx:///Logos/logo-InstagramBlack.png" Stretch="Uniform" VerticalAlignment="Center" Width="100"/>
+                        <Image Grid.Column="1" Source="ms-appx:///Logos/WinstaApp.png" Stretch="Uniform" VerticalAlignment="Center" Width="100"/>
                         <AppBarButton x:Name="DirectBT" Icon="AddFriend" Grid.Column="2" Width="48" Click="DirectBT_Click"/>
                     </Grid>
                     
@@ -113,7 +113,7 @@
 
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <View:InstaMediaUC Media="{Binding Mode=OneWay}"/>
+                                    <View:InstaMediaUC Media="{Binding Mode=OneWay}" Margin="0,0,0,12"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
 
