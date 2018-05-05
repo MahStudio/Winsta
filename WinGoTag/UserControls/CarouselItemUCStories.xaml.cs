@@ -37,7 +37,7 @@ namespace WinGoTag.UserControls
         );
 
         public event PropertyChangedEventHandler PropertyChanged;
-        int _tapscount = 0;
+        //int _tapscount = 0;
         public CarouselItemUCStories()
         {
             this.InitializeComponent();
@@ -62,7 +62,6 @@ namespace WinGoTag.UserControls
                     }
 
                     else
-
                     {
                         CarouImage.Visibility = Visibility.Collapsed;
                         CarouVideo.Visibility = Visibility.Visible;
@@ -75,7 +74,6 @@ namespace WinGoTag.UserControls
 
 
         private void Media_Tapped(object sender, TappedRoutedEventArgs e)
-
         {
 
             //_tapscount++;

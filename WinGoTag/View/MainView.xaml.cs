@@ -75,7 +75,7 @@ namespace WinGoTag.View
             var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(1));
             if (res.Info.Message == "login_required")
             {
-                AppCore.InstaApi = null;
+                //AppCore.InstaApi = null;
                 AppCore.SaveUserInfo(null, null, false);
                 MainPage.MainFrame.GoBack();
                 return;
