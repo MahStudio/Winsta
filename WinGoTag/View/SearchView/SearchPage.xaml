@@ -34,39 +34,39 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" QuerySubmitted="SearchBox_QuerySubmitted" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" PlaceholderText="Search..." VerticalAlignment="Top" Height="43" TextChanged="SearchBox_TextChanged">
+            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." VerticalAlignment="Top" Height="43">
                 <AutoSuggestBox.Style>
                     <Style TargetType="AutoSuggestBox">
                         <Setter Property="VerticalAlignment" Value="Top"/>
                         <Setter Property="IsTabStop" Value="False"/>
-                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxTextBoxStyle}"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="AutoSuggestBox">
-                                    <Grid>
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="Orientation">
-                                                <VisualState x:Name="Landscape"/>
-                                                <VisualState x:Name="Portrait"/>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <TextBox Style="{ThemeResource TextBoxStyleInsta}" x:Name="TextBox" ScrollViewer.BringIntoViewOnFocusChange="False" DesiredCandidateWindowAlignment="BottomEdge" Header="{TemplateBinding Header}" Margin="0" PlaceholderText="{TemplateBinding PlaceholderText}" Width="{TemplateBinding Width}" Canvas.ZIndex="0" BorderBrush="{x:Null}" VerticalAlignment="Center" Height="48"/>
-                                        <Popup x:Name="SuggestionsPopup">
-                                            <Border x:Name="SuggestionsContainer">
-                                                <Border.RenderTransform>
-                                                    <TranslateTransform x:Name="UpwardTransform"/>
-                                                </Border.RenderTransform>
-                                                <ListView x:Name="SuggestionsList" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" Background="{ThemeResource SystemControlAcrylicElementBrush}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" IsItemClickEnabled="True" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Margin="{ThemeResource AutoSuggestListMargin}" Padding="{ThemeResource AutoSuggestListPadding}">
-                                                    <ListView.ItemContainerTransitions>
-                                                        <TransitionCollection/>
-                                                    </ListView.ItemContainerTransitions>
-                                                </ListView>
-                                            </Border>
-                                        </Popup>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
+                        <!--<Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="AutoSuggestBox">
+                                <Grid CornerRadius="5">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="Orientation">
+                                            <VisualState x:Name="Landscape"/>
+                                            <VisualState x:Name="Portrait"/>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <TextBox Style="{ThemeResource AutoSuggestBoxCustom}" PlaceholderText="Search..."/>
+                                    <Popup x:Name="SuggestionsPopup">
+                                        <Border x:Name="SuggestionsContainer">
+                                            <Border.RenderTransform>
+                                                <TranslateTransform x:Name="UpwardTransform"/>
+                                            </Border.RenderTransform>
+                                            <ListView x:Name="SuggestionsList" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" Background="{ThemeResource SystemControlAcrylicElementBrush}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" IsItemClickEnabled="True" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Margin="{ThemeResource AutoSuggestListMargin}" Padding="{ThemeResource AutoSuggestListPadding}">
+                                                <ListView.ItemContainerTransitions>
+                                                    <TransitionCollection/>
+                                                </ListView.ItemContainerTransitions>
+                                            </ListView>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>-->
                     </Style>
                 </AutoSuggestBox.Style>
             </AutoSuggestBox>
@@ -80,7 +80,7 @@
                 <interactivity:Interaction.Behaviors>
                     <behaviors:FadeHeaderBehavior />
                 </interactivity:Interaction.Behaviors>
-                <controls:AdaptiveGridView.Header>
+                <GridView.Header>
 
                     <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
@@ -110,9 +110,9 @@
                         <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding ListVideos.Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill"/>
 
                         <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="{ThemeResource SystemControlAcrylicElementBrush}"
-                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18"/>
+                                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18"/>
                     </Grid>
-                </controls:AdaptiveGridView.Header>
+                </GridView.Header>
 
                 <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>

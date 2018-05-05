@@ -40,5 +40,7 @@
             <PasswordBox Style="{ThemeResource PasswordBoxStyleInsta}" Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password" Margin="0,0,0,20" Height="42"/>
             <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Login" Command="{Binding LoginCmd}" HorizontalAlignment="Stretch" Height="42"/>
         </Grid>
+
+       
     </Grid>
 </Page>
