@@ -15,8 +15,26 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Pivots.xaml"/>
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="PlacesItem">
+                <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
+                    <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding Address}" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -26,21 +44,53 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." VerticalAlignment="Top" Height="43">
-                <AutoSuggestBox.Style>
-                    <Style TargetType="AutoSuggestBox">
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="IsTabStop" Value="False"/>
-                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
-                        <!--<Setter Property="Template">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2" x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
+                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+                    <Pivot.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="16" FontWeight="SemiBold"/>
+                        </DataTemplate>
+                    </Pivot.HeaderTemplate>
+                    
+                    <PivotItem Header="Main" Margin="0">
+                        
+                    </PivotItem>
+
+                    <PivotItem Header="People" Margin="0">
+
+                    </PivotItem>
+
+                    <PivotItem Header="Tags" Margin="0">
+
+                    </PivotItem>
+
+                    <PivotItem Header="Places" Margin="0">
+                        <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}"/>
+                    </PivotItem>
+                </Pivot>
+            </Grid>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
+                    <AutoSuggestBox.Style>
+                        <Style TargetType="AutoSuggestBox">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="IsTabStop" Value="False"/>
+                            <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
+                            <!--<Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="AutoSuggestBox">
                                 <Grid CornerRadius="5">
@@ -67,9 +117,30 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>-->
-                    </Style>
-                </AutoSuggestBox.Style>
-            </AutoSuggestBox>
+                        </Style>
+                    </AutoSuggestBox.Style>
+                    <!--<AutoSuggestBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="48">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
+                            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Name}" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding Address}" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </AutoSuggestBox.ItemTemplate>-->
+                </AutoSuggestBox>
+                <Button x:Name="CancelBT" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Content="Cancel" Click="CancelBT_Click" Visibility="Collapsed"/>
+            </Grid>
 
             <controls:AdaptiveGridView Grid.Row="1" ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
                                    OneRowModeEnabled="False"

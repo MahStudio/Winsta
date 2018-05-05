@@ -37,9 +37,29 @@ namespace WinGoTag.View.SearchView
 
         }
 
-        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            var query = SearchBox.Text;
+            var ForTag = await AppCore.InstaApi.SearchLocation(0,0,query);
 
+            switch (PivotSearch.SelectedIndex)
+            {
+                case 0:
+
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+                    PlacesList.ItemsSource = ForTag.Value;
+                    break;
+            }
         }
 
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
@@ -62,6 +82,18 @@ namespace WinGoTag.View.SearchView
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
             if (imageAnimation != null)
             { imageAnimation.TryStart(itemList); }
+        }
+
+        private void CancelBT_Click(object sender, RoutedEventArgs e)
+        {
+            GridSearch.Visibility = Visibility.Collapsed;
+            CancelBT.Visibility = Visibility.Collapsed;
+        }
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            GridSearch.Visibility = Visibility.Visible;
+            CancelBT.Visibility = Visibility.Visible;
         }
     }
 }

@@ -91,6 +91,23 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF167;" Opacity="0.7" />
                     <TextBox Style="{ThemeResource TextBoxStyleInsta}" Text="{Binding Biography}" PlaceholderText="Biography" Grid.Column="1" Margin="0,0,12,0" Height="42"/>
                 </Grid>
+
+                <!--<Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
+                    <Grid Grid.Column="1"  Margin="6,0,0,0" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="tttt" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                        <TextBlock Text="tttttttt" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
+                    </Grid>
+                </Grid>-->
+
             </StackPanel>
         </ScrollViewer>
         
