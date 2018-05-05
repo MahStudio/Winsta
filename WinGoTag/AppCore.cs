@@ -29,16 +29,25 @@ namespace WinGoTag
         {
             try
             {
+                if (InstaApi != null)
+                {
+                    InstaApi = null;
+                    return false;
+                }
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
                 var r = await FileIO.ReadTextAsync(file);
-                string User; string Pass;
-                LoadUserInfo(out User, out Pass);
-                if (User == null || Pass == null) return false;
+                string User = "username"; string Pass="password";
+                //LoadUserInfo(out User, out Pass);
+                //if (User == null || Pass == null) return false;
                 InstaApi = InstaApiBuilder.CreateBuilder()
                     .SetUser(new UserSessionData { UserName = User, Password = Pass })
                     .UseLogger(new DebugLogger(LogLevel.Exceptions))
                     .Build();
                 InstaApi.LoadStateDataFromStream(r);
+                if(!InstaApi.IsUserAuthenticated)
+                {
+                    await InstaApi.LoginAsync();
+                }
                 return true;
             }
             catch (Exception ex)

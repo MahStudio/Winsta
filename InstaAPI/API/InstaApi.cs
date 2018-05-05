@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using InstaAPI.Classes;
 using InstaSharper.API.Processors;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Android.DeviceInfo;
@@ -893,6 +894,7 @@ namespace InstaSharper.API
                 _user.CsrfToken = csrftoken;
                 var instaUri = new Uri((InstaApiConstants.BaseInstagramUri + _challengeinfo.api_path + $"?guid={_deviceInfo.DeviceGuid}&device_id={_deviceInfo.DeviceId}"), UriKind.RelativeOrAbsolute);
                 await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
+                IsUserAuthenticated = true;
                 //var signature =
                 //    $"{_httpRequestProcessor.RequestMessage.GenerateSignature(InstaApiConstants.IG_SIGNATURE_KEY)}.{_httpRequestProcessor.RequestMessage.GetMessageString()}";
                 //var fields = new Dictionary<string, string>
@@ -904,36 +906,12 @@ namespace InstaSharper.API
                 //request.Content = new FormUrlEncodedContent(fields);
                 
                 request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
-                var response = await _httpRequestProcessor.GetAsync(instaUri);
+                var response = await _httpRequestProcessor.SendAsync(request);
                 var json = await response.Content.ReadAsStringAsync();
                 if (response.StatusCode != HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
                 {
-                    //Then check it
-                    var loginFailReason = JsonConvert.DeserializeObject<InstaLoginBaseResponse>(json);
-
-                    if (loginFailReason.InvalidCredentials)
-                        return Result.Success<bool>(false);
-                        //return Result.Fail("Invalid Credentials",
-                        //    loginFailReason.ErrorType == "bad_password"
-                        //        ? InstaLoginResult.BadPassword
-                        //        : InstaLoginResult.InvalidUser);
-                    if (loginFailReason.TwoFactorRequired)
-                    {
-                        _twoFactorInfo = loginFailReason.TwoFactorLoginInfo;
-                        //2FA is required!
-                        return Result.Success<bool>(false);
-                        //return Result.Fail("Two Factor Authentication is required", InstaLoginResult.TwoFactorRequired);
-                    }
-                    if (loginFailReason.ErrorType == "checkpoint_challenge_required")
-                    {
-                        _challengeinfo = loginFailReason.Challenge;
-                        //await Launcher.LaunchUriAsync(new Uri(loginFailReason.Challenge.url, UriKind.RelativeOrAbsolute));
-                        //return Result.Fail("Challenge is required", InstaLoginResult.ChallengeRequired);
-                        return Result.Success<bool>(false);
-                    }
-
-                    return Result.Success<bool>(false);
-                    //return Result.UnExpectedResponse<InstaLoginResult>(response, json);
+                    var JRes = JsonConvert.DeserializeObject<InstaLoginChallengeMethodResponse>(json);
+                    //Must Continue.
                 }
 
                 var loginInfo = JsonConvert.DeserializeObject<InstaLoginResponse>(json);

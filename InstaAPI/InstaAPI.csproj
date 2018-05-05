@@ -148,6 +148,7 @@
     <Compile Include="Classes\IHttpRequestProcessor.cs" />
     <Compile Include="Classes\ImageThumbnailResponse.cs" />
     <Compile Include="Classes\InstaLoginBaseResponse.cs" />
+    <Compile Include="Classes\InstaLoginChallengeMethodResponse.cs" />
     <Compile Include="Classes\InstaLoginResult.cs" />
     <Compile Include="Classes\InstaLoginTwoFactorBaseResponse.cs" />
     <Compile Include="Classes\InstaLoginTwoFactorResult.cs" />

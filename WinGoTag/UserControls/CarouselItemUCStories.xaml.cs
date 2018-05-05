@@ -37,6 +37,7 @@ namespace WinGoTag.UserControls
         );
 
         public event PropertyChangedEventHandler PropertyChanged;
+        //int _tapscount = 0;
         public CarouselItemUCStories()
         {
             this.InitializeComponent();
@@ -51,20 +52,21 @@ namespace WinGoTag.UserControls
 
                 if (args.NewValue.GetType() == typeof(InstaStoryItem))
                 {
-                    if (CarouselItem.MediaType == 1)
+                    var value = DataContext as InstaStoryItem;
+
+                    if (value.MediaType == 1)
                     {
                         CarouVideo.Visibility = Visibility.Collapsed;
                         CarouImage.Visibility = Visibility.Visible;
-                        CarouImage.Source = new BitmapImage(new Uri(CarouselItem.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                        CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                     }
 
                     else
-
                     {
                         CarouImage.Visibility = Visibility.Collapsed;
                         CarouVideo.Visibility = Visibility.Visible;
-                        CarouVideo.PosterSource = new BitmapImage(new Uri(CarouselItem.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-                        CarouVideo.Source = new Uri(CarouselItem.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
+                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                        CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
                     }
                 }
         }
@@ -73,6 +75,7 @@ namespace WinGoTag.UserControls
 
         private void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
+
             //_tapscount++;
 
             //await Task.Delay(350);
