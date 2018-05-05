@@ -189,7 +189,7 @@ namespace WinGoTag.UserControls
             //openpane.Begin();
         }
 
-        private async void AddtoCollection_Click(object sender, RoutedEventArgs e)
+        private void AddtoCollection_Click(object sender, RoutedEventArgs e)
         {
             // get all collections of current user
             //var collections = await AppCore.InstaApi.GetCollectionsAsync();
@@ -201,7 +201,7 @@ namespace WinGoTag.UserControls
             // add items to collection
             //var mediaItems = new[] { "2658893121999767931" };
             //var addResult = await AppCore.InstaApi.AddItemsToCollectionAsync(collectionId, mediaItems);
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, AddToCollectionRunner);
+            //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, AddToCollectionRunner);
         }
 
         private async void AddToCollectionRunner()
