@@ -60,7 +60,7 @@ namespace WinGoTag.UserControls
                             break;
 
                         case InstaMediaType.Carousel:
-                            //ThisFlipView.Height = value.Carousel[0].Images[0].Height;
+                            //ThisFlipView.Height = Media.Carousel[0].Images[1].Height;
                             break;
 
                         case InstaMediaType.Video:

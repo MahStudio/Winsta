@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -87,14 +88,34 @@ namespace WinGoTag.View.SearchView
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
-            GridSearch.Visibility = Visibility.Collapsed;
+            AnimationGrid(GridSearch, 1, 0, Visibility.Collapsed);
+            //GridSearch.Visibility = Visibility.Collapsed;
             CancelBT.Visibility = Visibility.Collapsed;
         }
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            GridSearch.Visibility = Visibility.Visible;
+            AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
+            //GridSearch.Visibility = Visibility.Visible;
             CancelBT.Visibility = Visibility.Visible;
+        }
+
+        private void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
+        {
+            DoubleAnimation fade = new DoubleAnimation()
+            {
+                From = From,
+                To = To,
+                Duration = TimeSpan.FromSeconds(0.4),
+                EnableDependentAnimation = true
+            };
+            Storyboard.SetTarget(fade, sender);
+            Storyboard.SetTargetProperty(fade, "Opacity");
+            Storyboard openpane = new Storyboard();
+            openpane.Children.Add(fade);
+            openpane.Begin();
+            Task.Delay(04);
+            GridSearch.Visibility = visibility;
         }
     }
 }

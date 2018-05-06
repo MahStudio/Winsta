@@ -11,7 +11,12 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/Pivots.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     
     <Page.DataContext>
@@ -29,7 +34,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+            <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
@@ -41,7 +46,7 @@
                 <!--<AppBarButton Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
             </Grid>
 
-            <Grid Grid.Row="1" Margin="10,20,10,0">
+            <Grid Grid.Row="1" Margin="10,0,10,0" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -99,9 +104,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0"/>
-                <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1"/>
-                <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2"/>
+                <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
+                <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>
+                <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12"/>
             </Grid>
 
             <Grid Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
@@ -110,18 +115,18 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
-                <Pivot Grid.Row="1"  >
+                <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}" >
 
                     <Pivot.HeaderTemplate>
                         <DataTemplate>
-                            <Grid Margin="20,0,0,0">
-                                <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets"/>
+                            <Grid>
+                                <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
                             </Grid>
 
                         </DataTemplate>
                     </Pivot.HeaderTemplate>
 
-                    <PivotItem Header="&#xE154;" Margin="0">
+                    <PivotItem Header="&#xE80A;" Margin="0">
                         <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
                                                OneRowModeEnabled="False"
                                                ItemHeight="150"
@@ -138,7 +143,7 @@
 
                     </PivotItem>
 
-                    <PivotItem Header="&#xEA42;" Margin="0">
+                    <PivotItem Header="&#xE7BC;" Margin="0">
                         <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -146,6 +151,14 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+                    </PivotItem>
+
+                    <PivotItem Header="&#xEC25;" Margin="0">
+                        
+                    </PivotItem>
+
+                    <PivotItem Header="&#xE7C1;" Margin="0">
+
                     </PivotItem>
                 </Pivot>
             </Grid>
