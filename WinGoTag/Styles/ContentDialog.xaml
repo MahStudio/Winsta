@@ -5,19 +5,19 @@
     <!-- Default style for Windows.UI.Xaml.Controls.ContentDialog -->
     <Style x:Key="MGSContentDialog" TargetType="ContentDialog">
         <Setter Property="Foreground" Value="{ThemeResource ContentDialogForeground}" />
-        <Setter Property="Background" Value="{ThemeResource ContentDialogBackgroundThemeBrush}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{ThemeResource ContentDialogBorderBrush}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="MaxHeight" Value="{ThemeResource ContentDialogMaxHeight}" />
+        <!--<Setter Property="MaxHeight" Value="{ThemeResource ContentDialogMaxHeight}" />
         <Setter Property="MinHeight" Value="{ThemeResource ContentDialogMinHeight}" />
         <Setter Property="MaxWidth" Value="{ThemeResource ContentDialogMaxWidth}" />
-        <Setter Property="MinWidth" Value="{ThemeResource ContentDialogMinWidth}" />
+        <Setter Property="MinWidth" Value="{ThemeResource ContentDialogMinWidth}" />-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentDialog">
-                    <Border x:Name="Container">
+                    <Border x:Name="Container" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid x:Name="LayoutRoot">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -25,16 +25,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Border x:Name="BackgroundElement" CornerRadius="8"
+                            <Border x:Name="BackgroundElement" CornerRadius="5"
                                 Background="{TemplateBinding Background}"
                                 FlowDirection="{TemplateBinding FlowDirection}"
-                                BorderThickness="{ThemeResource ContentDialogBorderWidth}"
+                                
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                MaxWidth="{TemplateBinding MaxWidth}"
-                                MaxHeight="{TemplateBinding MaxHeight}"
-                                MinWidth="{TemplateBinding MinWidth}"
-                                MinHeight="{TemplateBinding MinHeight}">
-                                <Grid x:Name="DialogSpace" VerticalAlignment="Stretch" Padding="{ThemeResource ContentDialogPadding}">
+                                
+                                >
+                                <Grid x:Name="DialogSpace" VerticalAlignment="Stretch">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
@@ -58,7 +56,7 @@
                                                 FontFamily="XamlAutoFontFamily"
                                                 FontWeight="Normal"
                                                 Foreground="{TemplateBinding Foreground}"
-                                                HorizontalAlignment="Stretch"
+                                                HorizontalAlignment="Center"
                                                 VerticalAlignment="Top"
                                                 IsTabStop="False">
                                                 <ContentControl.Template>
@@ -69,7 +67,7 @@
                                                             ContentTemplate="{TemplateBinding ContentTemplate}"
                                                             Margin="0"
                                                             ContentTransitions="{TemplateBinding ContentTransitions}"
-                                                            HorizontalAlignment="Stretch"
+                                                            HorizontalAlignment="Center"
                                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                                     </ControlTemplate>
                                                 </ContentControl.Template>
@@ -79,7 +77,7 @@
                                                 Content="{TemplateBinding Content}"
                                                 FontSize="{ThemeResource ControlContentThemeFontSize}"
                                                 FontFamily="{ThemeResource ContentControlThemeFontFamily}"
-                                                Margin="{ThemeResource ContentDialogContentMargin}"
+                                                Margin="0"
                                                 Foreground="{TemplateBinding Foreground}"
                                                 Grid.Row="1"
                                                 TextWrapping="Wrap" />
@@ -87,8 +85,8 @@
                                     </ScrollViewer>
                                     <Grid x:Name="CommandSpace"
                                         Grid.Row="1"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Bottom">
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" Visibility="Collapsed">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />

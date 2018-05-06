@@ -65,18 +65,18 @@ namespace WinGoTag.UserControls
 
         private void bit_ImageOpened(object sender, RoutedEventArgs e)
         {
-            //DoubleAnimation fade = new DoubleAnimation()
-            //{
-            //    From = 0,
-            //    To = 1,
-            //    Duration = TimeSpan.FromSeconds(0.2),
-            //    EnableDependentAnimation = true
-            //};
-            //Storyboard.SetTarget(fade, (BitmapImage)sender);
-            //Storyboard.SetTargetProperty(fade, "Opacity");
-            //Storyboard openpane = new Storyboard();
-            //openpane.Children.Add(fade);
-            //openpane.Begin();
+            DoubleAnimation fade = new DoubleAnimation()
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.3),
+                EnableDependentAnimation = true
+            };
+            Storyboard.SetTarget(fade, EllipsePicture);
+            Storyboard.SetTargetProperty(fade, "Opacity");
+            Storyboard openpane = new Storyboard();
+            openpane.Children.Add(fade);
+            openpane.Begin();
         }
     }
 }

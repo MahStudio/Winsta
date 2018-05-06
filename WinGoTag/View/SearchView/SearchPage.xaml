@@ -15,8 +15,174 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Pivots.xaml"/>
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate x:Key="PlacesItem">
+                <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
+                    <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding Address}" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+
+            <Style TargetType="PivotHeaderItem">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
+                <Setter Property="CharacterSpacing" Value="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="12 0"/>
+                <Setter Property="Height" Value="48" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="PivotHeaderItem">
+                            <Grid x:Name="Grid" Background="{TemplateBinding Background}"
+                        BorderBrush="Transparent" BorderThickness="0 0 0 3" Padding="0 0 0 3">
+                                <Grid.Transitions>
+                                    <TransitionCollection>
+                                        <EntranceThemeTransition FromHorizontalOffset="20" FromVerticalOffset="0" />
+                                        <ContentThemeTransition HorizontalOffset="20" VerticalOffset="0"/>
+                                    </TransitionCollection>
+                                </Grid.Transitions>
+                                <Grid.Resources>
+                                    <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
+                                        <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
+                                        <Setter Property="FontWeight" Value="SemiBold"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+                                        <Setter Property="TextLineBounds" Value="Full"/>
+                                        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+                                    </Style>
+                                    <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter" BasedOn="{StaticResource BaseContentPresenterStyle}">
+                                        <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
+                                        <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}"/>
+                                        <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition From="Unselected" To="UnselectedLocked" GeneratedDuration="0:0:0.33" />
+                                            <VisualTransition From="UnselectedLocked" To="Unselected" GeneratedDuration="0:0:0.33" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unselected" />
+                                        <VisualState x:Name="UnselectedLocked">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0" To="{ThemeResource PivotHeaderItemLockedTranslation}"/>
+                                                <DoubleAnimation Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="(UIElement.Opacity)" Duration="0" To="0"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UnselectedPointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedPointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UnselectedPressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedPressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseMediumHighBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background" >
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter
+                            x:Name="ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <ContentPresenter.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform" />
+                                    </ContentPresenter.RenderTransform>
+                                </ContentPresenter>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Page.Resources>
 
@@ -26,50 +192,106 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" QuerySubmitted="SearchBox_QuerySubmitted" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="" PlaceholderText="Search..." VerticalAlignment="Top" Height="43" TextChanged="SearchBox_TextChanged">
-                <AutoSuggestBox.Style>
-                    <Style TargetType="AutoSuggestBox">
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="IsTabStop" Value="False"/>
-                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxTextBoxStyle}"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="AutoSuggestBox">
-                                    <Grid>
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroup x:Name="Orientation">
-                                                <VisualState x:Name="Landscape"/>
-                                                <VisualState x:Name="Portrait"/>
-                                            </VisualStateGroup>
-                                        </VisualStateManager.VisualStateGroups>
-                                        <TextBox Style="{ThemeResource TextBoxStyleInsta}" x:Name="TextBox" ScrollViewer.BringIntoViewOnFocusChange="False" DesiredCandidateWindowAlignment="BottomEdge" Header="{TemplateBinding Header}" Margin="0" PlaceholderText="{TemplateBinding PlaceholderText}" Width="{TemplateBinding Width}" Canvas.ZIndex="0" BorderBrush="{x:Null}" VerticalAlignment="Center" Height="48"/>
-                                        <Popup x:Name="SuggestionsPopup">
-                                            <Border x:Name="SuggestionsContainer">
-                                                <Border.RenderTransform>
-                                                    <TranslateTransform x:Name="UpwardTransform"/>
-                                                </Border.RenderTransform>
-                                                <ListView x:Name="SuggestionsList" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" Background="{ThemeResource SystemControlAcrylicElementBrush}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" IsItemClickEnabled="True" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Margin="{ThemeResource AutoSuggestListMargin}" Padding="{ThemeResource AutoSuggestListPadding}">
-                                                    <ListView.ItemContainerTransitions>
-                                                        <TransitionCollection/>
-                                                    </ListView.ItemContainerTransitions>
-                                                </ListView>
-                                            </Border>
-                                        </Popup>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </AutoSuggestBox.Style>
-            </AutoSuggestBox>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2" x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
+                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+                    <Pivot.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            </Grid>
+                            
+                        </DataTemplate>
+                    </Pivot.HeaderTemplate>
+                    
+                    <PivotItem Header="Main" Margin="0">
+                        
+                    </PivotItem>
+
+                    <PivotItem Header="People" Margin="0">
+
+                    </PivotItem>
+
+                    <PivotItem Header="Tags" Margin="0">
+
+                    </PivotItem>
+
+                    <PivotItem Header="Location" Margin="0">
+                        <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
+                    </PivotItem>
+                </Pivot>
+            </Grid>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
+                    <AutoSuggestBox.Style>
+                        <Style TargetType="AutoSuggestBox">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="IsTabStop" Value="False"/>
+                            <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
+                            <!--<Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="AutoSuggestBox">
+                                <Grid CornerRadius="5">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="Orientation">
+                                            <VisualState x:Name="Landscape"/>
+                                            <VisualState x:Name="Portrait"/>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <TextBox Style="{ThemeResource AutoSuggestBoxCustom}" PlaceholderText="Search..."/>
+                                    <Popup x:Name="SuggestionsPopup">
+                                        <Border x:Name="SuggestionsContainer">
+                                            <Border.RenderTransform>
+                                                <TranslateTransform x:Name="UpwardTransform"/>
+                                            </Border.RenderTransform>
+                                            <ListView x:Name="SuggestionsList" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" Background="{ThemeResource SystemControlAcrylicElementBrush}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" IsItemClickEnabled="True" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Margin="{ThemeResource AutoSuggestListMargin}" Padding="{ThemeResource AutoSuggestListPadding}">
+                                                <ListView.ItemContainerTransitions>
+                                                    <TransitionCollection/>
+                                                </ListView.ItemContainerTransitions>
+                                            </ListView>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>-->
+                        </Style>
+                    </AutoSuggestBox.Style>
+                    <!--<AutoSuggestBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="48">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
+                            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Name}" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding Address}" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </AutoSuggestBox.ItemTemplate>-->
+                </AutoSuggestBox>
+                <Button x:Name="CancelBT" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Content="Cancel" Click="CancelBT_Click" Visibility="Collapsed"/>
+            </Grid>
 
             <controls:AdaptiveGridView Grid.Row="1" ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
                                    OneRowModeEnabled="False"
@@ -80,7 +302,7 @@
                 <interactivity:Interaction.Behaviors>
                     <behaviors:FadeHeaderBehavior />
                 </interactivity:Interaction.Behaviors>
-                <controls:AdaptiveGridView.Header>
+                <GridView.Header>
 
                     <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
@@ -109,14 +331,14 @@
 
                         <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding ListVideos.Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill"/>
 
-                        <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="{ThemeResource SystemControlAcrylicElementBrush}"
-                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18"/>
+                        <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="White"
+                                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18" Opacity="0.8"/>
                     </Grid>
-                </controls:AdaptiveGridView.Header>
+                </GridView.Header>
 
                 <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>
-                        <View:GridItemUC/>
+                        <View:GridItemUC Media="{Binding}"/>
                     </DataTemplate>
                 </controls:AdaptiveGridView.ItemTemplate>
 

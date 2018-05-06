@@ -32,6 +32,8 @@
                 <Setter Property="Padding" Value="0"/>
             </Style>
 
+            
+            
             <!--<DataTemplate x:Key="ItemStoy">
                 <Grid VerticalAlignment="Center">
                     <Grid.RowDefinitions>

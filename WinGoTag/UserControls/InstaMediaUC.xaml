@@ -16,10 +16,12 @@
         <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
         <Converters:InstaMediaControlVisibilityConverter x:Key="InstaMediaControlVisibilityConverter"/>
     </UserControl.Resources>
-    <Grid Width="411">
+    
+    <Grid MaxWidth="600">
+        <!--<Grid Width="411">-->
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="48"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -41,12 +43,13 @@
             <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI"/>
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
             <Image Opacity="0" ImageOpened="Cover_ImageOpened" Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
-            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}" Stretch="UniformToFill"/>
-            <FlipView ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}">
+            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}" Stretch="Uniform"/>
+            <FlipView x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
+                        <!--Height="{Binding Path=SelectedItem.ActualHeight, ElementName=FlipView}"-->
                         <View:CarouselItemUC CarouselItem="{Binding Mode=OneWay}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
@@ -56,18 +59,31 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="48"/>
                 <ColumnDefinition Width="48"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <AppBarButton Content="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="18" HorizontalAlignment="Center" Width="48"/>
-            <AppBarButton Content="" Grid.Column="1" Click="CommentBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="18" HorizontalAlignment="Center" Width="48"/>
+            <AppBarButton Content="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Center" Width="48"/>
+            <AppBarButton Content="" Grid.Column="1" Click="CommentBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Center" Width="48"/>
+            <AppBarButton x:Name="AddtoCollection" Grid.Column="2" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Right" Width="48" Click="AddtoCollection_Click" Visibility="Collapsed">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7C1;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0"/>
-            <HyperlinkButton x:Name="MoreBTN" Grid.Row="1" Click="MoreBTN_Click" Margin="12,0,0,0">
+
+            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,6" FontWeight="SemiBold"/>
+
+            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0"/>
+            <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Margin="12,3,12,0">
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount"/>
+            </HyperlinkButton>
+            <HyperlinkButton x:Name="MoreBTN" Grid.Row="3" Click="MoreBTN_Click" Margin="12,0,0,0">
                 <TextBlock Text="More" FontWeight="SemiBold"/>
             </HyperlinkButton>
         </Grid>

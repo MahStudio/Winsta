@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -44,8 +45,6 @@ namespace WinGoTag.UserControls
         );
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        int _tapscount = 0;
         public GridItemUC()
         {
             this.InitializeComponent();
@@ -58,29 +57,43 @@ namespace WinGoTag.UserControls
             {
                 if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
-                    var value = DataContext as InstaMedia;
-
-                    switch (value.MediaType)
+                    switch (Media.MediaType)
                     {
                         case InstaMediaType.Image:
                             SymbolType.Text = "";
-                            Image.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
 
                         case InstaMediaType.Carousel:
                             SymbolType.Text = "\ue923";
-                            Image.Source = new BitmapImage(new Uri(value.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                          
                         case InstaMediaType.Video:
                             SymbolType.Text = "\ue714";
-                            Image.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                            Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                     }
                     
                 }
             }
             catch { }
+        }
+
+        private void Image_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            DoubleAnimation fade = new DoubleAnimation()
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.3),
+                EnableDependentAnimation = true
+            };
+            Storyboard.SetTarget(fade, (Image)sender);
+            Storyboard.SetTargetProperty(fade, "Opacity");
+            Storyboard openpane = new Storyboard();
+            openpane.Children.Add(fade);
+            openpane.Begin();
         }
     }
 }

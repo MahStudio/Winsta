@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -37,9 +38,30 @@ namespace WinGoTag.View.SearchView
 
         }
 
-        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            var query = SearchBox.Text;
+            
 
+            switch (PivotSearch.SelectedIndex)
+            {
+                case 0:
+
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+                    var ForTag = await AppCore.InstaApi.SearchHashtag(query);
+                    break;
+
+                case 3:
+                    var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+                    PlacesList.ItemsSource = ForLocation.Value;
+                    break;
+            }
         }
 
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
@@ -62,6 +84,38 @@ namespace WinGoTag.View.SearchView
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
             if (imageAnimation != null)
             { imageAnimation.TryStart(itemList); }
+        }
+
+        private void CancelBT_Click(object sender, RoutedEventArgs e)
+        {
+            AnimationGrid(GridSearch, 1, 0, Visibility.Collapsed);
+            //GridSearch.Visibility = Visibility.Collapsed;
+            CancelBT.Visibility = Visibility.Collapsed;
+        }
+
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
+            //GridSearch.Visibility = Visibility.Visible;
+            CancelBT.Visibility = Visibility.Visible;
+        }
+
+        private void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
+        {
+            DoubleAnimation fade = new DoubleAnimation()
+            {
+                From = From,
+                To = To,
+                Duration = TimeSpan.FromSeconds(0.4),
+                EnableDependentAnimation = true
+            };
+            Storyboard.SetTarget(fade, sender);
+            Storyboard.SetTargetProperty(fade, "Opacity");
+            Storyboard openpane = new Storyboard();
+            openpane.Children.Add(fade);
+            openpane.Begin();
+            Task.Delay(04);
+            GridSearch.Visibility = visibility;
         }
     }
 }

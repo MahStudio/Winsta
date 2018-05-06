@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Height="130" VerticalAlignment="Top" Background="{ThemeResource CustomAcrylicBackgroundBrushColor}">
-            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Logos/logo-Instagram.png" Stretch="Uniform" Width="200"/>
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Logos/WinstaAppW.png" Stretch="Uniform" Width="150"/>
         </Grid>
 
         <Grid Grid.Row="1" MinWidth="280" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0">
@@ -40,5 +40,7 @@
             <PasswordBox Style="{ThemeResource PasswordBoxStyleInsta}" Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password" Margin="0,0,0,20" Height="42"/>
             <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Login" Command="{Binding LoginCmd}" HorizontalAlignment="Stretch" Height="42"/>
         </Grid>
+
+       
     </Grid>
 </Page>

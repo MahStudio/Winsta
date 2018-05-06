@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstaSharper.API.Processors;
+using InstaSharper.Classes.Models;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -51,6 +52,32 @@ namespace WinGoTag.UserControls
             {
                 if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
+                    //var value = DataContext as InstaMedia;
+                    switch (Media.MediaType)
+                    {
+                        case InstaMediaType.Image:
+                            
+                            break;
+
+                        case InstaMediaType.Carousel:
+                            //ThisFlipView.Height = Media.Carousel[0].Images[1].Height;
+                            break;
+
+                        case InstaMediaType.Video:
+                            
+                            break;
+                    }
+
+                    if(Media.LikesCount == 0)
+                    { LikeCount.Visibility = Visibility.Collapsed; }
+
+                    if (Media.CommentsCount == "0")
+                    { HyperComment.Visibility = Visibility.Collapsed; }
+
+                    LikeCount.Text = $"{Media.LikesCount} people like it";
+                    CommentCount.Text = "See all " + Media.CommentsCount + " comments";
+               
+
                     await Task.Delay(100);
                     Media.PropertyChanged += Media_PropertyChanged;
                     if (!txtCaption.IsTextTrimmed)
@@ -162,6 +189,25 @@ namespace WinGoTag.UserControls
             //openpane.Begin();
         }
 
-        
+        private void AddtoCollection_Click(object sender, RoutedEventArgs e)
+        {
+            // get all collections of current user
+            //var collections = await AppCore.InstaApi.GetCollectionsAsync();
+            // get specific collection by id
+            //var collectionId = 1234567890;
+            //var collection = await AppCore.InstaApi.GetCollectionAsync(collectionId);
+            // create collection
+            //var createResult = await AppCore.InstaApi.CreateCollectionAsync("My collection");
+            // add items to collection
+            //var mediaItems = new[] { "2658893121999767931" };
+            //var addResult = await AppCore.InstaApi.AddItemsToCollectionAsync(collectionId, mediaItems);
+            //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, AddToCollectionRunner);
+        }
+
+        private async void AddToCollectionRunner()
+        {
+            var AddToCollection = await AppCore.InstaApi.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
+        }
+
     }
 }
