@@ -86,11 +86,10 @@ namespace WinGoTag.ViewModel.SignInSignUp
             switch (loginres.Value)
             {
                 case InstaLoginResult.ChallengeRequired:
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async delegate
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
                      {
-                         await AppCore.InstaApi.GetChallengeChoices();
                          AppCore.SaveUserInfo(User.UserName, User.Password, false);
-                         MainPage.MainFrame.Navigate(typeof(TwoStepFactorView));
+                         MainPage.MainFrame.Navigate(typeof(ChallengeView));
                      });
                     break;
                 case InstaLoginResult.Success:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using InstaAPI.Classes;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 
@@ -23,8 +24,8 @@ namespace InstaSharper.API
         /// </summary>
         /// <returns>State data</returns>
         string GetStateDataAsStream();
-
-        Task<IResult<bool>> GetChallengeChoices();
+        Task<IResult<bool>> SendVerifyForChallenge(int UserChoice);
+        Task<IResult<Step_Data>> GetChallengeChoices();
         /// <summary>
         ///     Set state data from provided stream
         /// </summary>

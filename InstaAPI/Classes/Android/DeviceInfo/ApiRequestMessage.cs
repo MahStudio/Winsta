@@ -19,6 +19,11 @@ namespace InstaSharper.Classes.Android.DeviceInfo
             return JsonConvert.SerializeObject(this);
         }
 
+        internal string GetMessageStringForChallengeVerificationCodeSend(int Choice = 1)
+        {
+            return JsonConvert.SerializeObject(new { choice = Choice.ToString(), _csrftoken = "ReplaceCSRF", guid, device_id });
+        }
+
         internal string GenerateSignature(string signatureKey, out string deviceid)
         {
             if (string.IsNullOrEmpty(signatureKey))
