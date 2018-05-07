@@ -39,6 +39,7 @@ namespace WinGoTag.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        bool ok = false;
         int _tapscount = 0;
         public InstaMediaUC()
         {
@@ -89,8 +90,6 @@ namespace WinGoTag.UserControls
             catch { }
         }
 
-
-        
 
 
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -199,6 +198,26 @@ namespace WinGoTag.UserControls
             var AddToCollection = await AppCore.InstaApi.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
         }
 
-        
+
+        private void ThisFlipView_LayoutUpdated(object sender, object e)
+        {
+            try
+            {
+                if(ok == true)
+                {
+                    //To improve
+                    var t = (sender as FlipView).SelectedItem;
+                    FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+                    if (item2 == null) { return; }
+                    var h = (CarouselItemUC)item2.ContentTemplateRoot;
+                    ThisFlipView.Height = h.ActualHeight;
+                    ok = true;
+                }
+            }
+            catch
+            {
+
+            }
+        }
     }
 }
