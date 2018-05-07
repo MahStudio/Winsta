@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using InstaSharper.Classes.Android.DeviceInfo;
+using System.Collections.Generic;
 
 namespace InstaSharper.Classes
 {
@@ -11,5 +12,6 @@ namespace InstaSharper.Classes
         public UserSessionData UserSession { get; set; }
         public bool IsAuthenticated { get; set; }
         public CookieContainer Cookies { get; set; }
+        public List<Cookie> RawCookies { get; set; }
     }
 }

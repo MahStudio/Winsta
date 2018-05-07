@@ -986,7 +986,7 @@ namespace InstaSharper.API
             ValidateRequestMessage();
             try
             {
-;                var firstResponse = await _httpRequestProcessor.GetAsync(_httpRequestProcessor.Client.BaseAddress);
+                ; var firstResponse = await _httpRequestProcessor.GetAsync(_httpRequestProcessor.Client.BaseAddress);
                 var cookies =
                     _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
                         .BaseAddress);
@@ -1003,7 +1003,7 @@ namespace InstaSharper.API
                     {InstaApiConstants.HEADER_IG_SIGNATURE, signature},
                     {InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION}
                 };
-                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo); 
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo);
                 request.Content = new FormUrlEncodedContent(fields);
                 request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE, signature);
                 request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
@@ -1025,7 +1025,7 @@ namespace InstaSharper.API
                         //2FA is required!
                         return Result.Fail("Two Factor Authentication is required", InstaLoginResult.TwoFactorRequired);
                     }
-                    if(loginFailReason.ErrorType == "checkpoint_challenge_required")
+                    if (loginFailReason.ErrorType == "checkpoint_challenge_required")
                     {
                         _challengeinfo = loginFailReason.Challenge;
                         //await Launcher.LaunchUriAsync(new Uri(loginFailReason.Challenge.url, UriKind.RelativeOrAbsolute));
@@ -1121,7 +1121,7 @@ namespace InstaSharper.API
                 return Result.Fail(exception, InstaLoginTwoFactorResult.Exception);
             }
         }
-        
+
         /// <summary>
         ///     Get Two Factor Authentication details
         /// </summary>
@@ -1175,12 +1175,22 @@ namespace InstaSharper.API
         /// </returns>
         public string GetStateDataAsStream()
         {
+
+            var Cookies = _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(new Uri(InstaApiConstants.INSTAGRAM_URL));
+            var RawCookiesList = new List<Cookie>();
+            foreach (Cookie cookie in Cookies)
+            {
+                RawCookiesList.Add(cookie);
+            }
+
+
             var state = new StateData
             {
                 DeviceInfo = _deviceInfo,
                 IsAuthenticated = IsUserAuthenticated,
                 UserSession = _user,
-                Cookies = _httpRequestProcessor.HttpHandler.CookieContainer
+                Cookies = _httpRequestProcessor.HttpHandler.CookieContainer,
+                RawCookies = RawCookiesList
             };
             return SerializationHelper.SerializeToStream(state);
         }
@@ -1194,7 +1204,25 @@ namespace InstaSharper.API
             var data = SerializationHelper.DeserializeFromStream<StateData>(stream);
             _deviceInfo = data.DeviceInfo;
             _user = data.UserSession;
-            _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
+            // _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
+
+            //Load Stream Edit 
+            _httpRequestProcessor.RequestMessage.username = data.UserSession.UserName;
+            _httpRequestProcessor.RequestMessage.password = data.UserSession.Password;
+            // _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
+            _httpRequestProcessor.RequestMessage.device_id = data.DeviceInfo.DeviceId;
+            _httpRequestProcessor.RequestMessage.phone_id = data.DeviceInfo.PhoneGuid.ToString();
+            _httpRequestProcessor.RequestMessage.guid = data.DeviceInfo.DeviceGuid;
+
+            foreach (Cookie cookie in data.RawCookies)
+            {
+                _httpRequestProcessor.HttpHandler.CookieContainer.Add(new Uri(InstaApiConstants.INSTAGRAM_URL), cookie);
+            }
+
+            //_httpRequestProcessor.HttpHandler.CookieContainer.SetCookies(new Uri(InstaApiConstants.INSTAGRAM_URL),data.RawCookies);
+
+
+
             IsUserAuthenticated = data.IsAuthenticated;
             InvalidateProcessors();
         }
