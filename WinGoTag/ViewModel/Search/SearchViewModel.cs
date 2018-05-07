@@ -7,23 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using WinGoTag.DataBinding;
+using WinGoTag.View.SearchView;
 
 namespace WinGoTag.ViewModel.Search
 {
     class SearchViewModel : INotifyPropertyChanged
     {
         private bool _isbusy;
-
-        private List<InstaStory> _Traylst;
-
-        private InstaChannel _Videolst;
-
-        private InstaMediaList _medlst;
-
-        public GenerateHomePage<InstaMedia> HomePageItemssource;
-
-        private InstaTagFeed _Tag;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsBusy
@@ -32,33 +25,10 @@ namespace WinGoTag.ViewModel.Search
             set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); }
         }
 
-        //public InstaUserInfo UserInfo   ListVideos
-        //{
-        //    get { return _info; }
-        //    set { _info = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserInfo")); }
-        //}
-
-        public InstaChannel ListVideos
-        {
-            get { return _Videolst; }
-            set { _Videolst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ListVideos")); }
-        }
-
-        public InstaMediaList mylist
-        {
-            get { return _medlst; }
-            set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("mylist")); }
-        }
-
-        public List<InstaStory> StoriesList
-        {
-            get { return _Traylst; }
-            set { _Traylst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("StoriesList")); }
-        }
-
         CoreDispatcher Dispatcher { get; set; }
         public SearchViewModel()
         {
+            
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             RunLoadPage();
         }
@@ -68,15 +38,10 @@ namespace WinGoTag.ViewModel.Search
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
 
-        async void LoadPage()
+        void LoadPage()
         {
-            //var Tag = await AppCore.InstaApi.GetTagFeedAsync("cosedalover", InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(1));
-
-            var strs = await AppCore.InstaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
-            StoriesList = strs.Value.StoryTray.Tray;
-            mylist = strs.Value.Medias;
-            ListVideos = strs.Value.Channel;
-            
+           
         }
+
     }
 }

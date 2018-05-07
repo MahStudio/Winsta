@@ -192,8 +192,6 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -293,56 +291,7 @@
                 <Button x:Name="CancelBT" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Content="Cancel" Click="CancelBT_Click" Visibility="Collapsed"/>
             </Grid>
 
-            <controls:AdaptiveGridView Grid.Row="1" ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
-                                   OneRowModeEnabled="False"
-                                   ItemHeight="150"
-                                   DesiredWidth="150"
-                                   IsItemClickEnabled="False" SelectionMode="None" ItemsSource="{Binding mylist}">
-
-                <interactivity:Interaction.Behaviors>
-                    <behaviors:FadeHeaderBehavior />
-                </interactivity:Interaction.Behaviors>
-                <GridView.Header>
-
-                    <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
-                      x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <GridView Grid.Row="0" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                          ScrollViewer.HorizontalScrollMode="Enabled" ItemsSource="{Binding StoriesList}"
-                                          ScrollViewer.VerticalScrollMode="Disabled"
-                                          SelectionMode="None" IsItemClickEnabled="True"
-                                          Margin="0,6,0,0" MinHeight="60" ItemClick="StoriesList_ItemClick">
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
-
-                        <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding ListVideos.Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill"/>
-
-                        <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="White"
-                                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18" Opacity="0.8"/>
-                    </Grid>
-                </GridView.Header>
-
-                <controls:AdaptiveGridView.ItemTemplate>
-                    <DataTemplate>
-                        <View:GridItemUC Media="{Binding}"/>
-                    </DataTemplate>
-                </controls:AdaptiveGridView.ItemTemplate>
-
-            </controls:AdaptiveGridView>
+            <Frame Grid.Row="1" Loaded="ExploreFr_Loaded" x:Name="ExploreFr"/>
 
         </Grid>
     </Grid>

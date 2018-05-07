@@ -26,7 +26,7 @@ namespace WinGoTag.View.SearchView
     /// </summary>
     public sealed partial class SearchPage : Page
     {
-        internal static GridViewItem itemList;
+        
         public SearchPage()
         {
             this.InitializeComponent();
@@ -64,27 +64,7 @@ namespace WinGoTag.View.SearchView
             }
         }
 
-        private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var item = ((InstaStory)e.ClickedItem);
-            //var item = ((InstaReelFeed)e.ClickedItem);
-            GridViewItem itemAnimation = (GridViewItem)StoriesList.ContainerFromItem(item);
-            itemList = itemAnimation;
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", itemAnimation);
-            StoryFr.Navigate(typeof(StoryView.StoryViews), item);
-        }
-
-        private void StoryFr_Navigated(object sender, NavigationEventArgs e)
-        {
-            if (StoryFr.Content is StoryView.StoryViews)
-            {
-                return;
-            }
-
-            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
-            if (imageAnimation != null)
-            { imageAnimation.TryStart(itemList); }
-        }
+        
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
@@ -116,6 +96,13 @@ namespace WinGoTag.View.SearchView
             openpane.Begin();
             Task.Delay(04);
             GridSearch.Visibility = visibility;
+        }
+
+        
+
+        private void ExploreFr_Loaded(object sender, RoutedEventArgs e)
+        {
+            ExploreFr.Navigate(typeof(ExploreView));
         }
     }
 }

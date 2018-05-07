@@ -67,52 +67,57 @@ namespace WinGoTag.View.StoryView
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
             
 
-            //var test = AppCore.InstaApi.GetStoryFeedAsync(((InstaReelFeed)e.Parameter).User.Pk);
-            this.DataContext = ((InstaReelFeed)e.Parameter);
-            var i = ((InstaReelFeed)e.Parameter);
-            Flipviews.ItemsSource = i.Items;
-            
-            //if (e.Parameter is InstaReelFeed)
-            //{
-            //    this.DataContext = ((InstaReelFeed)e.Parameter);
-            //    var i = ((InstaReelFeed)e.Parameter);
-            //    Flipviews.ItemsSource = i.Items;
-            //}
-
-            //if (e.Parameter is InstaStory)
-            //{
-            //    this.DataContext = ((InstaStory)e.Parameter);
-            //    var i = ((InstaStory)e.Parameter);
-            //    Flipviews.ItemsSource = i.Items;
-            //}
-
-
-            for (int a = 0; a < i.Items.Count; a++)
+            if (e.Parameter is InstaReelFeed)
             {
-                switch (i.Items[a].MediaType)
+                this.DataContext = ((InstaReelFeed)e.Parameter);
+                var i = ((InstaReelFeed)e.Parameter);
+                Flipviews.ItemsSource = i.Items;
+                for (int a = 0; a < Flipviews.Items.Count; a++)
                 {
-                    case 1:
-                        SecondItemList.Add(6);
-                        break;
+                    switch (i.Items[a].MediaType)
+                    {
+                        case 1:
+                            SecondItemList.Add(6);
+                            break;
 
-                    case 2:
-                        SecondItemList.Add(i.Items[a].VideoDuration);
-                        break;
+                        case 2:
+                            SecondItemList.Add(i.Items[a].VideoDuration);
+                            break;
+                    }
+                }
+                //Flipviews.ItemsSource = i.Items;
+            }
+            else
+            {
+                this.DataContext = ((InstaStory)e.Parameter);
+                var i = ((InstaStory)e.Parameter);
+                Flipviews.ItemsSource = i.Items;
+                for (int a = 0; a < Flipviews.Items.Count; a++)
+                {
+                    switch (i.Items[a].MediaType)
+                    {
+                        case InstaMediaType.Image:
+                            SecondItemList.Add(6);
+                            break;
+
+                        case InstaMediaType.Video:
+                            SecondItemList.Add(6);
+                            break;
+                    }
                 }
             }
 
-            if (i.Items.Count > 0)
+
+            if (Flipviews.Items.Count > 0)
             {
                 _BarSecond.Maximum = (SecondItemList[0]);
-                //Flipviews.ItemsSource = i.Items;
-                //timer.Interval = TimeSpan.FromSeconds(SecondItemList[Flipviews.SelectedIndex]);
-                //timer.Interval = TimeSpan.FromSeconds(60);
                 timer.Tick += Timer_Tick;
                 timer.Start();
-                
             }
+
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
             if (imageAnimation != null)
             { imageAnimation.TryStart(Frame); }
