@@ -35,7 +35,7 @@
                 <Ellipse.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage ImageOpened="bit_ImageOpened" UriSource="{Binding User.ProfilePicture}"/>
+                            <BitmapImage UriSource="{Binding User.ProfilePicture}"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Ellipse.Fill>
@@ -45,7 +45,7 @@
         </Grid>
         <Grid Grid.Row="1" >
             <Image Opacity="0" ImageOpened="Cover_ImageOpened" Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
-            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}" Stretch="Uniform"/>
+            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" Stretch="Fill"/>
             <FlipView x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
@@ -77,11 +77,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,6" FontWeight="SemiBold"/>
+            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="piace a 2.022 persone" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13"/>
 
-            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0"/>
+            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0" FontSize="13"/>
             <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Margin="12,3,12,0">
-                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount"/>
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount" FontSize="13"/>
             </HyperlinkButton>
             <HyperlinkButton x:Name="MoreBTN" Grid.Row="3" Click="MoreBTN_Click" Margin="12,0,0,0">
                 <TextBlock Text="More" FontWeight="SemiBold"/>

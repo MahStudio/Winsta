@@ -30,6 +30,6 @@
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
-        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="70" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
+        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="62" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
     </Grid>
 </UserControl>
