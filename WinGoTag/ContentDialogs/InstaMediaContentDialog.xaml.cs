@@ -34,7 +34,7 @@ namespace WinGoTag.ContentDialogs
             this.InitializeComponent();
             this.DataContext = Media;
             _med = Media;
-            if (!Media.User.IsPrivate)
+            if (!Media.User.IsPrivate || Media.PhotoOfYou || Media.User.UserName == AppCore.InstaApi.GetLoggedUser().UserName)
             {
                 Commands.Items.Add(new LVItem { Text = "Copy URL", Tag = "Copy" });
                 Commands.Items.Add(new LVItem { Text = "Download content", Tag = "Download" });

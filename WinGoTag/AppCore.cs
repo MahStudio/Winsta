@@ -20,9 +20,9 @@ namespace WinGoTag
             get; set;
         }
 
-        public static async Task RunAsync()
+        public static async Task<bool> RunAsync()
         {
-            await IsUserSessionStored();
+            return await IsUserSessionStored();
         }
 
         private static async Task<bool> IsUserSessionStored()

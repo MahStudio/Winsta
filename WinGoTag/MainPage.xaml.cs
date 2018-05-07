@@ -58,7 +58,10 @@ namespace WinGoTag
         {
             base.OnNavigatedTo(e);
             Fr.Navigated += Fr_Navigated;
-            Fr.Navigate(typeof(LoginView));
+            if (AppCore.InstaApi == null)
+                Fr.Navigate(typeof(LoginView));
+            else
+                Fr.Navigate(typeof(MainView));
         }
         private void Fr_Navigated(object sender, NavigationEventArgs e)
         {
@@ -74,8 +77,8 @@ namespace WinGoTag
             if (Fr.Content is MainView)
             {
                 InstaBar.Visibility = Visibility.Visible;
-                if(AppCore.InstaApi != null)
-                { ProfilePivotItem.Content = new ProfileView();}
+                if (AppCore.InstaApi != null)
+                { ProfilePivotItem.Content = new ProfileView(); }
             }
 
         }

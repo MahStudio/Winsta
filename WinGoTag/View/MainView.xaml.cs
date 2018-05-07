@@ -72,7 +72,7 @@ namespace WinGoTag.View
         private async void LoadPage()
         {
             _ProgressBar.IsIndeterminate = true;
-            var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(1));
+            var res = await AppCore.InstaApi.GetDirectInboxAsync();
             if (res.Info.Message == "login_required")
             {
                 //AppCore.InstaApi = null;
