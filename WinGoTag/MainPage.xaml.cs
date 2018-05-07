@@ -33,6 +33,7 @@ namespace WinGoTag
     public sealed partial class MainPage : Page
     {
         public static Frame MainFrame { get; set; }
+        public static Grid Bar { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
@@ -50,6 +51,7 @@ namespace WinGoTag
             }
 
             MainFrame = Fr;
+            Bar = InstaBar;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

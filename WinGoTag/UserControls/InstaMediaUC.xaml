@@ -53,7 +53,7 @@
         <Grid Grid.Row="1" MaxHeight="{Binding ConverterParameter=h}">
             <Image Opacity="0" ImageOpened="Cover_ImageOpened" Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
             <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" Stretch="Fill"/>
-            <FlipView Style="{ThemeResource FlipCarousel}" x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}" LayoutUpdated="ThisFlipView_LayoutUpdated">
+            <FlipView Style="{ThemeResource FlipCarousel}" x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}" SelectionChanged="ThisFlipView_SelectionChanged" SizeChanged="ThisFlipView_SizeChanged">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
                         <!--Height="{Binding Path=SelectedItem.ActualHeight, ElementName=FlipView, ContentTemplateRoot}"-->

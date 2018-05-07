@@ -16,118 +16,103 @@ namespace WinGoTag.View.StoryView
     public sealed partial class StoryViews : Page
     {
         List<double> SecondItemList = new List<double>();
-
-        private DispatcherTimer _timer;
-        
-        private DateTime _lastChange;
-
-        DispatcherTimer _value = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-
-        double v = 1;
-
+        public static DispatcherTimer timer;
+        public static ProgressBar b = new ProgressBar();
+        public static FlipView FlipViewStory = new FlipView();
         public StoryViews()
         {
             this.InitializeComponent();
+            timer = new DispatcherTimer
+            { Interval = TimeSpan.FromSeconds(1) };
+            FlipViewStory = Flipviews;
+            b = _BarSecond;
         }
 
 
-        private void ChangeImage(object sender, object o)
+        private void Timer_Tick(object sender, object o)
         {
-            //Get the number of items in the flip view
-            var totalItems = Flipviews.Items.Count;
-            if(totalItems == 1) { CloseStories(); return; }
-            var index = Flipviews.Items.Count-1;
-        
-            if (Flipviews.SelectedIndex == index) { CloseStories(); return; }
-            //Figure out the new item's index (the current index plus one, if the next item would be out of range, go back to zero)
-            var newItemIndex = (Flipviews.SelectedIndex + 1) % totalItems;
-            //Set the displayed item's index on the flip view
-            Flipviews.SelectedIndex = newItemIndex;
-
-            v = 0;
-
-            _timer = new DispatcherTimer
-            { Interval = TimeSpan.FromSeconds(SecondItemList[Flipviews.SelectedIndex]) };
-            _BarSecond.Value = v;
-            _BarSecond.Maximum = (SecondItemList[Flipviews.SelectedIndex]);
-        }
-
-
-        private void ValueBar(object sender, object o)
-        {
-            v++;
-            _BarSecond.Value = v;
-        }
-
-        private void DisplayedItemChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //Show the time deltas...
-            var currentTime = DateTime.Now;
-
-            if (_lastChange != default(DateTime))
+            //_BarSecond.Value = _BarSecond.Value + 0.1;
+            _BarSecond.Value++;
+            if (_BarSecond.Value == SecondItemList[Flipviews.SelectedIndex])
             {
-                //  TimeDelta.Text = (currentTime - _lastChange).ToString();
+                try
+                {
+                    Flipviews.SelectedIndex++;
+                }
+                catch
+                {
+                    CloseStories();
+                }
             }
+                //timer.Stop();
+        }
 
-            _lastChange = currentTime;
-            //Since the page is configured before the timer is, check to make sure that we've actually got a timer
-            if (!ReferenceEquals(_timer, null))
+
+        private void Flipviews_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
             {
-                _timer.Stop();
-                _timer.Start();
+                //timer.Stop();
+                _BarSecond.Value = 0;
+                _BarSecond.Maximum = (SecondItemList[Flipviews.SelectedIndex]);
+                //timer.Start();
+            }
+            catch
+            {
+
             }
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
 
             //var test = AppCore.InstaApi.GetStoryFeedAsync(((InstaReelFeed)e.Parameter).User.Pk);
-
-            if (e.Parameter is InstaReelFeed)
-            {
-                this.DataContext = ((InstaReelFeed)e.Parameter);
-                var i = ((InstaReelFeed)e.Parameter);
-                Flipviews.ItemsSource = i.Items;
-            }
-
-            if (e.Parameter is InstaStory)
-            {
-                this.DataContext = ((InstaStory)e.Parameter);
-                var i = ((InstaStory)e.Parameter);
-                Flipviews.ItemsSource = i.Items;
-            }
-
-
-            //for (int a = 0; a < i.Items.Count; a++)
+            this.DataContext = ((InstaReelFeed)e.Parameter);
+            var i = ((InstaReelFeed)e.Parameter);
+            Flipviews.ItemsSource = i.Items;
+            
+            //if (e.Parameter is InstaReelFeed)
             //{
-            //    switch (i.Items[a].MediaType)
-            //    {
-            //        case 1:
-            //            SecondItemList.Add(6);
-            //            break;
-
-            //        case 2:
-            //            SecondItemList.Add(i.Items[a].VideoDuration);
-            //            break;
-            //    }
-            //}
-
-            //if(i.Items.Count > 0)
-            //{
-            //    _timer = new DispatcherTimer
-            //    { Interval = TimeSpan.FromSeconds(SecondItemList[0]) };
-
-            //    _BarSecond.Maximum = (SecondItemList[0]);
+            //    this.DataContext = ((InstaReelFeed)e.Parameter);
+            //    var i = ((InstaReelFeed)e.Parameter);
             //    Flipviews.ItemsSource = i.Items;
-
-            //    _timer.Tick += ChangeImage;
-            //    _value.Tick += ValueBar;
-            //    //Start the timer
-            //    //_timer.Start();
-            //    //_value.Start();
             //}
 
+            //if (e.Parameter is InstaStory)
+            //{
+            //    this.DataContext = ((InstaStory)e.Parameter);
+            //    var i = ((InstaStory)e.Parameter);
+            //    Flipviews.ItemsSource = i.Items;
+            //}
+
+
+            for (int a = 0; a < i.Items.Count; a++)
+            {
+                switch (i.Items[a].MediaType)
+                {
+                    case 1:
+                        SecondItemList.Add(6);
+                        break;
+
+                    case 2:
+                        SecondItemList.Add(i.Items[a].VideoDuration);
+                        break;
+                }
+            }
+
+            if (i.Items.Count > 0)
+            {
+                _BarSecond.Maximum = (SecondItemList[0]);
+                //Flipviews.ItemsSource = i.Items;
+                //timer.Interval = TimeSpan.FromSeconds(SecondItemList[Flipviews.SelectedIndex]);
+                //timer.Interval = TimeSpan.FromSeconds(60);
+                timer.Tick += Timer_Tick;
+                timer.Start();
+                
+            }
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
             if (imageAnimation != null)
             { imageAnimation.TryStart(Frame); }
@@ -135,31 +120,30 @@ namespace WinGoTag.View.StoryView
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            CloseStories();
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("imageReturn", Frame);
         }
         private void CloseStories()
         {
             try
             {
-                _timer.Stop();
-                _value.Stop();
-                _timer = null;
-                _value = null;
+                timer.Stop();
+                Frame.Navigate(typeof(Page));
             }
             catch
             {
-                _timer = null;
-                _value = null;
+               
             }
            
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("imageReturn", Frame);
+            
             
         }
 
         private void BackBT_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             Frame.Navigate(typeof(Page));
-            
         }
+
+        
     }
 }
