@@ -11,19 +11,30 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/GridViews.xaml"/>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
 
         <controls:AdaptiveGridView Grid.Row="1" ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
                                    OneRowModeEnabled="False"
-                                   ItemHeight="150"
-                                   DesiredWidth="150"
+                                   Style="{ThemeResource CustomGridView}"
+                                   ItemHeight="150" DesiredWidth="150"
                                    IsItemClickEnabled="False" SelectionMode="None">
+
+            <GridView.ItemContainerStyle>
+                <Style TargetType="FrameworkElement">
+                    <Setter Property="Margin" Value="0.5"/>
+                </Style>
+            </GridView.ItemContainerStyle>
 
             <interactivity:Interaction.Behaviors>
                 <behaviors:FadeHeaderBehavior />
             </interactivity:Interaction.Behaviors>
+            
             <GridView.Header>
 
                 <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
@@ -35,11 +46,13 @@
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Top" Background="{x:Null}"/>
 
 
-                    <GridView Grid.Row="0" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                          ScrollViewer.HorizontalScrollMode="Enabled"
-                                          ScrollViewer.VerticalScrollMode="Disabled"
-                                          SelectionMode="None" IsItemClickEnabled="True"
-                                          Margin="0,6,0,0" MinHeight="60" ItemClick="StoriesList_ItemClick">
+                    <GridView Grid.Row="0" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.HorizontalScrollMode="Enabled"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              SelectionMode="None" IsItemClickEnabled="True"
+                              Margin="0,6,0,0" MinHeight="60" ItemClick="StoriesList_ItemClick">
+                        
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
@@ -60,12 +73,12 @@
                 </Grid>
             </GridView.Header>
 
-            <controls:AdaptiveGridView.ItemTemplate>
+            <GridView.ItemTemplate>
                 <DataTemplate>
                     <View:GridItemUC Media="{Binding}"/>
                 </DataTemplate>
-            </controls:AdaptiveGridView.ItemTemplate>
-
+            </GridView.ItemTemplate>
+            
         </controls:AdaptiveGridView>
 
     </Grid>
