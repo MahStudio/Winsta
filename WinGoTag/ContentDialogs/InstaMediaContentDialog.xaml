@@ -13,7 +13,7 @@
     Width="Auto" Height="Auto" HorizontalAlignment="Center" 
     VerticalAlignment="Center">
 
-    <Grid BorderThickness="0.5"  BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" CornerRadius="10" Width="250" MinHeight="48" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid BorderThickness="0.5"  BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" CornerRadius="10" Width="250" MinHeight="48" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalAlignment="Center">
         <ListView x:Name="Commands" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemContainerStyle="{StaticResource ListViewStrecher}" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <ListView.ItemTemplate>
                 <DataTemplate>

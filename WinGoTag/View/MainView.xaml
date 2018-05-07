@@ -81,12 +81,12 @@
                                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
 
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
                                     <Grid Grid.Row="0">
-                                        <TextBlock Text="Stories" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,0,12,0"/>
+                                        <TextBlock Text="Stories" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,0"/>
                                     </Grid>
                                     
                                     <GridView Grid.Row="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"

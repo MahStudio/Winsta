@@ -21,6 +21,15 @@ namespace WinGoTag.Converters
                     return (SolidColorBrush)App.Current.Resources["SystemControlBackgroundAccentBrush"];
                 else return new SolidColorBrush(Colors.Gray);
             }
+
+            if (value.GetType() == typeof(InstaStory))
+            {
+                var v = value as InstaStory;
+                if (v.SeenRankedPosition == 0)
+                    return (SolidColorBrush)App.Current.Resources["SystemControlBackgroundAccentBrush"];
+                else return new SolidColorBrush(Colors.Gray);
+            }
+
             else return new SolidColorBrush(Colors.Gray);
         }
 

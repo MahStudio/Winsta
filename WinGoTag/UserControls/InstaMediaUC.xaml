@@ -12,9 +12,16 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <Converters:CarouselSizeConverter x:Key="CarouselSizeConverter"/>
-        <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
-        <Converters:InstaMediaControlVisibilityConverter x:Key="InstaMediaControlVisibilityConverter"/>
+        
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/FlipViews.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Converters:CarouselSizeConverter x:Key="CarouselSizeConverter"/>
+            <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
+            <Converters:InstaMediaControlVisibilityConverter x:Key="InstaMediaControlVisibilityConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid MaxWidth="600">
@@ -35,7 +42,7 @@
                 <Ellipse.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage ImageOpened="bit_ImageOpened" UriSource="{Binding User.ProfilePicture}"/>
+                            <BitmapImage UriSource="{Binding User.ProfilePicture}"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Ellipse.Fill>
@@ -43,13 +50,13 @@
             <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI"/>
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1" MaxHeight="{Binding ConverterParameter=h}">
             <Image Opacity="0" ImageOpened="Cover_ImageOpened" Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
-            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Videos[0].Width}" MaxHeight="{Binding Videos[0].Height}" Stretch="Uniform"/>
-            <FlipView x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}">
+            <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" Stretch="Fill"/>
+            <FlipView Style="{ThemeResource FlipCarousel}" x:Name="ThisFlipView" ItemsSource="{Binding Carousel}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}" Tapped="Media_Tapped" MaxHeight="{Binding ConverterParameter=h}" MaxWidth="{Binding ConverterParameter=w}" LayoutUpdated="ThisFlipView_LayoutUpdated">
                 <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <!--Height="{Binding Path=SelectedItem.ActualHeight, ElementName=FlipView}"-->
+                        <!--Height="{Binding Path=SelectedItem.ActualHeight, ElementName=FlipView, ContentTemplateRoot}"-->
                         <View:CarouselItemUC CarouselItem="{Binding Mode=OneWay}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
@@ -77,11 +84,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,6" FontWeight="SemiBold"/>
+            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="piace a 2.022 persone" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13"/>
 
-            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0"/>
+            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0" FontSize="13"/>
             <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Margin="12,3,12,0">
-                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount"/>
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount" FontSize="13"/>
             </HyperlinkButton>
             <HyperlinkButton x:Name="MoreBTN" Grid.Row="3" Click="MoreBTN_Click" Margin="12,0,0,0">
                 <TextBlock Text="More" FontWeight="SemiBold"/>

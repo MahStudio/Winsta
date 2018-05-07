@@ -39,6 +39,7 @@ namespace WinGoTag.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        bool ok = false;
         int _tapscount = 0;
         public InstaMediaUC()
         {
@@ -56,19 +57,20 @@ namespace WinGoTag.UserControls
                     switch (Media.MediaType)
                     {
                         case InstaMediaType.Image:
-                            
                             break;
 
                         case InstaMediaType.Carousel:
-                            //ThisFlipView.Height = Media.Carousel[0].Images[1].Height;
+                            //ThisFlipView.Height = Media.Carousel[0].Images[0].Height;
                             break;
 
                         case InstaMediaType.Video:
-                            
                             break;
                     }
 
-                    if(Media.LikesCount == 0)
+                     
+                   
+
+                    if (Media.LikesCount == 0)
                     { LikeCount.Visibility = Visibility.Collapsed; }
 
                     if (Media.CommentsCount == "0")
@@ -87,6 +89,8 @@ namespace WinGoTag.UserControls
             }
             catch { }
         }
+
+
 
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -173,21 +177,6 @@ namespace WinGoTag.UserControls
             openpane.Begin();
         }
 
-        private void bit_ImageOpened(object sender, RoutedEventArgs e)
-        {
-            //DoubleAnimation fade = new DoubleAnimation()
-            //{
-            //    From = 0,
-            //    To = 1,
-            //    Duration = TimeSpan.FromSeconds(0.3),
-            //    EnableDependentAnimation = true
-            //};
-            //Storyboard.SetTarget(fade, (BitmapImage)sender);
-            //Storyboard.SetTargetProperty(fade, "Opacity");
-            //Storyboard openpane = new Storyboard();
-            //openpane.Children.Add(fade);
-            //openpane.Begin();
-        }
 
         private void AddtoCollection_Click(object sender, RoutedEventArgs e)
         {
@@ -209,5 +198,26 @@ namespace WinGoTag.UserControls
             var AddToCollection = await AppCore.InstaApi.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
         }
 
+
+        private void ThisFlipView_LayoutUpdated(object sender, object e)
+        {
+            try
+            {
+                if(ok == true)
+                {
+                    //To improve
+                    var t = (sender as FlipView).SelectedItem;
+                    FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+                    if (item2 == null) { return; }
+                    var h = (CarouselItemUC)item2.ContentTemplateRoot;
+                    ThisFlipView.Height = h.ActualHeight;
+                    ok = true;
+                }
+            }
+            catch
+            {
+
+            }
+        }
     }
 }
