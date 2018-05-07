@@ -13,7 +13,7 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" VerticalAlignment="Top">
 
-        <ProgressBar Canvas.ZIndex="2" x:Name="_BarSecond" Maximum="15" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <ProgressBar Value="0.1" SmallChange="0.1" Canvas.ZIndex="2" x:Name="_BarSecond" Maximum="15" Margin="0,0,0,0" VerticalAlignment="Top"/>
        
         <Grid x:Name="HeaderStory" Canvas.ZIndex="1" Height="52" VerticalAlignment="Top" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>

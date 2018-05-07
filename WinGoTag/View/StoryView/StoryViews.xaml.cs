@@ -16,26 +16,28 @@ namespace WinGoTag.View.StoryView
     public sealed partial class StoryViews : Page
     {
         List<double> SecondItemList = new List<double>();
-        private readonly DispatcherTimer timer;
+        public static DispatcherTimer timer;
+        public static ProgressBar b = new ProgressBar();
+        public static FlipView FlipViewStory = new FlipView();
         public StoryViews()
         {
             this.InitializeComponent();
             timer = new DispatcherTimer
             { Interval = TimeSpan.FromSeconds(1) };
-
-         
+            FlipViewStory = Flipviews;
+            b = _BarSecond;
         }
 
 
         private void Timer_Tick(object sender, object o)
         {
+            //_BarSecond.Value = _BarSecond.Value + 0.1;
             _BarSecond.Value++;
             if (_BarSecond.Value == SecondItemList[Flipviews.SelectedIndex])
             {
                 try
                 {
                     Flipviews.SelectedIndex++;
-                    //if(Flipviews.SelectedIndex == SecondItemList.Count - 1) { CloseStories(); }
                 }
                 catch
                 {
@@ -138,6 +140,7 @@ namespace WinGoTag.View.StoryView
 
         private void BackBT_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             Frame.Navigate(typeof(Page));
         }
 

@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using WinGoTag.View.StoryView;
 
 // Il modello di elemento Controllo utente è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -72,36 +73,48 @@ namespace WinGoTag.UserControls
         }
 
 
+        private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
+        {
+            CarouVideo.Play();
+        }
+
 
         private void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
-            //_tapscount++;
-
-            //await Task.Delay(350);
-
-            //if (_tapscount == 0) return;
-
-            //if (_tapscount == 1)
-
-            //{
-
-            //    if (CarouVideo.Source != null)
-
-            //    {
-
-            //        if (CarouVideo.CurrentState == MediaElementState.Playing)
-
-            //            CarouVideo.IsMuted = !CarouVideo.IsMuted;
-
-            //        else CarouVideo.Play();
-
-            //    }
-            //}
-            //_tapscount = 0;
         }
 
-       
-        
+
+        private void StateVideo()
+        {
+            if (CarouVideo.CurrentState == MediaElementState.Buffering)
+            {
+                StoryViews.timer.Stop();
+            }
+            
+            if (CarouVideo.CurrentState == MediaElementState.Paused)
+            {
+                StoryViews.timer.Stop();
+            }
+
+            if (CarouVideo.CurrentState == MediaElementState.Stopped)
+            {
+                StoryViews.timer.Stop();
+            }
+
+            if (CarouVideo.CurrentState == MediaElementState.Playing)
+            {
+                StoryViews.timer.Start();
+            }
+        }
+
+        private void CarouImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            try
+            {
+                StoryViews.FlipViewStory.SelectedIndex++;
+            }
+            catch { }
+        }
     }
 }
