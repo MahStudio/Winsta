@@ -44,7 +44,6 @@ namespace WinGoTag.View.StoryView
                     CloseStories();
                 }
             }
-                //timer.Stop();
         }
 
 
@@ -64,27 +63,27 @@ namespace WinGoTag.View.StoryView
         }
 
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            
 
             if (e.Parameter is InstaReelFeed)
             {
                 this.DataContext = ((InstaReelFeed)e.Parameter);
+                AnimationEnter();
                 var i = ((InstaReelFeed)e.Parameter);
-                Flipviews.ItemsSource = i.Items;
+                var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
+                Flipviews.ItemsSource = story.Value.Items;
                 for (int a = 0; a < Flipviews.Items.Count; a++)
                 {
-                    switch (i.Items[a].MediaType)
+                    switch (story.Value.Items[a].MediaType)
                     {
                         case 1:
                             SecondItemList.Add(6);
                             break;
 
                         case 2:
-                            SecondItemList.Add(i.Items[a].VideoDuration);
+                            SecondItemList.Add(story.Value.Items[a].VideoDuration);
                             break;
                     }
                 }
@@ -93,18 +92,20 @@ namespace WinGoTag.View.StoryView
             else
             {
                 this.DataContext = ((InstaStory)e.Parameter);
+                AnimationEnter();
                 var i = ((InstaStory)e.Parameter);
-                Flipviews.ItemsSource = i.Items;
+                var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
+                Flipviews.ItemsSource = story.Value.Items;
                 for (int a = 0; a < Flipviews.Items.Count; a++)
                 {
-                    switch (i.Items[a].MediaType)
+                    switch (story.Value.Items[a].MediaType)
                     {
-                        case InstaMediaType.Image:
+                        case 1:
                             SecondItemList.Add(6);
                             break;
 
-                        case InstaMediaType.Video:
-                            SecondItemList.Add(6);
+                        case 2:
+                            SecondItemList.Add(story.Value.Items[a].VideoDuration);
                             break;
                     }
                 }
@@ -118,9 +119,7 @@ namespace WinGoTag.View.StoryView
                 timer.Start();
             }
 
-            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
-            if (imageAnimation != null)
-            { imageAnimation.TryStart(Frame); }
+            
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -137,10 +136,14 @@ namespace WinGoTag.View.StoryView
             catch
             {
                
-            }
-           
-            
-            
+            }    
+        }
+
+        public void AnimationEnter()
+        {
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
+            if (imageAnimation != null)
+            { imageAnimation.TryStart(Frame); }
         }
 
         private void BackBT_Click(object sender, RoutedEventArgs e)
