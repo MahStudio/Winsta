@@ -65,7 +65,7 @@ namespace WinGoTag.View
 
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
             if (imageAnimation != null)
-            { imageAnimation.TryStart(itemList); }
+            { imageAnimation.TryStart(itemList); MainPage.Bar.Visibility = Visibility.Visible; }
         }
 
 
@@ -82,7 +82,7 @@ namespace WinGoTag.View
             }
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
             StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
-
+            
             if (HomePageItemssource != null)
             {
                 HomePageItemssource.CollectionChanged -= HomePageItemssource_CollectionChanged;
@@ -152,6 +152,7 @@ namespace WinGoTag.View
             itemList = itemAnimation;
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", itemAnimation);
             StoryFr.Navigate(typeof(StoryView.StoryViews), item);
+            MainPage.Bar.Visibility = Visibility.Collapsed;
         }
 
         private void PivotView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -159,15 +160,18 @@ namespace WinGoTag.View
             switch (PivotView.SelectedIndex)
             {
                 case 0:
+                    MainPage.Bar.Visibility = Visibility.Collapsed;
                     CameraFr.Navigate(typeof(CameraView.CameraView));
                     break;
 
                 case 1:
+                    MainPage.Bar.Visibility = Visibility.Visible;
                     CameraFr.Navigate(typeof(Page));
                     CameraFr.BackStack.Clear();
                     break;
 
                 case 2:
+                    MainPage.Bar.Visibility = Visibility.Collapsed;
                     if (_loadDirect == true)
                     {
                         DirectFr.Navigate(typeof(DirectsListView));

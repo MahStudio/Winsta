@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
     <Grid>
-        <Image x:Name="CarouImage"/>
-        <MediaElement RealTimePlayback="True" AutoPlay="True" x:Name="CarouVideo" AreTransportControlsEnabled="False" Tapped="Media_Tapped"/>
+        <Image x:Name="CarouImage" Stretch="UniformToFill"/>
+        <MediaElement RealTimePlayback="True" AutoPlay="True" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill"/>
     </Grid>
 </UserControl>

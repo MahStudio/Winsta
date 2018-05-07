@@ -39,7 +39,7 @@ namespace WinGoTag.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        bool ok = false;
+        
         int _tapscount = 0;
         public InstaMediaUC()
         {
@@ -60,7 +60,6 @@ namespace WinGoTag.UserControls
                             break;
 
                         case InstaMediaType.Carousel:
-                            //ThisFlipView.Height = Media.Carousel[0].Images[0].Height;
                             break;
 
                         case InstaMediaType.Video:
@@ -198,26 +197,23 @@ namespace WinGoTag.UserControls
             var AddToCollection = await AppCore.InstaApi.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
         }
 
-
-        private void ThisFlipView_LayoutUpdated(object sender, object e)
+        private void ThisFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                if(ok == true)
-                {
-                    //To improve
-                    var t = (sender as FlipView).SelectedItem;
-                    FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
-                    if (item2 == null) { return; }
-                    var h = (CarouselItemUC)item2.ContentTemplateRoot;
-                    ThisFlipView.Height = h.ActualHeight;
-                    ok = true;
-                }
-            }
-            catch
-            {
+            var t = (sender as FlipView).SelectedItem;
+            FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+            if (item2 == null) { return; }
+            var h = (CarouselItemUC)item2.ContentTemplateRoot;
+            ThisFlipView.Height = h.ActualHeight;
+        }
 
-            }
+        private void ThisFlipView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //var t = (ThisFlipView as FlipView).SelectedItem;
+            //FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+            //if (item2 == null) { return; }
+            //var h = (CarouselItemUC)item2.ContentTemplateRoot;
+            //ThisFlipView.Height = h.Height;
+            //ThisFlipView.Height = h.ActualHeight;
         }
     }
 }
