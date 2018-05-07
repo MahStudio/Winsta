@@ -11,14 +11,17 @@
     <Page.Resources>
         <ResourceDictionary Source="/Styles/FlipViews.xaml"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" VerticalAlignment="Top">
 
-        <Grid Canvas.ZIndex="1" Height="48" VerticalAlignment="Top">
+        <ProgressBar Canvas.ZIndex="2" x:Name="_BarSecond" Maximum="15" Margin="0,0,0,0" VerticalAlignment="Top"/>
+       
+        <Grid x:Name="HeaderStory" Canvas.ZIndex="1" Height="52" VerticalAlignment="Top" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="48"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="48"/>
             </Grid.ColumnDefinitions>
+            
             <Ellipse Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="36" Width="36">
                 <Ellipse.Fill>
                     <ImageBrush>
@@ -32,9 +35,8 @@
             <AppBarButton x:Name="BackBT" Icon="Clear" Grid.Column="2" Click="BackBT_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Width="48"/>
         </Grid>
 
-        <ProgressBar x:Name="_BarSecond" Maximum="15" VerticalAlignment="Bottom" Background="{x:Null}"/>
-
-        <FlipView x:Name="Flipviews">
+        
+        <FlipView x:Name="Flipviews" SelectionChanged="Flipviews_SelectionChanged">
             <FlipView.ItemTemplate>
                 <DataTemplate>
                     <View:CarouselItemUCStories CarouselItem="{Binding Mode=OneWay}"/>
