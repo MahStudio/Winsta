@@ -42,7 +42,6 @@ namespace WinGoTag.View.SearchView
         {
             var query = SearchBox.Text;
             
-
             switch (PivotSearch.SelectedIndex)
             {
                 case 0:
@@ -55,6 +54,7 @@ namespace WinGoTag.View.SearchView
 
                 case 2:
                     var ForTag = await AppCore.InstaApi.SearchHashtag(query);
+                    TagsList.ItemsSource = ForTag.Value;
                     break;
 
                 case 3:
@@ -64,7 +64,6 @@ namespace WinGoTag.View.SearchView
             }
         }
 
-        
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {

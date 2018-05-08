@@ -192,107 +192,69 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2" x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
-                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
+              x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
+              
+            <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
                     <Pivot.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
-                            </Grid>
-                            
-                        </DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                        </Grid>
+                    </DataTemplate>
                     </Pivot.HeaderTemplate>
-                    
+
                     <PivotItem Header="Main" Margin="0">
-                        
+
                     </PivotItem>
 
                     <PivotItem Header="People" Margin="0">
 
                     </PivotItem>
 
-                    <PivotItem Header="Tags" Margin="0">
-
-                    </PivotItem>
+                    <PivotItem Header="HashTag" Margin="0">
+                    <ListView x:Name="TagsList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
+                </PivotItem>
 
                     <PivotItem Header="Location" Margin="0">
                         <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
                     </PivotItem>
                 </Pivot>
-            </Grid>
+           
+        </Grid>
 
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
-                    <AutoSuggestBox.Style>
-                        <Style TargetType="AutoSuggestBox">
-                            <Setter Property="VerticalAlignment" Value="Top"/>
-                            <Setter Property="IsTabStop" Value="False"/>
-                            <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
-                            <!--<Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="AutoSuggestBox">
-                                <Grid CornerRadius="5">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup x:Name="Orientation">
-                                            <VisualState x:Name="Landscape"/>
-                                            <VisualState x:Name="Portrait"/>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-                                    <TextBox Style="{ThemeResource AutoSuggestBoxCustom}" PlaceholderText="Search..."/>
-                                    <Popup x:Name="SuggestionsPopup">
-                                        <Border x:Name="SuggestionsContainer">
-                                            <Border.RenderTransform>
-                                                <TranslateTransform x:Name="UpwardTransform"/>
-                                            </Border.RenderTransform>
-                                            <ListView x:Name="SuggestionsList" BorderBrush="{ThemeResource SystemControlForegroundChromeHighBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" Background="{ThemeResource SystemControlAcrylicElementBrush}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" IsItemClickEnabled="True" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Margin="{ThemeResource AutoSuggestListMargin}" Padding="{ThemeResource AutoSuggestListPadding}">
-                                                <ListView.ItemContainerTransitions>
-                                                    <TransitionCollection/>
-                                                </ListView.ItemContainerTransitions>
-                                            </ListView>
-                                        </Border>
-                                    </Popup>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>-->
-                        </Style>
-                    </AutoSuggestBox.Style>
-                    <!--<AutoSuggestBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="48">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Opacity="0.7" />
-                            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Name}" Grid.Row="0" Margin="0,0,12,0" FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding Address}" Grid.Row="1" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Margin="0,0,12,0" FontSize="12"/>
-                            </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </AutoSuggestBox.ItemTemplate>-->
-                </AutoSuggestBox>
-                <Button x:Name="CancelBT" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Content="Cancel" Click="CancelBT_Click" Visibility="Collapsed"/>
-            </Grid>
+        <Grid>
 
-            <Frame Grid.Row="1" Loaded="ExploreFr_Loaded" x:Name="ExploreFr"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
+                <AutoSuggestBox.Style>
+                    <Style TargetType="AutoSuggestBox">
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
+                    </Style>
+                </AutoSuggestBox.Style>
+            </AutoSuggestBox>
+
+            <Button x:Name="CancelBT" Grid.Column="1" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Background="{x:Null}" 
+                        Content="Cancel" Click="CancelBT_Click" 
+                        Visibility="Collapsed"/>
 
         </Grid>
+
+        <Frame Grid.Row="1" Loaded="ExploreFr_Loaded" x:Name="ExploreFr"/>
+
     </Grid>
 </Page>

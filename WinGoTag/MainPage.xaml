@@ -11,7 +11,7 @@
         <ResourceDictionary Source="/Styles/Pivots.xaml"/>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid MaxWidth="800" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
