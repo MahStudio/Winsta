@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaSharper.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,8 @@ namespace WinGoTag.View.DirectMessages
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            var data = ((InstaDirectInboxThread)e.ClickedItem);
+            Frame.Navigate(typeof(DirectChatView), data);
         }
     }
 }

@@ -124,6 +124,9 @@
     <Compile Include="UserControls\CarouselItemUCStories.xaml.cs">
       <DependentUpon>CarouselItemUCStories.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DirectMessageUCs\DirectMessageItemUC.xaml.cs">
+      <DependentUpon>DirectMessageItemUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DirectMessageUCs\DirectThreadItemProviderUC.xaml.cs">
       <DependentUpon>DirectThreadItemProviderUC.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
     <Compile Include="ViewModel\SignInSignUp\TwoStepFactorViewModel.cs" />
     <Compile Include="View\CameraView\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DirectMessages\DirectChatView.xaml.cs">
+      <DependentUpon>DirectChatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DirectMessages\DirectsListView.xaml.cs">
       <DependentUpon>DirectsListView.xaml</DependentUpon>
@@ -330,6 +336,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\DirectMessageUCs\DirectMessageItemUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DirectMessageUCs\DirectThreadItemProviderUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -347,6 +357,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CameraView\CameraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DirectMessages\DirectChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
