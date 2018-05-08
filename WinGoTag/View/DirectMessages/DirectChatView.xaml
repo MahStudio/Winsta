@@ -48,7 +48,16 @@
             </AppBarButton>
         </Grid>
 
-        <ListView Name="MessageList" Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}">
+        <ListView IsItemClickEnabled="False" Name="MessageList" 
+                  Grid.Row="1"
+                  ItemContainerStyle="{StaticResource ListViewStrecher}" 
+                  SelectionMode="None">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" VerticalAlignment="Bottom"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <MessageItem:DirectMessageItemUC InboxItem="{Binding Mode=OneWay}" Margin="0,6,0,6"/>
@@ -64,8 +73,13 @@
             </Grid.ColumnDefinitions>
             <AppBarButton Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Icon="Camera" Width="48"/>
 
-            <TextBox Style="{ThemeResource TextBoxStyleInsta}" PlaceholderText="Write a message" Grid.Column="1" Margin="0,6,6,6"/>
-            <AppBarButton Icon="BrowsePhotos" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="48" Height="48"/>
+            <TextBox x:Name="TextBoxChat" Style="{ThemeResource TextBoxStyleInsta}" PlaceholderText="Write a message" Grid.Column="1" Margin="0,6,6,6" TextChanged="TextBoxChat_TextChanged"/>
+            
+            <AppBarButton Name="DynamicButton" Grid.Column="2" Click="DynamicButton_Click" Width="48">
+                <AppBarButton.Icon>
+                    <FontIcon Name="DynamicIcon" FontFamily="Segoe MDL2 Assets" Glyph="&#xEB9F;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </Grid>
     </Grid>
 </Page>

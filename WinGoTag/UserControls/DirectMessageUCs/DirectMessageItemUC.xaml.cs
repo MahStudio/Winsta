@@ -47,56 +47,8 @@ namespace WinGoTag.UserControls.DirectMessageUCs
         public DirectMessageItemUC()
         {
             this.InitializeComponent();
-            this.DataContextChanged += DirectMessageItemUC_DataContextChanged;
         }
 
-        private void DirectMessageItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-            try
-            {
-                if (args.NewValue.GetType() == typeof(InstaDirectInboxItem))
-                {
-
-                    if (InboxItem.UserId == DirectChatView.UserId)
-                    {
-                        UserAvatar.DataContext = DirectChatView.DataUser;
-                        SampleText.Background = null;
-                        Post.Background = null;
-                        SampleText.HorizontalAlignment = HorizontalAlignment.Left;
-                        Post.HorizontalAlignment = HorizontalAlignment.Left;
-                    }
-
-                    switch (InboxItem.ItemType)
-                    {
-                        case InstaDirectThreadItemType.Like:
-
-                            break;
-
-                        case InstaDirectThreadItemType.Link:
-                            break;
-
-                        case InstaDirectThreadItemType.Media:
-                            
-                            Post.Visibility = Visibility.Visible;
-                            break;
-
-                        case InstaDirectThreadItemType.MediaShare:
-                            //InboxItem.MediaShare.Caption.Text
-                            Post.Visibility = Visibility.Visible;
-                            break;
-
-                        case InstaDirectThreadItemType.Text:
-                            SampleText.Visibility = Visibility.Visible;
-                            break;
-                    }
-
-                    
-
-
-
-                }
-            }
-            catch { }
-        }
+       
     }
 }

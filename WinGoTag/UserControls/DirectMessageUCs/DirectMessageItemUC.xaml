@@ -5,18 +5,33 @@
     xmlns:local="using:WinGoTag.UserControls.DirectMessageUCs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:WinGoTag.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/FlipViews.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Converters:ButtonValueToIconConverter x:Key="ButtonValueToIconConverter"/>
+            <Converters:DirectMessageControlVisibilityConverter x:Key="DirectMessageControlVisibilityConverter"/>
+            <Converters:ConverterDirectItem x:Key="ConverterDirectItem"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MessageRoot">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="48"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Name="UserAvatar" Grid.Column="0" VerticalAlignment="Bottom" Height="45">
+        <Grid Name="UserAvatar" Grid.Column="0" VerticalAlignment="Bottom" Height="45" 
+              DataContext="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=Avatar, Mode=OneWay}">
+            
             <Ellipse VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30">
                 <Ellipse.Fill>
                     <ImageBrush>
@@ -27,18 +42,22 @@
                 </Ellipse.Fill>
             </Ellipse>
         </Grid>
-        
+
 
         <Grid Grid.Column="1" Name="SampleText" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" 
-              CornerRadius="20" BorderThickness="0.5" Margin="12,0,12,0" 
-              Background="{ThemeResource AppBarBackground}" VerticalAlignment="Center" Visibility="Visible" HorizontalAlignment="Right">
+              CornerRadius="20" BorderThickness="0.5" Margin="12,0,12,0" VerticalAlignment="Center" 
+              Background="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=color, Mode=OneWay}" 
+              Visibility="{Binding Converter={StaticResource DirectMessageControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}"
+              HorizontalAlignment="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=align, Mode=OneWay}">
             
             <TextBlock TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
         </Grid>
 
         <Grid Grid.Column="1" Name="Post" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" 
               CornerRadius="20" BorderThickness="0.5" Width="300" Margin="12,0,12,0"
-              Background="{ThemeResource AppBarBackground}" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Right">
+              Visibility="{Binding Converter={StaticResource DirectMessageControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}"
+              Background="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=color, Mode=OneWay}" VerticalAlignment="Center"
+              HorizontalAlignment="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=align, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="*"/>

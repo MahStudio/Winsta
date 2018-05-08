@@ -26,7 +26,9 @@ namespace WinGoTag.View.DirectMessages
     {
         public static long UserId;
         public static InstaUserShort DataUser;
-       public DirectChatView()
+        public string ThreadIds;
+        public string VieweIds;
+        public DirectChatView()
         {
             this.InitializeComponent();
         }
@@ -37,23 +39,61 @@ namespace WinGoTag.View.DirectMessages
             this.DataContext = ((InstaDirectInboxThread)e.Parameter);
             var source = ((InstaDirectInboxThread)e.Parameter);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId);
-
+            VieweIds = Message.Value.VieweId;
+            ThreadIds = Message.Value.ThreadId;
             UserId = Message.Value.Users[0].Pk;
             DataUser = Message.Value.Users[0];
             //MessageList.ItemsSource = Message.Value.Items;
-
+            Message.Value.Items.Reverse();
             for (int a = 0; a < Message.Value.Items.Count; a++)
             {
                 MessageList.Items.Add(Message.Value.Items[a]);
             }
 
-            
+           
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             MainView.HeaderD.Visibility = Visibility.Visible;
             Frame.GoBack();
+        }
+
+        private void TextBoxChat_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            switch (TextBoxChat.Text.Length)
+            {
+                case 0:
+                    DynamicIcon.Glyph = "\ueB9F";
+                    return;
+            }
+
+            DynamicIcon.Glyph = "\ue122";
+        }
+
+        private async void DynamicButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (TextBoxChat.Text.Length)
+            {
+                case 0:
+                   
+                    return;
+            }
+
+          
+            var MessageSend = await AppCore.InstaApi.SendDirectMessage(UserId.ToString(), ThreadIds, TextBoxChat.Text);
+            TextBoxChat.Text = "";
+            for (int a = 0; a < MessageSend.Value[0].Items.Count; a++)
+            {
+                MessageList.Items.Add(MessageSend.Value[0].Items[a]);
+            }
+
+
+            //FOR TEST
+            //var addItem = new InstaDirectInboxItem() { ItemType = InstaDirectThreadItemType.Text, Text = TextBoxChat.Text };
+            //TextBoxChat.Text = "";
+            //MessageList.Items.Add(addItem);
+
         }
     }
 }

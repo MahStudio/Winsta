@@ -106,6 +106,8 @@
     </Compile>
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\CarouselSizeConverter.cs" />
+    <Compile Include="Converters\DirectMessageControlVisibilityConverter.cs" />
+    <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
     <Compile Include="DataBinding\GeneratorIncrementalLoadingClass.cs" />
