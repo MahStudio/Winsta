@@ -22,7 +22,7 @@
         <controls:AdaptiveGridView Grid.Row="1" ScrollViewer.VerticalScrollMode="Enabled" x:Name="mylist" 
                                    OneRowModeEnabled="False"
                                    Style="{ThemeResource CustomGridView}"
-                                   ItemHeight="150" DesiredWidth="150"
+                                   ItemHeight="138" DesiredWidth="150"
                                    IsItemClickEnabled="False" SelectionMode="None">
 
             <GridView.ItemContainerStyle>

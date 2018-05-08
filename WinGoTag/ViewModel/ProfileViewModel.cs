@@ -14,6 +14,7 @@ namespace WinGoTag.ViewModel
     {
         private bool _isbusy;
         private InstaMediaList _medlst;
+        private InstaMediaList _medUslst;
         private InstaUserInfo _info;
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsBusy
@@ -38,6 +39,12 @@ namespace WinGoTag.ViewModel
             set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GridList")); }
         }
 
+        public InstaMediaList UserTag
+        {
+            get { return _medUslst; }
+            set { _medUslst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserTag")); }
+        }
+
         CoreDispatcher Dispatcher { get; set; }
         public ProfileViewModel()
         {
@@ -55,9 +62,13 @@ namespace WinGoTag.ViewModel
             var username = AppCore.InstaApi.GetLoggedUser().UserName;
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(username);
             UserInfo = user.Value;
+
             var media = await AppCore.InstaApi.GetUserMediaAsync(username, PaginationParameters.MaxPagesToLoad(1));
             MediaList = media.Value;
             GridList = media.Value;
+
+            var mediaUserTag = await AppCore.InstaApi.GetUserTagsAsync(username, PaginationParameters.MaxPagesToLoad(1));
+            UserTag = mediaUserTag.Value;
         }
     }
 }

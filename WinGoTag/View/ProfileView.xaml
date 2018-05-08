@@ -25,6 +25,7 @@
     </Page.DataContext>
 
     <Grid>
+        
         <Frame Canvas.ZIndex="1" Name="EditFr"/>
         
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -35,7 +36,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
+            <Grid Grid.Row="0" Canvas.ZIndex="5" Height="40" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
@@ -116,26 +117,28 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
-                <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}" >
+                <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}">
 
                     <Pivot.HeaderTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
+                                <TextBlock FontSize="18" Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
                             </Grid>
 
                         </DataTemplate>
                     </Pivot.HeaderTemplate>
 
                     <PivotItem Header="&#xE80A;" Margin="0">
+                        
                         <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
-                                               OneRowModeEnabled="False"
-                                               ItemHeight="138"
+                                                   OneRowModeEnabled="False"
+                                                   ItemHeight="138"
                                                    Style="{ThemeResource CustomGridView}"
-                                               ItemsSource="{Binding GridList}"
-                                               DesiredWidth="150"
-                                               SelectionMode="Single"
-                                               IsItemClickEnabled="True">
+                                                   ItemsSource="{Binding GridList}"
+                                                   DesiredWidth="150"
+                                                   SelectionMode="None"
+                                                   IsItemClickEnabled="True">
+                            
                             <GridView.ItemContainerStyle>
                                 <Style TargetType="FrameworkElement">
                                     <Setter Property="Margin" Value="0.5"/>
@@ -161,7 +164,26 @@
                     </PivotItem>
 
                     <PivotItem Header="&#xEC25;" Margin="0">
-                        
+                        <controls:AdaptiveGridView Name="ListUserTag"
+                                                   OneRowModeEnabled="False"
+                                                   ItemHeight="138"
+                                                   Style="{ThemeResource CustomGridView}"
+                                                   ItemsSource="{Binding UserTag}"
+                                                   DesiredWidth="150"
+                                                   SelectionMode="None"
+                                                   IsItemClickEnabled="True">
+
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="FrameworkElement">
+                                    <Setter Property="Margin" Value="0.5"/>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate>
+                                    <View:GridItemUC Media="{Binding}"/>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
 
                     <PivotItem Header="&#xE7C1;" Margin="0">
