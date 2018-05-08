@@ -6,12 +6,13 @@ namespace InstaSharper.Helpers
     {
         public static Uri AddQueryParameter(this Uri uri, string name, string value)
         {
+            if (value == null || value == "" || value == "[]") return uri;
             var httpValueCollection = HttpUtility.ParseQueryString(uri);
 
             httpValueCollection.Remove(name);
             httpValueCollection.Add(name, value);
 
-            var ub = new UriBuilder(uri) {Query = httpValueCollection.ToString()};
+            var ub = new UriBuilder(uri) { Query = httpValueCollection.ToString() };
             return ub.Uri;
         }
 
@@ -23,7 +24,7 @@ namespace InstaSharper.Helpers
             var httpValueCollection = HttpUtility.ParseQueryString(uri);
             httpValueCollection.Remove(name);
             httpValueCollection.Add(name, value);
-            var ub = new UriBuilder(uri) {Query = httpValueCollection.ToString()};
+            var ub = new UriBuilder(uri) { Query = httpValueCollection.ToString() };
             return ub.Uri;
         }
     }

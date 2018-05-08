@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="/Styles/Pivots.xaml"/>
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <DataTemplate x:Key="PlacesItem">
                 <Grid Height="48">
                     <Grid.ColumnDefinitions>
@@ -189,7 +189,7 @@
     <Page.DataContext>
         <VM1:SearchViewModel/>
     </Page.DataContext>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
@@ -199,33 +199,33 @@
 
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
               x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
-              
+
             <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
-                    <Pivot.HeaderTemplate>
-                        <DataTemplate>
+                <Pivot.HeaderTemplate>
+                    <DataTemplate>
                         <Grid>
                             <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
                         </Grid>
                     </DataTemplate>
-                    </Pivot.HeaderTemplate>
+                </Pivot.HeaderTemplate>
 
-                    <PivotItem Header="Main" Margin="0">
+                <PivotItem Header="Main" Margin="0">
 
-                    </PivotItem>
+                </PivotItem>
 
-                    <PivotItem Header="People" Margin="0">
+                <PivotItem Header="People" Margin="0">
 
-                    </PivotItem>
+                </PivotItem>
 
-                    <PivotItem Header="HashTag" Margin="0">
+                <PivotItem Header="HashTag" Margin="0">
                     <ListView x:Name="TagsList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
                 </PivotItem>
 
-                    <PivotItem Header="Location" Margin="0">
-                        <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
-                    </PivotItem>
-                </Pivot>
-           
+                <PivotItem Header="Location" Margin="0">
+                    <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
+                </PivotItem>
+            </Pivot>
+
         </Grid>
 
 
