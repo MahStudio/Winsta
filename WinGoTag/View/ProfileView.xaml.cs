@@ -40,7 +40,12 @@ namespace WinGoTag.View
 
         private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.MainFrame.Navigate(typeof(UserFollowersView), AppCore.InstaApi.GetLoggedUser().UserName);
+            EditFr.Navigate(typeof(UserFollowersView), AppCore.InstaApi.GetLoggedUser().UserName);
+        }
+        //Following_Tapped
+        private void Following_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            EditFr.Navigate(typeof(UserFollowingsView), AppCore.InstaApi.GetLoggedUser().UserName);
         }
     }
 }
