@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View.UserViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,6 +36,11 @@ namespace WinGoTag.View
             var DataUser = ((Button)sender);
             var Data = ((InstaUserInfo)DataUser.DataContext);
             EditFr.Navigate(typeof(EditProfile.EditProfile), Data);
+        }
+
+        private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            MainPage.MainFrame.Navigate(typeof(UserFollowersView), AppCore.InstaApi.GetLoggedUser().UserName);
         }
     }
 }
