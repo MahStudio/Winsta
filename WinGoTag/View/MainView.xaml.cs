@@ -40,12 +40,12 @@ namespace WinGoTag.View
         bool _loadDirect = true;
         public GenerateHomePage<InstaMedia> HomePageItemssource;
         internal static GridViewItem itemList;
-
+        public static Grid HeaderD;
         
         public MainView()
         {
             this.InitializeComponent();
-            
+            HeaderD = HeaderDirect;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

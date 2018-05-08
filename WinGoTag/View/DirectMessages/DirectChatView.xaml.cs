@@ -37,13 +37,22 @@ namespace WinGoTag.View.DirectMessages
             this.DataContext = ((InstaDirectInboxThread)e.Parameter);
             var source = ((InstaDirectInboxThread)e.Parameter);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId);
-            MessageList.ItemsSource = Message.Value.Items;
+
             UserId = Message.Value.Users[0].Pk;
             DataUser = Message.Value.Users[0];
+            //MessageList.ItemsSource = Message.Value.Items;
+
+            for (int a = 0; a < Message.Value.Items.Count; a++)
+            {
+                MessageList.Items.Add(Message.Value.Items[a]);
+            }
+
+            
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
+            MainView.HeaderD.Visibility = Visibility.Visible;
             Frame.GoBack();
         }
     }

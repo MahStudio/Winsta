@@ -30,6 +30,7 @@ namespace WinGoTag.View.DirectMessages
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            MainView.HeaderD.Visibility = Visibility.Collapsed;
             var data = ((InstaDirectInboxThread)e.ClickedItem);
             Frame.Navigate(typeof(DirectChatView), data);
         }
