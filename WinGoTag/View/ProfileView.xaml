@@ -77,7 +77,7 @@
                             <TextBlock TextAlignment="Center" Text="{Binding UserInfo.MediaCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
                             <TextBlock TextAlignment="Center" Text="Posts" Foreground="Gray" Grid.Row="1"/>
                         </Grid>
-                        <Grid Grid.Column="1">
+                        <Grid Grid.Column="1" Tapped="Followers_Tapped">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
