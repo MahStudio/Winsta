@@ -26,7 +26,7 @@
 
     <Grid>
         
-        <Frame Canvas.ZIndex="1" Name="EditFr"/>
+        <Frame Canvas.ZIndex="1"  Name="EditFr"/>
         
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
@@ -87,7 +87,7 @@
                             <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowerCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
                             <TextBlock TextAlignment="Center" Text="Followers" Foreground="Gray" Grid.Row="1"/>
                         </Grid>
-                        <Grid Grid.Column="2">
+                        <Grid Grid.Column="2" Tapped="Following_Tapped">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>

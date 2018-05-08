@@ -187,6 +187,9 @@
     <Compile Include="View\UserViews\UserFollowersView.xaml.cs">
       <DependentUpon>UserFollowersView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserViews\UserFollowingsView.xaml.cs">
+      <DependentUpon>UserFollowingsView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.UI.Xaml">
@@ -412,6 +415,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserViews\UserFollowersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserViews\UserFollowingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
