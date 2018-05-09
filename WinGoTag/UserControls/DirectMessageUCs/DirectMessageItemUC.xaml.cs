@@ -49,6 +49,9 @@ namespace WinGoTag.UserControls.DirectMessageUCs
             this.InitializeComponent();
         }
 
-       
+        private void Likes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

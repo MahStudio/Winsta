@@ -19,7 +19,7 @@ namespace WinGoTag.Converters
                 var med = (InstaDirectInboxItem)value;
                 if (med.Media != null)
                 {
-                    if (parameter.ToString() == "2")
+                    if (parameter.ToString() == "3")
                         return Visibility.Visible;
                     else return Visibility.Collapsed;
                 }
@@ -38,15 +38,7 @@ namespace WinGoTag.Converters
                     else return Visibility.Collapsed;
                 }
 
-                if (med.UserId == DirectChatView.UserId)
-                {
-                    //UserAvatar.DataContext = DirectChatView.DataUser;
-                    //SampleText.Background = null;
-                    //Post.Background = null;
-                    return HorizontalAlignment.Left;
-                }
-
-                return Visibility.Visible;
+                return Visibility.Collapsed;
             }
             catch
             {

@@ -85,17 +85,48 @@
 
             <Image Grid.Row="1" Source="{Binding MediaShare.Images[0].URI}" Stretch="UniformToFill"/>
 
-            <TextBlock MaxLines="3" TextWrapping="Wrap" Grid.Row="2" Text="{Binding MediaShare.Caption.Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
+            <TextBlock MaxLines="3" FontSize="12" TextWrapping="Wrap" Grid.Row="2" Text="{Binding MediaShare.Caption.Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
 
-            <Grid Grid.Row="3" CornerRadius="0,0,20,20" Margin="0,0,0,0">
+            <Grid Grid.Row="3" CornerRadius="0,0,20,20" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="48"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <AppBarButton Icon="Like"/>
+                <AppBarButton Width="48" x:Name="Likes" Grid.Column="0" Click="Likes_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </Grid>
         </Grid>
 
-       
+        <Grid Grid.Column="1" Name="ImagePost" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" 
+              CornerRadius="20" BorderThickness="0.5" Width="300" Margin="12,0,12,0"
+              Visibility="{Binding Converter={StaticResource DirectMessageControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}"
+              Background="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=color, Mode=OneWay}" VerticalAlignment="Center"
+              HorizontalAlignment="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=align, Mode=OneWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="48"/>
+            </Grid.RowDefinitions>
+
+            
+
+            <Image Grid.Row="0" Source="{Binding Media.Images[0].URI}" Stretch="UniformToFill"/>
+
+           
+            <Grid Grid.Row="1" CornerRadius="0,0,20,20" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <AppBarButton Width="48" x:Name="LikesImage" Grid.Column="0" Click="Likes_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </Grid>
+        </Grid>
+
     </Grid>
 </UserControl>
