@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
 using WinGoTag.View;
+using WinGoTag.View.UserViews;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -90,8 +91,6 @@ namespace WinGoTag.UserControls
             catch { }
         }
 
-
-
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Play")
@@ -103,6 +102,10 @@ namespace WinGoTag.UserControls
         }
 
         #region Buttons Events
+        private void Username_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.MainFrame.Navigate(typeof(UserProfileView), Media.User);
+        }
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
@@ -256,5 +259,6 @@ namespace WinGoTag.UserControls
             //ThisFlipView.Height = h.Height;
             //ThisFlipView.Height = h.ActualHeight;
         }
+        
     }
 }

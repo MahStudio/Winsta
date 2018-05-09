@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaSharper.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,16 @@ namespace WinGoTag.View.UserViews
     /// </summary>
     public sealed partial class UserProfileView : Page
     {
+
         public UserProfileView()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            UserProfileViewModel.User = (e.Parameter as InstaUser);
         }
 
         private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
@@ -40,6 +48,11 @@ namespace WinGoTag.View.UserViews
         private void FollowUser_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 }

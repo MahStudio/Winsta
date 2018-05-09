@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace WinGoTag.ViewModel.UserViews
 {
@@ -46,6 +47,8 @@ namespace WinGoTag.ViewModel.UserViews
 
         CoreDispatcher Dispatcher { get; set; }
 
+        public InstaUser User { get; set; }
+
         public UserProfileViewModel()
         {
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
@@ -58,11 +61,11 @@ namespace WinGoTag.ViewModel.UserViews
 
         async void LoadPage()
         {
-            //var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(Username);
-            //UserInfo = user.Value;
+            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+            UserInfo = user.Value;
 
-            //var media = await AppCore.InstaApi.GetUserMediaAsync(Username, PaginationParameters.MaxPagesToLoad(1));
-            //MediaList = media.Value;
+            var media = await AppCore.InstaApi.GetUserMediaAsync(User.UserName, InstaSharper.Classes.PaginationParameters.MaxPagesToLoad(1));
+            MediaList = media.Value;
             //GridList = media.Value;
 
             //var mediaUserTag = await AppCore.InstaApi.GetUserTagsAsync(Username, PaginationParameters.MaxPagesToLoad(1));

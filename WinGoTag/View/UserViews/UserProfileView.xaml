@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:View="using:WinGoTag.UserControls"
+    xmlns:VM="using:WinGoTag.ViewModel.UserViews"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,9 +21,9 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <!--<Page.DataContext>
-        <VM:ProfileViewModel/>
-    </Page.DataContext>-->
+    <Page.DataContext>
+        <VM:UserProfileViewModel x:Name="UserProfileViewModel"/>
+    </Page.DataContext>
 
     <Grid>
 
@@ -43,6 +44,11 @@
                     <ColumnDefinition Width="48"/>
                 </Grid.ColumnDefinitions>
 
+                <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <!--<AppBarButton Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
                 <TextBlock Grid.Column="1" Text="{Binding UserInfo.Username}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
                 <!--<AppBarButton Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
@@ -186,9 +192,9 @@
                         </controls:AdaptiveGridView>
                     </PivotItem>
 
-                    <PivotItem Header="&#xE7C1;" Margin="0">
+                    <!--<PivotItem Header="&#xE7C1;" Margin="0">
 
-                    </PivotItem>
+                    </PivotItem>-->
                 </Pivot>
             </Grid>
         </Grid>
