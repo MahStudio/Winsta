@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.View;
 using WinGoTag.View.ActivityView;
+using WinGoTag.View.AddPhotos;
 using WinGoTag.View.DirectMessages;
 using WinGoTag.View.SearchView;
 using WinGoTag.View.SignInSignUp;
@@ -98,6 +99,7 @@ namespace WinGoTag
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
             MainPivot.SelectedIndex = 2;
+            FrameConnect.Navigate(typeof(PhotoGalleryView));
         }
 
         private void LoveBT_Click(object sender, RoutedEventArgs e)
