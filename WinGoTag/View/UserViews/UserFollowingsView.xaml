@@ -12,6 +12,32 @@
             <EdgeUIThemeTransition Edge="Right"/>
         </TransitionCollection>
     </Page.Transitions>
+
+    <Page.Resources>
+        <DataTemplate x:Key="UserCard">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="6">
+                    <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding ProfilePicture, Mode=OneWay}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+                <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding UserName, Mode=OneWay}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -36,29 +62,6 @@
 
         </Grid>
 
-        <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="True" SelectionMode="None" x:Name="myList">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="85"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="65" Height="65">
-                            <Ellipse.Fill>
-                                <ImageBrush>
-                                    <ImageBrush.ImageSource>
-                                        <BitmapImage UriSource="{Binding ProfilePicture, Mode=OneWay}"/>
-                                    </ImageBrush.ImageSource>
-                                </ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding UserName, Mode=OneWay}" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                        </Grid>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="True" SelectionMode="None" x:Name="myList" ItemTemplate="{StaticResource UserCard}"/>
     </Grid>
 </Page>
