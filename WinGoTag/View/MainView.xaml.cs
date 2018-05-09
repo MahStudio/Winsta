@@ -41,11 +41,14 @@ namespace WinGoTag.View
         public GenerateHomePage<InstaMedia> HomePageItemssource;
         internal static GridViewItem itemList;
         public static Grid HeaderD;
-        
+
+        public static Frame MainFrame;
         public MainView()
         {
             this.InitializeComponent();
+            //StoryFr.Navigate(typeof(Page));
             HeaderD = HeaderDirect;
+            MainFrame = StoryFr;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

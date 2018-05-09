@@ -217,13 +217,13 @@
         </Grid.RowDefinitions>
 
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
-              x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
+              x:Name="GridSearch" Grid.Row="1" Visibility="Visible">
 
             <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
                 <Pivot.HeaderTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                        <Grid Width="70">
+                            <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                         </Grid>
                     </DataTemplate>
                 </Pivot.HeaderTemplate>

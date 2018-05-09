@@ -18,6 +18,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Frame Canvas.ZIndex="5" x:Name="FrameConnect"/>
+
         <Pivot IsLocked="True" ManipulationMode="None" Style="{ThemeResource CustomMainPivot}" x:Name="MainPivot" Grid.Row="0">
 
             <PivotItem Margin="0">

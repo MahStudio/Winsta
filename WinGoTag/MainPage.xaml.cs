@@ -38,7 +38,7 @@ namespace WinGoTag
         public MainPage()
         {
             this.InitializeComponent();
-
+            FrameConnect.Navigate(typeof(Page));
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
                 try
@@ -51,7 +51,7 @@ namespace WinGoTag
                 catch { }
             }
 
-            MainFrame = Fr;
+            MainFrame = FrameConnect;
             Bar = InstaBar;
         }
 

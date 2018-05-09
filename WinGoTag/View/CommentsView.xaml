@@ -5,16 +5,15 @@
     xmlns:local="using:WinGoTag.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <Page.Transitions>
         <TransitionCollection>
             <EdgeUIThemeTransition Edge="Right"/>
         </TransitionCollection>
     </Page.Transitions>
-    
-    <Grid>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
@@ -41,12 +40,12 @@
                   IsItemClickEnabled="True" SelectionMode="None" x:Name="mylist">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="0,6,0,6">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="54"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="65" Height="65">
+                        <Ellipse Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="30" Height="30" Margin="0,6,0,6">
                             <Ellipse.Fill>
                                 <ImageBrush>
                                     <ImageBrush.ImageSource>
@@ -55,13 +54,20 @@
                                 </ImageBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding User.UserName, Mode=OneWay}" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Text, Mode=OneWay}" TextAlignment="DetectFromContent"/>
+                        <Grid Grid.Column="1" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+                            
+                            <Grid Margin="0,6,0,6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock TextWrapping="Wrap" FontSize="12" Margin="0,0,12,0">
+                                    <Run FontWeight="SemiBold" Text="{Binding User.UserName, Mode=OneWay}"/>
+                                    <Run Text="{Binding Text, Mode=OneWay}"/>
+                                </TextBlock>
+                            </Grid>
+                            
                         </Grid>
                     </Grid>
                 </DataTemplate>
