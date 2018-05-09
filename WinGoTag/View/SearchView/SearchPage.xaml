@@ -10,6 +10,7 @@
     xmlns:View="using:WinGoTag.UserControls"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Converters="using:WinGoTag.Converters"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -17,6 +18,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Pivots.xaml"/>
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate x:Key="TagsItem">
@@ -65,35 +67,44 @@
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="12 0"/>
-                <Setter Property="Height" Value="48" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Width" Value="Auto" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="PivotHeaderItem">
-                            <Grid x:Name="Grid" Background="{TemplateBinding Background}"
-                        BorderBrush="Transparent" BorderThickness="0 0 0 1" Padding="0 0 0 3">
+                            <Grid  x:Name="Grid" HorizontalAlignment="Stretch" Background="{TemplateBinding Background}"
+                                   BorderBrush="Transparent" BorderThickness="0 0 0 1" Padding="0 0 0 1">
+                                
                                 <Grid.Transitions>
                                     <TransitionCollection>
                                         <EntranceThemeTransition FromHorizontalOffset="20" FromVerticalOffset="0" />
                                         <ContentThemeTransition HorizontalOffset="20" VerticalOffset="0"/>
                                     </TransitionCollection>
                                 </Grid.Transitions>
+                                
                                 <Grid.Resources>
+                                    
                                     <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
                                         <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
                                         <Setter Property="FontWeight" Value="SemiBold"/>
                                         <Setter Property="FontSize" Value="15"/>
                                         <Setter Property="TextWrapping" Value="Wrap"/>
                                         <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                         <Setter Property="TextLineBounds" Value="Full"/>
                                         <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
                                     </Style>
+                                    
                                     <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter" BasedOn="{StaticResource BaseContentPresenterStyle}">
                                         <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
                                         <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}"/>
                                         <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                     </Style>
+                                    
                                 </Grid.Resources>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="SelectionStates">
@@ -217,11 +228,12 @@
         </Grid.RowDefinitions>
 
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
-              x:Name="GridSearch" Grid.Row="1" Visibility="Visible">
+              x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
 
             <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+
                 <Pivot.HeaderTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="Page">
                         <Grid Width="70">
                             <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
                         </Grid>

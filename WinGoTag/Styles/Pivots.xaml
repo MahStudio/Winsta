@@ -832,22 +832,31 @@
                                         <Grid.RenderTransform>
                                             <CompositeTransform x:Name="PivotLayoutElementTranslateTransform" />
                                         </Grid.RenderTransform>
+                                        <!--<Border Background="Aqua" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"/>-->
                                         <ContentPresenter
-                  x:Name="LeftHeaderPresenter"
-                  Content="{TemplateBinding LeftHeader}"
-                  ContentTemplate="{TemplateBinding LeftHeaderTemplate}"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" />
+                                            x:Name="LeftHeaderPresenter"
+                                            Content="{TemplateBinding LeftHeader}"
+                                            ContentTemplate="{TemplateBinding LeftHeaderTemplate}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch" />
+                                        
                                         <ContentControl
-                  x:Name="HeaderClipper"
-                  Grid.Column="1"
-                  UseSystemFocusVisuals="True"
-                  HorizontalContentAlignment="Stretch">
+                                            x:Name="HeaderClipper"
+                                            Grid.Column="1"
+                                            UseSystemFocusVisuals="True"
+                                            HorizontalContentAlignment="Stretch">
+                                            
                                             <ContentControl.Clip>
                                                 <RectangleGeometry x:Name="HeaderClipperGeometry" />
                                             </ContentControl.Clip>
+                                            
                                             <Grid Background="Transparent">
-                                                <PivotHeaderPanel HorizontalAlignment="Center" x:Name="StaticHeader" Visibility="Collapsed" />
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <PivotHeaderPanel  HorizontalAlignment="Center" x:Name="StaticHeader" Visibility="Collapsed">
+                                                    
+                                                </PivotHeaderPanel>
                                                 <PivotHeaderPanel x:Name="Header">
                                                     <PivotHeaderPanel.RenderTransform>
                                                         <TransformGroup>
@@ -857,6 +866,7 @@
                                                     </PivotHeaderPanel.RenderTransform>
                                                 </PivotHeaderPanel>
                                             </Grid>
+                                            
                                         </ContentControl>
                                         <Button
                     x:Name="PreviousButton"

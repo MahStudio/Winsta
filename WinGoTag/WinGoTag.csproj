@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\CarouselSizeConverter.cs" />
+    <Compile Include="Converters\ConvertPivotTab.cs" />
     <Compile Include="Converters\DirectMessageControlVisibilityConverter.cs" />
     <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
