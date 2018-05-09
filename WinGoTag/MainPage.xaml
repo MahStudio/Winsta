@@ -32,7 +32,7 @@
                 <TextBlock Text="Add" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </PivotItem>
 
-            <PivotItem Margin="0">
+            <PivotItem Margin="0" x:Name="ActivityPivotItem">
                 <TextBlock Text="Loves" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </PivotItem>
 

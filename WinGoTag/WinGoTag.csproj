@@ -147,6 +147,9 @@
     <Compile Include="ViewModel\SignInSignUp\ChallengeViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\LoginViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\TwoStepFactorViewModel.cs" />
+    <Compile Include="View\ActivityView\RecentActivityView.xaml.cs">
+      <DependentUpon>RecentActivityView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CameraView\CameraView.xaml.cs">
       <DependentUpon>CameraView.xaml</DependentUpon>
     </Compile>
@@ -361,6 +364,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InstaStoryFeedUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ActivityView\RecentActivityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

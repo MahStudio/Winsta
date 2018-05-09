@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.View;
+using WinGoTag.View.ActivityView;
 using WinGoTag.View.DirectMessages;
 using WinGoTag.View.SearchView;
 using WinGoTag.View.SignInSignUp;
@@ -102,6 +103,7 @@ namespace WinGoTag
         private void LoveBT_Click(object sender, RoutedEventArgs e)
         {
             MainPivot.SelectedIndex = 3;
+            ActivityPivotItem.Content = new RecentActivityView();
         }
 
         private void UserBT_Click(object sender, RoutedEventArgs e)

@@ -50,7 +50,7 @@ namespace WinGoTag.View.DirectMessages
                 MessageList.Items.Add(Message.Value.Items[a]);
             }
 
-           
+            //var test = await AppCore.InstaApi.GetRecentRecipientsAsync();
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
@@ -88,7 +88,7 @@ namespace WinGoTag.View.DirectMessages
                 MessageList.Items.Add(MessageSend.Value[0].Items[a]);
             }
 
-
+           
             //FOR TEST
             //var addItem = new InstaDirectInboxItem() { ItemType = InstaDirectThreadItemType.Text, Text = TextBoxChat.Text };
             //TextBoxChat.Text = "";
