@@ -77,7 +77,7 @@ namespace WinGoTag.UserControls
                     { HyperComment.Visibility = Visibility.Collapsed; }
 
                     //LikeCount.Text = $"{Media.LikesCount} people like it";
-                    CommentCount.Text = "See all " + Media.CommentsCount + " comments";
+                    //CommentCount.Text = "See all " + Media.CommentsCount + " comments";
                
 
                     await Task.Delay(100);
