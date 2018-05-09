@@ -426,7 +426,7 @@ namespace WinGoTag.DataBinding
         {
             HasMoreItems = true;
             _generator = generator;
-            _maxCount = maxCount;
+            _maxpage = maxCount;
             _username = username;
             pagination = PaginationParameters.MaxPagesToLoad(1);
         }
@@ -435,7 +435,7 @@ namespace WinGoTag.DataBinding
         {
             if (!HasMoreItems)
                 return (new List<InstaMedia>()).ToArray();
-            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            uint toGenerate = System.Math.Min(count, _maxpage - _count);
             // Wait for work 
             await Task.Delay(10);
 
@@ -443,6 +443,7 @@ namespace WinGoTag.DataBinding
             var res = await AppCore.InstaApi.GetUserMediaAsync(_username, pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
+            if (_LastPage == res.Value.Pages) HasMoreItems = false;
             // This code simply generates
             if (tres == null)
             {
@@ -458,15 +459,14 @@ namespace WinGoTag.DataBinding
 
         protected override bool HasMoreItemsOverride()
         {
-            return _count < _maxCount;
+            return _LastPage < _maxpage;
         }
 
         #region State
 
         Func<int, T> _generator;
         uint _count = 0;
-        uint _maxCount;
-
+        uint _maxpage;
         #endregion 
     }
 

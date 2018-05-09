@@ -134,7 +134,7 @@
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
                                                    Style="{ThemeResource CustomGridView}"
-                                                   ItemsSource="{Binding GridList}"
+                                                   ItemsSource="{Binding MediaList}"
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
                                                    IsItemClickEnabled="True">
