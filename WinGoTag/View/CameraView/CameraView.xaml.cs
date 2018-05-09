@@ -39,6 +39,7 @@ namespace WinGoTag.View.CameraView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             await StartPreviewAsync();
         }
 

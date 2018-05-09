@@ -48,6 +48,7 @@ namespace WinGoTag.View.AddPhotos
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             GetCameraRoll();
         }
 

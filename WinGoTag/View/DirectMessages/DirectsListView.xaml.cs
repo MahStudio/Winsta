@@ -28,6 +28,13 @@ namespace WinGoTag.View.DirectMessages
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            AppCore.ModerateBack(Frame.GoBack);
+        }
+
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             MainView.HeaderD.Visibility = Visibility.Collapsed;

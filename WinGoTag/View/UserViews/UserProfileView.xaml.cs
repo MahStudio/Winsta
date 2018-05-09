@@ -32,6 +32,7 @@ namespace WinGoTag.View.UserViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             if (e.Parameter.GetType() == typeof(InstaUser))
                 UserProfileViewModel.User = (e.Parameter as InstaUser);
             if (e.Parameter.GetType() == typeof(InstaUserShort))

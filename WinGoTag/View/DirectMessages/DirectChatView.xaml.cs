@@ -36,6 +36,7 @@ namespace WinGoTag.View.DirectMessages
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             this.DataContext = ((InstaDirectInboxThread)e.Parameter);
             var source = ((InstaDirectInboxThread)e.Parameter);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId);
