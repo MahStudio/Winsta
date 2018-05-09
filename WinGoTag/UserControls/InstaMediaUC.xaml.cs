@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
+using WinGoTag.View;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -109,7 +110,7 @@ namespace WinGoTag.UserControls
 
         private void CommentBTN_Click(object sender, RoutedEventArgs e)
         {
-
+            MainPage.MainFrame.Navigate(typeof(CommentsView), Media.InstaIdentifier);
         }
 
         private void MoreBTN_Click(object sender, RoutedEventArgs e)

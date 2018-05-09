@@ -15,6 +15,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public GenerateHomePage(uint maxCount, Func<int, T> generator)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             pagination = PaginationParameters.MaxPagesToLoad(1);
@@ -62,6 +63,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public GenerateDirectsList(uint maxCount, Func<int, T> generator)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             pagination = PaginationParameters.MaxPagesToLoad(1);
@@ -109,6 +111,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public GenerateExplorePage(uint maxCount, Func<int, T> generator)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             pagination = PaginationParameters.MaxPagesToLoad(1);
@@ -158,6 +161,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public GenerateUserFollowers(uint maxCount, Func<int, T> generator, string username)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             _username = username;
@@ -166,6 +170,8 @@ namespace WinGoTag.DataBinding
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
         {
+            if(!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
             uint toGenerate = System.Math.Min(count, _maxCount - _count);
             // Wait for work 
             await Task.Delay(10);
@@ -208,6 +214,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public GenerateUserFollowings(uint maxCount, Func<int, T> generator, string username)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             _username = username;
@@ -216,6 +223,8 @@ namespace WinGoTag.DataBinding
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
         {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
             uint toGenerate = System.Math.Min(count, _maxCount - _count);
             // Wait for work 
             await Task.Delay(10);
@@ -260,6 +269,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public FollowingRecentActivity(uint maxCount, Func<int, T> generator)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             pagination = PaginationParameters.MaxPagesToLoad(1);
@@ -310,6 +320,7 @@ namespace WinGoTag.DataBinding
         PaginationParameters pagination;
         public RecentActivity(uint maxCount, Func<int, T> generator)
         {
+            HasMoreItems = true;
             _generator = generator;
             _maxCount = maxCount;
             pagination = PaginationParameters.MaxPagesToLoad(1);
@@ -329,6 +340,60 @@ namespace WinGoTag.DataBinding
             if (tres == null)
             {
                 return (new List<InstaRecentActivityFeed>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
+
+    public class GenerateComments<T> : IncrementalLoadingBase
+    {
+        private string _mediaid;
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateComments(uint maxCount, Func<int, T> generator, string mediaid)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            _mediaid = mediaid;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+
+            IEnumerable<InstaComment> tres = null;//
+            var res = await AppCore.InstaApi.GetMediaCommentsAsync(_mediaid, pagination);
+            pagination.NextId = res.Value.NextId;
+            tres = res.Value.Comments.ToList();
+            HasMoreItems = res.Value.MoreComentsAvailable;
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaMedia>()).ToArray();
             }
             var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
                          select (object)_generator(j);
