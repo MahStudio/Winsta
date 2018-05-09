@@ -496,6 +496,7 @@ namespace WinGoTag.DataBinding
             var res = await AppCore.InstaApi.GetUserTagsAsync(_username, pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
+            if (_LastPage == res.Value.Pages) HasMoreItems = false;
             // This code simply generates
             if (tres == null)
             {
