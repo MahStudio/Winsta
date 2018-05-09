@@ -77,5 +77,10 @@ namespace WinGoTag.View.UserViews
         {
             Frame.GoBack();
         }
+
+        private void User_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(UserProfileView), e.ClickedItem);
+        }
     }
 }
