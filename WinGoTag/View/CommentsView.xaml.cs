@@ -56,5 +56,10 @@ namespace WinGoTag.View
         {
 
         }
+
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
     }
 }

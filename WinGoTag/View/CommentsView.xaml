@@ -8,8 +8,37 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <EdgeUIThemeTransition Edge="Right"/>
+        </TransitionCollection>
+    </Page.Transitions>
+    
     <Grid>
-        <ListView ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="True" SelectionMode="None" x:Name="mylist">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="68"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <TextBlock Grid.Column="1" Text="Comments" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+
+        </Grid>
+
+        <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" 
+                  IsItemClickEnabled="True" SelectionMode="None" x:Name="mylist">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
