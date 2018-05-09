@@ -85,7 +85,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="piace a 2.022 persone" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13"/>
+            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13">
+                <Run Text="{Binding LikesCount, Mode=OneWay}"/>
+                <Run Text="people like it"/>
+            </TextBlock>
 
             <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0" FontSize="13"/>
             <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Margin="12,3,12,0">

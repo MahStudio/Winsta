@@ -76,7 +76,7 @@ namespace WinGoTag.UserControls
                     if (Media.CommentsCount == "0")
                     { HyperComment.Visibility = Visibility.Collapsed; }
 
-                    LikeCount.Text = $"{Media.LikesCount} people like it";
+                    //LikeCount.Text = $"{Media.LikesCount} people like it";
                     CommentCount.Text = "See all " + Media.CommentsCount + " comments";
                
 
@@ -153,12 +153,18 @@ namespace WinGoTag.UserControls
             if (!Media.HasLiked)
             {
                 if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
+                {
                     Media.HasLiked = true;
+                    Media.LikesCount += 1;
+                }
             }
             else
             {
                 if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
+                {
                     Media.HasLiked = false;
+                    Media.LikesCount -= 1;
+                }
             }
         }
 

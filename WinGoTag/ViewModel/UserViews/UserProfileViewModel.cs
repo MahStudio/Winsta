@@ -1,12 +1,15 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstaSharper.Classes.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 
-namespace WinGoTag.ViewModel
+namespace WinGoTag.ViewModel.UserViews
 {
-    class ProfileViewModel : INotifyPropertyChanged
+    class UserProfileViewModel : INotifyPropertyChanged
     {
         private bool _isbusy;
         private InstaMediaList _medlst;
@@ -28,7 +31,13 @@ namespace WinGoTag.ViewModel
             get { return _medlst; }
             set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MediaList")); }
         }
-        
+
+        public InstaMediaList GridList
+        {
+            get { return _medlst; }
+            set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("GridList")); }
+        }
+
         public InstaMediaList UserTag
         {
             get { return _medUslst; }
@@ -36,12 +45,12 @@ namespace WinGoTag.ViewModel
         }
 
         CoreDispatcher Dispatcher { get; set; }
-        public ProfileViewModel()
+
+        public UserProfileViewModel()
         {
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             RunLoadPage();
         }
-
         async void RunLoadPage()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
@@ -49,16 +58,15 @@ namespace WinGoTag.ViewModel
 
         async void LoadPage()
         {
-            var username = AppCore.InstaApi.GetLoggedUser().UserName;
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(username);
-            UserInfo = user.Value;
+            //var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(Username);
+            //UserInfo = user.Value;
 
-            var media = await AppCore.InstaApi.GetUserMediaAsync(username, PaginationParameters.MaxPagesToLoad(1));
-            MediaList = media.Value;
+            //var media = await AppCore.InstaApi.GetUserMediaAsync(Username, PaginationParameters.MaxPagesToLoad(1));
+            //MediaList = media.Value;
             //GridList = media.Value;
 
-            var mediaUserTag = await AppCore.InstaApi.GetUserTagsAsync(username, PaginationParameters.MaxPagesToLoad(1));
-            UserTag = mediaUserTag.Value;
+            //var mediaUserTag = await AppCore.InstaApi.GetUserTagsAsync(Username, PaginationParameters.MaxPagesToLoad(1));
+            //UserTag = mediaUserTag.Value;
         }
     }
 }

@@ -29,7 +29,8 @@ namespace InstaSharper.Classes.Models
 
         public string TrackingToken { get; set; }
 
-        public int LikesCount { get; set; }
+        private int _likecount;
+        public int LikesCount { get { return _likecount; } set { _likecount = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LikesCount")); } }
 
         public string NextMaxId { get; set; }
 
