@@ -237,11 +237,11 @@
                 </PivotItem>
 
                 <PivotItem Header="HashTag" Margin="0">
-                    <ListView x:Name="TagsList" ItemTemplate="{StaticResource TagsItem}" Margin="0,0,0,0"/>
+                    <ListView x:Name="TagsList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource TagsItem}" Margin="0,0,0,0"/>
                 </PivotItem>
 
                 <PivotItem Header="Location" Margin="0">
-                    <ListView x:Name="PlacesList" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
+                    <ListView x:Name="PlacesList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
                 </PivotItem>
             </Pivot>
 

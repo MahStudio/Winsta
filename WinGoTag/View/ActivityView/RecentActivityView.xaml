@@ -182,7 +182,7 @@
             </PivotItem>
 
             <PivotItem Header="You" Margin="0">
-                <ListView x:Name="ListYouActivity">
+                <ListView ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" x:Name="ListYouActivity">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

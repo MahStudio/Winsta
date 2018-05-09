@@ -68,5 +68,9 @@ namespace WinGoTag.View.UserViews
         {
         }
 
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
     }
 }

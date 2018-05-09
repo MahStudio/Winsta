@@ -67,6 +67,10 @@ namespace WinGoTag.View.UserViews
         private void PageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
         }
-        
+
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
     }
 }
