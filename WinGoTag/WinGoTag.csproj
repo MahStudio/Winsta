@@ -151,6 +151,7 @@
     <Compile Include="ViewModel\SignInSignUp\ChallengeViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\LoginViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\TwoStepFactorViewModel.cs" />
+    <Compile Include="ViewModel\UserViews\UserProfileViewModel.cs" />
     <Compile Include="View\ActivityView\RecentActivityView.xaml.cs">
       <DependentUpon>RecentActivityView.xaml</DependentUpon>
     </Compile>
@@ -204,6 +205,9 @@
     </Compile>
     <Compile Include="View\UserViews\UserFollowingsView.xaml.cs">
       <DependentUpon>UserFollowingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\UserProfileView.xaml.cs">
+      <DependentUpon>UserProfileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -446,6 +450,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserViews\UserFollowingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserViews\UserProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

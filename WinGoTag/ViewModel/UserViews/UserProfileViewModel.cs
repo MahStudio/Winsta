@@ -1,13 +1,17 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstaSharper.Classes.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using WinGoTag.DataBinding;
 
-namespace WinGoTag.ViewModel
+namespace WinGoTag.ViewModel.UserViews
 {
-    class ProfileViewModel : INotifyPropertyChanged
+    class UserProfileViewModel : INotifyPropertyChanged
     {
         private bool _isbusy;
         private GenerateUserMedia<InstaMedia> _medlst;
@@ -29,7 +33,7 @@ namespace WinGoTag.ViewModel
             get { return _medlst; }
             set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MediaList")); }
         }
-        
+
         public GenerateUserTags<InstaMedia> UserTag
         {
             get { return _medUslst; }
@@ -37,12 +41,14 @@ namespace WinGoTag.ViewModel
         }
 
         CoreDispatcher Dispatcher { get; set; }
-        public ProfileViewModel()
+
+        public InstaUser User { get; set; }
+
+        public UserProfileViewModel()
         {
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             RunLoadPage();
         }
-
         async void RunLoadPage()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
@@ -50,10 +56,9 @@ namespace WinGoTag.ViewModel
 
         async void LoadPage()
         {
-            var User = AppCore.InstaApi.GetLoggedUser();
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
             UserInfo = user.Value;
-
+            
             MediaList = new GenerateUserMedia<InstaMedia>(100000, (count) =>
             {
                 //return tres[count];
@@ -65,7 +70,8 @@ namespace WinGoTag.ViewModel
             {
                 //return tres[count];
                 return new InstaMedia();
-            }, User.UserName); ;
+            }, User.UserName);
+            //UserTag = mediaUserTag.Value;
         }
     }
 }

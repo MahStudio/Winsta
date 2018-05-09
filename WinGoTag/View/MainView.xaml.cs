@@ -108,8 +108,8 @@ namespace WinGoTag.View
             //mylist.ItemsSource = res.Value.Medias;
 
             _ProgressBar.IsIndeterminate = false;
-            var sv = FindChildOfType<ScrollViewer>(mylist);
-            sv.ViewChanged += Sv_ViewChanged;
+            //var sv = FindChildOfType<ScrollViewer>(mylist);
+            //sv.ViewChanged += Sv_ViewChanged;
             //await Task.Delay(2000);
             //DirectFr.Navigate(typeof(DirectsListView));
             //MainPage.MainFrame.Navigate(typeof(DirectsListView));

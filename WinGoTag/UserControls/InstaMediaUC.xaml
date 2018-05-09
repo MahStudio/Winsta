@@ -47,10 +47,10 @@
                     </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI"/>
+            <HyperlinkButton Grid.Column="1" Content="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click"/>
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" MaxHeight="{Binding ConverterParameter=h}">
             <FontIcon Opacity="0" Name="LikeAnimations" FontSize="72" Canvas.ZIndex="2" FontFamily="Segoe MDL2 Assets" Glyph="&#xE00B;" Foreground="#FFEA3838" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Image Opacity="0" ImageOpened="Cover_ImageOpened" Source="{Binding Images[0].URI}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}" Tapped="Media_Tapped" MaxWidth="{Binding Images[0].Width}" MaxHeight="{Binding Images[0].Height}"/>
             <MediaElement x:Name="MedEl" AutoPlay="{Binding Play, Mode=OneWay}" AreTransportControlsEnabled="True" PosterSource="{Binding Images[0].URI}" Source="{Binding Videos[0].Url}" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=2, Mode=OneWay}" Tapped="Media_Tapped" Stretch="Fill"/>
@@ -85,11 +85,18 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="piace a 2.022 persone" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13"/>
+            <TextBlock Grid.Row="0" x:Name="LikeCount" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Margin="12,0,12,6" FontWeight="SemiBold" FontSize="13">
+                <Run Text="{Binding LikesCount, Mode=OneWay}"/>
+                <Run Text="people like it"/>
+            </TextBlock>
 
             <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Margin="12,0,12,0" FontSize="13"/>
             <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Margin="12,3,12,0" Click="CommentBTN_Click">
-                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" x:Name="CommentCount" FontSize="13"/>
+                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="13">
+                    <Run Text="See all"/>
+                    <Run Text="{Binding CommentsCount, Mode=OneWay}"/>
+                    <Run Text="comments"/>
+                </TextBlock>
             </HyperlinkButton>
             <HyperlinkButton x:Name="MoreBTN" Grid.Row="3" Click="MoreBTN_Click" Margin="12,0,0,0">
                 <TextBlock Text="More" FontWeight="SemiBold"/>

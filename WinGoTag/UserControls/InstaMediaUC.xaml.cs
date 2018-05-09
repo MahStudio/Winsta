@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
 using WinGoTag.View;
+using WinGoTag.View.UserViews;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -76,8 +77,8 @@ namespace WinGoTag.UserControls
                     if (Media.CommentsCount == "0")
                     { HyperComment.Visibility = Visibility.Collapsed; }
 
-                    LikeCount.Text = $"{Media.LikesCount} people like it";
-                    CommentCount.Text = "See all " + Media.CommentsCount + " comments";
+                    //LikeCount.Text = $"{Media.LikesCount} people like it";
+                    //CommentCount.Text = "See all " + Media.CommentsCount + " comments";
                
 
                     await Task.Delay(100);
@@ -90,8 +91,6 @@ namespace WinGoTag.UserControls
             catch { }
         }
 
-
-
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Play")
@@ -103,6 +102,10 @@ namespace WinGoTag.UserControls
         }
 
         #region Buttons Events
+        private void Username_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.MainFrame.Navigate(typeof(UserProfileView), Media.User);
+        }
         private async void LikeBTN_Click(object sender, RoutedEventArgs e)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
@@ -153,12 +156,18 @@ namespace WinGoTag.UserControls
             if (!Media.HasLiked)
             {
                 if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
+                {
                     Media.HasLiked = true;
+                    Media.LikesCount += 1;
+                }
             }
             else
             {
                 if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
+                {
                     Media.HasLiked = false;
+                    Media.LikesCount -= 1;
+                }
             }
         }
 
@@ -250,5 +259,6 @@ namespace WinGoTag.UserControls
             //ThisFlipView.Height = h.Height;
             //ThisFlipView.Height = h.ActualHeight;
         }
+        
     }
 }
