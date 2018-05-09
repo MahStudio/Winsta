@@ -66,6 +66,11 @@ namespace WinGoTag.View.UserViews
 
         private void PageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            var list = PageItemssource[0] as InstaUserShort;
+            if ((e.NewItems[0] as InstaUserShort).Pk == list.Pk)
+            {
+                PageItemssource.HasMoreItems = false;
+            }
         }
         
     }

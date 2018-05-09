@@ -54,7 +54,7 @@ namespace WinGoTag.DataBinding
 
         public void Remove(object value)
         {
-            throw new NotImplementedException();
+            _storage.Remove(value);
         }
 
         public void RemoveAt(int index)
@@ -105,7 +105,7 @@ namespace WinGoTag.DataBinding
 
         public bool HasMoreItems
         {
-            get { return HasMoreItemsOverride(); }
+            get;set;
         }
 
         public Windows.Foundation.IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
