@@ -3,14 +3,15 @@ using InstaSharper.Classes.Models;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;
+using WinGoTag.DataBinding;
 
 namespace WinGoTag.ViewModel
 {
     class ProfileViewModel : INotifyPropertyChanged
     {
         private bool _isbusy;
-        private InstaMediaList _medlst;
-        private InstaMediaList _medUslst;
+        private GenerateUserMedia<InstaMedia> _medlst;
+        private GenerateUserTags<InstaMedia> _medUslst;
         private InstaUserInfo _info;
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsBusy
@@ -23,13 +24,13 @@ namespace WinGoTag.ViewModel
             get { return _info; }
             set { _info = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserInfo")); }
         }
-        public InstaMediaList MediaList
+        public GenerateUserMedia<InstaMedia> MediaList
         {
             get { return _medlst; }
             set { _medlst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MediaList")); }
         }
         
-        public InstaMediaList UserTag
+        public GenerateUserTags<InstaMedia> UserTag
         {
             get { return _medUslst; }
             set { _medUslst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserTag")); }
@@ -49,16 +50,22 @@ namespace WinGoTag.ViewModel
 
         async void LoadPage()
         {
-            var username = AppCore.InstaApi.GetLoggedUser().UserName;
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(username);
+            var User = AppCore.InstaApi.GetLoggedUser();
+            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
             UserInfo = user.Value;
 
-            var media = await AppCore.InstaApi.GetUserMediaAsync(username, PaginationParameters.MaxPagesToLoad(1));
-            MediaList = media.Value;
+            MediaList = new GenerateUserMedia<InstaMedia>(100000, (count) =>
+            {
+                //return tres[count];
+                return new InstaMedia();
+            }, User.UserName);
             //GridList = media.Value;
 
-            var mediaUserTag = await AppCore.InstaApi.GetUserTagsAsync(username, PaginationParameters.MaxPagesToLoad(1));
-            UserTag = mediaUserTag.Value;
+            UserTag = new GenerateUserTags<InstaMedia>(100000, (count) =>
+            {
+                //return tres[count];
+                return new InstaMedia();
+            }, User.UserName); ;
         }
     }
 }

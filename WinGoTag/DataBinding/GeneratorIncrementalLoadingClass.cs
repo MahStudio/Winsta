@@ -416,4 +416,110 @@ namespace WinGoTag.DataBinding
 
         #endregion 
     }
+
+    public class GenerateUserMedia<T> : IncrementalLoadingBase
+    {
+        private string _username;
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateUserMedia(uint maxCount, Func<int, T> generator, string username)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            _username = username;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+
+            IEnumerable<InstaMedia> tres = null;//
+            var res = await AppCore.InstaApi.GetUserMediaAsync(_username, pagination);
+            pagination.NextId = res.Value.NextId;
+            tres = res.Value.ToList();
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaMedia>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
+
+    public class GenerateUserTags<T> : IncrementalLoadingBase
+    {
+        private string _username;
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateUserTags(uint maxCount, Func<int, T> generator, string username)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            _username = username;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+
+            IEnumerable<InstaMedia> tres = null;//
+            var res = await AppCore.InstaApi.GetUserTagsAsync(_username, pagination);
+            pagination.NextId = res.Value.NextId;
+            tres = res.Value.ToList();
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaMedia>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
 }
