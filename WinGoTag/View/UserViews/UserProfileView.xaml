@@ -117,13 +117,18 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
                 <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>
                 <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12"/>
+                <TextBlock Grid.Row="4" FontSize="12">
+                    <Run Text="Followed by" Foreground="Gray"/>
+                    <Run Text="{Binding UserInfo.ProfileContext}" FontWeight="SemiBold"/>
+                </TextBlock>
             </Grid>
 
-            <Grid Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
+            <Grid Margin="0,3,0,0" Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
