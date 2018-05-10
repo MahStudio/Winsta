@@ -47,7 +47,9 @@
                     </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <HyperlinkButton Grid.Column="1" Content="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click"/>
+            <HyperlinkButton Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click">
+                <TextBlock Text="{Binding User.UserName}"/>
+            </HyperlinkButton>
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>
         <Grid Grid.Row="1" MaxHeight="{Binding ConverterParameter=h}">

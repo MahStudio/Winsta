@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,6 +24,30 @@ namespace WinGoTag
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
+            App.Current.Suspending += Current_Suspending;
+        }
+
+        private async void Current_Suspending(object sender, SuspendingEventArgs e)
+        {
+            try
+            {
+                var def = e.SuspendingOperation.GetDeferral();
+                if (AppCore.InstaApi != null)
+                {
+                    var state = AppCore.InstaApi.GetStateDataAsStream();
+                    var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.ReplaceExisting);
+                    await FileIO.WriteTextAsync(file, state); await FileIO.WriteTextAsync(file, state);
+                }
+                def.Complete();
+            }
+            catch { }
+        }
+
+        private async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            await new MessageDialog(e.Message).ShowAsync();
         }
 
         /// <summary>
@@ -67,12 +92,6 @@ namespace WinGoTag
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            if (AppCore.InstaApi != null)
-            {
-                var state = AppCore.InstaApi.GetStateDataAsStream();
-                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.ReplaceExisting);
-                await FileIO.WriteTextAsync(file, state); await FileIO.WriteTextAsync(file, state);
-            }
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
