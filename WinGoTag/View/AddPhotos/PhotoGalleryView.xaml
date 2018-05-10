@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Photos="using:WinGoTag.UserControls.LocalImage"
     mc:Ignorable="d">
 
@@ -74,17 +76,31 @@
             <Button x:Name="Next" Grid.Column="2" Content="Forward" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="Next_Click"/>
         </Grid>
 
+       
+
         <controls:AdaptiveGridView Name="ListImage" Grid.Row="1"
                                    ContainerContentChanging="ImageGridView_ContainerContentChanging"
-                                                   OneRowModeEnabled="False"
-                                                   ItemHeight="138"
-                                                   Style="{ThemeResource CustomGridView}"
-                                                   ItemsSource="{x:Bind Images, Mode=OneWay}"
-                                                   DesiredWidth="150"
-                                                   SelectionMode="None"
+                                   OneRowModeEnabled="False"
+                                   ItemHeight="138"
+                                   
+                                   Style="{ThemeResource CustomGridView}"
+                                   ItemsSource="{x:Bind Images, Mode=OneWay}"
+                                   DesiredWidth="150"
+                                  
+                                   SelectionMode="Single"
                                    ItemTemplate="{StaticResource ImageGridView_MobileItemTemplate}"
-                                                   IsItemClickEnabled="True">
+                                   IsItemClickEnabled="True" ItemClick="ListImage_ItemClick" SelectionChanged="ListImage_SelectionChanged">
+            
 
+            <GridView.Header>
+                <controls:ScrollHeader Mode="QuickReturn">
+                    <Grid DataContext="local:ImageFileInfo">
+                        <Image Source="{Binding ElementName=ListImage, Path=SelectedItem}" x:Name="PreviewPictures" DataContextChanged="PreviewPictures_DataContextChanged"/>
+                    </Grid>
+                </controls:ScrollHeader>
+               
+            </GridView.Header>
+            
             <GridView.ItemContainerStyle>
                 <Style TargetType="FrameworkElement">
                     <Setter Property="Margin" Value="0.5"/>
