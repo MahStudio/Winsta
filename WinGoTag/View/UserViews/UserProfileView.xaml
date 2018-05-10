@@ -108,7 +108,7 @@
                             <TextBlock TextAlignment="Center" Text="Following" Foreground="Gray" Grid.Row="1"/>
                         </Grid>
                     </Grid>
-                    <Button DataContext="{Binding UserInfo}" x:Name="EditProfileBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Follow" Click="FollowUser_Click" Height="38"/>
+                    <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="{Binding FollowBTNContent, Mode=OneWay}" Command="{Binding FollowBTNCmd}" Height="38"/>
                 </Grid>
             </Grid>
 
