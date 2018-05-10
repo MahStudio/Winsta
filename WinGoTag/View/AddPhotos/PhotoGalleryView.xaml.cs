@@ -49,8 +49,11 @@ namespace WinGoTag.View.AddPhotos
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-          
             await GetItemsAsync();
+
+
+            //var item = Images[0] as ImageFileInfo;
+            //PreviewPictures.Source = await item.GetImageThumbnailAsync();
         }
 
 
@@ -89,6 +92,8 @@ namespace WinGoTag.View.AddPhotos
                 {
                     unsupportedFilesFound = true;
                 }
+
+                
             }
 
             if (unsupportedFilesFound == true)
@@ -165,6 +170,8 @@ namespace WinGoTag.View.AddPhotos
                     bitmapImage.UriSource = new Uri(image.BaseUri, "Assets/StoreLogo.png");
                     image.Source = bitmapImage;
                 }
+
+                ListImage.SelectedIndex = 0;
             }
 
         }
@@ -186,6 +193,30 @@ namespace WinGoTag.View.AddPhotos
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        private void ListImage_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //var item = e.ClickedItem as ImageFileInfo;
+            //PreviewPictures.DataContext = item;
+            //PreviewPictures.Source = await item.GetImageThumbnailAsync();
+
+        }
+
+        private async void PreviewPictures_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            try
+            {
+                var item = args.NewValue as ImageFileInfo;
+                PreviewPictures.Source = await item.GetImageThumbnailAsync();
+            }
+            catch { }
+        }
+
+        private void ListImage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = ListImage.SelectedItem as ImageFileInfo;
+            PreviewPictures.DataContext = item;
         }
     }
 }

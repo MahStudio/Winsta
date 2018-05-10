@@ -104,7 +104,7 @@ namespace WinGoTag
 
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
-            MainPivot.SelectedIndex = 2;
+            //MainPivot.SelectedIndex = 2;
             FrameConnect.Navigate(typeof(PhotoGalleryView));
         }
 
