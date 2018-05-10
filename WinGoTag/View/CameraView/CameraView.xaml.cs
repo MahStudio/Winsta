@@ -39,6 +39,10 @@ namespace WinGoTag.View.CameraView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(() =>
+            {
+                MainView.MainViewPivot.SelectedIndex = 1;
+            });
             await StartPreviewAsync();
         }
 
@@ -60,7 +64,7 @@ namespace WinGoTag.View.CameraView
                 {
                     mediaCapture.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
                 }
-                
+
                 //DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
             }
             catch (UnauthorizedAccessException)

@@ -32,6 +32,7 @@ namespace WinGoTag.View.EditProfile
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             DataContext = ((InstaUserInfo)e.Parameter);
         }
 

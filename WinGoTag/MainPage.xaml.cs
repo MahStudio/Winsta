@@ -51,9 +51,15 @@ namespace WinGoTag
                 }
                 catch { }
             }
-
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             MainFrame = FrameConnect;
             Bar = InstaBar;
+        }
+
+        private void MainPage_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            e.Handled = true;
+            AppCore.ModerateBack();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

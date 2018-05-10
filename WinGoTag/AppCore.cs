@@ -10,11 +10,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Core;
 
 namespace WinGoTag
 {
     public class AppCore
     {
+        private static Stack<DispatchedHandler> _NavigationManager = new Stack<DispatchedHandler>();
+        public static void ModerateBack()
+        {
+            try
+            {
+                var f = _NavigationManager.Pop();
+                f.Invoke();
+            }
+            catch 
+            {
+                App.Current.Exit();
+            }
+        }
+
+        public static void ModerateBack(DispatchedHandler Callback)
+        {
+            _NavigationManager.Push(Callback);
+        }
+
         public static IInstaApi InstaApi
         {
             get; set;

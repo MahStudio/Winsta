@@ -32,7 +32,11 @@ namespace WinGoTag.View.UserViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            UserProfileViewModel.User = (e.Parameter as InstaUser);
+            AppCore.ModerateBack(Frame.GoBack);
+            if (e.Parameter.GetType() == typeof(InstaUser))
+                UserProfileViewModel.User = (e.Parameter as InstaUser);
+            if (e.Parameter.GetType() == typeof(InstaUserShort))
+                UserProfileViewModel.User = new InstaUser(e.Parameter as InstaUserShort);
         }
 
         private void Followers_Tapped(object sender, TappedRoutedEventArgs e)

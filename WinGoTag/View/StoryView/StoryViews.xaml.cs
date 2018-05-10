@@ -66,7 +66,7 @@ namespace WinGoTag.View.StoryView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+            AppCore.ModerateBack(CloseStories);
             if (e.Parameter is InstaReelFeed)
             {
                 this.DataContext = ((InstaReelFeed)e.Parameter);

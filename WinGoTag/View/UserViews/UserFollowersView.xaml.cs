@@ -51,6 +51,7 @@ namespace WinGoTag.View.UserViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             if(PageItemssource != null)
             {
                 PageItemssource.CollectionChanged -= PageItemssource_CollectionChanged;
@@ -77,5 +78,11 @@ namespace WinGoTag.View.UserViews
         {
             Frame.GoBack();
         }
+
+        private void User_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(UserProfileView), e.ClickedItem);
+        }
+
     }
 }

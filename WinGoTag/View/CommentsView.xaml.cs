@@ -36,6 +36,7 @@ namespace WinGoTag.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
+            AppCore.ModerateBack(Frame.GoBack);
             MediaID = e.Parameter.ToString();
             if (PageItemssource != null)
             {
