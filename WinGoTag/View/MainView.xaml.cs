@@ -41,7 +41,7 @@ namespace WinGoTag.View
         public GenerateHomePage<InstaMedia> HomePageItemssource;
         internal static GridViewItem itemList;
         public static Grid HeaderD;
-
+        public static Pivot MainViewPivot;
         public static Frame MainFrame;
         public MainView()
         {
@@ -49,6 +49,7 @@ namespace WinGoTag.View
             //StoryFr.Navigate(typeof(Page));
             HeaderD = HeaderDirect;
             MainFrame = StoryFr;
+            MainViewPivot = PivotView;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

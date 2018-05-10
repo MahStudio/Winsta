@@ -36,7 +36,7 @@ namespace WinGoTag.View.DirectMessages
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            AppCore.ModerateBack(BackFunc);
             this.DataContext = ((InstaDirectInboxThread)e.Parameter);
             var source = ((InstaDirectInboxThread)e.Parameter);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId);
@@ -53,11 +53,14 @@ namespace WinGoTag.View.DirectMessages
 
             //var test = await AppCore.InstaApi.GetRecentRecipientsAsync();
         }
-
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void BackFunc()
         {
             MainView.HeaderD.Visibility = Visibility.Visible;
             Frame.GoBack();
+        }
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            BackFunc();
         }
 
         private void TextBoxChat_TextChanged(object sender, TextChangedEventArgs e)

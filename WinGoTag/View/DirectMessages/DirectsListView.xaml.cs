@@ -31,8 +31,12 @@ namespace WinGoTag.View.DirectMessages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(BackFunc);
+        }
 
-            AppCore.ModerateBack(Frame.GoBack);
+        void BackFunc()
+        {
+            MainView.MainViewPivot.SelectedIndex = 1;
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
