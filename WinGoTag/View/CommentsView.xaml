@@ -62,10 +62,18 @@
                                     <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock TextWrapping="Wrap" FontSize="12" Margin="0,0,12,0">
-                                    <Run FontWeight="SemiBold" Text="{Binding User.UserName, Mode=OneWay}"/>
-                                    <Run Text="{Binding Text, Mode=OneWay}"/>
-                                </TextBlock>
+                                <RichTextBlock IsTextSelectionEnabled="False" TextWrapping="Wrap" FontSize="12" Margin="0,0,12,0">
+                                    <Paragraph>
+                                        <InlineUIContainer>
+                                            <StackPanel>
+                                                <HyperlinkButton Tag="{Binding User}" Click="Username_Click">
+                                                    <TextBlock Text="{Binding User.UserName, Mode=OneWay}"/>
+                                                </HyperlinkButton>
+                                                <TextBlock FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
+                                            </StackPanel>
+                                        </InlineUIContainer>
+                                    </Paragraph>
+                                </RichTextBlock>
                             </Grid>
                             
                         </Grid>

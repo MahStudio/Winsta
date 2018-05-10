@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.DataBinding;
+using WinGoTag.View.UserViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,6 +62,11 @@ namespace WinGoTag.View
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        private void Username_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(UserProfileView), (sender as HyperlinkButton).Tag);
         }
     }
 }
