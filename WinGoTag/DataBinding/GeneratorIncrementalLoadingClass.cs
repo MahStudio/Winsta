@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace WinGoTag.DataBinding
 {
@@ -501,6 +502,57 @@ namespace WinGoTag.DataBinding
             if (tres == null)
             {
                 return (new List<InstaMedia>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
+
+
+    public class PictureLibarys<T> : IncrementalLoadingBase
+    {
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public PictureLibarys(uint maxCount, Func<int, T> generator)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+            //http://getsongg.com/dapp/getnewcases?lang=en&tested
+            IEnumerable<StorageFile> tres = null;//
+            var res = await KnownFolders.SavedPictures.GetFilesAsync();
+            //var res = await AppCore.InstaApi.GetRecentActivityAsync(pagination);
+            //pagination.NextId = res[0].Path;
+            tres = res;
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<string>()).ToArray();
             }
             var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
                          select (object)_generator(j);

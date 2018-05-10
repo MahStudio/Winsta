@@ -110,6 +110,7 @@
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\CarouselSizeConverter.cs" />
     <Compile Include="Converters\ConvertPivotTab.cs" />
+    <Compile Include="Converters\ConvertStoragePath.cs" />
     <Compile Include="Converters\DirectMessageControlVisibilityConverter.cs" />
     <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
@@ -145,6 +146,9 @@
     <Compile Include="UserControls\InstaStoryFeedUC.xaml.cs">
       <DependentUpon>InstaStoryFeedUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LocalImage\LocalImageUC.xaml.cs">
+      <DependentUpon>LocalImageUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\DirectMessages\DirectsListViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
@@ -155,6 +159,7 @@
     <Compile Include="View\ActivityView\RecentActivityView.xaml.cs">
       <DependentUpon>RecentActivityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddPhotos\ImageFileInfo.cs" />
     <Compile Include="View\AddPhotos\PhotoGalleryView.xaml.cs">
       <DependentUpon>PhotoGalleryView.xaml</DependentUpon>
     </Compile>
@@ -378,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InstaStoryFeedUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LocalImage\LocalImageUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

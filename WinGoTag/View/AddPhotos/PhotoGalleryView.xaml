@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Photos="using:WinGoTag.UserControls.LocalImage"
     mc:Ignorable="d">
 
     <Page.Transitions>
@@ -21,6 +22,36 @@
                 <ResourceDictionary Source="/Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="ImageGridView_MobileItemTemplate"
+                      x:DataType="local:ImageFileInfo">
+                <Grid Height="{Binding ItemSize, ElementName=page}"
+                  Width="{Binding ItemSize, ElementName=page}">
+                    <Image x:Name="ItemImage"
+                       Stretch="UniformToFill"
+                       >
+                        <ToolTipService.ToolTip>
+                            <ToolTip x:Name="tooltip">
+                                <StackPanel Orientation="Vertical"
+                                        Grid.Row="1">
+                                    <TextBlock Text="{x:Bind ImageTitle, Mode=OneWay}"
+                                           HorizontalAlignment="Center"
+                                           Style="{StaticResource SubtitleTextBlockStyle}" />
+                                    <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                        <TextBlock Text="{x:Bind ImageFileType}"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource CaptionTextBlockStyle}" />
+                                        <TextBlock Text="{x:Bind ImageDimensions}"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Margin="8,0,0,0" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                    </Image>
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -44,12 +75,14 @@
         </Grid>
 
         <controls:AdaptiveGridView Name="ListImage" Grid.Row="1"
+                                   ContainerContentChanging="ImageGridView_ContainerContentChanging"
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
                                                    Style="{ThemeResource CustomGridView}"
-                                                   
+                                                   ItemsSource="{x:Bind Images, Mode=OneWay}"
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
+                                   ItemTemplate="{StaticResource ImageGridView_MobileItemTemplate}"
                                                    IsItemClickEnabled="True">
 
             <GridView.ItemContainerStyle>
@@ -57,11 +90,7 @@
                     <Setter Property="Margin" Value="0.5"/>
                 </Style>
             </GridView.ItemContainerStyle>
-            <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate>
-                    <Image Stretch="UniformToFill" Source="{Binding Bitmap}"/>
-                </DataTemplate>
-            </controls:AdaptiveGridView.ItemTemplate>
+            
         </controls:AdaptiveGridView>
     </Grid>
 </Page>
