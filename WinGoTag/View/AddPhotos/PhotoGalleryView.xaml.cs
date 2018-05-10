@@ -61,20 +61,12 @@ namespace WinGoTag.View.AddPhotos
 
 
         private async Task GetItemsAsync()
-
         {
-
             QueryOptions options = new QueryOptions();
-
             options.FolderDepth = FolderDepth.Deep;
-
             options.FileTypeFilter.Add(".jpg");
-
             options.FileTypeFilter.Add(".png");
-
             options.FileTypeFilter.Add(".gif");
-
-
 
             // Get the Pictures library
 
@@ -84,7 +76,7 @@ namespace WinGoTag.View.AddPhotos
             IReadOnlyList<StorageFile> imageFiles = await result.GetFilesAsync();
             bool unsupportedFilesFound = false;
         
-            foreach (StorageFile file in imageFiles)
+            foreach (StorageFile file in imageFiles.OrderBy(x=> x.DateCreated).Reverse())
             {
                 // Only files on the local computer are supported. 
                 // Files on OneDrive or a network location are excluded.
@@ -107,12 +99,10 @@ namespace WinGoTag.View.AddPhotos
                     Content = "This sample app only supports images stored locally on the computer. We found files in your library that are stored in OneDrive or another network location. We didn't load those images.",
                     CloseButtonText = "Ok"
                 };
+
                 ContentDialogResult resultNotUsed = await unsupportedFilesDialog.ShowAsync();
             }
         }
-
-
-        //ContainerContentChanging="ImageGridView_ContainerContentChanging"
        
 
 
@@ -132,7 +122,8 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-        private void Cover_ImageOpened(object sender)
+
+        private void AnimationImage(object sender)
         {
             DoubleAnimation fade = new DoubleAnimation()
             {
@@ -148,6 +139,7 @@ namespace WinGoTag.View.AddPhotos
             openpane.Begin();
         }
 
+
         private async void ShowImage(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
         
@@ -156,26 +148,12 @@ namespace WinGoTag.View.AddPhotos
                 // It's phase 1, so show this item's image.
                 var templateRoot = args.ItemContainer.ContentTemplateRoot as Grid;
                 var image = (Image)templateRoot.FindName("ItemImage");
-                //image.Opacity = 100;
                 
                 var item = args.Item as ImageFileInfo;
-
                 try
                 {
                     image.Source = await item.GetImageThumbnailAsync();
-
-                    DoubleAnimation fade = new DoubleAnimation()
-                    {
-                        From = 0,
-                        To = 1,
-                        Duration = TimeSpan.FromSeconds(0.3),
-                        EnableDependentAnimation = true
-                    };
-                    Storyboard.SetTarget(fade, image);
-                    Storyboard.SetTargetProperty(fade, "Opacity");
-                    Storyboard openpane = new Storyboard();
-                    openpane.Children.Add(fade);
-                    openpane.Begin();
+                    AnimationImage(image);
                 }
             
                 catch (Exception)
@@ -187,7 +165,6 @@ namespace WinGoTag.View.AddPhotos
                     bitmapImage.UriSource = new Uri(image.BaseUri, "Assets/StoreLogo.png");
                     image.Source = bitmapImage;
                 }
-
             }
 
         }
@@ -195,26 +172,11 @@ namespace WinGoTag.View.AddPhotos
         public async static Task<ImageFileInfo> LoadImageInfo(StorageFile file)
         {
             var properties = await file.Properties.GetImagePropertiesAsync();
-
             ImageFileInfo info = new ImageFileInfo(
-
                 properties, file,
                 file.DisplayName, file.DisplayType);
-
             return info;
-
         }
-        //private async Task<BitmapImage> GetImageStream(StorageFile image)
-        //{
-        //    StorageFile file = await StorageFile.GetFileFromPathAsync(image.Path);
-        //    using (var stream = await file.OpenAsync(FileAccessMode.Read))
-        //    {
-        //        BitmapImage Img = new BitmapImage();
-        //        Img.SetSource(stream);
-        //        return Img;
-        //    }
-        //}
-
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
