@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp;
+﻿using InstaSharper.Classes.Models;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Search;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -34,6 +37,8 @@ namespace WinGoTag.View.AddPhotos
     public sealed partial class PhotoGalleryView : Page
     {
         public static PhotoGalleryView Current;
+
+        public InstaImage instaImage = new InstaImage();
 
         private ImageFileInfo persistedItem;
         public ObservableCollection<ImageFileInfo> Images { get; } = new ObservableCollection<ImageFileInfo>();
@@ -185,9 +190,26 @@ namespace WinGoTag.View.AddPhotos
             return info;
         }
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
+            var item = ListImage.SelectedItem as ImageFileInfo;
+            instaImage = new InstaImage
+            {
+                Height = 1080,
+                Width = 1080,
+                URI = new Uri(item.ImageFile.Path, UriKind.Absolute).LocalPath
+            };
 
+            //await upload();
+        }
+
+        public async Task upload()
+        {
+            
+           
+            var UploadTest = await AppCore.InstaApi.UploadPhotoAsync(instaImage, "");
+
+          
         }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)

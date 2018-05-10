@@ -81,11 +81,11 @@
         <controls:AdaptiveGridView Name="ListImage" Grid.Row="1"
                                    ContainerContentChanging="ImageGridView_ContainerContentChanging"
                                    OneRowModeEnabled="False"
-                                   ItemHeight="138"
+                                   ItemHeight="100"
                                    
                                    Style="{ThemeResource CustomGridView}"
                                    ItemsSource="{x:Bind Images, Mode=OneWay}"
-                                   DesiredWidth="150"
+                                   DesiredWidth="100"
                                   
                                    SelectionMode="Single"
                                    ItemTemplate="{StaticResource ImageGridView_MobileItemTemplate}"
@@ -94,7 +94,7 @@
 
             <GridView.Header>
                 <controls:ScrollHeader Mode="QuickReturn">
-                    <Grid DataContext="local:ImageFileInfo">
+                    <Grid DataContext="local:ImageFileInfo" Height="Auto">
                         <Image Source="{Binding ElementName=ListImage, Path=SelectedItem}" x:Name="PreviewPictures" DataContextChanged="PreviewPictures_DataContextChanged"/>
                     </Grid>
                 </controls:ScrollHeader>
