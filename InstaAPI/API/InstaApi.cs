@@ -101,7 +101,11 @@ namespace InstaSharper.API
                 return Result.Fail<InstaPendingRequest>(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Accept user friendship requst
+        /// </summary>
+        /// <param name="UserID">User.PK</param>
+        /// <returns></returns>
         public async Task<IResult<InstaFriendshipStatus>> AcceptFriendshipRequest(long UserID)
         {
             ValidateUser();
@@ -130,7 +134,11 @@ namespace InstaSharper.API
                 return Result.Fail<InstaFriendshipStatus>(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Ignore user friendship requst
+        /// </summary>
+        /// <param name="UserID">User.PK</param>
+        /// <returns></returns>
         public async Task<IResult<InstaFriendshipStatus>> IgnoreFriendshipRequest(long UserID)
         {
             ValidateUser();
