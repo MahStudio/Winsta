@@ -182,37 +182,50 @@
             </PivotItem>
 
             <PivotItem Header="You" Margin="0">
-                <ListView ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" x:Name="ListYouActivity">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <ListViewItem x:Name="FollowReqItem" Style="{StaticResource ListViewStrecher}">
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" Margin="6">
-                                    <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding InlineFollow.User.ProfilePicture, Mode=OneWay}"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                </Grid>
-                                <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding InlineFollow.User.UserName, Mode=OneWay}" FontWeight="SemiBold"/>
-                                    <TextBlock Grid.Row="1" Text="{Binding Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
-                                </Grid>
+                                <TextBlock Text="Follow Requests"/>
                             </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                        </ListViewItem>
+                    </Grid>
+                    <ListView Grid.Row="1" Header="Activity" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" x:Name="ListYouActivity">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="6">
+                                        <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding InlineFollow.User.ProfilePicture, Mode=OneWay}"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Grid>
+                                    <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Text="{Binding InlineFollow.User.UserName, Mode=OneWay}" FontWeight="SemiBold"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </PivotItem>
         </Pivot>
-        
-        
-        
+
+
+
     </Grid>
 </Page>
