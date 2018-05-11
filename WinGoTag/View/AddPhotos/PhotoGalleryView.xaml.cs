@@ -73,6 +73,7 @@ namespace WinGoTag.View.AddPhotos
             }
 
             ListFolder.SelectedIndex = 0;
+         
         }
 
 
