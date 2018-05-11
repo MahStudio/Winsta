@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using InstaAPI.Classes;
+using InstaAPI.Classes.Models;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 
@@ -32,6 +33,7 @@ namespace InstaSharper.API
         void LoadStateDataFromStream(string data);
 
         #region Async Members
+        Task<IResult<InstaPendingRequest>> GetPendingFriendRequests();
         /// <summary>
         ///     Create a new instagram account
         /// </summary>

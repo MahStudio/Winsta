@@ -200,6 +200,7 @@
     <Compile Include="Classes\Models\InstaMediaList.cs" />
     <Compile Include="Classes\Models\InstaMediaType.cs" />
     <Compile Include="Classes\Models\InstaOwner.cs" />
+    <Compile Include="Classes\Models\InstaPendingRequest.cs" />
     <Compile Include="Classes\Models\InstaPosition.cs" />
     <Compile Include="Classes\Models\InstaRankedRecipientThread.cs" />
     <Compile Include="Classes\Models\InstaRecentActivityFeed.cs" />

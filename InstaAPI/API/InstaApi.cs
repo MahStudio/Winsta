@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using InstaAPI.Classes;
+using InstaAPI.Classes.Models;
 using InstaSharper.API.Processors;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Android.DeviceInfo;
@@ -67,7 +68,38 @@ namespace InstaSharper.API
             ValidateLoggedIn();
             return await _feedProcessor.GetUserTimelineFeedAsync(paginationParameters);
         }
-
+        public async Task<IResult<InstaPendingRequest>> GetPendingFriendRequests()
+        {
+            ValidateUser();
+            ValidateLoggedIn();
+            try
+            {
+                var cookies =
+                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
+                        .BaseAddress);
+                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
+                _user.CsrfToken = csrftoken;
+                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/pending/?rank_mutual=0&rank_token={_user.RankToken}", UriKind.RelativeOrAbsolute);
+                //await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, instaUri, _deviceInfo);
+                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
+                {
+                    var JRes = JsonConvert.DeserializeObject<InstaPendingRequest>(json);
+                    return Result.Success(JRes);
+                }
+                else
+                {
+                    return Result.Fail<InstaPendingRequest>(response.StatusCode.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail<InstaPendingRequest>(ex.Message);
+            }
+        }
         /// <summary>
         ///     Get user story reel feed. Contains user info last story including all story items.
         /// </summary>

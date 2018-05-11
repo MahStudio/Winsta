@@ -54,8 +54,9 @@ namespace WinGoTag.View.ActivityView
             //var RecentActivity = await AppCore.InstaApi.GetRecentActivityAsync(PaginationParameters.MaxPagesToLoad(1));
         }
 
-        public void OnNavigatedTo()
+        public async void OnNavigatedTo()
         {
+            var lst = await AppCore.InstaApi.GetPendingFriendRequests();
             if (RecentActivityItemssource != null)
             {
                 RecentActivityItemssource.CollectionChanged -= PageItemssource_CollectionChanged;
