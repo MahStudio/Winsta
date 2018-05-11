@@ -57,6 +57,10 @@ namespace WinGoTag.View.ActivityView
         public async void OnNavigatedTo()
         {
             var lst = await AppCore.InstaApi.GetPendingFriendRequests();
+            if (lst.Value.Users == null || lst.Value.Users.Length == 0)
+            {
+                FollowReqItem.Visibility = Visibility.Collapsed;
+            }
             if (RecentActivityItemssource != null)
             {
                 RecentActivityItemssource.CollectionChanged -= PageItemssource_CollectionChanged;
@@ -69,7 +73,6 @@ namespace WinGoTag.View.ActivityView
 
             RecentActivityItemssource.CollectionChanged += PageItemssource_CollectionChanged;
             ListYouActivity.ItemsSource = RecentActivityItemssource;
-            throw new Exception("Implement Get Friendship requests here!");
         }
 
 
