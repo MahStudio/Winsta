@@ -44,11 +44,12 @@ namespace WinGoTag.View.ActivityView
          typeof(RecentActivityView),
          new PropertyMetadata(null)
         );
-
+        List<InstaUserShort> PendingUsers;
         public RecentActivity<InstaRecentActivityFeed> RecentActivityItemssource;
         public RecentActivityView()
         {
             this.InitializeComponent();
+            EditFr.Navigate(typeof(Page));
             OnNavigatedTo();
             //RecentActivity
             //var RecentActivity = await AppCore.InstaApi.GetRecentActivityAsync(PaginationParameters.MaxPagesToLoad(1));
@@ -56,8 +57,8 @@ namespace WinGoTag.View.ActivityView
 
         public async void OnNavigatedTo()
         {
-            var lst = await AppCore.InstaApi.GetPendingFriendRequests();
-            if (lst.Value.Users == null || lst.Value.Users.Length == 0)
+            PendingUsers = (await AppCore.InstaApi.GetPendingFriendRequests()).Value.Users.ToList();
+            if (PendingUsers == null || PendingUsers.Count == 0)
             {
                 FollowReqItem.Visibility = Visibility.Collapsed;
             }
@@ -78,6 +79,11 @@ namespace WinGoTag.View.ActivityView
 
         private void PageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+        }
+
+        private void FollowReqItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            EditFr.Navigate(typeof(FollowRequestsView), PendingUsers);
         }
     }
 }
