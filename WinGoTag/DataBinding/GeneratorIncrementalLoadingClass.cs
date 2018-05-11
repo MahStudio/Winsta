@@ -442,7 +442,7 @@ namespace WinGoTag.DataBinding
 
             IEnumerable<InstaMedia> tres = null;//
             var res = await AppCore.InstaApi.GetUserMediaAsync(_username, pagination);
-            if(res.Value == null) { HasMoreItems = false; return new List<InstaMedia>() { new InstaMedia() { Pk = "App", Caption = new InstaCaption() { Text = "Follow" } } }.ToArray(); }
+            if(res.Value == null) { HasMoreItems = false; return new List<InstaMedia>().ToArray(); }
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
             if (_LastPage == res.Value.Pages) HasMoreItems = false;

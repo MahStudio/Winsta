@@ -34,6 +34,15 @@ namespace WinGoTag.View.UserViews
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
+            if(e.Parameter.GetType() == typeof(BroadcastUser))
+            {
+                var user = e.Parameter as BroadcastUser;
+                UserProfileViewModel.User = new InstaUser(new InstaUserShort()
+                {
+                    FullName = user.FullName, IsPrivate = user.IsPrivate, IsVerified = user.IsVerified, Pk = user.Pk,
+                    ProfilePictureId = user.ProfilePicId, profile_pic_url = user.ProfilePicUrl, UserName = user.Username
+                });
+            }
             if (e.Parameter.GetType() == typeof(InstaUser))
                 UserProfileViewModel.User = (e.Parameter as InstaUser);
             if (e.Parameter.GetType() == typeof(InstaUserShort))
