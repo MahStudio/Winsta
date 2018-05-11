@@ -68,6 +68,7 @@ namespace InstaSharper.API
             ValidateLoggedIn();
             return await _feedProcessor.GetUserTimelineFeedAsync(paginationParameters);
         }
+
         public async Task<IResult<InstaPendingRequest>> GetPendingFriendRequests()
         {
             ValidateUser();
@@ -98,6 +99,71 @@ namespace InstaSharper.API
             catch (Exception ex)
             {
                 return Result.Fail<InstaPendingRequest>(ex.Message);
+            }
+        }
+
+        public async Task<IResult<bool>> AcceptFriendshipRequest(long UserID)
+        {
+            //https://i.instagram.com/api/v1/friendships/ignore/7287827502/
+            ValidateUser();
+            ValidateLoggedIn();
+            try
+            {
+                var cookies =
+                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
+                        .BaseAddress);
+                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
+                _user.CsrfToken = csrftoken;
+                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/approve/{UserID}/", UriKind.RelativeOrAbsolute);
+                //await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo);
+                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
+                {
+                    return Result.Success(true);
+                }
+                else
+                {
+                    return Result.Fail<bool>(response.StatusCode.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail<bool>(ex.Message);
+            }
+        }
+
+        public async Task<IResult<bool>> IgnoreFriendshipRequest(long UserID)
+        {
+            ValidateUser();
+            ValidateLoggedIn();
+            try
+            {
+                var cookies =
+                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
+                        .BaseAddress);
+                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
+                _user.CsrfToken = csrftoken;
+                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/ignore/{UserID}/", UriKind.RelativeOrAbsolute);
+                //await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo);
+                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
+                {
+                    return Result.Success(true);
+                }
+                else
+                {
+                    return Result.Fail<bool>(response.StatusCode.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail<bool>(ex.Message);
             }
         }
         /// <summary>

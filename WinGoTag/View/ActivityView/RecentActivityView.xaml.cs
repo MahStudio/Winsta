@@ -57,6 +57,7 @@ namespace WinGoTag.View.ActivityView
         public async void OnNavigatedTo()
         {
             var lst = await AppCore.InstaApi.GetPendingFriendRequests();
+            await AppCore.InstaApi.AcceptFriendshipRequest(lst.Value.Users.FirstOrDefault().Pk);
             if (RecentActivityItemssource != null)
             {
                 RecentActivityItemssource.CollectionChanged -= PageItemssource_CollectionChanged;
@@ -66,9 +67,10 @@ namespace WinGoTag.View.ActivityView
                 return new InstaRecentActivityFeed();
             });
             //var RecentActivity = await AppCore.InstaApi.GetRecentActivityAsync(PaginationParameters.MaxPagesToLoad(1));
-            
+
             RecentActivityItemssource.CollectionChanged += PageItemssource_CollectionChanged;
             ListYouActivity.ItemsSource = RecentActivityItemssource;
+            throw new Exception("Implement Get Friendship requests here!");
         }
 
 
