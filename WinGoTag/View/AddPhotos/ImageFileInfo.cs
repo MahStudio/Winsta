@@ -16,13 +16,13 @@ namespace WinGoTag.View.AddPhotos
     {
         public ImageFileInfo(ImageProperties properties, StorageFile imageFile, string name, string type)
         {
-            ImageProperties = properties;
-            ImageName = name;
-            ImageFileType = type;
+            //ImageProperties = properties;
+            //ImageName = name;
+            //ImageFileType = type;
             ImageFile = imageFile;
-            var rating = (int)properties.Rating;
-            var random = new Random();
-            ImageRating = rating == 0 ? random.Next(1, 5) : rating;
+            //var rating = (int)properties.Rating;
+            //var random = new Random();
+            //ImageRating = rating == 0 ? random.Next(1, 5) : rating;
         }
 
         public StorageFile ImageFile { get; }

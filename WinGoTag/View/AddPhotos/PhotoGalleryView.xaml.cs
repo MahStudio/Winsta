@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -36,29 +37,50 @@ namespace WinGoTag.View.AddPhotos
     /// </summary>
     public sealed partial class PhotoGalleryView : Page
     {
-        public static PhotoGalleryView Current;
+        //public static PhotoGalleryView Current;
+        public class Folder
+        {
+            public string Name { get; set; }
+            public StorageFolder folder { get; set; }
+            //public int CountFiles { get; set; }
+        }
+
+        public List<Folder> ListFolders = new List<Folder>();
 
         public InstaImage instaImage = new InstaImage();
 
         private ImageFileInfo persistedItem;
         public ObservableCollection<ImageFileInfo> Images { get; } = new ObservableCollection<ImageFileInfo>();
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
         public PhotoGalleryView()
         {
             this.InitializeComponent();
-            Current = this;
+            //Current = this;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await GetItemsAsync();
+
+            StorageFolder picturesFolder = KnownFolders.PicturesLibrary;
+            IReadOnlyList<StorageFolder> folderList = await picturesFolder.GetFoldersAsync();
+
+            foreach (StorageFolder folder in folderList)
+            {
+                ListFolder.Items.Add(new Folder { folder = folder, Name = folder.DisplayName});
+            }
+
+            ListFolder.SelectedIndex = 0;
+        }
 
 
-            //var item = Images[0] as ImageFileInfo;
-            //PreviewPictures.Source = await item.GetImageThumbnailAsync();
+        private async void ListFolder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = ((Folder)ListFolder.SelectedItem);
+            await GetItemsAsync(item.folder);
+            //ListImage.SelectedIndex = 0;
         }
 
 
@@ -68,19 +90,22 @@ namespace WinGoTag.View.AddPhotos
         }
 
 
-        private async Task GetItemsAsync()
+        private async Task GetItemsAsync(StorageFolder folder)
         {
+            Images.Clear();
+
             QueryOptions options = new QueryOptions();
             options.FolderDepth = FolderDepth.Deep;
             options.FileTypeFilter.Add(".jpg");
             options.FileTypeFilter.Add(".png");
             options.FileTypeFilter.Add(".gif");
+            options.FileTypeFilter.Add(".mp4");
 
             // Get the Pictures library
 
-            Windows.Storage.StorageFolder picturesFolder = Windows.Storage.KnownFolders.CameraRoll;
+            //Windows.Storage.StorageFolder picturesFolder = Windows.Storage.KnownFolders.CameraRoll;
 
-            var result = picturesFolder.CreateFileQueryWithOptions(options);
+            var result = folder.CreateFileQueryWithOptions(options);
             IReadOnlyList<StorageFile> imageFiles = await result.GetFilesAsync();
             bool unsupportedFilesFound = false;
         
@@ -139,7 +164,7 @@ namespace WinGoTag.View.AddPhotos
             {
                 From = 0,
                 To = 1,
-                Duration = TimeSpan.FromSeconds(0.3),
+                Duration = TimeSpan.FromSeconds(0.2),
                 EnableDependentAnimation = true
             };
             Storyboard.SetTarget(fade, (Image)sender);
@@ -175,8 +200,6 @@ namespace WinGoTag.View.AddPhotos
                     bitmapImage.UriSource = new Uri(image.BaseUri, "Assets/StoreLogo.png");
                     image.Source = bitmapImage;
                 }
-
-                ListImage.SelectedIndex = 0;
             }
 
         }
@@ -203,13 +226,9 @@ namespace WinGoTag.View.AddPhotos
             //await upload();
         }
 
-        public async Task upload()
+        public async Task Upload()
         {
-            
-           
             var UploadTest = await AppCore.InstaApi.UploadPhotoAsync(instaImage, "");
-
-          
         }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
@@ -240,5 +259,7 @@ namespace WinGoTag.View.AddPhotos
             var item = ListImage.SelectedItem as ImageFileInfo;
             PreviewPictures.DataContext = item;
         }
+
+        
     }
 }
