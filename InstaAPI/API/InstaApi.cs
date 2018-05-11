@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using InstaAPI.Classes;
-using InstaAPI.Classes.Models;
 using InstaSharper.API.Processors;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Android.DeviceInfo;
@@ -40,7 +39,11 @@ namespace InstaSharper.API
         private InstaLoginChallengeMethodResponse _challengemethods;
         private UserSessionData _user;
         private IUserProcessor _userProcessor;
+        private ILiveProcessor _liveProcessor;
+        public ILiveProcessor LiveProcessor => _liveProcessor;
 
+        private IDiscoverProcessor _discoverProcessor;
+        public IDiscoverProcessor DiscoverProcessor => _discoverProcessor;
         public InstaApi(UserSessionData user, IInstaLogger logger, AndroidDevice deviceInfo,
             IHttpRequestProcessor httpRequestProcessor)
         {
@@ -69,104 +72,6 @@ namespace InstaSharper.API
             return await _feedProcessor.GetUserTimelineFeedAsync(paginationParameters);
         }
 
-        public async Task<IResult<InstaPendingRequest>> GetPendingFriendRequests()
-        {
-            ValidateUser();
-            ValidateLoggedIn();
-            try
-            {
-                var cookies =
-                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
-                        .BaseAddress);
-                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
-                _user.CsrfToken = csrftoken;
-                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/pending/?rank_mutual=0&rank_token={_user.RankToken}", UriKind.RelativeOrAbsolute);
-                //await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
-                var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, instaUri, _deviceInfo);
-                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
-                var response = await _httpRequestProcessor.SendAsync(request);
-                var json = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
-                {
-                    var JRes = JsonConvert.DeserializeObject<InstaPendingRequest>(json);
-                    return Result.Success(JRes);
-                }
-                else
-                {
-                    return Result.Fail<InstaPendingRequest>(response.StatusCode.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                return Result.Fail<InstaPendingRequest>(ex.Message);
-            }
-        }
-        /// <summary>
-        /// Accept user friendship requst
-        /// </summary>
-        /// <param name="UserID">User.PK</param>
-        /// <returns></returns>
-        public async Task<IResult<InstaFriendshipStatus>> AcceptFriendshipRequest(long UserID)
-        {
-            ValidateUser();
-            ValidateLoggedIn();
-            try
-            {
-                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/approve/{UserID}/", UriKind.RelativeOrAbsolute);
-                var fields = new Dictionary<string, string>
-                {
-                    {"user_id", UserID.ToString()},
-                    {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
-                    {"_csrftoken", _user.CsrfToken},
-                };
-                var request =
-                    HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, fields);
-                var response = await _httpRequestProcessor.SendAsync(request);
-                var json = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode != HttpStatusCode.OK)
-                    return Result.UnExpectedResponse<InstaFriendshipStatus>(response, json);
-                var JRes = JsonConvert.DeserializeObject<InstaFriendshipStatus>(json);
-                return Result.Success(JRes);
-            }
-            catch (Exception ex)
-            {
-                return Result.Fail<InstaFriendshipStatus>(ex.Message);
-            }
-        }
-        /// <summary>
-        /// Ignore user friendship requst
-        /// </summary>
-        /// <param name="UserID">User.PK</param>
-        /// <returns></returns>
-        public async Task<IResult<InstaFriendshipStatus>> IgnoreFriendshipRequest(long UserID)
-        {
-            ValidateUser();
-            ValidateLoggedIn();
-            try
-            {
-                var instaUri = new Uri($"https://i.instagram.com/api/v1/friendships/ignore/{UserID}/", UriKind.RelativeOrAbsolute);
-                var fields = new Dictionary<string, string>
-                {
-                    {"user_id", UserID.ToString()},
-                    {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
-                    {"_csrftoken", _user.CsrfToken},
-                };
-                var request =
-                    HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, fields);
-                var response = await _httpRequestProcessor.SendAsync(request);
-                var json = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode != HttpStatusCode.OK)
-                    return Result.UnExpectedResponse<InstaFriendshipStatus>(response, json);
-                var JRes = JsonConvert.DeserializeObject<InstaFriendshipStatus>(json);
-                return Result.Success(JRes);
-            }
-            catch (Exception ex)
-            {
-                return Result.Fail<InstaFriendshipStatus>(ex.Message);
-            }
-        }
         /// <summary>
         ///     Get user story reel feed. Contains user info last story including all story items.
         /// </summary>
@@ -1085,7 +990,7 @@ namespace InstaSharper.API
             ValidateRequestMessage();
             try
             {
-                ; var firstResponse = await _httpRequestProcessor.GetAsync(_httpRequestProcessor.Client.BaseAddress);
+;                var firstResponse = await _httpRequestProcessor.GetAsync(_httpRequestProcessor.Client.BaseAddress);
                 var cookies =
                     _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
                         .BaseAddress);
@@ -1102,7 +1007,7 @@ namespace InstaSharper.API
                     {InstaApiConstants.HEADER_IG_SIGNATURE, signature},
                     {InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION}
                 };
-                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo);
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo); 
                 request.Content = new FormUrlEncodedContent(fields);
                 request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE, signature);
                 request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
@@ -1124,7 +1029,7 @@ namespace InstaSharper.API
                         //2FA is required!
                         return Result.Fail("Two Factor Authentication is required", InstaLoginResult.TwoFactorRequired);
                     }
-                    if (loginFailReason.ErrorType == "checkpoint_challenge_required")
+                    if(loginFailReason.ErrorType == "checkpoint_challenge_required")
                     {
                         _challengeinfo = loginFailReason.Challenge;
                         //await Launcher.LaunchUriAsync(new Uri(loginFailReason.Challenge.url, UriKind.RelativeOrAbsolute));
@@ -1220,7 +1125,7 @@ namespace InstaSharper.API
                 return Result.Fail(exception, InstaLoginTwoFactorResult.Exception);
             }
         }
-
+        
         /// <summary>
         ///     Get Two Factor Authentication details
         /// </summary>
@@ -1274,22 +1179,12 @@ namespace InstaSharper.API
         /// </returns>
         public string GetStateDataAsStream()
         {
-
-            var Cookies = _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(new Uri(InstaApiConstants.INSTAGRAM_URL));
-            var RawCookiesList = new List<Cookie>();
-            foreach (Cookie cookie in Cookies)
-            {
-                RawCookiesList.Add(cookie);
-            }
-
-
             var state = new StateData
             {
                 DeviceInfo = _deviceInfo,
                 IsAuthenticated = IsUserAuthenticated,
                 UserSession = _user,
-                Cookies = _httpRequestProcessor.HttpHandler.CookieContainer,
-                RawCookies = RawCookiesList
+                Cookies = _httpRequestProcessor.HttpHandler.CookieContainer
             };
             return SerializationHelper.SerializeToStream(state);
         }
@@ -1303,25 +1198,7 @@ namespace InstaSharper.API
             var data = SerializationHelper.DeserializeFromStream<StateData>(stream);
             _deviceInfo = data.DeviceInfo;
             _user = data.UserSession;
-            // _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
-
-            //Load Stream Edit 
-            _httpRequestProcessor.RequestMessage.username = data.UserSession.UserName;
-            _httpRequestProcessor.RequestMessage.password = data.UserSession.Password;
-            // _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
-            _httpRequestProcessor.RequestMessage.device_id = data.DeviceInfo.DeviceId;
-            _httpRequestProcessor.RequestMessage.phone_id = data.DeviceInfo.PhoneGuid.ToString();
-            _httpRequestProcessor.RequestMessage.guid = data.DeviceInfo.DeviceGuid;
-
-            foreach (Cookie cookie in data.RawCookies)
-            {
-                _httpRequestProcessor.HttpHandler.CookieContainer.Add(new Uri(InstaApiConstants.INSTAGRAM_URL), cookie);
-            }
-
-            //_httpRequestProcessor.HttpHandler.CookieContainer.SetCookies(new Uri(InstaApiConstants.INSTAGRAM_URL),data.RawCookies);
-
-
-
+            _httpRequestProcessor.HttpHandler.CookieContainer = data.Cookies;
             IsUserAuthenticated = data.IsAuthenticated;
             InvalidateProcessors();
         }
@@ -1343,6 +1220,9 @@ namespace InstaSharper.API
             _profileProcessor = new UserProfileProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
             _messagingProcessor = new MessagingProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
             _feedProcessor = new FeedProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+
+            _liveProcessor = new LiveProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+            _discoverProcessor = new DiscoverProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
         }
 
         private void ValidateUser()
