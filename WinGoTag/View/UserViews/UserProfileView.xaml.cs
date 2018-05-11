@@ -32,7 +32,8 @@ namespace WinGoTag.View.UserViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             if (e.Parameter.GetType() == typeof(InstaUser))
                 UserProfileViewModel.User = (e.Parameter as InstaUser);
             if (e.Parameter.GetType() == typeof(InstaUserShort))
@@ -52,6 +53,7 @@ namespace WinGoTag.View.UserViews
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            AppCore.ModerateBack("");
         }
     }
 }

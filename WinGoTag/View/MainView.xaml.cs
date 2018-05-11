@@ -147,6 +147,7 @@ namespace WinGoTag.View
         private void BackFromCameraBT_Click(object sender, RoutedEventArgs e)
         {
             PivotView.SelectedIndex = 1;
+            AppCore.ModerateBack("");
         }
 
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)

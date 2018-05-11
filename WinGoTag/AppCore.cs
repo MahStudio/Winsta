@@ -17,6 +17,17 @@ namespace WinGoTag
     public class AppCore
     {
         private static Stack<DispatchedHandler> _NavigationManager = new Stack<DispatchedHandler>();
+        public static void ModerateBack(string EmptyString)
+        {
+            try
+            {
+                _NavigationManager.Pop();
+            }
+            catch
+            {
+            }
+        }
+
         public static void ModerateBack()
         {
             try

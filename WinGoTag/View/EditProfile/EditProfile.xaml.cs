@@ -32,13 +32,15 @@ namespace WinGoTag.View.EditProfile
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             DataContext = ((InstaUserInfo)e.Parameter);
         }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            AppCore.ModerateBack("");
         }
 
         private void EndBT_Click(object sender, RoutedEventArgs e)

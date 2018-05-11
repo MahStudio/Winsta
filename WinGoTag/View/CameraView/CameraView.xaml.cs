@@ -39,11 +39,14 @@ namespace WinGoTag.View.CameraView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(() =>
-            {
-                MainView.MainViewPivot.SelectedIndex = 1;
-            });
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(BackFunc);
             await StartPreviewAsync();
+        }
+
+        void BackFunc()
+        {
+            MainView.MainViewPivot.SelectedIndex = 1;
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)

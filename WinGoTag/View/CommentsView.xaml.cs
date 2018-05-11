@@ -37,7 +37,8 @@ namespace WinGoTag.View
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             MediaID = e.Parameter.ToString();
             if (PageItemssource != null)
             {
@@ -62,6 +63,7 @@ namespace WinGoTag.View
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            AppCore.ModerateBack("");
         }
 
         private void Username_Click(object sender, RoutedEventArgs e)
