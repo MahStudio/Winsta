@@ -65,6 +65,7 @@ namespace WinGoTag
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            IconBarHome.Glyph = "\ueA8A";
             Fr.Navigated += Fr_Navigated;
             if (AppCore.InstaApi == null)
                 Fr.Navigate(typeof(LoginView));
@@ -93,30 +94,61 @@ namespace WinGoTag
 
         private void HomeBT_Click(object sender, RoutedEventArgs e)
         {
+
+            //Select &#xEA8A;
+            //Unselect &#xE10F;
+            IconLight();
+            IconBarHome.Glyph = "\ueA8A";
             MainPivot.SelectedIndex = 0;
         }
 
         private void FindBT_Click(object sender, RoutedEventArgs e)
         {
+            //Unselect &#xE71E;
+            IconLight();
             MainPivot.SelectedIndex = 1;
             SearchPivotItem.Content = new SearchPage();
         }
 
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
-            //MainPivot.SelectedIndex = 2;
+            //IconLight();
             FrameConnect.Navigate(typeof(PhotoGalleryView));
         }
 
         private void LoveBT_Click(object sender, RoutedEventArgs e)
         {
+            //Select &#xEB52;
+            //Unselect &#xEB51;
+            IconLight();
+            IconBarLover.Glyph = "\ueB52";
             MainPivot.SelectedIndex = 3;
             ActivityPivotItem.Content = new RecentActivityView();
         }
 
         private void UserBT_Click(object sender, RoutedEventArgs e)
         {
+            //Select &#xEA8C;
+            //Unselect &#xE2AF;
+            IconLight();
+            IconBarUser.Glyph = "\ueA8C";
             MainPivot.SelectedIndex = 4;
+        }
+
+        public void IconBold()
+        {
+            
+        }
+
+        public void IconLight()
+        {
+            IconBarHome.Glyph = "\ue10F";
+
+
+
+            IconBarLover.Glyph = "\ueB51";
+
+            IconBarUser.Glyph = "\ue2AF";
         }
     }
 }

@@ -30,13 +30,13 @@
         
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="48"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="5" Height="40" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
+            <Grid Grid.Row="0" Canvas.ZIndex="5" VerticalAlignment="Stretch" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
@@ -45,7 +45,12 @@
 
                 <!--<AppBarButton Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
                 <TextBlock Grid.Column="1" Text="{Binding UserInfo.Username}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
-                <!--<AppBarButton Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
+                
+                <AppBarButton Grid.Column="2" HorizontalAlignment="Center">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECC5;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </Grid>
 
             <Grid Grid.Row="1" Margin="10,0,10,0" VerticalAlignment="Stretch">

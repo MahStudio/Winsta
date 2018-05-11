@@ -54,19 +54,40 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <AppBarButton x:Name="HomeBT" Icon="Home" Grid.Column="0" Click="HomeBT_Click" />
+            <AppBarButton x:Name="HomeBT" Grid.Column="0" Click="HomeBT_Click">
+                <AppBarButton.Icon>
+                    <FontIcon x:Name="IconBarHome" FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+
             <AppBarButton x:Name="FindBT" Grid.Column="1" Click="FindBT_Click">
                 <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
+                    <FontIcon x:Name="IconBarFind" FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Name="AddBT" Icon="Add" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center"/>
+
+            <AppBarButton x:Name="AddBT" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA39;" RenderTransformOrigin="0.5,0.5" >
+                        <FontIcon.RenderTransform>
+                            <CompositeTransform Rotation="45"/>
+                        </FontIcon.RenderTransform>
+                    </FontIcon>
+                </AppBarButton.Icon>
+            </AppBarButton>
+
             <AppBarButton x:Name="LoveBT" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right">
                 <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
+                    <FontIcon x:Name="IconBarLover" FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton x:Name="UserBT" Icon="Contact" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right"/>
+
+            <AppBarButton x:Name="UserBT" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right">
+                <AppBarButton.Icon>
+                    <FontIcon x:Name="IconBarUser" FontFamily="Segoe MDL2 Assets" Glyph="&#xE2AF;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+
         </Grid>
     </Grid>
 </Page>
