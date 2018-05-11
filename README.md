@@ -13,3 +13,7 @@ Soon....
 - View Stories
 - View your own profile
 - Search and Explore
+
+# InstaApi changes
+See api changes at [Api changes](https://github.com/NGame1/Winsta/blob/master/apichanges.md)
+
