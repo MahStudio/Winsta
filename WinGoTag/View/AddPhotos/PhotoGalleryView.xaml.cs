@@ -234,6 +234,7 @@ namespace WinGoTag.View.AddPhotos
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            AppCore.ModerateBack("");
         }
 
         private void ListImage_ItemClick(object sender, ItemClickEventArgs e)

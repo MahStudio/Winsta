@@ -32,13 +32,15 @@ namespace WinGoTag.View.ActivityView
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             myList.ItemsSource = e.Parameter;
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            AppCore.ModerateBack("");
         }
 
         private void User_ItemClick(object sender, ItemClickEventArgs e)

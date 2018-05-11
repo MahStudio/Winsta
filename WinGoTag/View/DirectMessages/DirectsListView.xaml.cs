@@ -31,7 +31,14 @@ namespace WinGoTag.View.DirectMessages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(BackFunc);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(BackFunc);
+        }
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if(e.NavigationMode == NavigationMode.Back)
+                AppCore.ModerateBack("");
         }
 
         void BackFunc()
