@@ -1,5 +1,5 @@
 # InstaApi changes
---Live/broadcas api:
+## Live/broadcas api:
 completed:
 - GetHeartBeatAndViewerCountAsync
 - GetFinalViewerListAsync
@@ -33,7 +33,7 @@ Incomplete:
 
 
 
--- Discover api:
+### Discover api:
 - Completed:
 - GetRecentSearchsAsync
 - ClearRecentSearchsAsync
