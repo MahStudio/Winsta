@@ -1,6 +1,6 @@
 # InstaApi changes
-## Live/broadcas api:
-completed:
+## Live/broadcast api:
+Completed:
 - GetHeartBeatAndViewerCountAsync
 - GetFinalViewerListAsync
 - GetSuggestedBroadcastsAsync
