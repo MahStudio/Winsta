@@ -165,6 +165,8 @@
 
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Frame Canvas.ZIndex="1"  Name="EditFr"/>
+
         <Pivot SelectedIndex="1" Style="{StaticResource CustomPivotTab}">
 
             <Pivot.HeaderTemplate>
@@ -188,7 +190,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <ListViewItem x:Name="FollowReqItem" Style="{StaticResource ListViewStrecher}">
+                        <ListViewItem Tapped="FollowReqItem_Tapped" x:Name="FollowReqItem" Style="{StaticResource ListViewStrecher}">
                             <Grid>
                                 <TextBlock Text="Follow Requests"/>
                             </Grid>
