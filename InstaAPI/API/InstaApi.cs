@@ -40,7 +40,11 @@ namespace InstaSharper.API
         private InstaLoginChallengeMethodResponse _challengemethods;
         private UserSessionData _user;
         private IUserProcessor _userProcessor;
+        private ILiveProcessor _liveProcessor;
+        public ILiveProcessor LiveProcessor => _liveProcessor;
 
+        private IDiscoverProcessor _discoverProcessor;
+        public IDiscoverProcessor DiscoverProcessor => _discoverProcessor;
         public InstaApi(UserSessionData user, IInstaLogger logger, AndroidDevice deviceInfo,
             IHttpRequestProcessor httpRequestProcessor)
         {
@@ -1343,6 +1347,9 @@ namespace InstaSharper.API
             _profileProcessor = new UserProfileProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
             _messagingProcessor = new MessagingProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
             _feedProcessor = new FeedProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+
+            _liveProcessor = new LiveProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+            _discoverProcessor = new DiscoverProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
         }
 
         private void ValidateUser()
