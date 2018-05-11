@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using InstaAPI.Classes;
-using InstaAPI.Classes.Models;
+using InstaSharper.API.Processors;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 
@@ -19,6 +19,8 @@ namespace InstaSharper.API
         bool IsUserAuthenticated { get; }
 
         #endregion
+        ILiveProcessor LiveProcessor { get; }
+        IDiscoverProcessor DiscoverProcessor { get; }
         UserSessionData GetLoggedUser();
         /// <summary>
         ///     Get current state info as Memory stream
@@ -33,9 +35,6 @@ namespace InstaSharper.API
         void LoadStateDataFromStream(string data);
 
         #region Async Members
-        Task<IResult<InstaFriendshipStatus>> AcceptFriendshipRequest(long UserID);
-        Task<IResult<InstaFriendshipStatus>> IgnoreFriendshipRequest(long UserID);
-        Task<IResult<InstaPendingRequest>> GetPendingFriendRequests();
         /// <summary>
         ///     Create a new instagram account
         /// </summary>
