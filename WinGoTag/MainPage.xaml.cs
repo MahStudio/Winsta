@@ -106,6 +106,7 @@ namespace WinGoTag
         {
             //Unselect &#xE71E;
             IconLight();
+            IconBarFind.FontWeight = Windows.UI.Text.FontWeights.Bold;
             MainPivot.SelectedIndex = 1;
             SearchPivotItem.Content = new SearchPage();
         }
@@ -144,7 +145,7 @@ namespace WinGoTag
         {
             IconBarHome.Glyph = "\ue10F";
 
-
+            IconBarFind.FontWeight = Windows.UI.Text.FontWeights.Normal;
 
             IconBarLover.Glyph = "\ueB51";
 
