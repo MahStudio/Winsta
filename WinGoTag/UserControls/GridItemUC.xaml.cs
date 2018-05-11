@@ -24,8 +24,6 @@ namespace WinGoTag.UserControls
 {
     public sealed partial class GridItemUC : UserControl, INotifyPropertyChanged
     {
-        private BitmapImage bmi = null;
-
         public InstaMedia Media
         {
             get
@@ -46,6 +44,8 @@ namespace WinGoTag.UserControls
          new PropertyMetadata(null)
         );
 
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         public GridItemUC()
         {
@@ -57,33 +57,52 @@ namespace WinGoTag.UserControls
         {
             try
             {
+               
+
                 if (args.NewValue.GetType() == typeof(InstaMedia))
                 {
                     switch (Media.MediaType)
                     {
                         case InstaMediaType.Image:
                             SymbolType.Text = "";
-                            BMI.UriSource = new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
+                            //Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
 
                         case InstaMediaType.Carousel:
                             SymbolType.Text = "\ue923";
-                            BMI.UriSource = new Uri(Media.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
                             //Image.Source = new BitmapImage(new Uri(Media.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                          
                         case InstaMediaType.Video:
                             SymbolType.Text = "\ue714";
-                            BMI.UriSource = new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
+                            //Image.Source = new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
                             break;
                     }
-                    
+
+                    Image.Loaded += Image_Loaded;
+                    BMI.DownloadProgress += BMI_DownloadProgress;
                 }
             }
             catch { }
         }
 
+
         
+
+        private void BMI_DownloadProgress(object sender, DownloadProgressEventArgs e)
+        {
+            RadialProgressBarControl.Value = e.Progress;
+
+            //if (e.Progress < 100)
+            //{
+            //    RadialProgressBarControl.Visibility = Visibility.Visible;
+            //}
+
+            if (e.Progress is 100)
+            {
+                RadialProgressBarControl.Visibility = Visibility.Collapsed;
+            }
+        }
 
 
         private void Image_ImageOpened(object sender, RoutedEventArgs e)
@@ -102,13 +121,28 @@ namespace WinGoTag.UserControls
             openpane.Begin();
         }
 
-        private void BMI_DownloadProgress(object sender, DownloadProgressEventArgs e)
+        private void Image_Loaded(object sender, RoutedEventArgs e)
         {
-            RadialProgressBarControl.Value = e.Progress;
-            if(e.Progress is 100)
+            try
             {
-                RadialProgressBarControl.Visibility = Visibility.Collapsed;
+                switch (Media.MediaType)
+                {
+                    case InstaMediaType.Image:
+
+                        BMI.UriSource = new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute); break;
+
+
+                    case InstaMediaType.Carousel:
+
+                        BMI.UriSource = new Uri(Media.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute); break;
+
+
+                    case InstaMediaType.Video:
+
+                        BMI.UriSource = new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute); break;
+                }
             }
+            catch { }
         }
     }
 }

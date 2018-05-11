@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\CarouselSizeConverter.cs" />
+    <Compile Include="Converters\ConverterGridItemSource.cs" />
     <Compile Include="Converters\ConvertPivotTab.cs" />
     <Compile Include="Converters\ConvertStoragePath.cs" />
     <Compile Include="Converters\DirectMessageControlVisibilityConverter.cs" />

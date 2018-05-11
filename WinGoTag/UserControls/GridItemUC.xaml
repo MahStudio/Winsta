@@ -6,9 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Converters="using:WinGoTag.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <Converters:ConverterGridItemSource x:Key="ConverterGridItemSource"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid Background="{ThemeResource AppBarBackground}">
         
@@ -25,10 +33,13 @@
             Canvas.ZIndex="2"
                   Outline="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
-        <TextBlock Canvas.ZIndex="2" x:Name="SymbolType" Foreground="White" Text="" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,12,0" FontSize="24" Opacity="0.7"/>
+        <TextBlock Canvas.ZIndex="2" x:Name="SymbolType" Foreground="White" 
+                   Text="" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" 
+                   VerticalAlignment="Top" Margin="0,12,12,0" FontSize="24" Opacity="0.7"/>
+        
         <Image Opacity="0" x:Name="Image" Stretch="UniformToFill" ImageOpened="Image_ImageOpened">
             <Image.Source>
-                <BitmapImage x:Name="BMI" DownloadProgress="BMI_DownloadProgress"/>
+                <BitmapImage x:Name="BMI" UriSource="{Binding Converter={StaticResource ConverterGridItemSource}, ConverterParameter=0, Mode=OneWay}"/>
             </Image.Source>
         </Image>
     </Grid>
