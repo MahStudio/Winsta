@@ -57,7 +57,6 @@ namespace WinGoTag.View.ActivityView
         public async void OnNavigatedTo()
         {
             var lst = await AppCore.InstaApi.GetPendingFriendRequests();
-            await AppCore.InstaApi.AcceptFriendshipRequest(lst.Value.Users.FirstOrDefault().Pk);
             if (RecentActivityItemssource != null)
             {
                 RecentActivityItemssource.CollectionChanged -= PageItemssource_CollectionChanged;

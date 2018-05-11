@@ -33,8 +33,8 @@ namespace InstaSharper.API
         void LoadStateDataFromStream(string data);
 
         #region Async Members
-        Task<IResult<bool>> AcceptFriendshipRequest(long UserID);
-        Task<IResult<bool>> IgnoreFriendshipRequest(long UserID);
+        Task<IResult<InstaFriendshipStatus>> AcceptFriendshipRequest(long UserID);
+        Task<IResult<InstaFriendshipStatus>> IgnoreFriendshipRequest(long UserID);
         Task<IResult<InstaPendingRequest>> GetPendingFriendRequests();
         /// <summary>
         ///     Create a new instagram account
