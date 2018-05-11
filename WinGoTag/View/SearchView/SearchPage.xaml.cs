@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View.UserViews;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,13 +27,14 @@ namespace WinGoTag.View.SearchView
     /// </summary>
     public sealed partial class SearchPage : Page
     {
-        
+
         public SearchPage()
         {
             this.InitializeComponent();
+            EditFr.Navigate(typeof(Page));
         }
 
-        
+
         private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
 
@@ -41,15 +43,18 @@ namespace WinGoTag.View.SearchView
         private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             var query = SearchBox.Text;
-            
+
             switch (PivotSearch.SelectedIndex)
             {
                 case 0:
-
+                    //var t1 = await AppCore.InstaApi.DiscoverProcessor.DiscoverPeopleAsync();
+                    //var t2 = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
+                    //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Blended);
                     break;
 
                 case 1:
-                    
+                    var People = await AppCore.InstaApi.DiscoverProcessor.SearchPeopleAsync(query);
+                    PeopleList.ItemsSource = People.Value.Users;
                     break;
 
                 case 2:
@@ -97,11 +102,16 @@ namespace WinGoTag.View.SearchView
             GridSearch.Visibility = visibility;
         }
 
-        
+
 
         private void ExploreFr_Loaded(object sender, RoutedEventArgs e)
         {
             ExploreFr.Navigate(typeof(ExploreView));
+        }
+
+        private void PeopleList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            EditFr.Navigate(typeof(UserProfileView), e.ClickedItem);
         }
     }
 }

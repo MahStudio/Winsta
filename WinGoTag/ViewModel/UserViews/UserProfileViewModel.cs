@@ -65,17 +65,32 @@ namespace WinGoTag.ViewModel.UserViews
             RunLoadPage();
         }
 
-        private void Follow(object obj)
+        private async void Follow(object obj)
         {
             switch (FollowBTNContent)
             {
                 case "Follow":
-                    AppCore.InstaApi.FollowUserAsync(User.Pk);
+                    var flwstat = await AppCore.InstaApi.FollowUserAsync(User.Pk);
+                    if (flwstat.Value.OutgoingRequest)
+                    {
+                        FollowBTNContent = "Requested";
+                    }
+                    if (flwstat.Value.Following)
+                    {
+                        FollowBTNContent = "Unfollow";
+                    }
                     break;
                 case "Unfollow":
-                    AppCore.InstaApi.UnFollowUserAsync(User.Pk);
+                    var flw = await AppCore.InstaApi.UnFollowUserAsync(User.Pk);
+                    if (!flw.Value.Following)
+                    {
+                        FollowBTNContent = "Follow";
+                    }
                     break;
                 case "Message":
+                    throw new Exception("Not implemented yet");
+                    break;
+                case "Requested":
                     throw new Exception("Not implemented yet");
                     break;
                 default:
@@ -91,6 +106,28 @@ namespace WinGoTag.ViewModel.UserViews
         async void LoadPage()
         {
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+            var status = await AppCore.InstaApi.GetFriendshipStatusAsync(user.Value.Pk);
+            if (!status.Value.Following)
+            {
+                FollowBTNContent = "Follow";
+            }
+            if (status.Value.OutgoingRequest)
+            {
+                FollowBTNContent = "Requested";
+            }
+            if (status.Value.IncomingRequest)
+            {
+                //Allow Accept request or Deny
+            }
+            if (status.Value.Following)
+            {
+                FollowBTNContent = "Unfollow";
+            }
+            //if(user.Value.HasChaining && status.Value.Following)
+            //{
+            //    FollowBTNContent = "Message";
+            //}
+
             UserInfo = user.Value;
 
             MediaList = new GenerateUserMedia<InstaMedia>(100000, (count) =>
@@ -110,19 +147,19 @@ namespace WinGoTag.ViewModel.UserViews
 
         private void MediaList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if ((e.NewItems[0] as InstaMedia).Pk == "App")
-            {
-                //Private and Not Followed
-                MediaList = null;
-                FollowBTNContent = "Follow";
-            }
-            else
-            {
-                if (UserInfo.HasChaining)
-                    FollowBTNContent = "Message";
-                else
-                    FollowBTNContent = "Unfollow";
-            }
+            //if ((e.NewItems[0] as InstaMedia).Pk == "App")
+            //{
+            //    //Private and Not Followed
+            //    MediaList = null;
+            //    FollowBTNContent = "Follow";
+            //}
+            //else
+            //{
+            //    if (UserInfo.HasChaining)
+            //        FollowBTNContent = "Message";
+            //    else
+            //        FollowBTNContent = "Unfollow";
+            //}
         }
     }
 }
