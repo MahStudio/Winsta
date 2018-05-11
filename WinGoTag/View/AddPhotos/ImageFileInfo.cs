@@ -16,7 +16,7 @@ namespace WinGoTag.View.AddPhotos
     {
         public ImageFileInfo(ImageProperties properties, StorageFile imageFile, string name, string type)
         {
-            //ImageProperties = properties;
+            ImageProperties = properties;
             //ImageName = name;
             //ImageFileType = type;
             ImageFile = imageFile;

@@ -49,7 +49,7 @@ namespace WinGoTag.View.SearchView
                     break;
 
                 case 1:
-
+                    
                     break;
 
                 case 2:

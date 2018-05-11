@@ -14,11 +14,11 @@
         <ResourceDictionary Source="/Styles/Pivots.xaml"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
+
         <Grid.Resources>
             <CollectionViewSource x:Name="MediasCVS" IsSourceGrouped="False"/>
         </Grid.Resources>
-        
+
         <Frame Canvas.ZIndex="2" x:Name="StoryFr"/>
 
         <Pivot Style="{StaticResource CustomPivot}" x:Name="PivotView" SelectedIndex="1"
@@ -38,7 +38,7 @@
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00F;" Foreground="White" />
                             </AppBarButton.Icon>
                         </AppBarButton>
-                       
+
                     </Grid>
                     <Frame Grid.Row="1" x:Name="CameraFr"/>
                 </Grid>
@@ -61,9 +61,17 @@
 
                         <AppBarButton x:Name="CameraBT" Icon="Camera" Grid.Column="0" Width="48" Click="CameraBT_Click"/>
                         <Image Grid.Column="1" Source="ms-appx:///Logos/WinstaApp.png" Stretch="Uniform" VerticalAlignment="Center" Width="100"/>
-                        <AppBarButton x:Name="DirectBT" Icon="AddFriend" Grid.Column="2" Width="48" Click="DirectBT_Click"/>
+                        <AppBarButton x:Name="DirectBT" Grid.Column="2" Width="48" Click="DirectBT_Click">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA63;" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+                                    <FontIcon.RenderTransform>
+                                        <CompositeTransform Rotation="140" ScaleX="1" ScaleY="1.5"/>
+                                    </FontIcon.RenderTransform>
+                                </FontIcon>
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                     </Grid>
-                    
+
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
 
 
@@ -76,7 +84,7 @@
                                 <behaviors:FadeHeaderBehavior />
                             </interactivity:Interaction.Behaviors>
                             <ListView.Header>
-                                
+
                                 <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
                                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
 
@@ -88,13 +96,13 @@
                                     <Grid Grid.Row="0">
                                         <TextBlock Text="Stories" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,0"/>
                                     </Grid>
-                                    
+
                                     <GridView Grid.Row="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollMode="Enabled" 
                                           ScrollViewer.VerticalScrollMode="Disabled"
                                           SelectionMode="None" IsItemClickEnabled="True"
                                           Margin="0,6,0,0" ItemClick="StoriesList_ItemClick" MinHeight="60">
-                                        
+
                                         <GridView.ItemTemplate>
                                             <DataTemplate>
                                                 <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
@@ -106,7 +114,7 @@
                                                 <StackPanel Orientation="Horizontal"/>
                                             </ItemsPanelTemplate>
                                         </GridView.ItemsPanel>
-                                        
+
                                     </GridView>
                                 </Grid>
                             </ListView.Header>
@@ -146,7 +154,7 @@
                         <AppBarButton Icon="Add" Grid.Column="2" Width="48"/>
                     </Grid>
                     <Frame Grid.Row="1" x:Name="DirectFr"/>
-                   
+
                 </Grid>
 
             </PivotItem>
