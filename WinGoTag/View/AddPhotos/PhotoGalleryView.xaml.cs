@@ -37,24 +37,22 @@ namespace WinGoTag.View.AddPhotos
     /// </summary>
     public sealed partial class PhotoGalleryView : Page
     {
-        //public static PhotoGalleryView Current;
         public class Folder
         {
             public string Name { get; set; }
             public StorageFolder folder { get; set; }
-            //public int CountFiles { get; set; }
         }
-
-        public List<Folder> ListFolders = new List<Folder>();
 
         public InstaImage instaImage = new InstaImage();
 
         private ImageFileInfo persistedItem;
         public ObservableCollection<ImageFileInfo> Images { get; } = new ObservableCollection<ImageFileInfo>();
 
-        //public event PropertyChangedEventHandler PropertyChanged;
         public bool fullSize = false;
+
         public bool IsMultiSelect = false;
+
+        BitmapImage ImageSource = null;
 
         public PhotoGalleryView()
         {
@@ -225,7 +223,7 @@ namespace WinGoTag.View.AddPhotos
                 URI = new Uri(item.ImageFile.Path, UriKind.Absolute).LocalPath
             };
 
-            //await upload();
+            //await Upload();
         }
 
         public async Task Upload()
@@ -252,7 +250,7 @@ namespace WinGoTag.View.AddPhotos
             try
             {
                 var item = args.NewValue as ImageFileInfo;
-                PreviewPictures.Source = await item.GetImageThumbnailAsync();
+                PreviewPictures.Source = await item.GetImageSourceAsync();
             }
             catch { }
         }
@@ -270,8 +268,8 @@ namespace WinGoTag.View.AddPhotos
                 var item = PreviewPictures.DataContext as ImageFileInfo;
                 if (fullSize is false)
                 {
-                    var zoomFactor = (float)Math.Min(MainImageScroller.ActualWidth / item.ImageProperties.Width,
-                    MainImageScroller.ActualHeight / item.ImageProperties.Height);
+                    var zoomFactor = (float)Math.Min(HeaderContent.ActualWidth / item.ImageProperties.Width,
+                    HeaderContent.ActualHeight / item.ImageProperties.Height);
                     MainImageScroller.ChangeView(null, null, zoomFactor);
 
                     fullSize = true; return;

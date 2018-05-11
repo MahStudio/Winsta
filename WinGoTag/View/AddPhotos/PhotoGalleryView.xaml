@@ -113,8 +113,8 @@
             
 
             <GridView.Header>
-                <controls:ScrollHeader Mode="QuickReturn">
-                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="local:ImageFileInfo" Height="Auto">
+                <controls:ScrollHeader MaxHeight="260" Mode="QuickReturn">
+                    <Grid MaxHeight="260" x:Name="HeaderContent" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="local:ImageFileInfo" Height="Auto">
                         <Grid VerticalAlignment="Bottom" Canvas.ZIndex="1">
 
                             <Grid.Background>
@@ -161,7 +161,9 @@
             
         </controls:AdaptiveGridView>
 
-        
+        <!--<Grid Grid.Row="1" Height="260">
+            
+        </Grid>-->
 
     </Grid>
 </Page>
