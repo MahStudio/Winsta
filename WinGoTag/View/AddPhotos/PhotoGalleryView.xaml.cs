@@ -53,6 +53,8 @@ namespace WinGoTag.View.AddPhotos
         public ObservableCollection<ImageFileInfo> Images { get; } = new ObservableCollection<ImageFileInfo>();
 
         //public event PropertyChangedEventHandler PropertyChanged;
+        public bool fullSize = false;
+        public bool IsMultiSelect = false;
 
         public PhotoGalleryView()
         {
@@ -260,6 +262,41 @@ namespace WinGoTag.View.AddPhotos
             PreviewPictures.DataContext = item;
         }
 
-        
+        private void ReSize_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var item = PreviewPictures.DataContext as ImageFileInfo;
+                if (fullSize is false)
+                {
+                    var zoomFactor = (float)Math.Min(MainImageScroller.ActualWidth / item.ImageProperties.Width,
+                    MainImageScroller.ActualHeight / item.ImageProperties.Height);
+                    MainImageScroller.ChangeView(null, null, zoomFactor);
+
+                    fullSize = true; return;
+                }
+
+                if (fullSize is true)
+                {
+                    MainImageScroller.ChangeView(null, null, 1); fullSize = false;
+                }
+            }
+            catch(Exception x)
+            {
+                
+            }
+        }
+
+        private void MultiSelect_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsMultiSelect is false)
+            {
+                ListImage.SelectionMode = ListViewSelectionMode.Multiple; IsMultiSelect = true; return;
+            }
+             if(IsMultiSelect is true)
+            {
+                ListImage.SelectionMode = ListViewSelectionMode.Single; IsMultiSelect = false;
+            }
+        }
     }
 }
