@@ -89,7 +89,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF167;" Opacity="0.7" />
-                    <TextBox Style="{ThemeResource TextBoxStyleInsta}" Text="{Binding Biography}" PlaceholderText="Biography" Grid.Column="1" Margin="0,0,12,0" Height="42"/>
+                    <TextBox TextWrapping="Wrap" Style="{ThemeResource TextBoxStyleInsta}" Text="{Binding Biography, Mode=OneWay}" PlaceholderText="Biography" Grid.Column="1" Margin="0,0,12,0" MinHeight="42"/>
                 </Grid>
 
                 <!--<Grid Height="48">

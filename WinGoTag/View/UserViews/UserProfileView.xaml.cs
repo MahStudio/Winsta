@@ -23,7 +23,6 @@ namespace WinGoTag.View.UserViews
     /// </summary>
     public sealed partial class UserProfileView : Page
     {
-
         public UserProfileView()
         {
             this.InitializeComponent();
@@ -51,12 +50,12 @@ namespace WinGoTag.View.UserViews
 
         private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            //EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
         }
 
         private void Following_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            //EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
         }
         
         private void ToBackBT_Click(object sender, RoutedEventArgs e)

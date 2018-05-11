@@ -49,7 +49,7 @@ namespace WinGoTag.View.SearchView
                 case 0:
                     //var t1 = await AppCore.InstaApi.DiscoverProcessor.DiscoverPeopleAsync();
                     //var t2 = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
-                    //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Blended);
+                    //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Users);
                     break;
 
                 case 1:
