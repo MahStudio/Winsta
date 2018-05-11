@@ -25,13 +25,11 @@
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="ImageGridView_MobileItemTemplate"
-                      x:DataType="local:ImageFileInfo">
-                <Grid Height="{Binding ItemSize, ElementName=page}"
-                  Width="{Binding ItemSize, ElementName=page}">
+                          x:DataType="local:ImageFileInfo">
+                <Grid>
                     <Image x:Name="ItemImage"
-                       Stretch="UniformToFill"
-                       >
-                        <ToolTipService.ToolTip>
+                       Stretch="UniformToFill">
+                        <!--<ToolTipService.ToolTip>
                             <ToolTip x:Name="tooltip">
                                 <StackPanel Orientation="Vertical"
                                         Grid.Row="1">
@@ -50,8 +48,29 @@
                                     </StackPanel>
                                 </StackPanel>
                             </ToolTip>
-                        </ToolTipService.ToolTip>
+                        </ToolTipService.ToolTip>-->
                     </Image>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Folders">
+                <Grid Grid.Row="1" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="42"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <FontIcon Grid.Column="0" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC50;" />
+
+                    <Grid Grid.Column="1" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="1" Text="{Binding CountFiles}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="11" Visibility="Collapsed"/>
+                    </Grid>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -72,7 +91,8 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="CancelBT" Grid.Column="0" Content="Cancel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="CancelBT_Click"/>
-            <TextBlock Grid.Column="1" Text="Camera Roll" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+            <ComboBox x:Name="ListFolder" ItemTemplate="{StaticResource Folders}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Background="{x:Null}" PlaceholderText="Select folder" SelectionChanged="ListFolder_SelectionChanged"/>
+            <!--<TextBlock Grid.Column="1" Text="Camera Roll" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>-->
             <Button x:Name="Next" Grid.Column="2" Content="Forward" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="Next_Click"/>
         </Grid>
 
@@ -81,11 +101,11 @@
         <controls:AdaptiveGridView Name="ListImage" Grid.Row="1"
                                    ContainerContentChanging="ImageGridView_ContainerContentChanging"
                                    OneRowModeEnabled="False"
-                                   ItemHeight="100"
+                                   ItemHeight="138"
                                    
                                    Style="{ThemeResource CustomGridView}"
                                    ItemsSource="{x:Bind Images, Mode=OneWay}"
-                                   DesiredWidth="100"
+                                   DesiredWidth="150"
                                   
                                    SelectionMode="Single"
                                    ItemTemplate="{StaticResource ImageGridView_MobileItemTemplate}"
@@ -108,5 +128,8 @@
             </GridView.ItemContainerStyle>
             
         </controls:AdaptiveGridView>
+
+
+        
     </Grid>
 </Page>
