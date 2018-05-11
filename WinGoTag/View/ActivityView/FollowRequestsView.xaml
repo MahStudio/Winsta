@@ -75,6 +75,6 @@
 
         </Grid>
 
-        <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="False" ItemClick="User_ItemClick" SelectionMode="None" x:Name="myList" ItemTemplate="{StaticResource UserCard}"/>
+        <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" IsItemClickEnabled="True" ItemClick="User_ItemClick" SelectionMode="None" x:Name="myList" ItemTemplate="{StaticResource UserCard}"/>
     </Grid>
 </Page>
