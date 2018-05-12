@@ -37,7 +37,7 @@
         </Grid>
 
         <ListView Grid.Row="1" ItemContainerStyle="{StaticResource ListViewStrecher}" 
-                  IsItemClickEnabled="True" SelectionMode="None" x:Name="mylist">
+                  IsItemClickEnabled="False" SelectionMode="None" x:Name="mylist">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,6,0,6">
@@ -59,21 +59,14 @@
                             <Grid Margin="0,6,0,6">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <RichTextBlock IsTextSelectionEnabled="False" TextWrapping="Wrap" FontSize="12" Margin="0,0,12,0">
-                                    <Paragraph>
-                                        <InlineUIContainer>
-                                            <StackPanel>
-                                                <HyperlinkButton Tag="{Binding User}" Click="Username_Click">
-                                                    <TextBlock Text="{Binding User.UserName, Mode=OneWay}"/>
-                                                </HyperlinkButton>
-                                                <TextBlock FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
-                                            </StackPanel>
-                                        </InlineUIContainer>
-                                    </Paragraph>
-                                </RichTextBlock>
+                                <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
+                                <!--<TextBlock Grid.Row="1" Text="{Binding User.UserName, Mode=OneWay}"/>-->
+                                <HyperlinkButton Grid.Row="0" Tag="{Binding User}" Click="Username_Click">
+                                    <TextBlock Text="{Binding User.UserName, Mode=OneWay}"/>
+                                </HyperlinkButton>
                             </Grid>
                             
                         </Grid>

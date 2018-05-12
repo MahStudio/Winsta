@@ -159,7 +159,8 @@
                     </PivotItem>
 
                     <PivotItem Header="&#xE7BC;" Margin="0">
-                        <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
+                        <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5"
+                                  IncrementalLoadingThreshold="0">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <View:InstaMediaUC Media="{Binding}"/>
@@ -172,6 +173,7 @@
                         <controls:AdaptiveGridView Name="ListUserTag"
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
+                                                   IncrementalLoadingThreshold="0"
                                                    Style="{ThemeResource CustomGridView}"
                                                    ItemsSource="{Binding UserTag}"
                                                    DesiredWidth="150"
