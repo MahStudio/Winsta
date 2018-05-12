@@ -77,7 +77,9 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaDirectInboxThread> tres = null;//
-            var res = await AppCore.InstaApi.GetDirectInboxAsync();
+            var res = await AppCore.InstaApi.GetDirectInboxAsync(pagination);
+            if (res.Value.Inbox.OldestCursor == null) HasMoreItems = false;
+            pagination.NextId = res.Value.Inbox.OldestCursor;
             tres = res.Value.Inbox.Threads;
             // This code simply generates
             if (tres == null)

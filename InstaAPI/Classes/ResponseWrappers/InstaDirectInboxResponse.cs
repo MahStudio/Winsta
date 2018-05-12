@@ -12,5 +12,9 @@ namespace InstaSharper.Classes.ResponseWrappers
         [JsonProperty("unseen_count")] public long UnseenCount { get; set; }
 
         [JsonProperty("threads")] public List<InstaDirectInboxThreadResponse> Threads { get; set; }
+
+        [JsonProperty("oldest_cursor")] public string OldestCursor { get; set; }
+
+        [JsonProperty("blended_inbox_enabled")] public bool BlendedInboxEnabled { get; set; }
     }
 }

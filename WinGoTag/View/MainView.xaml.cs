@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstaSharper.Classes;
+using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -76,7 +77,10 @@ namespace WinGoTag.View
         private async void LoadPage()
         {
             _ProgressBar.IsIndeterminate = true;
-            var res = await AppCore.InstaApi.GetDirectInboxAsync();
+            var p = PaginationParameters.MaxPagesToLoad(1);
+            var res = await AppCore.InstaApi.GetDirectInboxAsync(p);
+            p.NextId = res.Value.Inbox.OldestCursor;
+            var res2 = await AppCore.InstaApi.GetDirectInboxAsync(p);
             if (res.Info.Message == "login_required")
             {
                 //AppCore.InstaApi = null;

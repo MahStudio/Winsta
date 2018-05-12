@@ -13,7 +13,7 @@
         <VM:DirectsListViewModel/>
     </Page.DataContext>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView ItemsSource="{Binding InboxContainer.Inbox.Threads, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" Margin="0,9,0,0">
+        <ListView ItemsSource="{Binding InboxThreads, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" Margin="0,9,0,0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <View:DirectThreadItemProviderUC DirectItem="{Binding}"/>

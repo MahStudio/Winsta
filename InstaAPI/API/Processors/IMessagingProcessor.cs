@@ -6,7 +6,7 @@ namespace InstaSharper.API.Processors
 {
     public interface IMessagingProcessor
     {
-        Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync();
+        Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters);
         Task<IResult<InstaDirectInboxThread>> GetDirectInboxThreadAsync(string threadId);
 
         Task<IResult<InstaDirectInboxThreadList>> SendDirectMessage(string recipients, string threadIds,

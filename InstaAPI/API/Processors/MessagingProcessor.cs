@@ -33,19 +33,20 @@ namespace InstaSharper.API.Processors
             _logger = logger;
         }
 
-        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync()
+        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters)
         {
             try
             {
-                var directInboxUri = UriCreator.GetDirectInboxUri();
+                if (paginationParameters.MaximumPagesToLoad > 1)
+                    throw new Exception("Not supported");
+                var directInboxUri = UriCreator.GetDirectInboxUri(paginationParameters.NextId);
                 var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, directInboxUri, _deviceInfo);
                 var response = await _httpRequestProcessor.SendAsync(request);
                 var json = await response.Content.ReadAsStringAsync();
                 if (response.StatusCode != HttpStatusCode.OK)
                     return Result.UnExpectedResponse<InstaDirectInboxContainer>(response, json);
                 var inboxResponse = JsonConvert.DeserializeObject<InstaDirectInboxContainerResponse>(json);
-                var converter = ConvertersFabric.Instance.GetDirectInboxConverter(inboxResponse);
-                return Result.Success(converter.Convert());
+                return Result.Success(ConvertersFabric.Instance.GetDirectInboxConverter(inboxResponse).Convert());
             }
             catch (Exception exception)
             {

@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using WinGoTag.DataBinding;
 
 namespace WinGoTag.ViewModel.DirectMessages
 {
     class DirectsListViewModel : INotifyPropertyChanged
     {
         private bool _isbusy;
-        private InstaDirectInboxContainer _container;
+        private GenerateDirectsList<InstaDirectInboxThread> _threads;
         public event PropertyChangedEventHandler PropertyChanged;
-        public InstaDirectInboxContainer InboxContainer { get { return _container; } set { _container = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("InboxContainer")); } }
+        public GenerateDirectsList<InstaDirectInboxThread> InboxThreads { get { return _threads; } set { _threads = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("InboxThreads")); } }
         CoreDispatcher Dispatcher { get; set; }
         public bool IsBusy { get { return _isbusy; } set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
         public DirectsListViewModel()
@@ -31,8 +32,12 @@ namespace WinGoTag.ViewModel.DirectMessages
 
         async void LoadPage()
         {
-            var inb = await AppCore.InstaApi.GetDirectInboxAsync();
-            InboxContainer = inb.Value;
+            InboxThreads = new GenerateDirectsList<InstaDirectInboxThread>(100000, (count) =>
+            {
+                //return tres[count];
+                return new InstaDirectInboxThread();
+            });
+            //InboxContainer = inb.Value;
             IsBusy = false;
         }
     }

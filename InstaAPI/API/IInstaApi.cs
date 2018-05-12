@@ -202,7 +202,7 @@ namespace InstaSharper.API
         /// <returns>
         ///     <see cref="InstaDirectInboxContainer" />
         /// </returns>
-        Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync();
+        Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters);
 
         /// <summary>
         ///     Get direct inbox thread by its id asynchronously
