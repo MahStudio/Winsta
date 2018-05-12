@@ -207,7 +207,7 @@
                                     <Grid Grid.Column="0" Margin="6">
                                         <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{Binding InlineFollow.User.ProfilePicture, Mode=OneWay}"/>
+                                                <ImageBrush ImageSource="{Binding ProfileImage, Mode=OneWay}"/>
                                             </Ellipse.Fill>
                                         </Ellipse>
                                     </Grid>
@@ -216,7 +216,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Text="{Binding InlineFollow.User.UserName, Mode=OneWay}" FontWeight="SemiBold"/>
+                                        <!--<TextBlock Grid.Row="0" Text="{Binding Username, Mode=OneWay}" FontWeight="SemiBold"/>-->
                                         <TextBlock Grid.Row="1" Text="{Binding Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
                                     </Grid>
                                 </Grid>

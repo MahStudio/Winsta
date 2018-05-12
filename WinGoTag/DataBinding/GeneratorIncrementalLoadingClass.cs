@@ -179,6 +179,7 @@ namespace WinGoTag.DataBinding
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaUserShort> tres = null;//
             var res = await AppCore.InstaApi.GetUserFollowersAsync(_username, pagination);
+            if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
             // This code simply generates
@@ -232,6 +233,7 @@ namespace WinGoTag.DataBinding
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaUserShort> tres = null;//
             var res = await AppCore.InstaApi.GetUserFollowingAsync(_username, pagination);
+            if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
             // This code simply generates
@@ -335,6 +337,7 @@ namespace WinGoTag.DataBinding
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaRecentActivityFeed> tres = null;//
             var res = await AppCore.InstaApi.GetRecentActivityAsync(pagination);
+            if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Items;
             // This code simply generates
