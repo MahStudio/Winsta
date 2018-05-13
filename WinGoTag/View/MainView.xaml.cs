@@ -113,8 +113,8 @@ namespace WinGoTag.View
             //mylist.ItemsSource = res.Value.Medias;
 
             _ProgressBar.IsIndeterminate = false;
-            //var sv = FindChildOfType<ScrollViewer>(mylist);
-            //sv.ViewChanged += Sv_ViewChanged;
+            var sv = FindChildOfType<ScrollViewer>(mylist);
+            sv.ViewChanged += Sv_ViewChanged;
             //await Task.Delay(2000);
             //DirectFr.Navigate(typeof(DirectsListView));
             //MainPage.MainFrame.Navigate(typeof(DirectsListView));
@@ -130,7 +130,22 @@ namespace WinGoTag.View
 
         private void Sv_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            VisibleItems().Play = true;
+            ScrollViewer sv = sender as ScrollViewer;
+            GeneralTransform gt = sv.TransformToVisual(this);
+            Point p = gt.TransformPoint(new Point(0, 0));
+            List<UIElement> list = new List<UIElement>(VisualTreeHelper.FindElementsInHostCoordinates(p, sv));
+            ListViewItem item = list.OfType<ListViewItem>().FirstOrDefault();
+            if (item != null)
+            {
+                int index = mylist.IndexFromContainer(item);
+                //Debug.WriteLine("Visible item at top of list is " + index);
+                var meds = mylist.ItemsSource as GenerateHomePage<InstaMedia>;
+                foreach (InstaMedia med in meds)
+                {
+                    med.Play = false;
+                }
+                ((InstaMedia)meds[index]).Play = true;
+            }
         }
 
         private void DirectBT_Click(object sender, RoutedEventArgs e)
