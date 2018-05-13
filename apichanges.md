@@ -1,4 +1,5 @@
 ## InstaApi changes
+## Account api:
 Completed:
 - GetRequestForEditProfileAsync
 - EditProfileAsync
