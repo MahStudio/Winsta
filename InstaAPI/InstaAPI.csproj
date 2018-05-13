@@ -141,6 +141,16 @@
     <Compile Include="API\UriCreators\IUriCreator.cs" />
     <Compile Include="API\UriCreators\IUriCreatorNextId.cs" />
     <Compile Include="API\UriCreators\SearchLocationUriCreator.cs" />
+    <Compile Include="Classes\AccountCheckResponse.cs" />
+    <Compile Include="Classes\AccountConfirmEmailResponse.cs" />
+    <Compile Include="Classes\AccountResponse.cs" />
+    <Compile Include="Classes\AccountSecuritySettingsResponse.cs" />
+    <Compile Include="Classes\AccountSendSmsResponse.cs" />
+    <Compile Include="Classes\AccountSettingsResponse.cs" />
+    <Compile Include="Classes\AccountTwoFactorResponse.cs" />
+    <Compile Include="Classes\AccountTwoFactorSmsResponse.cs" />
+    <Compile Include="Classes\AccountUserResponse.cs" />
+    <Compile Include="Classes\AccountVerifySmsResponse.cs" />
     <Compile Include="Classes\Android\DeviceInfo\AndroidDevice.cs" />
     <Compile Include="Classes\Android\DeviceInfo\AndroidDeviceGenerator.cs" />
     <Compile Include="Classes\Android\DeviceInfo\AndroidDevices.cs" />
