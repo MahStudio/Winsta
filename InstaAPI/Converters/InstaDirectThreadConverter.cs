@@ -22,9 +22,10 @@ namespace InstaSharper.Converters
                 Pending = SourceObject.Pending,
                 VieweId = SourceObject.VieweId,
                 LastActivity = DateTimeHelper.UnixTimestampMilisecondsToDateTime(SourceObject.LastActivity),
-                ThreadId = SourceObject.ThreadId
+                ThreadId = SourceObject.ThreadId,
+                OldestCursor = SourceObject.OldestCursor,
             };
-            thread.OldestCursor = thread.OldestCursor;
+            //thread.OldestCursor = thread.OldestCursor;
             thread.ThreadType = SourceObject.ThreadType;
             thread.Title = SourceObject.Title;
             if (SourceObject.Inviter != null)

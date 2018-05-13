@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Helpers\MultilingualHelpToolkit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Styles\ChatListView.cs" />
     <Compile Include="UserControls\CarouselItemUC.xaml.cs">
       <DependentUpon>CarouselItemUC.xaml</DependentUpon>
     </Compile>

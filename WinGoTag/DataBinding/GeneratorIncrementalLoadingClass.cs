@@ -24,12 +24,15 @@ namespace WinGoTag.DataBinding
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
         {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
             uint toGenerate = System.Math.Min(count, _maxCount - _count);
             // Wait for work 
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaMedia> tres = null;//
             var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(pagination);
+            if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Medias;
             // This code simply generates
@@ -58,6 +61,7 @@ namespace WinGoTag.DataBinding
 
         #endregion 
     }
+
     public class GenerateDirectsList<T> : IncrementalLoadingBase
     {
         private int _LastPage = 1;
@@ -72,6 +76,8 @@ namespace WinGoTag.DataBinding
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
         {
+            if(!HasMoreItems)
+                return (new List<InstaDirectInboxThread>()).ToArray();
             uint toGenerate = System.Math.Min(count, _maxCount - _count);
             // Wait for work 
             await Task.Delay(10);
@@ -84,7 +90,61 @@ namespace WinGoTag.DataBinding
             // This code simply generates
             if (tres == null)
             {
-                return (new List<InstaMedia>()).ToArray();
+                return (new List<InstaDirectInboxThread>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
+
+    public class GenerateDirectThreadList<T> : IncrementalLoadingBase
+    {
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        string ThreadID = "";
+        public GenerateDirectThreadList(uint maxCount, Func<int, T> generator, string _thid)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+            ThreadID = _thid;
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if(!HasMoreItems)
+                return (new List<InstaDirectInboxItem>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+            //http://getsongg.com/dapp/getnewcases?lang=en&tested
+            IEnumerable<InstaDirectInboxItem> tres = null;//
+            var res = await AppCore.InstaApi.GetDirectInboxThreadAsync(ThreadID, pagination);
+            if (res.Value.OldestCursor == null) HasMoreItems = false;
+            pagination.NextId = res.Value.OldestCursor;
+            tres = res.Value.Items;
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaDirectInboxItem>()).ToArray();
             }
             var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
                          select (object)_generator(j);
@@ -173,7 +233,7 @@ namespace WinGoTag.DataBinding
 
         protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
         {
-            if(!HasMoreItems)
+            if (!HasMoreItems)
                 return (new List<InstaMedia>()).ToArray();
             uint toGenerate = System.Math.Min(count, _maxCount - _count);
             // Wait for work 
@@ -447,7 +507,7 @@ namespace WinGoTag.DataBinding
 
             IEnumerable<InstaMedia> tres = null;//
             var res = await AppCore.InstaApi.GetUserMediaAsync(_username, pagination);
-            if(res.Value == null) { HasMoreItems = false; return new List<InstaMedia>().ToArray(); }
+            if (res.Value == null) { HasMoreItems = false; return new List<InstaMedia>().ToArray(); }
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();

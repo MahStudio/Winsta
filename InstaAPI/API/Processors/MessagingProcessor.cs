@@ -55,11 +55,13 @@ namespace InstaSharper.API.Processors
             }
         }
 
-        public async Task<IResult<InstaDirectInboxThread>> GetDirectInboxThreadAsync(string threadId)
+        public async Task<IResult<InstaDirectInboxThread>> GetDirectInboxThreadAsync(string threadId, PaginationParameters paginationParameters)
         {
             try
             {
-                var directInboxUri = UriCreator.GetDirectInboxThreadUri(threadId);
+                if (paginationParameters.MaximumPagesToLoad > 1)
+                    throw new Exception("Not supported");
+                var directInboxUri = UriCreator.GetDirectInboxThreadUri(threadId, paginationParameters.NextId);
                 var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, directInboxUri, _deviceInfo);
                 var response = await _httpRequestProcessor.SendAsync(request);
                 var json = await response.Content.ReadAsStringAsync();

@@ -6,6 +6,8 @@
         MediaShare = 1,
         Like = 2,
         Link = 3,
-        Media = 4
+        Media = 4,
+        reel_share = 5,
+        placeholder = 6
     }
 }

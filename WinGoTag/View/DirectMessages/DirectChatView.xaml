@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     
     xmlns:MessageItem="using:WinGoTag.UserControls.DirectMessageUCs"
+    xmlns:chat="using:WinGoTag.Styles"
     mc:Ignorable="d">
 
 
@@ -48,23 +49,23 @@
             </AppBarButton>
         </Grid>
 
-        <ListView IsItemClickEnabled="False" Name="MessageList" 
+        <chat:ChatListView IsItemClickEnabled="False" x:Name="MessageList" 
                   Grid.Row="1"
+                  IncrementalLoadingThreshold="2"
                   ItemContainerStyle="{StaticResource ListViewStrecher}" 
                   SelectionMode="None">
-            <ListView.ItemsPanel>
+            <chat:ChatListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" VerticalAlignment="Bottom"/>
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            
-            <ListView.ItemTemplate>
+            </chat:ChatListView.ItemsPanel>
+
+            <chat:ChatListView.ItemTemplate>
                 <DataTemplate>
                     <MessageItem:DirectMessageItemUC InboxItem="{Binding Mode=OneWay}" Margin="0,6,0,6"/>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-       
+            </chat:ChatListView.ItemTemplate>
+        </chat:ChatListView>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="48"/>
