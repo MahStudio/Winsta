@@ -90,7 +90,7 @@ namespace WinGoTag.View
             }
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
             StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
-            
+
             if (HomePageItemssource != null)
             {
                 HomePageItemssource.CollectionChanged -= HomePageItemssource_CollectionChanged;
@@ -128,24 +128,28 @@ namespace WinGoTag.View
 
 
 
-        private void Sv_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        private async void Sv_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            ScrollViewer sv = sender as ScrollViewer;
-            GeneralTransform gt = sv.TransformToVisual(this);
-            Point p = gt.TransformPoint(new Point(0, 0));
-            List<UIElement> list = new List<UIElement>(VisualTreeHelper.FindElementsInHostCoordinates(p, sv));
-            ListViewItem item = list.OfType<ListViewItem>().FirstOrDefault();
-            if (item != null)
+            await Dispatcher.TryRunAsync(CoreDispatcherPriority.Normal, delegate
             {
-                int index = mylist.IndexFromContainer(item);
-                //Debug.WriteLine("Visible item at top of list is " + index);
-                var meds = mylist.ItemsSource as GenerateHomePage<InstaMedia>;
-                foreach (InstaMedia med in meds)
+                ScrollViewer sv = sender as ScrollViewer;
+                GeneralTransform gt = sv.TransformToVisual(this);
+                Point p = gt.TransformPoint(new Point(0, 0));
+                List<UIElement> list = new List<UIElement>(VisualTreeHelper.FindElementsInHostCoordinates(p, sv));
+                ListViewItem item = list.OfType<ListViewItem>().FirstOrDefault();
+                if (item != null)
                 {
-                    med.Play = false;
+                    int index = mylist.IndexFromContainer(item);
+                    //Debug.WriteLine("Visible item at top of list is " + index);
+                    var meds = mylist.ItemsSource as GenerateHomePage<InstaMedia>;
+                    foreach (InstaMedia med in meds)
+                    {
+                        if (med.Play)
+                            med.Play = false;
+                    }
+                    ((InstaMedia)meds[index]).Play = true;
                 }
-                ((InstaMedia)meds[index]).Play = true;
-            }
+            });
         }
 
         private void DirectBT_Click(object sender, RoutedEventArgs e)
@@ -204,7 +208,7 @@ namespace WinGoTag.View
                     break;
             }
         }
-        
+
         public static T FindChildOfType<T>(DependencyObject root) where T : class
         {
             var queue = new Queue<DependencyObject>();
@@ -226,6 +230,6 @@ namespace WinGoTag.View
             return null;
         }
 
-        
+
     }
 }
