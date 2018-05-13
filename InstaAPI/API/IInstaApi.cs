@@ -22,6 +22,7 @@ namespace InstaSharper.API
         #endregion
         ILiveProcessor LiveProcessor { get; }
         IDiscoverProcessor DiscoverProcessor { get; }
+        IAccountProcessor AccountProcessor { get; }
         UserSessionData GetLoggedUser();
         /// <summary>
         ///     Get current state info as Memory stream

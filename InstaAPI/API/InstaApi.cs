@@ -45,6 +45,9 @@ namespace InstaSharper.API
 
         private IDiscoverProcessor _discoverProcessor;
         public IDiscoverProcessor DiscoverProcessor => _discoverProcessor;
+
+        private IAccountProcessor _accountProcessor;
+        public IAccountProcessor AccountProcessor => _accountProcessor;
         public InstaApi(UserSessionData user, IInstaLogger logger, AndroidDevice deviceInfo,
             IHttpRequestProcessor httpRequestProcessor)
         {
@@ -1350,6 +1353,8 @@ namespace InstaSharper.API
 
             _liveProcessor = new LiveProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
             _discoverProcessor = new DiscoverProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+            _accountProcessor = new AccountProcessor(_deviceInfo, _user, _httpRequestProcessor, _logger);
+
         }
 
         private void ValidateUser()
