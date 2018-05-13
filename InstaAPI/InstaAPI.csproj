@@ -111,11 +111,13 @@
     <Compile Include="API\IInstaApi.cs" />
     <Compile Include="API\InstaApi.cs" />
     <Compile Include="API\InstaApiConstants.cs" />
+    <Compile Include="API\Processors\AccountProcessor.cs" />
     <Compile Include="API\Processors\CollectionProcessor.cs" />
     <Compile Include="API\Processors\CommentProcessor.cs" />
     <Compile Include="API\Processors\DiscoverProcessor.cs" />
     <Compile Include="API\Processors\FeedProcessor.cs" />
     <Compile Include="API\Processors\HashtagProcessor.cs" />
+    <Compile Include="API\Processors\IAccountProcessor.cs" />
     <Compile Include="API\Processors\ICollectionProcessor.cs" />
     <Compile Include="API\Processors\ICommentProcessor.cs" />
     <Compile Include="API\Processors\IDiscoverProcessor.cs" />
