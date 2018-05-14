@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="WinGoTag.View.SettingsView.MainSettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.View.SettingsView"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="SettingsItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontWeight="SemiBold" Text="{Binding}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="&#xE017;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <Grid Padding="12,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="16" Text="Account"  Margin="0,12" FontWeight="SemiBold"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Story Settings" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="1"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Change Password" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="2"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Posts You've Liked" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="3"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Two Factor Authentication" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="4"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Blocked Users" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="5"/>
+                <ToggleSwitch IsEnabled="False" Header="Private Account" Grid.Row="6"/>
+                <TextBlock Foreground="DarkGray" Text="When your account is private, only people you approve can see your photos and videos on Instagram. Your existing followers won't be affected." TextWrapping="Wrap" FontSize="12" Grid.Row="7" />
+                <Rectangle Grid.Row="8" Fill="DarkGray" Stroke="DarkGray" Height="2"/>
+                <TextBlock Grid.Row="9" FontSize="16" FontWeight="SemiBold" Margin="0,12" Text="Settings"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Comments" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="10"/>
+                <Rectangle Grid.Row="11" Fill="DarkGray" Stroke="DarkGray" Height="2"/>
+                <TextBlock Grid.Row="12" FontSize="16" FontWeight="SemiBold" Margin="0,12" Text="About"/>
+                <TextBlock Grid.Row="13" TextWrapping="Wrap">
+                    <Run Text="Winsta app is an UnOfficial Instagram client for Windows 10 devices family. This app developed by MahStudio and credits goes to :"/>
+                    <LineBreak/>
+                    <Run Text="Astron771 for his helps in UI/UX Design, Development and Bugfix"/>
+                    <LineBreak/>
+                    <Run Text="Ramtin Jokar for help in reverse engineering APIs and developing them."/>
+                    <LineBreak/>
+                    <Run Text="Ali Noshahi and Pouria Riahi for develope and bugfixing."/>
+                    <LineBreak/>
+                    <Run Text="Thanks to our insiders that made a huge app development so much easier for us with their testings and reports. :)"/>
+                </TextBlock>
+                <Rectangle Grid.Row="14" Fill="DarkGray" Stroke="DarkGray" Height="2"/>
+                <HyperlinkButton Grid.Row="15" Margin="0,12,0,0" Content="Insiders Group On Telegram"/>
+                <HyperlinkButton Grid.Row="16" Content="Log Out"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
