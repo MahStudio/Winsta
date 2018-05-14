@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstaSharper.Classes;
+using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,17 +26,19 @@ namespace WinGoTag.View.EditProfile
     /// </summary>
     public sealed partial class EditProfile : Page
     {
+        AccountUser UserInfo;
         public EditProfile()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
             DataContext = ((InstaUserInfo)e.Parameter);
+            UserInfo = (await AppCore.InstaApi.AccountProcessor.GetRequestForEditProfileAsync()).Value.User;
         }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
@@ -43,9 +47,24 @@ namespace WinGoTag.View.EditProfile
             AppCore.ModerateBack("");
         }
 
-        private void EndBT_Click(object sender, RoutedEventArgs e)
+        private async void EndBT_Click(object sender, RoutedEventArgs e)
         {
-            
+            //Gender (1 = male, 2 = female, 3 = unknown)
+            GenderType G = GenderType.Unknown;
+            switch (UserInfo.Gender)
+            {
+                case 1: G = GenderType.Male;break;
+                case 2: G = GenderType.Female;break;
+                default:
+                    break;
+            }
+            var res = await AppCore.InstaApi.AccountProcessor.EditProfileAsync(txtExternalUrl.Text, UserInfo.PhoneNumber, txtFullName.Text, txtBiography.Text, UserInfo.Email, G, "");
+            if(res.Succeeded)
+            {
+                Frame.GoBack();
+                AppCore.ModerateBack("");
+            }
+            else { await new MessageDialog(res.Info.Message).ShowAsync(); }
         }
     }
 }
