@@ -50,10 +50,10 @@
                     </Grid.RowDefinitions>
                     <Ellipse x:Name="UserPicture" Width="85" Height="85" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,12">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding ProfilePicUrl, Mode=OneWay}"/>
+                            <ImageBrush x:Name="PPIB" ImageSource="{Binding ProfilePicUrl, Mode=OneWay}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <HyperlinkButton Content="Change the profile picture" Grid.Row="1" Margin="0,0,0,12" HorizontalAlignment="Center"/>
+                    <HyperlinkButton Click="ChangePicture_Click" Content="Change the profile picture" Grid.Row="1" Margin="0,0,0,12" HorizontalAlignment="Center"/>
                 </Grid>
 
                 <Grid Margin="0,0,0,12">
