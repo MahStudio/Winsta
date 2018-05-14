@@ -299,6 +299,8 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Logos\LogoText.png" />
     <Content Include="Logos\LogoTextW.png" />
+    <Content Include="Logos\perfectColor.png" />
+    <Content Include="Logos\perfectNoColor.png" />
     <Content Include="Logos\WinstaApp.png" />
     <Content Include="Logos\WinstaAppW.png" />
     <Content Include="Microsoft.UI.Xaml\Assets\NoiseAsset_256X256_PNG.png" />

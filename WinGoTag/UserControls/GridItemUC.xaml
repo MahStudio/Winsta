@@ -32,10 +32,20 @@
                   Height="48"
             Canvas.ZIndex="2"
                   Outline="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-        
-        <TextBlock Canvas.ZIndex="2" x:Name="SymbolType" Foreground="White" 
+        <controls:DropShadowPanel BlurRadius="8"
+                                  ShadowOpacity="0.7"
+                                  OffsetX="2"
+                                  OffsetY="2"
+                                  Canvas.ZIndex="2"
+                                  Color="Black"
+                                  Margin="0,12,12,0"
+                                  VerticalAlignment="Top"
+                                  HorizontalAlignment="Right">
+            <TextBlock x:Name="SymbolType" Foreground="White" 
                    Text="" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" 
-                   VerticalAlignment="Top" Margin="0,12,12,0" FontSize="24" Opacity="0.7"/>
+                   VerticalAlignment="Top"  FontSize="24" Opacity="0.7"/>
+        </controls:DropShadowPanel>
+        
 
         <Image Opacity="0" x:Name="Image" Stretch="UniformToFill" Source="{Binding Converter={StaticResource ConverterGridItemSource}, ConverterParameter=0, Mode=OneWay}">
             <!--<Image.Source>
