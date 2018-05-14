@@ -242,71 +242,75 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Frame Canvas.ZIndex="1" Grid.Row="0" Grid.RowSpan="1" Name="EditFr"/>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
               x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
 
-            <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
 
-                <Pivot.HeaderTemplate>
-                    <DataTemplate x:DataType="Page">
-                        <Grid Width="70">
-                            <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </Pivot.HeaderTemplate>
+                    <Pivot.HeaderTemplate>
+                        <DataTemplate x:DataType="Page">
+                            <Grid Width="70">
+                                <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Pivot.HeaderTemplate>
 
-                <PivotItem Header="Main" Margin="0">
+                    <PivotItem Header="Main" Margin="0">
 
-                </PivotItem>
+                    </PivotItem>
 
-                <PivotItem Header="People" Margin="0">
-                    <ListView x:Name="PeopleList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource UserCard}" Margin="0,0,0,0" ItemClick="PeopleList_ItemClick"/>
-                </PivotItem>
+                    <PivotItem Header="People" Margin="0">
+                        <ListView x:Name="PeopleList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource UserCard}" Margin="0,0,0,0" ItemClick="PeopleList_ItemClick"/>
+                    </PivotItem>
 
-                <PivotItem Header="HashTag" Margin="0">
-                    <ListView x:Name="TagsList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource TagsItem}" Margin="0,0,0,0"/>
-                </PivotItem>
+                    <PivotItem Header="HashTag" Margin="0">
+                        <ListView x:Name="TagsList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource TagsItem}" Margin="0,0,0,0"/>
+                    </PivotItem>
 
-                <PivotItem Header="Location" Margin="0">
-                    <ListView x:Name="PlacesList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
-                </PivotItem>
-            </Pivot>
+                    <PivotItem Header="Location" Margin="0">
+                        <ListView x:Name="PlacesList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource PlacesItem}" Margin="0,0,0,0"/>
+                    </PivotItem>
+                </Pivot>
 
-        </Grid>
+            </Grid>
 
+            <Grid>
 
-        <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+                <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
+                    <AutoSuggestBox.Style>
+                        <Style TargetType="AutoSuggestBox">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="IsTabStop" Value="False"/>
+                            <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
+                        </Style>
+                    </AutoSuggestBox.Style>
+                </AutoSuggestBox>
 
-            <AutoSuggestBox Grid.Row="0" x:Uid="Search" QueryIcon="Find" x:Name="SearchBox" HorizontalAlignment="Stretch" Margin="6" Text="" PlaceholderText="Search..." TextChanged="SearchBox_TextChanged" VerticalAlignment="Top" Height="43" GotFocus="SearchBox_GotFocus">
-                <AutoSuggestBox.Style>
-                    <Style TargetType="AutoSuggestBox">
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="IsTabStop" Value="False"/>
-                        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxCustom}"/>
-                    </Style>
-                </AutoSuggestBox.Style>
-            </AutoSuggestBox>
-
-            <Button x:Name="CancelBT" Grid.Column="1" 
+                <Button x:Name="CancelBT" Grid.Column="1" 
                         HorizontalAlignment="Stretch" 
                         VerticalAlignment="Stretch" Background="{x:Null}" 
                         Content="Cancel" Click="CancelBT_Click" 
                         Visibility="Collapsed"/>
 
+            </Grid>
+
+            <Frame Canvas.ZIndex="1" Grid.Row="1" Loaded="ExploreFr_Loaded" x:Name="ExploreFr"/>
         </Grid>
 
-        <Frame Grid.Row="1" Loaded="ExploreFr_Loaded" x:Name="ExploreFr"/>
+        <Frame Canvas.ZIndex="1" Grid.Row="0" Grid.RowSpan="1" Name="EditFr"/>
+        
 
     </Grid>
 </Page>
