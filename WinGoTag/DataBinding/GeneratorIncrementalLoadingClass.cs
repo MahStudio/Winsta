@@ -114,7 +114,7 @@ namespace WinGoTag.DataBinding
         #endregion 
     }
 
-    public class GenerateDirectThreadList<T> : IncrementalLoadingBase
+    public class GenerateDirectThreadList<T> : ChatIncrementalLoadingBase
     {
         private int _LastPage = 1;
         PaginationParameters pagination;
@@ -140,17 +140,22 @@ namespace WinGoTag.DataBinding
             var res = await AppCore.InstaApi.GetDirectInboxThreadAsync(ThreadID, pagination);
             if (res.Value.OldestCursor == null) HasMoreItems = false;
             pagination.NextId = res.Value.OldestCursor;
+
+            
             tres = res.Value.Items;
+          
             // This code simply generates
             if (tres == null)
             {
                 return (new List<InstaDirectInboxItem>()).ToArray();
             }
+           
             var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
                          select (object)_generator(j);
             _count += Convert.ToUInt32(tres.Count());
             _LastPage++;
             //App._MainPageInt++;
+            
             return tres.ToArray();
         }
 

@@ -53,7 +53,8 @@
                   Grid.Row="1"
                   IncrementalLoadingThreshold="2"
                   ItemContainerStyle="{StaticResource ListViewStrecher}" 
-                  SelectionMode="None">
+                  SelectionMode="None" DataContextChanged="MessageList_DataContextChanged">
+            
             <chat:ChatListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView" VerticalAlignment="Bottom"/>

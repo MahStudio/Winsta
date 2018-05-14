@@ -116,6 +116,7 @@
     <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
+    <Compile Include="DataBinding\ChatIncrementalLoadingBase.cs" />
     <Compile Include="DataBinding\GeneratorIncrementalLoadingClass.cs" />
     <Compile Include="DataBinding\IncrementalLoadingBase.cs" />
     <Compile Include="ExtendedSplashScreen.xaml.cs">
