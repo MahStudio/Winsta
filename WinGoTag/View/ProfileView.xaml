@@ -70,7 +70,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -101,7 +105,8 @@
                             <TextBlock TextAlignment="Center" Text="Following" Foreground="Gray" Grid.Row="1"/>
                         </Grid>
                     </Grid>
-                    <Button DataContext="{Binding UserInfo}" x:Name="EditProfileBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Edit Profile" Click="EditProfileBT_Click" Height="38"/>
+                    <Button DataContext="{Binding UserInfo}" x:Name="EditProfileBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Edit Profile" Click="EditProfileBT_Click" Height="38" Grid.Column="0" Margin="0,0,2,0"/>
+                    <Button DataContext="{Binding UserInfo}" x:Name="SettingsBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="&#xE115;" FontFamily="Segoe MDL2 Assets" Click="Settings_Click" Height="38" Grid.Column="1"/>
                 </Grid>
             </Grid>
 

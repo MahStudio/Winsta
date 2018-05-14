@@ -197,6 +197,9 @@
     <Compile Include="View\SearchView\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SettingsView\MainSettingsView.xaml.cs">
+      <DependentUpon>MainSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsView\StorySettingsView.xaml.cs">
       <DependentUpon>StorySettingsView.xaml</DependentUpon>
     </Compile>
@@ -445,6 +448,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SearchView\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsView\MainSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

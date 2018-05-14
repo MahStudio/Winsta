@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -79,9 +80,7 @@ namespace WinGoTag.View.EditProfile
             fop.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             var file = await fop.PickSingleFileAsync();
             if (file == null) return;
-            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(await file.OpenAsync(Windows.Storage.FileAccessMode.Read));
-            PixelDataProvider pixelData = await decoder.GetPixelDataAsync();
-            var res = await AppCore.InstaApi.AccountProcessor.ChangeProfilePictureAsync(pixelData.DetachPixelData());
+            var res = await AppCore.InstaApi.AccountProcessor.ChangeProfilePictureAsync((await FileIO.ReadBufferAsync(file)).ToArray());
             if(res.Succeeded)
             {
                 PPIB.ImageSource = new BitmapImage(new Uri(res.Value.User.ProfilePicUrl, UriKind.RelativeOrAbsolute));
