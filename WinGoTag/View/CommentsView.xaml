@@ -62,11 +62,12 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
                                 <!--<TextBlock Grid.Row="1" Text="{Binding User.UserName, Mode=OneWay}"/>-->
                                 <HyperlinkButton Grid.Row="0" Tag="{Binding User}" Click="Username_Click">
                                     <TextBlock Text="{Binding User.UserName, Mode=OneWay}"/>
                                 </HyperlinkButton>
+
+                                <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
                             </Grid>
                             
                         </Grid>

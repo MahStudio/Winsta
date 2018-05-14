@@ -194,9 +194,37 @@
                     </PivotItem>
 
                     <PivotItem Header="&#xE7C1;" Margin="0">
+                        <controls:AdaptiveGridView Name="ListCollection"
+                                                   OneRowModeEnabled="False"
+                                                   ItemHeight="138"
+                                                   IncrementalLoadingThreshold="0"
+                                                   Style="{ThemeResource CustomGridView}"
+                                                   ItemsSource="{Binding collection}"
+                                                   DesiredWidth="150"
+                                                   SelectionMode="None"
+                                                   IsItemClickEnabled="True">
 
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="FrameworkElement">
+                                    <Setter Property="Margin" Value="0.5"/>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid CornerRadius="15">
+                                        <Grid.Background>
+                                            <ImageBrush ImageSource="https://scontent-mxp1-1.cdninstagram.com/vp/a36a8057211a63e1ba6228055f502534/5B7FD346/t51.2885-15/e35/28150997_220154441891517_3209126639321481216_n.jpg?se=7&amp;ig_cache_key=MTcxNjg3ODQwNjcwMzM0MTQ0OQ%3D%3D.2" Stretch="UniformToFill"/>
+                                        </Grid.Background>
+                                        <TextBlock Canvas.ZIndex="1" Text="{Binding CollectionName}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="SemiBold" Foreground="White"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
                 </Pivot>
+
+                
+                
             </Grid>
         </Grid>
 

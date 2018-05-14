@@ -1,6 +1,7 @@
 ﻿using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Core;
 using WinGoTag.DataBinding;
@@ -12,6 +13,7 @@ namespace WinGoTag.ViewModel
         private bool _isbusy;
         private GenerateUserMedia<InstaMedia> _medlst;
         private GenerateUserTags<InstaMedia> _medUslst;
+        private IResult<InstaCollections> _Colst;
         private InstaUserInfo _info;
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsBusy
@@ -35,6 +37,13 @@ namespace WinGoTag.ViewModel
             get { return _medUslst; }
             set { _medUslst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserTag")); }
         }
+
+        public IResult<InstaCollections> collection
+        {
+            get { return _Colst; }
+            set { _Colst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("collection")); }
+        }
+
 
         CoreDispatcher Dispatcher { get; set; }
         public ProfileViewModel()
@@ -66,6 +75,13 @@ namespace WinGoTag.ViewModel
                 //return tres[count];
                 return new InstaMedia();
             }, User.UserName); ;
+
+
+         
+            var collections = await AppCore.InstaApi.GetCollectionsAsync();
+            collection = collections;
+            //collections.Value.Items[0].CoverMedia
+            //InstaCollections
         }
     }
 }
