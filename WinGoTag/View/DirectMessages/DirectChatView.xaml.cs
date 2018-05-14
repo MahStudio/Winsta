@@ -30,6 +30,8 @@ namespace WinGoTag.View.DirectMessages
         public string ThreadIds;
         public string VieweIds;
         GenerateDirectThreadList<InstaDirectInboxItem> ItemsList;
+
+        List<InstaDirectInboxItem> listTest = new List<InstaDirectInboxItem>();
         public DirectChatView()
         {
             this.InitializeComponent();
@@ -45,6 +47,7 @@ namespace WinGoTag.View.DirectMessages
             ItemsList = new GenerateDirectThreadList<InstaDirectInboxItem>(100000, (count) =>
             {
                 //return tres[count];
+                
                 return new InstaDirectInboxItem();
             }, source.ThreadId);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
@@ -58,7 +61,16 @@ namespace WinGoTag.View.DirectMessages
             //{
             //    MessageList.Items.Add(Message.Value.Items[a]);
             //}
+
+
+
+            //foreach (InstaDirectInboxItem item in ItemsList)
+            //{
+            //    MessageList.Items.Insert(0, item);
+            //}
+
             MessageList.ItemsSource = ItemsList;
+
             //var test = await AppCore.InstaApi.GetRecentRecipientsAsync();
         }
         void BackFunc()
@@ -108,5 +120,12 @@ namespace WinGoTag.View.DirectMessages
             //MessageList.Items.Add(addItem);
 
         }
+
+        private void MessageList_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            //MessageList.Items.OrderBy(x => ((InstaDirectInboxItem)x).TimeStamp);
+        }
+
+       
     }
 }

@@ -52,6 +52,7 @@ namespace WinGoTag.Styles
         private async void ProcessDataVirtualizationScrollOffsetsAsync(double actualHeight)
         {
             var panel = this.ItemsPanelRoot as ItemsStackPanel;
+            
             if (panel != null && !this.loadingInProcess)
             {
                 if ((panel.FirstVisibleIndex != -1 && panel.FirstVisibleIndex * this.averageContainerHeight < actualHeight * this.IncrementalLoadingThreshold) ||
@@ -71,6 +72,7 @@ namespace WinGoTag.Styles
                             }
 
                             this.loadingInProcess = true;
+                            
                             await virtualizingDataSource.LoadMoreItemsAsync(itemsToLoad);
                             this.loadingInProcess = false;
                         }
@@ -109,6 +111,8 @@ namespace WinGoTag.Styles
                     args.Handled = true;
                 }
             }
+
+            
         }
     }
 

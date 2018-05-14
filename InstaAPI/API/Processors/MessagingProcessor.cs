@@ -65,11 +65,19 @@ namespace InstaSharper.API.Processors
                 var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, directInboxUri, _deviceInfo);
                 var response = await _httpRequestProcessor.SendAsync(request);
                 var json = await response.Content.ReadAsStringAsync();
+
+                
+
                 if (response.StatusCode != HttpStatusCode.OK)
                     return Result.UnExpectedResponse<InstaDirectInboxThread>(response, json);
                 var threadResponse = JsonConvert.DeserializeObject<InstaDirectInboxThreadResponse>(json,
                     new InstaThreadDataConverter());
+
+
+                threadResponse.Items.Reverse();
                 var converter = ConvertersFabric.Instance.GetDirectThreadConverter(threadResponse);
+
+                
                 return Result.Success(converter.Convert());
             }
             catch (Exception exception)
