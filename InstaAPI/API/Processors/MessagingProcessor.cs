@@ -73,8 +73,9 @@ namespace InstaSharper.API.Processors
                 var threadResponse = JsonConvert.DeserializeObject<InstaDirectInboxThreadResponse>(json,
                     new InstaThreadDataConverter());
 
-
+                //Reverse for Chat Order
                 threadResponse.Items.Reverse();
+                //
                 var converter = ConvertersFabric.Instance.GetDirectThreadConverter(threadResponse);
 
                 
