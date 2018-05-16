@@ -57,6 +57,7 @@ namespace WinGoTag.View.AddPhotos
         public PhotoGalleryView()
         {
             this.InitializeComponent();
+            EditPhotoFr.Navigate(typeof(Page));
             //Current = this;
         }
 
@@ -214,17 +215,11 @@ namespace WinGoTag.View.AddPhotos
             return info;
         }
 
-        private async void Next_Click(object sender, RoutedEventArgs e)
+        private void Next_Click(object sender, RoutedEventArgs e)
         {
             var item = ListImage.SelectedItem as ImageFileInfo;
-            instaImage = new InstaImage
-            {
-                Height = 1080,
-                Width = 1080,
-                URI = new Uri(item.ImageFile.Path, UriKind.Absolute).LocalPath
-            };
-            Frame.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
-            //await Upload();
+            //EditPhotoFr.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
+            EditPhotoFr.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
         }
 
         public async Task Upload()

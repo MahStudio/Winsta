@@ -9,14 +9,37 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <SwapChainPanel Name="m_targetSwapChainPanel"/>
+
+        
+        <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <!--<TextBlock Grid.Column="1" Text="Camera Roll" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>-->
+            <Button x:Name="Next" Grid.Column="2" Content="Forward" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
         </Grid>
 
+
+
         <Grid Grid.Row="1">
+            <SwapChainPanel Name="m_targetSwapChainPanel"/>
+
+            <Slider Value="50" x:Name="SliderContrast" Canvas.ZIndex="1" ValueChanged="SliderContrast_ValueChanged" Maximum="100"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
 
             <GridView Grid.Row="1" x:Name="FiltersList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollMode="Enabled" 

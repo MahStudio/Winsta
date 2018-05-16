@@ -40,6 +40,7 @@ namespace WinGoTag.View.AddPhotos
         }
         StorageFile imageStorageFile;
         StorageItemThumbnail thumbnail;
+        BitmapImage bitmapImage;
         public EditPhotoVideoView()
         {
             this.InitializeComponent();
@@ -50,6 +51,7 @@ namespace WinGoTag.View.AddPhotos
             base.OnNavigatedTo(e);
             imageStorageFile = e.Parameter as StorageFile;
             thumbnail = await imageStorageFile.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView, 100);
+            //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
             Contrast(100);
         }
@@ -143,6 +145,17 @@ namespace WinGoTag.View.AddPhotos
         private void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
         {
 
+        }
+
+        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
+
+        private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            int value = Convert.ToInt32(SliderContrast.Value);
+            Contrast(value);
         }
     }
 }
