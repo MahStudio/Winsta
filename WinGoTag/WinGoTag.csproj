@@ -166,6 +166,9 @@
     <Compile Include="View\ActivityView\RecentActivityView.xaml.cs">
       <DependentUpon>RecentActivityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddPhotos\EditPhotoVideoView.xaml.cs">
+      <DependentUpon>EditPhotoVideoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPhotos\ImageFileInfo.cs" />
     <Compile Include="View\AddPhotos\PhotoGalleryView.xaml.cs">
       <DependentUpon>PhotoGalleryView.xaml</DependentUpon>
@@ -415,6 +418,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddPhotos\EditPhotoVideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddPhotos\PhotoGalleryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -497,6 +504,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LumiaImagingSDK.UWP">
+      <Version>3.0.593</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.2</Version>
     </PackageReference>

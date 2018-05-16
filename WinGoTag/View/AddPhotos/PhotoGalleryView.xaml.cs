@@ -214,18 +214,23 @@ namespace WinGoTag.View.AddPhotos
             return info;
         }
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
             var item = ListImage.SelectedItem as ImageFileInfo;
-            Frame.Navigate(typeof(Page), item);
-
-            var FullImage = item.GetImageSourceAsync();
+            instaImage = new InstaImage
+            {
+                Height = 1080,
+                Width = 1080,
+                URI = new Uri(item.ImageFile.Path, UriKind.Absolute).LocalPath
+            };
+            Frame.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
+            //await Upload();
         }
 
-        //public async Task Upload()
-        //{
-        //    var UploadTest = await AppCore.InstaApi.UploadPhotoAsync(instaImage, "");
-        //}
+        public async Task Upload()
+        {
+            var UploadTest = await AppCore.InstaApi.UploadPhotoAsync(instaImage, "");
+        }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
