@@ -71,10 +71,9 @@ namespace WinGoTag.View.AddPhotos
             EditItem.AddEditItem vm = new EditItem.AddEditItem();
             this.DataContext = vm;
             EditsList.ItemsSource = vm.GridViewItems;
-
-            Grayscale();
+            
             //Vibrance(100);
-            // NoFilter();
+            NoFilter();
         }
 
         async void NoFilter()
