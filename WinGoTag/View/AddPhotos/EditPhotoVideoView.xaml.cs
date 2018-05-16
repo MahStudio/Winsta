@@ -61,7 +61,13 @@ namespace WinGoTag.View.AddPhotos
             thumbnail = await imageStorageFile.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView, 100);
             //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
-            Vibrance(100);
+
+            EditItem.AddEditItem vm = new EditItem.AddEditItem();
+            this.DataContext = vm;
+            EditsList.ItemsSource = vm.HamburgerMenuItems;
+
+            //Vibrance(100);
+            NoFilter();
         }
 
         void AddFilter(ImageFiltersEnum Filter)
@@ -255,7 +261,8 @@ namespace WinGoTag.View.AddPhotos
         private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             int value = Convert.ToInt32(SliderContrast.Value);
-            Contrast(value);
+            if(value is 0) { NoFilter(); return; }
+            SqureBlur(value);
         }
     }
 }

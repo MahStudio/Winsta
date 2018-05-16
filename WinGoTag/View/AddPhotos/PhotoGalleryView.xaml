@@ -96,7 +96,7 @@
                 <Button x:Name="CancelBT" Grid.Column="0" Content="Cancel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="CancelBT_Click"/>
                 <ComboBox x:Name="ListFolder" ItemTemplate="{StaticResource Folders}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Background="{x:Null}" PlaceholderText="Select folder" SelectionChanged="ListFolder_SelectionChanged"/>
                 <!--<TextBlock Grid.Column="1" Text="Camera Roll" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>-->
-                <Button x:Name="Next" Grid.Column="2" Content="Forward" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="Next_Click"/>
+                <Button x:Name="Next" Grid.Column="2" Content="Next" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="Next_Click" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" FontWeight="SemiBold"/>
             </Grid>
 
             <controls:AdaptiveGridView Name="ListImage" Grid.Row="1"

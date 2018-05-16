@@ -166,6 +166,8 @@
     <Compile Include="View\ActivityView\RecentActivityView.xaml.cs">
       <DependentUpon>RecentActivityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddPhotos\EditItem\AddEditItem.cs" />
+    <Compile Include="View\AddPhotos\EditItem\EditItem.cs" />
     <Compile Include="View\AddPhotos\EditPhotoVideoView.xaml.cs">
       <DependentUpon>EditPhotoVideoView.xaml</DependentUpon>
     </Compile>

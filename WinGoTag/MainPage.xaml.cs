@@ -114,6 +114,7 @@ namespace WinGoTag
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
             //IconLight();
+            MainPage.Bar.Visibility = Visibility.Collapsed;
             FrameConnect.Navigate(typeof(PhotoGalleryView));
         }
 

@@ -229,6 +229,7 @@ namespace WinGoTag.View.AddPhotos
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)
         {
+            MainPage.Bar.Visibility = Visibility.Visible;
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
