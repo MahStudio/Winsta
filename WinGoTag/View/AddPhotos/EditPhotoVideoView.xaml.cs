@@ -64,7 +64,7 @@ namespace WinGoTag.View.AddPhotos
 
             EditItem.AddEditItem vm = new EditItem.AddEditItem();
             this.DataContext = vm;
-            EditsList.ItemsSource = vm.HamburgerMenuItems;
+            EditsList.ItemsSource = vm.GridViewItems;
 
             //Vibrance(100);
             NoFilter();

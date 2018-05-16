@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lumia.Imaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace WinGoTag.View.AddPhotos.EditItem
     {
         public string Icon { get; set; }
         public string Text { get; set; }
-        public Type Target { get; set; }
+        public EffectList Target { get; set; }
     }
 }
