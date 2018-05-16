@@ -144,9 +144,9 @@
             <Grid Grid.Row="1"/>
 
             <Grid Height="260" Grid.Row="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Slider Value="0" x:Name="SliderContrast" Minimum="0"
+                <Slider Value="0" x:Name="SliderContrast" Minimum="-100"
                     Canvas.ZIndex="1" ValueChanged="SliderContrast_ValueChanged"
-                    Maximum="100" VerticalAlignment="Center" Margin="24,0,24,0">
+                    Maximum="100" VerticalAlignment="Center" Margin="24,0,24,0" TickFrequency="0.1">
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0,0.5"
                                                      EndPoint="1,0.5">
