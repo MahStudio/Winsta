@@ -54,5 +54,27 @@ namespace WinGoTag.View
         {
             EditFr.Navigate(typeof(MainSettingsView));
         }
+
+        private void PivotUserView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (PivotUserView.SelectedIndex)
+            {
+                case 0:
+                    
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+            }
+        }
     }
 }

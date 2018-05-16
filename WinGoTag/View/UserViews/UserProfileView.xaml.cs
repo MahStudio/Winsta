@@ -26,6 +26,7 @@ namespace WinGoTag.View.UserViews
         public UserProfileView()
         {
             this.InitializeComponent();
+            EditFr.Navigate(typeof(Page));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -50,12 +51,12 @@ namespace WinGoTag.View.UserViews
 
         private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+            EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
         }
 
         private void Following_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
+            EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
         }
         
         private void ToBackBT_Click(object sender, RoutedEventArgs e)

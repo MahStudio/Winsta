@@ -59,13 +59,17 @@
                             <ColumnDefinition Width="48"/>
                         </Grid.ColumnDefinitions>
 
-                        <AppBarButton x:Name="CameraBT" Icon="Camera" Grid.Column="0" Width="48" Click="CameraBT_Click"/>
-                        <Image Grid.Column="1" Source="ms-appx:///Logos/WinstaApp.png" Stretch="Uniform" VerticalAlignment="Center" Width="100"/>
+                        <AppBarButton x:Name="CameraBT" Grid.Column="0" Width="48" Click="CameraBT_Click">
+                            <AppBarButton.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE114;" FontWeight="Bold" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                        <Image Grid.Column="1" Source="ms-appx:///Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
                         <AppBarButton x:Name="DirectBT" Grid.Column="2" Width="48" Click="DirectBT_Click">
                             <AppBarButton.Icon>
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA63;" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA63;" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3">
                                     <FontIcon.RenderTransform>
-                                        <CompositeTransform Rotation="140" ScaleX="1" ScaleY="1.5"/>
+                                        <CompositeTransform Rotation="140" ScaleX="1.0" ScaleY="1.8"/>
                                     </FontIcon.RenderTransform>
                                 </FontIcon>
                             </AppBarButton.Icon>
@@ -153,7 +157,7 @@
                         <TextBlock Grid.Column="1" Text="Direct" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
                         <AppBarButton Icon="Add" Grid.Column="2" Width="48"/>
                     </Grid>
-                    <Frame Grid.Row="1" x:Name="DirectFr"/>
+                    <Frame Canvas.ZIndex="2"  Grid.Row="1" x:Name="DirectFr"/>
 
                 </Grid>
 

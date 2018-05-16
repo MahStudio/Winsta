@@ -25,7 +25,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Height="130" VerticalAlignment="Top" Background="{ThemeResource CustomAcrylicBackgroundBrushColor}">
-            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Logos/logo-Instagram.png" Stretch="Uniform" Width="200"/>
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="ms-appx:///Logos/WinstappW.png" Stretch="Uniform" Width="150"/>
         </Grid>
         <Grid MinWidth="280" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,30,0,0">
             <Grid.RowDefinitions>

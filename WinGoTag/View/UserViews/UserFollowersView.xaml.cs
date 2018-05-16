@@ -73,8 +73,7 @@ namespace WinGoTag.View.UserViews
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
-            AppCore.ModerateBack("");
+            Return();
         }
 
         private void User_ItemClick(object sender, ItemClickEventArgs e)
@@ -82,5 +81,11 @@ namespace WinGoTag.View.UserViews
             Frame.Navigate(typeof(UserProfileView), e.ClickedItem);
         }
 
+
+        public void Return()
+        {
+            Frame.GoBack();
+            AppCore.ModerateBack("");
+        }
     }
 }
