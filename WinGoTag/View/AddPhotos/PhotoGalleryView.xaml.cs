@@ -223,7 +223,7 @@ namespace WinGoTag.View.AddPhotos
                 Width = 1080,
                 URI = new Uri(item.ImageFile.Path, UriKind.Absolute).LocalPath
             };
-
+            Frame.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
             //await Upload();
         }
 
