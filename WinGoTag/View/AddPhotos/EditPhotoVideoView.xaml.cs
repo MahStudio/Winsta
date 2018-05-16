@@ -60,9 +60,17 @@ namespace WinGoTag.View.AddPhotos
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (e.NavigationMode == NavigationMode.Back)
+                AppCore.ModerateBack("");
+        }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            AppCore.ModerateBack(Frame.GoBack);
             imageStorageFile = e.Parameter as StorageFile;
             thumbnail = await imageStorageFile.GetThumbnailAsync(ThumbnailMode.PicturesView, 100);
             //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();

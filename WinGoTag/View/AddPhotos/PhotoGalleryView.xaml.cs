@@ -61,10 +61,17 @@ namespace WinGoTag.View.AddPhotos
             //Current = this;
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (e.NavigationMode == NavigationMode.Back)
+                AppCore.ModerateBack("");
+        }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+            AppCore.ModerateBack(Frame.GoBack);
             StorageFolder picturesFolder = KnownFolders.PicturesLibrary;
             IReadOnlyList<StorageFolder> folderList = await picturesFolder.GetFoldersAsync();
 
