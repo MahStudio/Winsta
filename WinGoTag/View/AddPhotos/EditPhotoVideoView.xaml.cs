@@ -1,5 +1,6 @@
 ﻿using Lumia.Imaging;
 using Lumia.Imaging.Adjustments;
+using Lumia.Imaging.Artistic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -46,11 +48,12 @@ namespace WinGoTag.View.AddPhotos
             Sharpness,
             Temperature,
             SqureBlur,
+            SpotlightEffect,
             Vibrance,
         }
         StorageFile imageStorageFile;
         StorageItemThumbnail thumbnail;
-        
+
         int EffectIndex = -1;
         public EditPhotoVideoView()
         {
@@ -61,7 +64,7 @@ namespace WinGoTag.View.AddPhotos
         {
             base.OnNavigatedTo(e);
             imageStorageFile = e.Parameter as StorageFile;
-            thumbnail = await imageStorageFile.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView, 100);
+            thumbnail = await imageStorageFile.GetThumbnailAsync(ThumbnailMode.PicturesView, 100);
             //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
 
@@ -69,13 +72,9 @@ namespace WinGoTag.View.AddPhotos
             this.DataContext = vm;
             EditsList.ItemsSource = vm.GridViewItems;
 
+            Grayscale();
             //Vibrance(100);
-            NoFilter();
-        }
-
-        void AddFilter(ImageFiltersEnum Filter)
-        {
-
+            // NoFilter();
         }
 
         async void NoFilter()
@@ -84,6 +83,305 @@ namespace WinGoTag.View.AddPhotos
             using (var renderer = new SwapChainPanelRenderer(source, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
+            }
+        }
+
+        async void Antique()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new AntiqueEffect(source))
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Cartoon()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new CartoonEffect(source) { DistinctEdges = false })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Emboss()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new EmbossEffect(source) { Level = 0.5 })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Fog()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new FogEffect(source))
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void GrayscaleNegative()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new GrayscaleNegativeEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void LomoRed()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Red })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void LomoBlue()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Blue })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void LomoGreen()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new Lumia.Imaging.Artistic.LomoEffect(source) { LomoStyle = LomoStyle.Green })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void LomoYellow()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Yellow })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void MagicPen()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new Lumia.Imaging.Artistic.MagicPenEffect(source) {})
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Milky()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new MilkyEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Mirrror()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new Lumia.Imaging.Artistic.MirrorEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Moonlight()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new MoonlightEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Negative()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new Lumia.Imaging.Artistic.NegativeEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Oil()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new OilyEffect(source) { OilBrushSize = OilBrushSize.Medium })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Paint()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new PaintEffect(source) { Level = 4 })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Posterize()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new PosterizeEffect(source) { ColorComponentValueCount = 10 })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Sepia()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new Lumia.Imaging.Artistic.SepiaEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void ColorSketch()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new SketchEffect(source) { SketchMode = SketchMode.Color })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void GraySketch()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new SketchEffect(source) { SketchMode = SketchMode.Gray })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void Solarize()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new SolarizeEffect(source) { })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void BigNose()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new WarpingEffect(source) { WarpMode = WarpMode.BigNose })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
+            }
+        }
+
+        async void SpotlightEffect()
+        {
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var inf = await source.GetInfoAsync();
+                using (var sharpnessEffect = new SpotlightEffect(source) { Position = new Point((inf.ImageSize.Width / 2), (inf.ImageSize.Height / 2)), Radius = (int)((inf.ImageSize.Width / 2) - 100), TransitionSize = 0.8 })
+                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+                {
+                    await renderer.RenderAsync();
+                }
             }
         }
 
@@ -113,7 +411,7 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new ColorBoostEffect(contrastEffect) { Gain = (EffectPercentage / 100) })
+            using (var sharpnessEffect = new ColorBoostEffect(contrastEffect) { Gain = (EffectPercentage / 50) })
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -123,8 +421,7 @@ namespace WinGoTag.View.AddPhotos
         async void Contrast(int EffectPercentage)
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new ContrastEffect(contrastEffect) { Level = (EffectPercentage / 100) })
+            using (var sharpnessEffect = new ContrastEffect(source) { Level = (EffectPercentage / 100) })
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -151,7 +448,7 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new ExposureEffect(contrastEffect) { Gain = (EffectPercentage / 100), ExposureMode = ExposureMode.Natural })
+            using (var sharpnessEffect = new ExposureEffect(contrastEffect) { Gain = (EffectPercentage / 67), ExposureMode = ExposureMode.Natural })
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -169,11 +466,10 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-        async void Grayscale(int RedPercentage, int GreenPercentage, int BluePercentage)
+        async void Grayscale()
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new GrayscaleEffect(contrastEffect) { BlueWeight = (BluePercentage / 100), GreenWeight = (GreenPercentage / 100), RedWeight = (RedPercentage / 100) })
+            using (var sharpnessEffect = new GrayscaleEffect(source))
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -210,7 +506,7 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new SharpnessEffect(contrastEffect) { Level = (EffectPercentage/100) })
+            using (var sharpnessEffect = new SharpnessEffect(contrastEffect) { Level = (EffectPercentage / 100) })
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -221,7 +517,7 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
-            using (var sharpnessEffect = new TemperatureAndTintEffect(contrastEffect) { Temperature = (EffectPercentage/100) })
+            using (var sharpnessEffect = new TemperatureAndTintEffect(contrastEffect) { Temperature = (EffectPercentage / 100) })
             using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 await renderer.RenderAsync();
@@ -263,10 +559,10 @@ namespace WinGoTag.View.AddPhotos
 
         private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-           if(EffectIndex is -1) { return; }
+            if (EffectIndex is -1) { return; }
 
             int value = Convert.ToInt32(SliderContrast.Value);
-            if(value is 0) { NoFilter(); return; }
+            if (value is 0) { NoFilter(); return; }
 
             switch (EffectIndex)
             {
