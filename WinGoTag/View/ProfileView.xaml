@@ -24,123 +24,127 @@
         <VM:ProfileViewModel/>
     </Page.DataContext>
 
-    <Grid>
-        
+    <Grid x:Name="RootGrid">
         <Frame Canvas.ZIndex="1"  Name="EditFr"/>
-        
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="48"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Canvas.ZIndex="5" VerticalAlignment="Stretch" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="48"/>
-                </Grid.ColumnDefinitions>
-
-                <!--<AppBarButton Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
-                <TextBlock Grid.Column="1" Text="{Binding UserInfo.Username}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
-                
-                <AppBarButton Grid.Column="2" HorizontalAlignment="Center">
-                    <AppBarButton.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECC5;" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </Grid>
-
-            <Grid Grid.Row="1" Margin="10,0,10,0" VerticalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Ellipse x:Name="UserPicture" Width="85" Height="85" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding UserInfo.ProfilePicUrl, Mode=OneWay}"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </Grid>
-                <Grid Grid.Column="1" Padding="20,15">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock TextAlignment="Center" Text="{Binding UserInfo.MediaCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
-                            <TextBlock TextAlignment="Center" Text="Posts" Foreground="Gray" Grid.Row="1"/>
-                        </Grid>
-                        <Grid Grid.Column="1" Tapped="Followers_Tapped">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowerCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
-                            <TextBlock TextAlignment="Center" Text="Followers" Foreground="Gray" Grid.Row="1"/>
-                        </Grid>
-                        <Grid Grid.Column="2" Tapped="Following_Tapped">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowingCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
-                            <TextBlock TextAlignment="Center" Text="Following" Foreground="Gray" Grid.Row="1"/>
-                        </Grid>
-                    </Grid>
-                    <Button DataContext="{Binding UserInfo}" x:Name="EditProfileBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Edit Profile" Click="EditProfileBT_Click" Height="38" Grid.Column="0" Margin="0,0,2,0"/>
-                    <Button DataContext="{Binding UserInfo}" x:Name="SettingsBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="&#xE115;" FontFamily="Segoe MDL2 Assets" Click="Settings_Click" Height="38" Grid.Column="1"/>
-                </Grid>
-            </Grid>
-
-            <Grid Grid.Row="2" Margin="10,0">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
-                <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>
-                <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12"/>
-            </Grid>
-
-            <Grid Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
-                <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}">
 
-                    <Pivot.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock FontSize="18" Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
+                <Grid Grid.Row="0" Canvas.ZIndex="5" VerticalAlignment="Stretch" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="48"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<AppBarButton Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
+                    <TextBlock Grid.Column="1" Text="{Binding UserInfo.Username}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+
+                    <AppBarButton Grid.Column="2" HorizontalAlignment="Center">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECC5;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </Grid>
+
+  
+                <Grid x:Name="HeaderControl" Grid.Row="1" Margin="10,0,10,0" VerticalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Ellipse x:Name="UserPicture" Width="85" Height="85" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding UserInfo.ProfilePicUrl, Mode=OneWay}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+                        <Grid Grid.Column="1" Padding="20,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock TextAlignment="Center" Text="{Binding UserInfo.MediaCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                                    <TextBlock TextAlignment="Center" Text="Posts" Foreground="Gray" Grid.Row="1"/>
+                                </Grid>
+                                <Grid Grid.Column="1" Tapped="Followers_Tapped">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowerCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                                    <TextBlock TextAlignment="Center" Text="Followers" Foreground="Gray" Grid.Row="1"/>
+                                </Grid>
+                                <Grid Grid.Column="2" Tapped="Following_Tapped">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock TextAlignment="Center" Text="{Binding UserInfo.FollowingCount}" FontWeight="SemiBold" FontSize="18" Grid.Row="0"/>
+                                    <TextBlock TextAlignment="Center" Text="Following" Foreground="Gray" Grid.Row="1"/>
+                                </Grid>
                             </Grid>
+                            <Button DataContext="{Binding UserInfo}" x:Name="EditProfileBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="Edit Profile" Click="EditProfileBT_Click" Height="38" Grid.Column="0" Margin="0,0,2,0"/>
+                            <Button DataContext="{Binding UserInfo}" x:Name="SettingsBT" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource ButtonStyleLogin}" Content="&#xE115;" FontFamily="Segoe MDL2 Assets" Click="Settings_Click" Height="38" Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
 
-                        </DataTemplate>
-                    </Pivot.HeaderTemplate>
+                <Grid Grid.Row="2" Margin="10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
+                        <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>
+                        <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12"/>
+                    </Grid>
 
-                    <PivotItem Header="&#xE80A;" Margin="0">
-                        
-                        <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
+                <Grid Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Line Stroke="LightGray" StrokeThickness="1" Grid.Row="0"/>
+                        <Pivot x:Name="PivotUserView" Grid.Row="1" 
+                           Style="{ThemeResource CustomPivotTab}" 
+                           SelectionChanged="PivotUserView_SelectionChanged">
+
+
+
+                            <Pivot.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock FontSize="18" Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </Pivot.HeaderTemplate>
+
+                            <PivotItem Header="&#xE80A;" Margin="0">
+
+                                <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
                                                    Style="{ThemeResource CustomGridView}"
@@ -148,34 +152,40 @@
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
                                                    IsItemClickEnabled="True">
-                            
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="FrameworkElement">
-                                    <Setter Property="Margin" Value="0.5"/>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                            <controls:AdaptiveGridView.ItemTemplate>
-                                <DataTemplate>
-                                    <View:GridItemUC Media="{Binding}"/>
-                                </DataTemplate>
-                            </controls:AdaptiveGridView.ItemTemplate>
-                        </controls:AdaptiveGridView>
 
-                    </PivotItem>
+                                    <GridView.ItemContainerStyle>
+                                        <Style TargetType="FrameworkElement">
+                                            <Setter Property="Margin" Value="0.5"/>
+                                        </Style>
+                                    </GridView.ItemContainerStyle>
+                                    <controls:AdaptiveGridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <View:GridItemUC Media="{Binding}"/>
+                                        </DataTemplate>
+                                    </controls:AdaptiveGridView.ItemTemplate>
+                                </controls:AdaptiveGridView>
 
-                    <PivotItem Header="&#xE7BC;" Margin="0">
-                        <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5"
-                                  IncrementalLoadingThreshold="0">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <View:InstaMediaUC Media="{Binding}"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </PivotItem>
+                            </PivotItem>
 
-                    <PivotItem Header="&#xEC25;" Margin="0">
-                        <controls:AdaptiveGridView Name="ListUserTag"
+                            <PivotItem Header="&#xE7BC;" Margin="0">
+                                <ListView ItemsSource="{Binding MediaList}"
+                                      SelectionMode="None" 
+                                
+                                      ItemContainerStyle="{StaticResource ListViewStrecher}"
+                                      BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" 
+                                      BorderThickness="0,0.5,0,0.5"
+                                      IncrementalLoadingThreshold="0">
+
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <View:InstaMediaUC Media="{Binding}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </PivotItem>
+
+                            <PivotItem Header="&#xEC25;" Margin="0">
+                                <controls:AdaptiveGridView Name="ListUserTag"
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
                                                    IncrementalLoadingThreshold="0"
@@ -185,54 +195,56 @@
                                                    SelectionMode="None"
                                                    IsItemClickEnabled="True">
 
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="FrameworkElement">
-                                    <Setter Property="Margin" Value="0.5"/>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                            <controls:AdaptiveGridView.ItemTemplate>
-                                <DataTemplate>
-                                    <View:GridItemUC Media="{Binding}"/>
-                                </DataTemplate>
-                            </controls:AdaptiveGridView.ItemTemplate>
-                        </controls:AdaptiveGridView>
-                    </PivotItem>
+                                    <GridView.ItemContainerStyle>
+                                        <Style TargetType="FrameworkElement">
+                                            <Setter Property="Margin" Value="0.5"/>
+                                        </Style>
+                                    </GridView.ItemContainerStyle>
+                                    <controls:AdaptiveGridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <View:GridItemUC Media="{Binding}"/>
+                                        </DataTemplate>
+                                    </controls:AdaptiveGridView.ItemTemplate>
+                                </controls:AdaptiveGridView>
+                            </PivotItem>
 
-                    <PivotItem Header="&#xE7C1;" Margin="0">
-                        <controls:AdaptiveGridView Name="ListCollection"
+                            <PivotItem Header="&#xE7C1;" Margin="0">
+                                <controls:AdaptiveGridView Name="ListCollection"
                                                    OneRowModeEnabled="False"
                                                    ItemHeight="138"
                                                    IncrementalLoadingThreshold="0"
                                                    Style="{ThemeResource CustomGridView}"
-                                                   ItemsSource="{Binding collection}"
+                                                   ItemsSource="{Binding Collection.Value.Items}"
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
                                                    IsItemClickEnabled="True">
 
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="FrameworkElement">
-                                    <Setter Property="Margin" Value="0.5"/>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                            <controls:AdaptiveGridView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid CornerRadius="15">
-                                        <Grid.Background>
-                                            <ImageBrush ImageSource="https://scontent-mxp1-1.cdninstagram.com/vp/a36a8057211a63e1ba6228055f502534/5B7FD346/t51.2885-15/e35/28150997_220154441891517_3209126639321481216_n.jpg?se=7&amp;ig_cache_key=MTcxNjg3ODQwNjcwMzM0MTQ0OQ%3D%3D.2" Stretch="UniformToFill"/>
-                                        </Grid.Background>
-                                        <TextBlock Canvas.ZIndex="1" Text="{Binding CollectionName}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="SemiBold" Foreground="White"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </controls:AdaptiveGridView.ItemTemplate>
-                        </controls:AdaptiveGridView>
-                    </PivotItem>
-                </Pivot>
+                                    <GridView.ItemContainerStyle>
+                                        <Style TargetType="FrameworkElement">
+                                            <Setter Property="Margin" Value="0.5"/>
+                                        </Style>
+                                    </GridView.ItemContainerStyle>
+                                    <controls:AdaptiveGridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid CornerRadius="15">
+                                                <Grid.Background>
+                                                    <ImageBrush ImageSource="{Binding CoverMedia.ImageVersions[0].URI}" Stretch="UniformToFill"/>
+                                                </Grid.Background>
+                                                <TextBlock Canvas.ZIndex="1" Text="{Binding CollectionName}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="SemiBold" Foreground="White"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </controls:AdaptiveGridView.ItemTemplate>
+                                </controls:AdaptiveGridView>
+                            </PivotItem>
+                        </Pivot>
 
-                
-                
+
+
+                    </Grid>
+                    
             </Grid>
-        </Grid>
-
+          
+    
     </Grid>
     
    

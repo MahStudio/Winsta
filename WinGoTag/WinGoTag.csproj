@@ -306,6 +306,8 @@
     <Content Include="Logos\perfectNoColor.png" />
     <Content Include="Logos\WinstaApp.png" />
     <Content Include="Logos\WinstaAppW.png" />
+    <Content Include="Logos\WinstappBlack.png" />
+    <Content Include="Logos\WinstappW.png" />
     <Content Include="Microsoft.UI.Xaml\Assets\NoiseAsset_256X256_PNG.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -118,7 +118,7 @@ namespace WinGoTag.UserControls
             {
                 From = 0,
                 To = 1,
-                Duration = TimeSpan.FromSeconds(0.3),
+                Duration = TimeSpan.FromSeconds(0.2),
                 EnableDependentAnimation = true
             };
             Storyboard.SetTarget(fade, (Image)sender);

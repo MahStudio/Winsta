@@ -38,10 +38,10 @@ namespace WinGoTag.ViewModel
             set { _medUslst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("UserTag")); }
         }
 
-        public IResult<InstaCollections> collection
+        public IResult<InstaCollections> Collection
         {
             get { return _Colst; }
-            set { _Colst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("collection")); }
+            set { _Colst = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Collection")); }
         }
 
 
@@ -79,7 +79,7 @@ namespace WinGoTag.ViewModel
 
          
             var collections = await AppCore.InstaApi.GetCollectionsAsync();
-            collection = collections;
+            Collection = collections;
             //collections.Value.Items[0].CoverMedia
             //InstaCollections
         }
