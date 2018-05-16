@@ -2,6 +2,7 @@
 using Lumia.Imaging.Adjustments;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View.AddPhotos.EditItem;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,7 +50,8 @@ namespace WinGoTag.View.AddPhotos
         }
         StorageFile imageStorageFile;
         StorageItemThumbnail thumbnail;
-        BitmapImage bitmapImage;
+        
+        int EffectIndex = -1;
         public EditPhotoVideoView()
         {
             this.InitializeComponent();
@@ -260,9 +263,39 @@ namespace WinGoTag.View.AddPhotos
 
         private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
+           if(EffectIndex is -1) { return; }
+
             int value = Convert.ToInt32(SliderContrast.Value);
             if(value is 0) { NoFilter(); return; }
-            SqureBlur(value);
+
+            switch (EffectIndex)
+            {
+                case 0: /*add*/ break;
+                case 1: Brightness(value); break;
+                case 2: Contrast(value); break;
+                case 3: Temperature(value); break;
+                case 4: ColorBoost(value); break;
+                case 5: /*Add*/ break;
+                case 6: /*add*/ break;
+            }
+        }
+
+        private void EditsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var data = e.ClickedItem as GridViewEditItem;
+            EffectIndex = data.Target;
+            _NameEffect.Text = data.Text;
+            EditRoot.Visibility = Visibility.Visible;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            EditRoot.Visibility = Visibility.Collapsed;
+        }
+
+        private void Done_Click(object sender, RoutedEventArgs e)
+        {
+            EditRoot.Visibility = Visibility.Collapsed;
         }
     }
 }
