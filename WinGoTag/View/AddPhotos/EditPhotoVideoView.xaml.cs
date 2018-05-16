@@ -35,6 +35,7 @@ namespace WinGoTag.View.AddPhotos
             ColorAdjust,
             ColorBoost,
             Contrast,
+            Despeckle,
             SqureBlur,
         }
         StorageFile imageStorageFile;
@@ -111,6 +112,22 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
+        async void Despeckle(int EffectPercentage)
+        {
+            DespeckleLevel Level = DespeckleLevel.Minimum;
+            if (EffectPercentage < 25) Level = DespeckleLevel.Minimum;
+            if (EffectPercentage < 50) Level = DespeckleLevel.Low;
+            if (EffectPercentage > 50 && EffectPercentage <= 75) Level = DespeckleLevel.High;
+            if (EffectPercentage > 75) Level = DespeckleLevel.Maximum;
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
+            using (var sharpnessEffect = new DespeckleEffect(contrastEffect) { DespeckleLevel = Level })
+            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
+            {
+                await renderer.RenderAsync();
+            }
+        }
+
         async void SqureBlur(int EffectPercentage)
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
@@ -121,6 +138,7 @@ namespace WinGoTag.View.AddPhotos
                 await renderer.RenderAsync();
             }
         }
+
 
         private void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
         {
