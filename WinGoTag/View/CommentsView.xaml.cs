@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,6 +33,25 @@ namespace WinGoTag.View
         public CommentsView()
         {
             this.InitializeComponent();
+        }
+        private void MessageTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                SendTextMessage();
+        }
+        async void SendTextMessage()
+        {
+            var res = await AppCore.InstaApi.CommentMediaAsync(MediaID, MessageTextBox.Text);
+            if(!res.Succeeded)
+            {
+                await new MessageDialog(res.Info.Message).ShowAsync();
+                return;
+            }
+            else
+            {
+                PageItemssource.Add(res.Value);
+                MessageTextBox.Text = "";
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

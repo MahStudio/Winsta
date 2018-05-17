@@ -40,7 +40,7 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <!--<TextBlock Grid.Column="1" Text="Camera Roll" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>-->
-                <Button x:Name="Next" Grid.Column="2" Content="Next" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" FontWeight="SemiBold"/>
+                <Button x:Name="Next" Grid.Column="2" Content="Next" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" FontWeight="SemiBold" Click="Next_Click"/>
             </Grid>
 
             <Grid Grid.Row="1" MaxHeight="320">

@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
@@ -75,5 +76,15 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" FontSize="18" Background="White" Padding="12,8,0,0" KeyUp="MessageTextBox_KeyUp"/>
+            <Button Grid.Column="1" Height="48" Click="{x:Bind SendTextMessage}">
+                <SymbolIcon Symbol="Send" />
+            </Button>
+        </Grid>
     </Grid>
 </Page>

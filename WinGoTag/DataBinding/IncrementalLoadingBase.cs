@@ -19,7 +19,9 @@ namespace WinGoTag.DataBinding
 
         public int Add(object value)
         {
-            throw new NotImplementedException();
+            _storage.Add(value);
+            NotifyOfInsertedItems((_storage.Count - 1), 1);
+            return 1;
         }
 
         public void Clear()
