@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Android.DeviceInfo;
@@ -15,6 +16,7 @@ using InstaSharper.Helpers;
 using InstaSharper.Logger;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Windows.Storage;
 
 namespace InstaSharper.API.Processors
 {
@@ -306,7 +308,7 @@ namespace InstaSharper.API.Processors
 
                 if (jObject.Status.ToLower() == "ok")
                 {
-                    var mediaResponse = JsonConvert.DeserializeObject<InstaMediaItemResponse>(json, 
+                    var mediaResponse = JsonConvert.DeserializeObject<InstaMediaItemResponse>(json,
                         new InstaMediaDataConverter());
                     var converter = ConvertersFabric.Instance.GetSingleMediaConverter(mediaResponse);
                     return Result.Success(converter.Convert());
@@ -336,7 +338,9 @@ namespace InstaSharper.API.Processors
                         "\"image_compression\""
                     }
                 };
-                var imageContent = new ByteArrayContent(File.ReadAllBytes(image.URI));
+                var ImageUri = new Uri("ms-appx:///" + image.URI, UriKind.RelativeOrAbsolute);
+                var arr = (await FileIO.ReadBufferAsync(await StorageFile.GetFileFromApplicationUriAsync(ImageUri))).ToArray();
+                var imageContent = new ByteArrayContent(arr);
                 imageContent.Headers.Add("Content-Transfer-Encoding", "binary");
                 imageContent.Headers.Add("Content-Type", "application/octet-stream");
                 requestContent.Add(imageContent, "photo", $"pending_media_{ApiRequestMessage.GenerateUploadId()}.jpg");
@@ -409,7 +413,7 @@ namespace InstaSharper.API.Processors
                 var androidVersion =
                     AndroidVersion.FromString(_deviceInfo.FirmwareFingerprint.Split('/')[2].Split(':')[1]);
                 if (androidVersion == null)
-                    return Result.Fail("Unsupported android version", (InstaMedia) null);
+                    return Result.Fail("Unsupported android version", (InstaMedia)null);
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},

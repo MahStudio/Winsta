@@ -600,5 +600,15 @@ namespace WinGoTag.View.AddPhotos
         {
             EditRoot.Visibility = Visibility.Collapsed;
         }
+
+        private async void Next_Click(object sender, RoutedEventArgs e)
+        {
+            var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
+            {
+                URI = new Uri("ms-appx:///Logos/perfectColor.png", UriKind.Absolute).LocalPath,
+                Width = 391,
+                Height = 428
+            }, "Test Winsta App Upload Photo");
+        }
     }
 }
