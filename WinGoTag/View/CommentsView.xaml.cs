@@ -70,7 +70,6 @@ namespace WinGoTag.View
                 //return tres[count];
                 return new InstaComment();
             }, e.Parameter.ToString());
-
             PageItemssource.CollectionChanged += PageItemssource_CollectionChanged;
             mylist.ItemsSource = PageItemssource;
         }
@@ -89,6 +88,11 @@ namespace WinGoTag.View
         private void Username_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(UserProfileView), (sender as HyperlinkButton).Tag);
+        }
+
+        private void Reply_Button(object sender, RoutedEventArgs e)
+        {
+            MessageTextBox.Text = $"@{((sender as HyperlinkButton).Tag as InstaComment).User.UserName}";
         }
     }
 }

@@ -64,5 +64,15 @@ namespace WinGoTag.View.UserViews
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
+
+        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
+        }
+
+        private void Followers_Click(object sender, RoutedEventArgs e)
+        {
+            EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+        }
     }
 }

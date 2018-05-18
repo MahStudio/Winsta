@@ -115,7 +115,9 @@
     <Compile Include="Converters\DirectMessageControlVisibilityConverter.cs" />
     <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
+    <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
+    <Compile Include="Converters\UtcToTextConverter.cs" />
     <Compile Include="DataBinding\ChatIncrementalLoadingBase.cs" />
     <Compile Include="DataBinding\GeneratorIncrementalLoadingClass.cs" />
     <Compile Include="DataBinding\IncrementalLoadingBase.cs" />
@@ -221,6 +223,9 @@
     </Compile>
     <Compile Include="View\SignInSignUp\TwoStepFactorView.xaml.cs">
       <DependentUpon>TwoStepFactorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SinglePostView.xaml.cs">
+      <DependentUpon>SinglePostView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StoryView\StoryViews.xaml.cs">
       <DependentUpon>StoryViews.xaml</DependentUpon>
@@ -487,6 +492,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SignInSignUp\TwoStepFactorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SinglePostView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

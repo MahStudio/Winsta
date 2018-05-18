@@ -122,9 +122,11 @@
                 <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
                 <TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>
                 <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12"/>
-                <TextBlock Grid.Row="4" FontSize="12">
+                <HyperlinkButton Grid.Row="4" Click="Followers_Click" Foreground="Black" FontSize="12">
+                    <TextBlock>
                     <Run Text="{Binding UserInfo.ProfileContext}" FontWeight="SemiBold"/>
-                </TextBlock>
+                    </TextBlock>
+                </HyperlinkButton>
             </Grid>
 
             <Grid Margin="0,3,0,0" Grid.Row="3" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5">
@@ -153,6 +155,7 @@
                                                    ItemsSource="{Binding MediaList}"
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
+                                                   ItemClick="AdaptiveGridViewControl_ItemClick"
                                                    IsItemClickEnabled="True">
                             
                             <GridView.ItemContainerStyle>
