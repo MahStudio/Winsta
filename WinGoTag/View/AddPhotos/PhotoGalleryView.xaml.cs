@@ -70,6 +70,7 @@ namespace WinGoTag.View.AddPhotos
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
+            MainPage.Bar.Visibility = Visibility.Visible;
             if (e.NavigationMode == NavigationMode.Back)
                 AppCore.ModerateBack("");
         }
