@@ -47,7 +47,39 @@
                 <SwapChainPanel Name="m_targetSwapChainPanel"/>
             </Grid>
 
-            <Grid Grid.Row="2" Height="200">
+            <Grid Grid.Row="2" Height="150">
+                <GridView x:Name="FiltersList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                          ScrollViewer.HorizontalScrollMode="Enabled" 
+                                          ScrollViewer.VerticalScrollMode="Disabled"
+                                          SelectionMode="None" IsItemClickEnabled="True"
+                                          Margin="0,6,0,0" ItemClick="FiltersList_ItemClick" MinHeight="60" VerticalAlignment="Center">
+
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" Grid.RowSpan="1">
+                                    <Image.Source>
+                                        <BitmapImage UriSource="{Binding bitmapSource}"/>
+                                    </Image.Source>
+                                </Image>
+                                <Grid Background="Gray" Opacity="0.7" Grid.Row="1">
+                                    <TextBlock Text="{Binding FilterName}" TextAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </Grid>
+            <!--<Grid Grid.Row="2" Height="200">
 
                 <GridView x:Name="FiltersList" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                           ScrollViewer.HorizontalScrollMode="Enabled" 
@@ -146,7 +178,7 @@
             <Grid Height="260" Grid.Row="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Slider Value="0" x:Name="SliderContrast" Minimum="-100"
                     Canvas.ZIndex="1" ValueChanged="SliderContrast_ValueChanged"
-                    Maximum="100" VerticalAlignment="Center" Margin="24,0,24,0" TickFrequency="0.1">
+                    Maximum="100" VerticalAlignment="Center" Margin="24,0,24,0" TickFrequency="0.1" StepFrequency="0.1">>
                     <Slider.Background>
                         <LinearGradientBrush StartPoint="0,0.5"
                                                      EndPoint="1,0.5">
@@ -179,7 +211,7 @@
                     VerticalAlignment="Stretch"
                     Background="{x:Null}"
                     FontWeight="SemiBold"/>
-            </Grid>
+            </Grid>-->
 
         </Grid>
         
