@@ -69,6 +69,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="48"/>
                 </Grid.ColumnDefinitions>
                 <Ellipse Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30">
                     <Ellipse.Fill>
@@ -80,7 +81,11 @@
                     </Ellipse.Fill>
                 </Ellipse>
                 <TextBlock Grid.Column="1" Text="{Binding MediaShare.User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI"/>
-
+                <AppBarButton Grid.Column="2" Width="48" Click="AppBarButton_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00F;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </Grid>
 
             <Image Grid.Row="1" Source="{Binding MediaShare.Images[0].URI}" Stretch="UniformToFill"/>

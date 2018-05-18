@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View;
 using WinGoTag.View.DirectMessages;
 
 // Il modello di elemento Controllo utente è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234236
@@ -52,6 +53,12 @@ namespace WinGoTag.UserControls.DirectMessageUCs
         private void Likes_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            var data = (this.DataContext as InstaDirectInboxItem);
+            MainPage.MainFrame.Navigate(typeof(SinglePostView), data.MediaShare);
         }
     }
 }
