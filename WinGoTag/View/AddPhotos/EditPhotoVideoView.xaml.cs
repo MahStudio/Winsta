@@ -22,6 +22,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.View.AddPhotos.EditItem;
+using WinGoTag.View.AddPhotos.FilterItem;
+using static WinGoTag.View.AddPhotos.PhotoGalleryView;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,6 +55,7 @@ namespace WinGoTag.View.AddPhotos
         }
         StorageFile imageStorageFile;
         StorageItemThumbnail thumbnail;
+        public static BitmapImage bitmapImage;
 
         int EffectIndex = -1;
         public EditPhotoVideoView()
@@ -71,14 +74,24 @@ namespace WinGoTag.View.AddPhotos
         {
             base.OnNavigatedTo(e);
             AppCore.ModerateBack(Frame.GoBack);
-            imageStorageFile = e.Parameter as StorageFile;
-            thumbnail = await imageStorageFile.GetThumbnailAsync(ThumbnailMode.PicturesView, 100);
-            //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
-            await Task.Delay(1000);
 
-            EditItem.AddEditItem vm = new EditItem.AddEditItem();
-            this.DataContext = vm;
-            EditsList.ItemsSource = vm.GridViewItems;
+            var Data = ((ImageTo)e.Parameter);
+
+            imageStorageFile = Data.FileImage;
+            thumbnail = await imageStorageFile.GetThumbnailAsync(ThumbnailMode.PicturesView, 100);
+
+            bitmapImage = await Data.FullImage.GetImageSourceAsync();
+
+            //await Task.Delay(1000);
+
+            AddFilterItem a = new AddFilterItem();
+            this.DataContext = a;
+            FiltersList.ItemsSource = a.ListFilterItems;
+
+
+            //EditItem.AddEditItem vm = new EditItem.AddEditItem();
+            //this.DataContext = vm;
+            //EditsList.ItemsSource = vm.GridViewItems;
             
             //Vibrance(100);
             NoFilter();
