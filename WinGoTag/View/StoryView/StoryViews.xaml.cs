@@ -73,18 +73,26 @@ namespace WinGoTag.View.StoryView
                 this.DataContext = ((InstaReelFeed)e.Parameter);
                 AnimationEnter();
                 var i = ((InstaReelFeed)e.Parameter);
-                var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
-                Flipviews.ItemsSource = story.Value.Items;
+                InstaReelFeed story = null;
+                if( (e.Parameter as InstaReelFeed).Items.Count != 0 )
+                {
+                    story = e.Parameter as InstaReelFeed;
+                }
+                else
+                {
+                    story = (await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk)).Value;
+                }
+                Flipviews.ItemsSource = story.Items;
                 for (int a = 0; a < Flipviews.Items.Count; a++)
                 {
-                    switch (story.Value.Items[a].MediaType)
+                    switch (story.Items[a].MediaType)
                     {
                         case 1:
                             SecondItemList.Add(6);
                             break;
 
                         case 2:
-                            SecondItemList.Add(story.Value.Items[a].VideoDuration);
+                            SecondItemList.Add(story.Items[a].VideoDuration);
                             break;
                     }
                 }
