@@ -51,8 +51,15 @@ namespace WinGoTag.View.DirectMessages
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
             VieweIds = Message.Value.VieweId;
             ThreadIds = Message.Value.ThreadId;
-            UserId = Message.Value.Users[0].Pk;
             DataUser = Message.Value.Users[0];
+            try
+            {
+                UserId = Message.Value.Users[0].Pk;
+            }
+            catch
+            {
+                UserId = (await AppCore.InstaApi.GetCurrentUserAsync()).Value.Pk;
+            }
             //MessageList.ItemsSource = Message.Value.Items;
             Message.Value.Items.Reverse();
             //for (int a = 0; a < Message.Value.Items.Count; a++)
