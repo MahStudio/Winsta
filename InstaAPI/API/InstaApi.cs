@@ -62,6 +62,35 @@ namespace InstaSharper.API
             return _user;
         }
 
+        public async Task<IResult<InstaDirectInboxThread>> UpdateGroupTitle(string ThreadID, string Title)
+        {
+            ValidateUser();
+            ValidateLoggedIn();
+            try
+            {
+                var instaUri = new Uri($"https://i.instagram.com/api/v1/direct_v2/threads/{ThreadID}/update_title/", UriKind.RelativeOrAbsolute);
+                var fields = new Dictionary<string, string>
+                {
+                    {"use_unified_inbox", true.ToString()},
+                    {"_uuid", _deviceInfo.DeviceGuid.ToString()},
+                    {"_csrftoken", _user.CsrfToken},
+                    { "title",  Title}
+                };
+                var request =
+                    HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, fields);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode != HttpStatusCode.OK)
+                    return Result.UnExpectedResponse<InstaDirectInboxThread>(response, json);
+                var JRes = JsonConvert.DeserializeObject<InstaDirectInboxThread>(json);
+                return Result.Success(JRes);
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail<InstaDirectInboxThread>(ex.Message);
+            }
+        }
+
         /// <summary>
         ///     Get user timeline feed (feed of recent posts from users you follow) asynchronously.
         /// </summary>

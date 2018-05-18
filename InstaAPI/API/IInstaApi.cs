@@ -31,6 +31,7 @@ namespace InstaSharper.API
         string GetStateDataAsStream();
         Task<IResult<bool>> SendVerifyForChallenge(int UserChoice);
         Task<IResult<Step_Data>> GetChallengeChoices();
+        Task<IResult<InstaDirectInboxThread>> UpdateGroupTitle(string ThreadID, string Title);
         /// <summary>
         ///     Set state data from provided stream
         /// </summary>
