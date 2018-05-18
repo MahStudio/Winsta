@@ -110,7 +110,8 @@ namespace WinGoTag.View.DirectMessages
             TextBoxChat.Text = "";
             for (int a = 0; a < MessageSend.Value[0].Items.Count; a++)
             {
-                MessageList.Items.Add(MessageSend.Value[0].Items[a]);
+                ItemsList.Add(MessageSend.Value[0].Items[a]);
+                //MessageList.Items.Add(MessageSend.Value[0].Items[a]);
             }
 
 
