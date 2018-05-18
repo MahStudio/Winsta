@@ -33,6 +33,7 @@ namespace WinGoTag.View.SearchView
         public ExploreView()
         {
             this.InitializeComponent();
+            StoryFr.Navigate(typeof(Page));
         }
 
 
@@ -171,6 +172,9 @@ namespace WinGoTag.View.SearchView
             return null;
         }
 
-
+        private void mylist_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            StoryFr.Navigate(typeof(SinglePostView), e.ClickedItem);
+        }
     }
 }

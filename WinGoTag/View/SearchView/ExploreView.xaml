@@ -23,7 +23,8 @@
                                    OneRowModeEnabled="False"
                                    Style="{ThemeResource CustomGridView}"
                                    ItemHeight="138" DesiredWidth="150"
-                                   IsItemClickEnabled="False" SelectionMode="None">
+                                   
+                                   IsItemClickEnabled="True" SelectionMode="None" ItemClick="mylist_ItemClick">
 
             <GridView.ItemContainerStyle>
                 <Style TargetType="FrameworkElement">

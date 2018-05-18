@@ -8,6 +8,12 @@
     xmlns:UC="using:WinGoTag.UserControls"
     mc:Ignorable="d">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <EdgeUIThemeTransition Edge="Right"/>
+        </TransitionCollection>
+    </Page.Transitions>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
@@ -17,7 +23,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="68"/>
+                <ColumnDefinition Width="48"/>
             </Grid.ColumnDefinitions>
 
             <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
@@ -29,7 +35,7 @@
 
         </Grid>
         <ScrollViewer Grid.Row="1" >
-            <UC:InstaMediaUC Media="{Binding}"/>
+            <UC:InstaMediaUC Media="{Binding}" VerticalAlignment="Top"/>
         </ScrollViewer>
     </Grid>
 </Page>
