@@ -14,7 +14,23 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="6">
+
+        <Grid Margin="6" x:Name="Group" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,10" StrokeThickness="2.3" Stroke="Transparent">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Users[0].ProfilePicture, Mode=OneWay}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,0,0" StrokeThickness="2.3" Stroke="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Users[2].ProfilePicture, Mode=OneWay}"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+        
+
+        <Grid x:Name="User" Grid.Column="0" Margin="6">
             <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{Binding Users[0].ProfilePicture, Mode=OneWay}"/>

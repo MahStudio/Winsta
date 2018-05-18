@@ -46,6 +46,25 @@ namespace WinGoTag.UserControls.DirectMessageUCs
         public DirectThreadItemProviderUC()
         {
             this.InitializeComponent();
+            this.DataContextChanged += DirectMessageUCs_DataContextChanged;
+        }
+
+        private void DirectMessageUCs_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            try
+            {
+                if (args.NewValue.GetType() == typeof(InstaDirectInboxThread))
+                {
+                    //var value = DataContext as InstaMedia;
+                    if(DirectItem.Users.Count > 1)
+                    {
+                        User.Visibility = Visibility.Collapsed;
+                        Group.Visibility = Visibility.Visible;
+                    }
+
+                }
+            }
+            catch { }
         }
     }
 }
