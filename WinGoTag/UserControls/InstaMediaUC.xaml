@@ -48,7 +48,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <HyperlinkButton Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click">
-                <TextBlock Foreground="Black" Text="{Binding User.UserName}"/>
+                <TextBlock Foreground="Black" Text="{Binding User.UserName}" VerticalAlignment="Center" Margin="0,0,0,3"/>
             </HyperlinkButton>
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>

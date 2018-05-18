@@ -50,9 +50,9 @@ namespace WinGoTag.UserControls.DirectMessageUCs
             this.InitializeComponent();
         }
 
-        private void Likes_Click(object sender, RoutedEventArgs e)
+        private async void Likes_Click(object sender, RoutedEventArgs e)
         {
-
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -60,5 +60,50 @@ namespace WinGoTag.UserControls.DirectMessageUCs
             var data = (this.DataContext as InstaDirectInboxItem);
             MainPage.MainFrame.Navigate(typeof(SinglePostView), data.MediaShare);
         }
+
+        private async void LikeDislikeRunner()
+        {
+            if (!InboxItem.MediaShare.HasLiked)
+            {
+                if ((await AppCore.InstaApi.LikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+                {
+                    InboxItem.MediaShare.HasLiked = true;
+                    InboxItem.MediaShare.LikesCount += 1;
+                }
+            }
+            else
+            {
+                if ((await AppCore.InstaApi.UnLikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+                {
+                    InboxItem.MediaShare.HasLiked = false;
+                    InboxItem.MediaShare.LikesCount -= 1;
+                }
+            }
+        }
+
+        private void LikesImage_Click(object sender, RoutedEventArgs e)
+        {
+            //await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunnerMedia);
+        }
+
+        //private async void LikeDislikeRunnerMedia()
+        //{
+        //    if (!InboxItem.MediaShare.HasLiked)
+        //    {
+        //        if ((await AppCore.InstaApi.LikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+        //        {
+        //            InboxItem.MediaShare.HasLiked = true;
+        //            InboxItem.MediaShare.LikesCount += 1;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if ((await AppCore.InstaApi.UnLikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+        //        {
+        //            InboxItem.MediaShare.HasLiked = false;
+        //            InboxItem.MediaShare.LikesCount -= 1;
+        //        }
+        //    }
+        //}
     }
 }

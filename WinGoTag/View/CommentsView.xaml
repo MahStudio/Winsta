@@ -80,29 +80,29 @@
 
                                 <!--<TextBlock Grid.Row="1" Text="{Binding User.UserName, Mode=OneWay}"/>-->
                                 <HyperlinkButton Grid.Row="0" Tag="{Binding User}" Click="Username_Click">
-                                    <TextBlock Foreground="Black" Text="{Binding User.UserName, Mode=OneWay}"/>
+                                    <TextBlock Foreground="Black" Text="{Binding User.UserName, Mode=OneWay}" Margin="0,0,0,3" FontWeight="SemiBold"/>
                                 </HyperlinkButton>
 
                                 <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
 
-                                <Grid Grid.Row="2">
+                                <Grid Grid.Row="2" Margin="0,3,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Foreground="LightGray" >
-                                        <Run Text="{Binding CreatedAtUtc, Converter={StaticResource UtcToTextConverter}}"/>
+                                        <Run Text="{Binding CreatedAtUtc, Converter={StaticResource UtcToTextConverter}}" FontSize="12"/>
                                     </TextBlock>
                                     <HyperlinkButton FontSize="15" Grid.Column="1" Margin="15,-5,0,0" Visibility="{Binding LikesCount,Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}">
                                         <TextBlock Foreground="LightGray">
-                                            <Run Text="{Binding LikesCount}"/>
-                                            <Run Text="like"/>
+                                            <Run Text="{Binding LikesCount}" FontSize="12"/>
+                                            <Run Text="like" FontSize="12"/>
                                         </TextBlock>
                                     </HyperlinkButton>
                                     <HyperlinkButton Tag="{Binding}" Click="Reply_Button" FontSize="15" Grid.Column="2" Margin="15,-5,0,0" >
                                         <TextBlock Foreground="LightGray">
-                                            <Run Text="Reply"/>
+                                            <Run Text="Reply" FontSize="12"/>
                                         </TextBlock>
                                     </HyperlinkButton>
                                 </Grid>

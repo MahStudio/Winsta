@@ -97,11 +97,7 @@
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <AppBarButton Width="48" x:Name="Likes" Grid.Column="0" Click="Likes_Click">
-                    <AppBarButton.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
+                <AppBarButton Content="{Binding MediaShare.HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Width="48" FontFamily="Segoe MDL2 Assets" FontSize="22" x:Name="Likes" Grid.Column="0" Click="Likes_Click"/>
             </Grid>
         </Grid>
 
@@ -125,11 +121,7 @@
                     <ColumnDefinition Width="48"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <AppBarButton Width="48" x:Name="LikesImage" Grid.Column="0" Click="Likes_Click">
-                    <AppBarButton.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
+                <AppBarButton Content="{Binding Media.HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Width="48" FontFamily="Segoe MDL2 Assets" FontSize="22" x:Name="LikesImage" Grid.Column="0" Click="LikesImage_Click"/>
             </Grid>
         </Grid>
 
