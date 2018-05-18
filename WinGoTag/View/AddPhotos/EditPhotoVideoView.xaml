@@ -95,11 +95,16 @@
 
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center" FontSize="12" Margin="0,6,0,6"/>
+
+                                <Image Grid.Row="1" Source="{Binding Image}" Width="120" Height="120" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                             </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>
@@ -109,7 +114,7 @@
                                           ScrollViewer.HorizontalScrollMode="Enabled" 
                                           ScrollViewer.VerticalScrollMode="Disabled"
                                           SelectionMode="None" IsItemClickEnabled="True"
-                                          Margin="6,6,0,0" ItemClick="EditsList_ItemClick" MinHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                          Margin="6,6,0,0" ItemClick="EditsList_ItemClick" MinHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
 
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -137,6 +142,8 @@
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
+
+                
 
             </Grid>
 

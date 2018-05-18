@@ -171,6 +171,8 @@
     <Compile Include="View\AddPhotos\EditPhotoVideoView.xaml.cs">
       <DependentUpon>EditPhotoVideoView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddPhotos\FilterItem\AddFilterItem.cs" />
+    <Compile Include="View\AddPhotos\FilterItem\ListFilterItem.cs" />
     <Compile Include="View\AddPhotos\ImageFileInfo.cs" />
     <Compile Include="View\AddPhotos\PhotoGalleryView.xaml.cs">
       <DependentUpon>PhotoGalleryView.xaml</DependentUpon>
