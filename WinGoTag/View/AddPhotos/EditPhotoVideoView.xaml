@@ -44,7 +44,7 @@
             </Grid>
 
             <Grid Grid.Row="1" MaxHeight="320">
-                <SwapChainPanel Name="m_targetSwapChainPanel"/>
+                <Image Name="Preview_Image"/>
             </Grid>
 
             <Grid Grid.Row="2" Height="150">

@@ -100,7 +100,7 @@ namespace WinGoTag.View.AddPhotos
             }
             //(new FilterListItem()).bitmapSource.Source
             //Vibrance(100);
-            await NoFilter();
+            Preview_Image.Source = new BitmapImage(await NoFilter());
         }
 
         async Task<Uri> AddFilter(ImageFiltersEnum FilterType)
@@ -169,10 +169,8 @@ namespace WinGoTag.View.AddPhotos
         async Task<Uri> NoFilter()
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var renderer = new SwapChainPanelRenderer(source, m_targetSwapChainPanel))
             {
                 LastEffect = source;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -183,10 +181,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new AntiqueEffect(source))
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -198,10 +194,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new CartoonEffect(source) { DistinctEdges = false })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -213,10 +207,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new EmbossEffect(source) { Level = 0.5 })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -228,10 +220,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new FogEffect(source))
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -243,10 +233,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new GrayscaleNegativeEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -258,10 +246,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Red })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -273,10 +259,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Blue })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -288,10 +272,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new Lumia.Imaging.Artistic.LomoEffect(source) { LomoStyle = LomoStyle.Green })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -303,10 +285,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new LomoEffect(source) { LomoStyle = LomoStyle.Yellow })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -318,10 +298,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new Lumia.Imaging.Artistic.MagicPenEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -333,10 +311,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new MilkyEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -348,10 +324,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new Lumia.Imaging.Artistic.MirrorEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -363,10 +337,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new MoonlightEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -378,10 +350,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new Lumia.Imaging.Artistic.NegativeEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -393,10 +363,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new OilyEffect(source) { OilBrushSize = OilBrushSize.Medium })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -408,10 +376,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new PaintEffect(source) { Level = 4 })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -423,10 +389,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new PosterizeEffect(source) { ColorComponentValueCount = 10 })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -438,10 +402,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new Lumia.Imaging.Artistic.SepiaEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -453,10 +415,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new SketchEffect(source) { SketchMode = SketchMode.Color })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -468,10 +428,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new SketchEffect(source) { SketchMode = SketchMode.Gray })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -483,10 +441,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new SolarizeEffect(source) { })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -498,10 +454,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new WarpingEffect(source) { WarpMode = WarpMode.BigNose })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -513,10 +467,8 @@ namespace WinGoTag.View.AddPhotos
             {
                 var inf = await source.GetInfoAsync();
                 using (var sharpnessEffect = new SpotlightEffect(source) { Position = new Point((inf.ImageSize.Width / 2), (inf.ImageSize.Height / 2)), Radius = (int)((inf.ImageSize.Width / 2) - 100), TransitionSize = 0.8 })
-                using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
                 {
                     LastEffect = sharpnessEffect;
-                    await renderer.RenderAsync();
                     return await SaveToImage();
                 }
             }
@@ -527,10 +479,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new BrightnessEffect(contrastEffect) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -540,10 +490,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new ColorAdjustEffect(contrastEffect) { Blue = (BluePercentage / 100), Green = (GreenPercentage / 100), Red = (RedPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -553,10 +501,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new ColorBoostEffect(contrastEffect) { Gain = (EffectPercentage / 50) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -565,10 +511,8 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var sharpnessEffect = new ContrastEffect(source) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -583,10 +527,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new DespeckleEffect(contrastEffect) { DespeckleLevel = Level })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -596,10 +538,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new ExposureEffect(contrastEffect) { Gain = (EffectPercentage / 67), ExposureMode = ExposureMode.Natural })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -609,10 +549,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new GaussianNoiseEffect(contrastEffect) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -621,10 +559,8 @@ namespace WinGoTag.View.AddPhotos
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var sharpnessEffect = new GrayscaleEffect(source))
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -634,10 +570,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new LocalBoostAutomaticEffect(contrastEffect) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -651,10 +585,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new NoiseEffect(contrastEffect) { Level = level })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -664,10 +596,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new SharpnessEffect(contrastEffect) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -677,10 +607,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new TemperatureAndTintEffect(contrastEffect) { Temperature = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -690,10 +618,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new VibranceEffect(contrastEffect) { Level = (EffectPercentage / 100) })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -703,10 +629,8 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             using (var contrastEffect = new ContrastEffect(source) { Level = 0.6 })
             using (var sharpnessEffect = new BlurEffect(contrastEffect) { KernelSize = EffectPercentage })
-            using (var renderer = new SwapChainPanelRenderer(sharpnessEffect, m_targetSwapChainPanel))
             {
                 LastEffect = sharpnessEffect;
-                await renderer.RenderAsync();
                 return await SaveToImage();
             }
         }
@@ -714,7 +638,8 @@ namespace WinGoTag.View.AddPhotos
 
         private void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            var item = e.ClickedItem as FilterListItem;
+            Preview_Image.Source = new BitmapImage(item.bitmapSource);
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
