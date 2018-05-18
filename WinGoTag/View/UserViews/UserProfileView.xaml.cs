@@ -64,5 +64,10 @@ namespace WinGoTag.View.UserViews
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
+
+        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
+        }
     }
 }

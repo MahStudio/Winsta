@@ -76,5 +76,10 @@ namespace WinGoTag.View
                     break;
             }
         }
+
+        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(SinglePostView), e.ClickedItem);
+        }
     }
 }

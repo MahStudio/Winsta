@@ -153,6 +153,7 @@
                                                    ItemsSource="{Binding MediaList}"
                                                    DesiredWidth="150"
                                                    SelectionMode="None"
+                                                   ItemClick="AdaptiveGridViewControl_ItemClick"
                                                    IsItemClickEnabled="True">
 
                                     <GridView.ItemContainerStyle>
