@@ -690,6 +690,8 @@ namespace WinGoTag.View.AddPhotos
             using (var renderer = new JpegRenderer(LastEffect, JpegOutputColorMode.Yuv420))
             {
                 var info = await source.GetInfoAsync();
+                var max = Math.Max(info.ImageSize.Height, info.ImageSize.Width);
+                renderer.Size = new Size(max,max);
                 var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("file.Jpg", CreationCollisionOption.GenerateUniqueName);
                 var render = await renderer.RenderAsync();
                 using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
@@ -703,6 +705,15 @@ namespace WinGoTag.View.AddPhotos
 
         private async void Next_Click(object sender, RoutedEventArgs e)
         {
+            //Width of Photo should be 1080 at last
+            //photo that has a width between 320 and 1080 pixels,
+            //photo's aspect ratio is between 1.91:1 and 4:5 (a height between 566 and 1350 pixels with a width of 1080 pixels)
+            using (var source = new StorageFileImageSource(imageStorageFile))
+            {
+                var size = (await source.GetInfoAsync()).ImageSize;
+                var res = await AppCore.InstaApi.UploadPhotoAsync(
+                    new InstaSharper.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
+            }
             StorageFile F2S = null;
             if (FiltersList.SelectedItem == null)
             {
