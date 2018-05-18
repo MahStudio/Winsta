@@ -41,7 +41,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <TextBlock Grid.Column="1" Text="{Binding Inviter.UserName}" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="{Binding Title}" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
             <AppBarButton Grid.Column="2" Width="48">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF167;" />

@@ -46,8 +46,6 @@ namespace WinGoTag.View.DirectMessages
             var source = ((InstaDirectInboxThread)e.Parameter);
             ItemsList = new GenerateDirectThreadList<InstaDirectInboxItem>(100000, (count) =>
             {
-                //return tres[count];
-                
                 return new InstaDirectInboxItem();
             }, source.ThreadId);
             var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
