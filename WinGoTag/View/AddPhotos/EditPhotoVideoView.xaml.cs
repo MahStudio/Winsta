@@ -63,7 +63,6 @@ namespace WinGoTag.View.AddPhotos
         }
         IImageProvider LastEffect;
         StorageFile imageStorageFile;
-        StorageItemThumbnail thumbnail;
         private class FilterListItem
         {
             public Uri bitmapSource { get; set; }
@@ -87,7 +86,6 @@ namespace WinGoTag.View.AddPhotos
             base.OnNavigatedTo(e);
             AppCore.ModerateBack(Frame.GoBack);
             imageStorageFile = e.Parameter as StorageFile;
-            thumbnail = await imageStorageFile.GetThumbnailAsync(ThumbnailMode.PicturesView, 100);
             //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
 
@@ -156,14 +154,14 @@ namespace WinGoTag.View.AddPhotos
                 case ImageFiltersEnum.SqureBlur:
                     return await SqureBlur(40);
                 default:
-                    break;
+                    return await NoFilter();
             }
-            using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var sharpnessEffect = new BlurEffect(source) { KernelSize = 40 })
-            using (var renderer = new JpegRenderer(sharpnessEffect))
-            {
-                return await SaveToImage();
-            }
+            //using (var source = new StorageFileImageSource(imageStorageFile))
+            //using (var sharpnessEffect = new BlurEffect(source) { KernelSize = 40 })
+            //using (var renderer = new JpegRenderer(sharpnessEffect))
+            //{
+            //    return await SaveToImage();
+            //}
         }
 
         async Task<Uri> NoFilter()
@@ -687,7 +685,7 @@ namespace WinGoTag.View.AddPhotos
         async Task<Uri> SaveToImage()
         {
             using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var renderer = new JpegRenderer(LastEffect, JpegOutputColorMode.Grayscale))
+            using (var renderer = new JpegRenderer(LastEffect, JpegOutputColorMode.Yuv420))
             {
                 var info = await source.GetInfoAsync();
                 var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("file.Jpg", CreationCollisionOption.GenerateUniqueName);
