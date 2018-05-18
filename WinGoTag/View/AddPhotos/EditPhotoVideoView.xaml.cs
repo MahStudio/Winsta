@@ -13,6 +13,7 @@ using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -637,6 +638,7 @@ namespace WinGoTag.View.AddPhotos
         private void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as FilterListItem;
+            FiltersList.SelectedItem = e.ClickedItem;
             Preview_Image.Source = new BitmapImage(item.bitmapSource);
         }
 
@@ -701,25 +703,40 @@ namespace WinGoTag.View.AddPhotos
 
         private async void Next_Click(object sender, RoutedEventArgs e)
         {
-            using (var source = new StorageFileImageSource(imageStorageFile))
-            using (var contrastEffect = new BlurEffect(source) { KernelSize = 40 })
-            using (var renderer = new JpegRenderer(contrastEffect, JpegOutputColorMode.Yuv420))
+            StorageFile F2S = null;
+            if (FiltersList.SelectedItem == null)
             {
-                var info = await source.GetInfoAsync();
-                var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("TempImage1.Jpg", CreationCollisionOption.OpenIfExists);
-                var render = await renderer.RenderAsync();
-                using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    await fs.WriteAsync(render);
-                    await fs.FlushAsync();
-                }
+                F2S = imageStorageFile;
             }
-            var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
+            else
             {
-                URI = new Uri("ms-appdata:///TempImage1.Jpg", UriKind.Absolute).LocalPath,
-                Width = 391,
-                Height = 428
-            }, "از بیرون تحریم؛ از داخل فیلتر :|");
+                F2S = await StorageFile.GetFileFromApplicationUriAsync((FiltersList.SelectedItem as FilterListItem).bitmapSource);
+            }
+            FileSavePicker fsp = new FileSavePicker();
+            fsp.FileTypeChoices.Add(".jpg", new List<string> { ".jpg" } );
+            fsp.SuggestedFileName = "WinGoTag";
+            fsp.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            var fs = await fsp.PickSaveFileAsync();
+            await F2S.CopyAndReplaceAsync(fs);
+        //    using (var source = new StorageFileImageSource(imageStorageFile))
+        //    using (var contrastEffect = new BlurEffect(source) { KernelSize = 40 })
+        //    using (var renderer = new JpegRenderer(contrastEffect, JpegOutputColorMode.Yuv420))
+        //    {
+        //        var info = await source.GetInfoAsync();
+        //        var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("TempImage1.Jpg", CreationCollisionOption.OpenIfExists);
+        //        var render = await renderer.RenderAsync();
+        //        using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
+        //        {
+        //            await fs.WriteAsync(render);
+        //            await fs.FlushAsync();
+        //        }
+        //    }
+        //    var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
+        //    {
+        //        URI = new Uri("ms-appdata:///TempImage1.Jpg", UriKind.Absolute).LocalPath,
+        //        Width = 391,
+        //        Height = 428
+        //    }, "از بیرون تحریم؛ از داخل فیلتر :|");
         }
     }
 }
