@@ -7,6 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Page.Transitions>
         <TransitionCollection>
             <EdgeUIThemeTransition Edge="Right"/>
@@ -18,7 +27,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="48"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
@@ -81,10 +90,14 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" FontSize="18" Background="White" Padding="12,8,0,0" KeyUp="MessageTextBox_KeyUp"/>
-            <Button Grid.Column="1" Height="48" Click="{x:Bind SendTextMessage}">
-                <SymbolIcon Symbol="Send" />
-            </Button>
+            <TextBox Style="{StaticResource TextBoxStyleInsta}" x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" KeyUp="MessageTextBox_KeyUp" Margin="6" Height="42"/>
+            
+
+            <AppBarButton Grid.Column="1" Name="DynamicButton" Width="48" Click="{x:Bind SendTextMessage}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="48">
+                <AppBarButton.Icon>
+                    <FontIcon Name="DynamicIcon" FontFamily="Segoe MDL2 Assets" Glyph="&#xE122;" VerticalAlignment="Stretch" />
+                </AppBarButton.Icon>
+            </AppBarButton>
         </Grid>
     </Grid>
 </Page>

@@ -25,7 +25,7 @@ namespace WinGoTag.View.AddPhotos.FilterItem
                 {
                    Name = Names[i],
                    Filter = Filters[i],
-                   Image = EditPhotoVideoView.bitmapImage
+                   //Image = EditPhotoVideoView.bitmapImage
                 });
             }
         }

@@ -230,13 +230,13 @@ namespace WinGoTag.View.AddPhotos
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            var Image = ListImage.SelectedItem as ImageFileInfo;
-            var File = (ListImage.SelectedItem as ImageFileInfo).ImageFile;
+            //var Image = ListImage.SelectedItem as ImageFileInfo;
+            //var File = (ListImage.SelectedItem as ImageFileInfo).ImageFile;
 
-            var Data = new ImageTo() { FullImage = Image, FileImage = File };
+            //var Data = new ImageTo() { FullImage = Image, FileImage = File };
 
-            EditPhotoFr.Navigate(typeof(EditPhotoVideoView), Data);
-            //EditPhotoFr.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
+            //EditPhotoFr.Navigate(typeof(EditPhotoVideoView), Data);
+            EditPhotoFr.Navigate(typeof(EditPhotoVideoView), (ListImage.SelectedItem as ImageFileInfo).ImageFile);
         }
 
         public async Task Upload()
