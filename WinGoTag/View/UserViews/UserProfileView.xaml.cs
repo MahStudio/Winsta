@@ -69,5 +69,10 @@ namespace WinGoTag.View.UserViews
         {
             EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
         }
+
+        private void Followers_Click(object sender, RoutedEventArgs e)
+        {
+            EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+        }
     }
 }

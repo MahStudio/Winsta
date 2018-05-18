@@ -5,6 +5,7 @@
     xmlns:local="using:WinGoTag.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:WinGoTag.Converters"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -30,6 +31,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Grid.Resources>
+            <Converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+            <Converters:UtcToTextConverter x:Key="UtcToTextConverter"/>
+        </Grid.Resources>
         <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -70,14 +75,37 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
                                 <!--<TextBlock Grid.Row="1" Text="{Binding User.UserName, Mode=OneWay}"/>-->
                                 <HyperlinkButton Grid.Row="0" Tag="{Binding User}" Click="Username_Click">
-                                    <TextBlock Text="{Binding User.UserName, Mode=OneWay}"/>
+                                    <TextBlock Foreground="Black" Text="{Binding User.UserName, Mode=OneWay}"/>
                                 </HyperlinkButton>
 
                                 <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="LightGray" >
+                                        <Run Text="{Binding CreatedAtUtc, Converter={StaticResource UtcToTextConverter}}"/>
+                                    </TextBlock>
+                                    <HyperlinkButton FontSize="15" Grid.Column="1" Margin="15,-5,0,0" Visibility="{Binding LikesCount,Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}">
+                                        <TextBlock Foreground="LightGray">
+                                            <Run Text="{Binding LikesCount}"/>
+                                            <Run Text="like"/>
+                                        </TextBlock>
+                                    </HyperlinkButton>
+                                    <HyperlinkButton Tag="{Binding}" Click="Reply_Button" FontSize="15" Grid.Column="2" Margin="15,-5,0,0" >
+                                        <TextBlock Foreground="LightGray">
+                                            <Run Text="Reply"/>
+                                        </TextBlock>
+                                    </HyperlinkButton>
+                                </Grid>
                             </Grid>
                             
                         </Grid>
