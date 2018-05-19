@@ -46,27 +46,55 @@
                     </Grid.RowDefinitions>
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Top" Background="{x:Null}"/>
 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <GridView Grid.Row="0" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                        <Grid x:Name="Live" VerticalAlignment="Center" Margin="6" Tapped="Live_Tapped">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="Red"/>
+                                <Ellipse x:Name="EllipsePicture" Opacity="0" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Ellipse.Fill>
+                                        <ImageBrush Stretch="Uniform">
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="ms-appx:///Logos/perfectColor.png"/>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Grid>
+                            <TextBlock Grid.Row="1" Text="Top Live" TextAlignment="Center" MaxWidth="62" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
+                        </Grid>
+
+                        <GridView Grid.Column="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollMode="Enabled"
                               ScrollViewer.VerticalScrollMode="Disabled"
                               SelectionMode="None" IsItemClickEnabled="True"
                               Margin="0,6,0,0" MinHeight="60" ItemClick="StoriesList_ItemClick">
-                        
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
 
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                    </GridView>
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
 
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
+                        </GridView>
+
+
+                    </Grid>
+                    
                     <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill"/>
 
                     <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="White"

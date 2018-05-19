@@ -103,21 +103,44 @@ namespace WinGoTag.View.StoryView
                 this.DataContext = ((InstaStory)e.Parameter);
                 AnimationEnter();
                 var i = ((InstaStory)e.Parameter);
-                var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
-                Flipviews.ItemsSource = story.Value.Items;
-                for (int a = 0; a < Flipviews.Items.Count; a++)
+                try
                 {
-                    switch (story.Value.Items[a].MediaType)
+                    var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
+                    Flipviews.ItemsSource = story.Value.Items;
+                    for (int a = 0; a < Flipviews.Items.Count; a++)
                     {
-                        case 1:
-                            SecondItemList.Add(6);
-                            break;
+                        switch (story.Value.Items[a].MediaType)
+                        {
+                            case 1:
+                                SecondItemList.Add(6);
+                                break;
 
-                        case 2:
-                            SecondItemList.Add(story.Value.Items[a].VideoDuration);
-                            break;
+                            case 2:
+                                SecondItemList.Add(story.Value.Items[a].VideoDuration);
+                                break;
+                        }
                     }
                 }
+                catch
+                {
+                    var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.Owner.Pk);
+                    Flipviews.ItemsSource = story.Value.Items;
+                    for (int a = 0; a < Flipviews.Items.Count; a++)
+                    {
+                        switch (story.Value.Items[a].MediaType)
+                        {
+                            case 1:
+                                SecondItemList.Add(6);
+                                break;
+
+                            case 2:
+                                SecondItemList.Add(story.Value.Items[a].VideoDuration);
+                                break;
+                        }
+                    }
+                }
+                
+                
             }
 
 

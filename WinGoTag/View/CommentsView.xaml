@@ -39,7 +39,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="68"/>
+                <ColumnDefinition Width="48"/>
             </Grid.ColumnDefinitions>
 
             <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">

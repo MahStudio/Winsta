@@ -85,5 +85,12 @@ namespace WinGoTag.View.ActivityView
         {
             EditFr.Navigate(typeof(FollowRequestsView), PendingUsers);
         }
+
+        private void ItemActivityTemplate_Loaded(object sender, RoutedEventArgs e)
+        {
+            //var Data = ((Grid)sender);
+            //var Context = ((InstaRecentActivityFeed)Data.DataContext);
+            
+        }
     }
 }

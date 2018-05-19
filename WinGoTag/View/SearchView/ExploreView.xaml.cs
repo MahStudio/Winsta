@@ -29,6 +29,7 @@ namespace WinGoTag.View.SearchView
     public sealed partial class ExploreView : Page
     {
         internal static GridViewItem itemList;
+        public InstaTopLive topLive;
         public GenerateExplorePage<InstaMedia> ExplorePageItemssource;
         public ExploreView()
         {
@@ -61,6 +62,9 @@ namespace WinGoTag.View.SearchView
             _ProgressBar.IsIndeterminate = true;
 
             var strs = await AppCore.InstaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
+
+            topLive = strs.Value.StoryTray.TopLive;
+
             StoriesList.ItemsSource = strs.Value.StoryTray.Tray.OrderBy(x => x.SeenRankedPosition != 0);
 
             ListVideos.DataContext = strs.Value.Channel;
@@ -175,6 +179,11 @@ namespace WinGoTag.View.SearchView
         private void mylist_ItemClick(object sender, ItemClickEventArgs e)
         {
             StoryFr.Navigate(typeof(SinglePostView), e.ClickedItem);
+        }
+
+        private void Live_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StoryFr.Navigate(typeof(TopLiveVideos), topLive);
         }
     }
 }
