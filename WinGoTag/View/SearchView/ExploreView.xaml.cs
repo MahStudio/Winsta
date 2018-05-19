@@ -185,5 +185,10 @@ namespace WinGoTag.View.SearchView
         {
             StoryFr.Navigate(typeof(TopLiveVideos), topLive);
         }
+
+        private void ListVideos_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StoryFr.Navigate(typeof(SinglePostView), ((e.OriginalSource as MediaElement).Tag as InstaChannel).Media );
+        }
     }
 }

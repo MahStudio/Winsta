@@ -338,7 +338,7 @@ namespace InstaSharper.API.Processors
                         "\"image_compression\""
                     }
                 };
-                var ImageUri = new Uri("ms-appdata:///local" + image.URI, UriKind.RelativeOrAbsolute);
+                var ImageUri = new Uri("ms-appdata://" + image.URI, UriKind.RelativeOrAbsolute);
                 var arr = (await FileIO.ReadBufferAsync(await StorageFile.GetFileFromApplicationUriAsync(ImageUri))).ToArray();
                 var imageContent = new ByteArrayContent(arr);
                 imageContent.Headers.Add("Content-Transfer-Encoding", "binary");

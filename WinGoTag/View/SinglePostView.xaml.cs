@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaSharper.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace WinGoTag.View
             base.OnNavigatedTo(e);
             AppCore.ModerateBack(Frame.GoBack);
             this.DataContext = e.Parameter;
+            (e.Parameter as InstaMedia).Play = true;
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)

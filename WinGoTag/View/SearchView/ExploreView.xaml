@@ -95,7 +95,7 @@
 
                     </Grid>
                     
-                    <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill"/>
+                    <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill" Tag="{Binding}" Tapped="ListVideos_Tapped"/>
 
                     <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="White"
                                    Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18" Opacity="0.8"/>
