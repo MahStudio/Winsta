@@ -528,7 +528,7 @@
       <Version>3.0.593</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.2</Version>
+      <Version>6.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>2.2.0</Version>
@@ -547,6 +547,10 @@
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\test\FFmpegInterop\FFmpegInterop\Win10\FFmpegInterop\FFmpegInterop.vcxproj">
+      <Project>{9cfa3b3e-b7af-4629-84e2-c962c5b046b1}</Project>
+      <Name>FFmpegInterop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InstaAPI\InstaAPI.csproj">
       <Project>{ec7065c7-6fbf-48c0-879d-ee7a767a0e2c}</Project>
       <Name>InstaAPI</Name>
@@ -556,6 +560,9 @@
     <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

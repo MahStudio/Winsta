@@ -56,5 +56,6 @@
             </controls:AdaptiveGridView.ItemTemplate>
         </controls:AdaptiveGridView>
 
+        <MediaElement x:Name="Element" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>
