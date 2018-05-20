@@ -79,9 +79,12 @@ namespace WinGoTag.View.SearchView
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
-            //GridSearch.Visibility = Visibility.Visible;
-            CancelBT.Visibility = Visibility.Visible;
+            if(CancelBT.Visibility != Visibility.Visible)
+            {
+                AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
+                //GridSearch.Visibility = Visibility.Visible;
+                CancelBT.Visibility = Visibility.Visible;
+            }
         }
 
         private void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
