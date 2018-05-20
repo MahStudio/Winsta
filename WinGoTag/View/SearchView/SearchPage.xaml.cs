@@ -113,5 +113,14 @@ namespace WinGoTag.View.SearchView
         {
             EditFr.Navigate(typeof(UserProfileView), e.ClickedItem);
         }
+
+        private void PivotSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                SearchBox_TextChanged(SearchBox, null);
+            }
+            catch { }
+        }
     }
 }

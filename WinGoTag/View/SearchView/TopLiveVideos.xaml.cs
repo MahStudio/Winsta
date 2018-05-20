@@ -1,5 +1,4 @@
-﻿using FFmpegInterop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,12 +30,12 @@ namespace WinGoTag.View.SearchView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
+            //var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
 
-            var src = await FFmpegInteropMSS.CreateFromUriAsync(top.Value.Broadcasts.FirstOrDefault().RtmpPlaybackUrl, new FFmpegInteropConfig() {  });
-            var src2 = src.GetMediaStreamSource();
-            Element.SetMediaStreamSource(src2);
-            Element.Play();
+            //var src = await FFmpegInteropMSS.CreateFromUriAsync(top.Value.Broadcasts.FirstOrDefault().RtmpPlaybackUrl, new FFmpegInteropConfig() {  });
+            //var src2 = src.GetMediaStreamSource();
+            //Element.SetMediaStreamSource(src2);
+            //Element.Play();
         }
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
