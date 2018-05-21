@@ -54,13 +54,35 @@ namespace WinGoTag.UserControls
 
         private void InstaStoryFeedUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
+            
+
             if (args.NewValue != null)
+            {
+                if (args.NewValue.GetType() == typeof(InstaStory))
+                {
+                    var value = DataContext as InstaStory;
+
+                    if (value.User is null)
+                    {
+                        Loation.Visibility = Visibility.Visible;
+                    }
+                    //var s = Story.Items.First();
+                }
+            }
+
+
+            if (args.NewValue != null)
+            {
                 if (args.NewValue.GetType() == typeof(InstaReelFeed))
                 {
                     var value = DataContext as InstaReelFeed;
 
                     //var s = Story.Items.First();
                 }
+            }
+                
+
+           
         }
 
         private void bit_ImageOpened(object sender, RoutedEventArgs e)
