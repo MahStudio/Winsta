@@ -151,6 +151,9 @@
     <Compile Include="UserControls\InstaStoryFeedUC.xaml.cs">
       <DependentUpon>InstaStoryFeedUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\InstaStoryLiveUC.xaml.cs">
+      <DependentUpon>InstaStoryLiveUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LocalImage\LocalImageUC.xaml.cs">
       <DependentUpon>LocalImageUC.xaml</DependentUpon>
     </Compile>
@@ -418,6 +421,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\InstaStoryFeedUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\InstaStoryLiveUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

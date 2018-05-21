@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,7 @@ namespace WinGoTag.View.SearchView
     public sealed partial class StoryViewLive : Page
     {
         InstaBroadcast value;
+        //private FFmpegInteropMSS FFmpegMSS;
         public StoryViewLive()
         {
             this.InitializeComponent();
@@ -37,6 +40,9 @@ namespace WinGoTag.View.SearchView
             this.DataContext = Data;
             AnimationEnter();
             value = Data;
+
+            
+            //Element.SetMediaStreamSource(FFmpegMSS.GetMediaStreamSource());
         }
 
         public void AnimationEnter()

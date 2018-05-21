@@ -63,7 +63,7 @@ namespace WinGoTag.View.SearchView
 
             var strs = await AppCore.InstaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
 
-            topLive = strs.Value.StoryTray.TopLive;
+            Live.DataContext = strs.Value.StoryTray.TopLive;
 
             StoriesList.ItemsSource = strs.Value.StoryTray.Tray.OrderBy(x => x.SeenRankedPosition != 0);
 
@@ -183,7 +183,7 @@ namespace WinGoTag.View.SearchView
 
         private void Live_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            StoryFr.Navigate(typeof(TopLiveVideos), topLive);
+            StoryFr.Navigate(typeof(TopLiveVideos));
         }
 
         private void ListVideos_Tapped(object sender, TappedRoutedEventArgs e)

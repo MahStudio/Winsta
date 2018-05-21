@@ -52,24 +52,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid x:Name="Live" VerticalAlignment="Center" Margin="6" Tapped="Live_Tapped">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="Red"/>
-                                <Ellipse x:Name="EllipsePicture" Opacity="0" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Ellipse.Fill>
-                                        <ImageBrush Stretch="Uniform">
-                                            <ImageBrush.ImageSource>
-                                                <BitmapImage UriSource="ms-appx:///Logos/perfectColor.png"/>
-                                            </ImageBrush.ImageSource>
-                                        </ImageBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                            </Grid>
-                            <TextBlock Grid.Row="1" Text="Top Live" TextAlignment="Center" MaxWidth="62" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
+                        <Grid VerticalAlignment="Top" Padding="0" Tapped="Live_Tapped" Margin="12,6,6,0">
+                            <View:InstaStoryLiveUC x:Name="Live"/>
                         </Grid>
 
                         <GridView Grid.Column="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
