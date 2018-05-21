@@ -79,9 +79,12 @@ namespace WinGoTag.View.SearchView
 
         private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
-            //GridSearch.Visibility = Visibility.Visible;
-            CancelBT.Visibility = Visibility.Visible;
+            if(CancelBT.Visibility != Visibility.Visible)
+            {
+                AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
+                //GridSearch.Visibility = Visibility.Visible;
+                CancelBT.Visibility = Visibility.Visible;
+            }
         }
 
         private void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
@@ -112,6 +115,15 @@ namespace WinGoTag.View.SearchView
         private void PeopleList_ItemClick(object sender, ItemClickEventArgs e)
         {
             EditFr.Navigate(typeof(UserProfileView), e.ClickedItem);
+        }
+
+        private void PivotSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                SearchBox_TextChanged(SearchBox, null);
+            }
+            catch { }
         }
     }
 }

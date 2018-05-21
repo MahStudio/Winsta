@@ -252,7 +252,7 @@
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="2"
               x:Name="GridSearch" Grid.Row="1" Visibility="Collapsed">
 
-                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}">
+                <Pivot x:Name="PivotSearch" Style="{ThemeResource CustomPivotTab}" SelectionChanged="PivotSearch_SelectionChanged">
 
                     <Pivot.HeaderTemplate>
                         <DataTemplate x:DataType="Page">
