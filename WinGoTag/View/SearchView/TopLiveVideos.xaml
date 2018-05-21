@@ -15,6 +15,7 @@
     </Page.Transitions>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
@@ -37,11 +38,11 @@
 
         <controls:AdaptiveGridView Name="AdaptiveGridViewControl" Grid.Row="1"
                                    OneRowModeEnabled="False"
-                                   
+                                   ItemHeight="300"
                                    ItemsSource="{Binding BroadcastOwners}"
                                    DesiredWidth="150"
                                    SelectionMode="None"
-                                   IsItemClickEnabled="True">
+                                   IsItemClickEnabled="True" ItemClick="AdaptiveGridViewControl_ItemClick">
                                                    
 
             <GridView.ItemContainerStyle>
@@ -51,10 +52,38 @@
             </GridView.ItemContainerStyle>
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate>
-                   
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="{Binding CoverFrameUrl}" Stretch="UniformToFill"/>
+                        </Grid.Background>
+
+
+                        <Grid VerticalAlignment="Bottom" Margin="0,0,0,6" RequestedTheme="Dark">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid HorizontalAlignment="Center" Margin="0,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="&#xE890;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <TextBlock Grid.Column="1" Text="{Binding ViewerCount}" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" Text="{Binding BroadcastOwner.Username}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                        </Grid>
+
+                    </Grid>
                 </DataTemplate>
             </controls:AdaptiveGridView.ItemTemplate>
         </controls:AdaptiveGridView>
+
+
+        
 
         <MediaElement x:Name="Element" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>

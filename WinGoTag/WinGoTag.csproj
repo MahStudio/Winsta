@@ -206,6 +206,9 @@
     <Compile Include="View\SearchView\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SearchView\StoryViewLive.xaml.cs">
+      <DependentUpon>StoryViewLive.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SearchView\TopLiveVideos.xaml.cs">
       <DependentUpon>TopLiveVideos.xaml</DependentUpon>
     </Compile>
@@ -471,6 +474,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SearchView\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SearchView\StoryViewLive.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

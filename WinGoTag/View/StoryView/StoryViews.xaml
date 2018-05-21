@@ -11,6 +11,7 @@
     <Page.Resources>
         <ResourceDictionary Source="/Styles/FlipViews.xaml"/>
     </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" VerticalAlignment="Top">
 
         <ProgressBar Value="0.1" SmallChange="0.1" Canvas.ZIndex="2" x:Name="_BarSecond" Maximum="15" Margin="0,0,0,0" VerticalAlignment="Top"/>

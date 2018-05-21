@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InstaSharper.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,8 +31,10 @@ namespace WinGoTag.View.SearchView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
-
+            //this.DataContext = e.Parameter as InstaTopLive;
+            var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
+            
+            AdaptiveGridViewControl.ItemsSource = top.Value.Broadcasts;
             //var src = await FFmpegInteropMSS.CreateFromUriAsync(top.Value.Broadcasts.FirstOrDefault().RtmpPlaybackUrl, new FFmpegInteropConfig() {  });
             //var src2 = src.GetMediaStreamSource();
             //Element.SetMediaStreamSource(src2);
@@ -41,6 +44,12 @@ namespace WinGoTag.View.SearchView
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var data = ((InstaBroadcast)e.ClickedItem);
+            MainPage.MainFrame.Navigate(typeof(StoryViewLive), data);
         }
     }
 }
