@@ -54,6 +54,7 @@ namespace WinGoTag.View.SearchView
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
             if (imageAnimation != null)
             { imageAnimation.TryStart(itemList); MainPage.Bar.Visibility = Visibility.Visible; }
+            
         }
 
 
@@ -63,6 +64,9 @@ namespace WinGoTag.View.SearchView
 
             var strs = await AppCore.InstaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
 
+            //
+            
+            //
             Live.DataContext = strs.Value.StoryTray.TopLive;
 
             StoriesList.ItemsSource = strs.Value.StoryTray.Tray.OrderBy(x => x.SeenRankedPosition != 0);
