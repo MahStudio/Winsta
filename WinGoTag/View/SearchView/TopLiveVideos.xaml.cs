@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
@@ -49,6 +50,9 @@ namespace WinGoTag.View.SearchView
         private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
         {
             var data = ((InstaBroadcast)e.ClickedItem);
+            GridViewItem itemAnimation = (GridViewItem)AdaptiveGridViewControl.ContainerFromItem(data);
+            
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Poster", itemAnimation);
             MainPage.MainFrame.Navigate(typeof(StoryViewLive), data);
         }
     }

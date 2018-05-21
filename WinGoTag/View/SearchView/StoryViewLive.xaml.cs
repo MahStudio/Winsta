@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
@@ -34,7 +35,15 @@ namespace WinGoTag.View.SearchView
             base.OnNavigatedTo(e);
             var Data = ((InstaBroadcast)e.Parameter);
             this.DataContext = Data;
+            AnimationEnter();
             value = Data;
+        }
+
+        public void AnimationEnter()
+        {
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Poster");
+            if (imageAnimation != null)
+            { imageAnimation.TryStart(Frame); }
         }
 
         private void BackBT_Click(object sender, RoutedEventArgs e)

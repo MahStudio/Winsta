@@ -52,6 +52,6 @@
             <AppBarButton x:Name="BackBT" Icon="Clear" Grid.Column="4" Click="BackBT_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Width="48"/>
         </Grid>
 
-        <MediaElement x:Name="Element" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <MediaElement PosterSource="{Binding CoverFrameUrl}" x:Name="Element" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
     </Grid>
 </Page>
