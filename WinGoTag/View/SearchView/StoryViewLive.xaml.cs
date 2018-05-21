@@ -36,13 +36,17 @@ namespace WinGoTag.View.SearchView
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            MainPage.Bar.Visibility = Visibility.Collapsed;
             var Data = ((InstaBroadcast)e.Parameter);
             this.DataContext = Data;
             AnimationEnter();
             value = Data;
-
-            
             //Element.SetMediaStreamSource(FFmpegMSS.GetMediaStreamSource());
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            MainPage.Bar.Visibility = Visibility.Visible;
         }
 
         public void AnimationEnter()

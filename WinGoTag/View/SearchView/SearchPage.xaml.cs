@@ -27,11 +27,12 @@ namespace WinGoTag.View.SearchView
     /// </summary>
     public sealed partial class SearchPage : Page
     {
-
+        public static Grid GridAuto;
         public SearchPage()
         {
             this.InitializeComponent();
             EditFr.Navigate(typeof(Page));
+            GridAuto = GridAutoSuggest;
         }
 
 

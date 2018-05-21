@@ -32,6 +32,7 @@ namespace WinGoTag.View.SearchView
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            SearchPage.GridAuto.Visibility = Visibility.Collapsed;
             //this.DataContext = e.Parameter as InstaTopLive;
             var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
             
@@ -45,6 +46,12 @@ namespace WinGoTag.View.SearchView
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+            try
+            {
+                SearchPage.GridAuto.Visibility = Visibility.Visible;
+            }
+            catch { }
+            
         }
 
         private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)

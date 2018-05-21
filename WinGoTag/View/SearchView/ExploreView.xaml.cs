@@ -102,6 +102,7 @@ namespace WinGoTag.View.SearchView
 
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            SearchPage.GridAuto.Visibility = Visibility.Collapsed;
             MainPage.Bar.Visibility = Visibility.Collapsed;
             var item = ((InstaStory)e.ClickedItem);
             GridViewItem itemAnimation = (GridViewItem)StoriesList.ContainerFromItem(item);
@@ -178,6 +179,7 @@ namespace WinGoTag.View.SearchView
 
         private void mylist_ItemClick(object sender, ItemClickEventArgs e)
         {
+            SearchPage.GridAuto.Visibility = Visibility.Collapsed;
             StoryFr.Navigate(typeof(SinglePostView), e.ClickedItem);
         }
 
@@ -188,6 +190,7 @@ namespace WinGoTag.View.SearchView
 
         private void ListVideos_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            SearchPage.GridAuto.Visibility = Visibility.Collapsed;
             StoryFr.Navigate(typeof(SinglePostView), ((e.OriginalSource as MediaElement).Tag as InstaChannel).Media );
         }
     }

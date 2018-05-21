@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View.SearchView;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -157,6 +158,11 @@ namespace WinGoTag.View.StoryView
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("imageReturn", Frame);
+            try
+            {
+                SearchPage.GridAuto.Visibility = Visibility.Visible;
+            }
+            catch { }
         }
         private void CloseStories()
         {

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.View.SearchView;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,6 +33,11 @@ namespace WinGoTag.View
         {
             base.OnNavigatedFrom(e);
             AppCore.ModerateBack("");
+            try
+            {
+                SearchPage.GridAuto.Visibility = Visibility.Visible;
+            }
+            catch { }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

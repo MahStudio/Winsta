@@ -281,7 +281,7 @@
 
             </Grid>
 
-            <Grid>
+            <Grid Name="GridAutoSuggest" Visibility="Visible">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
