@@ -42,7 +42,7 @@ namespace WinGoTag.View.SearchView
         {
             base.OnNavigatedTo(e);
             StoryFr.Navigated += StoryFr_Navigated;
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.High, LoadPage);
         }
 
 

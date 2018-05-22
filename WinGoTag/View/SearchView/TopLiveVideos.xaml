@@ -57,7 +57,15 @@
                             <ImageBrush ImageSource="{Binding CoverFrameUrl}" Stretch="UniformToFill"/>
                         </Grid.Background>
 
-
+                        <Grid>
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" ColorInterpolationMode="SRgbLinearInterpolation" Opacity="0.85">
+                                    <GradientStop Offset="0.052"/>
+                                    <GradientStop Color="#7F000000" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                        </Grid>
+                        
                         <Grid VerticalAlignment="Bottom" Margin="0,0,0,6" RequestedTheme="Dark">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
