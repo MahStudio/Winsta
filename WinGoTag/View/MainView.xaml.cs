@@ -108,7 +108,6 @@ namespace WinGoTag.View
                 var MyRemove = strs.Value.Items.FindIndex(x => x.User.Pk == user.Value.Pk);
                 strs.Value.Items.RemoveAt(MyRemove);
             }
-
             strs.Value.Items.Insert(0, MyReel);
             //
 

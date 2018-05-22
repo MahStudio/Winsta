@@ -52,7 +52,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid VerticalAlignment="Top" Padding="0" Tapped="Live_Tapped" Margin="12,6,6,0">
+                        <Grid VerticalAlignment="Top" Padding="0" Tapped="Live_Tapped" Margin="12,6,12,0">
                             <View:InstaStoryLiveUC x:Name="Live"/>
                         </Grid>
 
@@ -65,7 +65,7 @@
 
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,0,0"/>
+                                    <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,6,0"/>
                                 </DataTemplate>
                             </GridView.ItemTemplate>
 
