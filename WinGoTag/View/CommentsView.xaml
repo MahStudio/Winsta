@@ -35,7 +35,7 @@
             <Converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
             <Converters:UtcToTextConverter x:Key="UtcToTextConverter"/>
         </Grid.Resources>
-        <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+        <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
