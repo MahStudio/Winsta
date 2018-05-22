@@ -88,7 +88,30 @@ namespace WinGoTag.View
                 MainPage.MainFrame.GoBack();
                 return;
             }
+
+
+            //TEST
+            var User = AppCore.InstaApi.GetLoggedUser();
+            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+            var items = await AppCore.InstaApi.GetUserStoryFeedAsync(user.Value.Pk);
+            InstaUserShort You = new InstaUserShort() { UserName = "You", ProfilePicture = user.Value.ProfilePicUrl, Pk = user.Value.Pk };
+            InstaReelFeed MyReel = new InstaReelFeed();
+
+            MyReel.User = You;
+            MyReel.Seen = 0;
+            MyReel.Items = items.Value.Items;
+            
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
+
+            if(strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
+            {
+                var MyRemove = strs.Value.Items.FindIndex(x => x.User.Pk == user.Value.Pk);
+                strs.Value.Items.RemoveAt(MyRemove);
+            }
+
+            strs.Value.Items.Insert(0, MyReel);
+            //
+
             StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
 
             if (HomePageItemssource != null)
@@ -176,6 +199,14 @@ namespace WinGoTag.View
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = ((InstaReelFeed)e.ClickedItem);
+            if(item.User.UserName is "You")
+            {
+              if(item.Items.Count is 0)
+                {
+                    PivotView.SelectedIndex = 0;
+                    return;
+                }
+            }
             GridViewItem itemAnimation = (GridViewItem)StoriesList.ContainerFromItem(item);
             itemList = itemAnimation;
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", itemAnimation);

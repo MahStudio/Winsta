@@ -85,6 +85,14 @@ namespace WinGoTag.UserControls
                 {
                     var value = DataContext as InstaReelFeed;
 
+                    if(value.User.UserName == "You")
+                    {
+                        if (value.Items.Count == 0)
+                        {
+                            AddStory.Visibility = Visibility.Visible;
+                            ColorInsta.Opacity = 0;
+                        }
+                    }
                     //var s = Story.Items.First();
                 }
             }

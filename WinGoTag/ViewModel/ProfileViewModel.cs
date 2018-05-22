@@ -60,7 +60,9 @@ namespace WinGoTag.ViewModel
         async void LoadPage()
         {
             var User = AppCore.InstaApi.GetLoggedUser();
+           
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+
             UserInfo = user.Value;
 
             MediaList = new GenerateUserMedia<InstaMedia>(100000, (count) =>
