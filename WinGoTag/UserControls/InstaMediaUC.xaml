@@ -81,6 +81,18 @@
                     </DataTemplate>
                 </FlipView.ItemTemplate>
             </FlipView>
+
+            <Grid x:Name="_Indicator" HorizontalAlignment="Right" 
+                  VerticalAlignment="Top" CornerRadius="10"
+                  Background="#7F292929" Visibility="{Binding Converter={StaticResource InstaMediaControlVisibilityConverter}, ConverterParameter=3, Mode=OneWay}"
+                  Margin="0,12,12,0">
+                <TextBlock Margin="6,2,6,4" Foreground="White" FontSize="14">
+                    <Run x:Name="_SelectCount" />
+                    <Run Text="/"/>
+                    <Run x:Name="CountIndicator"/>
+                </TextBlock>
+            </Grid>
+            
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

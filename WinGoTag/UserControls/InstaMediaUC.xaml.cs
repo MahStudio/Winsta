@@ -62,6 +62,7 @@ namespace WinGoTag.UserControls
                             break;
 
                         case InstaMediaType.Carousel:
+                            CountIndicator.Text = Media.Carousel.Count.ToString();
                             break;
 
                         case InstaMediaType.Video:
@@ -246,21 +247,25 @@ namespace WinGoTag.UserControls
 
         private void ThisFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int i = ThisFlipView.SelectedIndex;
+            i++;
+            _SelectCount.Text = i.ToString();
             var t = (sender as FlipView).SelectedItem;
             FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
             if (item2 == null) { return; }
             var h = (CarouselItemUC)item2.ContentTemplateRoot;
+            if(h.ActualHeight is 0) { return; }
             ThisFlipView.Height = h.ActualHeight;
         }
 
         private void ThisFlipView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //var t = (ThisFlipView as FlipView).SelectedItem;
-            //FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
-            //if (item2 == null) { return; }
-            //var h = (CarouselItemUC)item2.ContentTemplateRoot;
-            //ThisFlipView.Height = h.Height;
-            //ThisFlipView.Height = h.ActualHeight;
+            var t = (sender as FlipView).SelectedItem;
+            FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+            if (item2 == null) { return; }
+            var h = (CarouselItemUC)item2.ContentTemplateRoot;
+            if (h.ActualHeight is 0) { return; }
+            ThisFlipView.Height = h.ActualHeight;
         }
         
     }
