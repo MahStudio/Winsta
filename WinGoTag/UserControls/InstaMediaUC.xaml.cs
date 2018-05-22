@@ -68,8 +68,9 @@ namespace WinGoTag.UserControls
                             break;
                     }
 
-                     
-                   
+                    
+                    
+
 
                     if (Media.LikesCount == 0)
                     { LikeCount.Visibility = Visibility.Collapsed; }

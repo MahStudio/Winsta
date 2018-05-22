@@ -20,6 +20,31 @@
                 <ResourceDictionary Source="/Styles/TextAndPassowrdBoxes.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
+
+
+            <DataTemplate x:Key="RecentCard">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="6">
+                        <Ellipse Height="55" Width="55" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding User.ProfilePicUrl, Mode=OneWay}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <Grid Grid.Column="1" VerticalAlignment="Center" Margin="6,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="{Binding User.Username, Mode=OneWay}" FontWeight="SemiBold"/>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+
+
             <DataTemplate x:Key="UserCard">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -262,8 +287,8 @@
                         </DataTemplate>
                     </Pivot.HeaderTemplate>
 
-                    <PivotItem Header="Main" Margin="0">
-
+                    <PivotItem Header="Recent" Margin="0">
+                        <ListView x:Name="RecentList" ItemContainerStyle="{StaticResource ListViewStrecher}" SelectionMode="None" IsItemClickEnabled="True" ItemTemplate="{StaticResource RecentCard}" Margin="0,0,0,0"/>
                     </PivotItem>
 
                     <PivotItem Header="People" Margin="0">

@@ -48,6 +48,8 @@ namespace WinGoTag.View.SearchView
             switch (PivotSearch.SelectedIndex)
             {
                 case 0:
+                    var recent = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
+                    RecentList.ItemsSource = recent.Value.Recent;
                     //var t1 = await AppCore.InstaApi.DiscoverProcessor.DiscoverPeopleAsync();
                     //var t2 = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
                     //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Users);

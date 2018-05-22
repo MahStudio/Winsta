@@ -117,7 +117,9 @@
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
+    <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\UtcToTextConverter.cs" />
+    <Compile Include="Converters\UtcToTextConverterMedia.cs" />
     <Compile Include="DataBinding\ChatIncrementalLoadingBase.cs" />
     <Compile Include="DataBinding\GeneratorIncrementalLoadingClass.cs" />
     <Compile Include="DataBinding\IncrementalLoadingBase.cs" />
