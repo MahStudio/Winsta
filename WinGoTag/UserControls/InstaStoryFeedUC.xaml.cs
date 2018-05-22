@@ -64,7 +64,15 @@ namespace WinGoTag.UserControls
 
                     if (value.User is null)
                     {
-                        Loation.Visibility = Visibility.Visible;
+                        PictureUser.UriSource = new Uri(value.Owner.ProfilePicture);
+                        Name.Text = value.Owner.ProfilePictureId;
+                        //location:219106069:1526926991755
+                        //string[] words = new string[256];
+                        //words = value.Id.Split(':');
+                        //Loation.Visibility = Visibility.Visible;
+                        //var ForLocation = await AppCore.InstaApi.SearchLocation(Double.Parse(words[1]), Double.Parse(words[2]), words[0]);
+                        //var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, value.Id);
+                        //try { Name.Text = ForLocation.Value[0].Name; } catch { }
                     }
                     //var s = Story.Items.First();
                 }

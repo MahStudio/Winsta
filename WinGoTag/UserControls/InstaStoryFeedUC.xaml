@@ -24,17 +24,17 @@
                 <Ellipse.Fill>
                     <ImageBrush>
                         <ImageBrush.ImageSource>
-                            <BitmapImage ImageOpened="bit_ImageOpened" UriSource="{Binding User.ProfilePicture}"/>
+                            <BitmapImage x:Name="PictureUser" ImageOpened="bit_ImageOpened" UriSource="{Binding User.ProfilePicture}"/>
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Grid x:Name="Loation" Visibility="Collapsed" BorderThickness="2" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="50" Background="#FFBF2A52" Padding="6" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="8" />
+            <Grid x:Name="Loation" Visibility="Collapsed" BorderThickness="1.8" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="50" Background="#FFBF2A52" Padding="6" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE1C4;" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" />
             </Grid>
             
         </Grid>
-        <TextBlock Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="62" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
+        <TextBlock x:Name="Name" Grid.Row="1" Text="{Binding User.UserName}" TextAlignment="Center" MaxWidth="62" MaxLines="1" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" Margin="0,3,0,0" FontSize="12" HorizontalAlignment="Center" FontWeight="Normal"/>
     </Grid>
 </UserControl>

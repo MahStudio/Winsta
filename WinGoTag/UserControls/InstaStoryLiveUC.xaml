@@ -26,7 +26,7 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Grid BorderThickness="2" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" Background="#FFBF2A52" HorizontalAlignment="Center" Margin="0,0,0,-5">
+            <Grid BorderThickness="1.8" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" Background="#FFBF2A52" HorizontalAlignment="Center" Margin="0,0,0,-5">
                 <TextBlock Text="LIVE" Margin="6,2,6,2" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="8" Foreground="White"/>
             </Grid>
         </Grid>
