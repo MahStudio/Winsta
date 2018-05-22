@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -84,6 +85,12 @@ namespace WinGoTag.UserControls
                 if (args.NewValue.GetType() == typeof(InstaReelFeed))
                 {
                     var value = DataContext as InstaReelFeed;
+
+                    if(value.Seen == 0)
+                    {
+                        
+                    }
+                    else { BorderStory.Stroke = ((SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"]); BorderStory.StrokeThickness = 0.5; ColorInsta.Opacity = 0; }
 
                     if(value.User.UserName == "You")
                     {

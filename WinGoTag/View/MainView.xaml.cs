@@ -98,7 +98,7 @@ namespace WinGoTag.View
             InstaReelFeed MyReel = new InstaReelFeed();
 
             MyReel.User = You;
-            MyReel.Seen = 0;
+            //MyReel.Seen = 0;
             MyReel.Items = items.Value.Items;
             
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
@@ -106,13 +106,16 @@ namespace WinGoTag.View
             if(strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
             {
                 var MyRemove = strs.Value.Items.FindIndex(x => x.User.Pk == user.Value.Pk);
+                MyReel.Seen = strs.Value.Items[MyRemove].Seen;
                 strs.Value.Items.RemoveAt(MyRemove);
             }
-            strs.Value.Items.Insert(0, MyReel);
+            
             //
 
             StoriesList.ItemsSource = strs.Value.Items.OrderBy(x => x.Seen != 0);
+            strs.Value.Items.Insert(0, MyReel);
 
+            StoriesList.ItemsSource = strs.Value.Items;
             if (HomePageItemssource != null)
             {
                 HomePageItemssource.CollectionChanged -= HomePageItemssource_CollectionChanged;
