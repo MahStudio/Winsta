@@ -8,6 +8,7 @@
     xmlns:View="using:WinGoTag.UserControls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Page.Transitions>
@@ -62,30 +63,39 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="48"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="48"/>
-                        </Grid.ColumnDefinitions>
+                    <controls:DropShadowPanel BlurRadius="8" ShadowOpacity="0.5"
+                                              OffsetX="2" OffsetY="2" HorizontalContentAlignment="Stretch"
+                                              Grid.Row="0" Canvas.ZIndex="1"
+                                              Color="Gray">
+                       
+                        <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="48"/>
+                            </Grid.ColumnDefinitions>
+                          
+                            <AppBarButton x:Name="CameraBT" Grid.Column="0" Width="48" Click="CameraBT_Click">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE114;" FontWeight="Bold" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <Image Grid.Column="1" Source="ms-appx:///Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
+                            <AppBarButton x:Name="DirectBT" Grid.Column="2" Width="48" Click="DirectBT_Click">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA63;" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3">
+                                        <FontIcon.RenderTransform>
+                                            <CompositeTransform Rotation="140" ScaleX="1.0" ScaleY="1.8"/>
+                                        </FontIcon.RenderTransform>
+                                    </FontIcon>
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </Grid>
 
-                        <AppBarButton x:Name="CameraBT" Grid.Column="0" Width="48" Click="CameraBT_Click">
-                            <AppBarButton.Icon>
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE114;" FontWeight="Bold" />
-                            </AppBarButton.Icon>
-                        </AppBarButton>
-                        <Image Grid.Column="1" Source="ms-appx:///Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
-                        <AppBarButton x:Name="DirectBT" Grid.Column="2" Width="48" Click="DirectBT_Click">
-                            <AppBarButton.Icon>
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA63;" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3">
-                                    <FontIcon.RenderTransform>
-                                        <CompositeTransform Rotation="140" ScaleX="1.0" ScaleY="1.8"/>
-                                    </FontIcon.RenderTransform>
-                                </FontIcon>
-                            </AppBarButton.Icon>
-                        </AppBarButton>
-                    </Grid>
-
+                    </controls:DropShadowPanel>
+                        
+                    
+                   
                     <ProgressBar Canvas.ZIndex="2" x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
 
 
@@ -99,7 +109,7 @@
                             </interactivity:Interaction.Behaviors>
                             <ListView.Header>
 
-                                <Grid Background="#fafafa" Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
+                                <Grid Background="#fafafa" Grid.Row="0" BorderThickness="0,0,0,0.2" 
                                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
 
                                     <Grid.RowDefinitions>

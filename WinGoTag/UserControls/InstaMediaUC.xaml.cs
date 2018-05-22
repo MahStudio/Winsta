@@ -260,12 +260,12 @@ namespace WinGoTag.UserControls
 
         private void ThisFlipView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var t = (sender as FlipView).SelectedItem;
-            FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
-            if (item2 == null) { return; }
-            var h = (CarouselItemUC)item2.ContentTemplateRoot;
-            if (h.ActualHeight is 0) { return; }
-            ThisFlipView.Height = h.ActualHeight;
+            //var t = (sender as FlipView).SelectedItem;
+            //FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
+            //if (item2 == null) { return; }
+            //var h = (CarouselItemUC)item2.ContentTemplateRoot;
+            //if (h.ActualHeight is 0) { return; }
+            //ThisFlipView.Height = h.ActualHeight;
         }
         
     }
