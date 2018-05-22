@@ -37,7 +37,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Canvas.ZIndex="5" VerticalAlignment="Stretch" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
+                <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="5" VerticalAlignment="Stretch" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.2,0,0.2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48"/>
                         <ColumnDefinition Width="*"/>

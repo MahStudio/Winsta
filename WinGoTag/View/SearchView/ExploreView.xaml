@@ -38,7 +38,7 @@
             
             <GridView.Header>
 
-                <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
+                <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" Background="#fafafa"
                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

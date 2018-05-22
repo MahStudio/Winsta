@@ -19,7 +19,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="{Binding Converter={StaticResource StorySeenToColorConverter}, Mode=OneWay}"/>
+            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <CompositeTransform Rotation="30"/>
+                </Ellipse.RenderTransform>
+                <Ellipse.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#cc0066" Offset="0.354"/>
+                        <GradientStop Color="#990099" Offset="0"/>
+                        <GradientStop Color="#cc3333" Offset="0.673"/>
+                        <GradientStop Color="#ff9933" Offset="1"/>
+                    </LinearGradientBrush>
+                </Ellipse.Stroke>
+            </Ellipse>
+            <!--<Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="{Binding Converter={StaticResource StorySeenToColorConverter}, Mode=OneWay}"/>-->
             <Ellipse x:Name="EllipsePicture" Opacity="0" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush>

@@ -45,7 +45,8 @@ namespace WinGoTag
                 try
                 {
                     var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                    statusBar.BackgroundColor = Colors.White;
+                    SolidColorBrush statuscolor = Root.Background as SolidColorBrush;
+                    statusBar.BackgroundColor = statuscolor.Color;
                     statusBar.ForegroundColor = Colors.Black;
                     statusBar.BackgroundOpacity = 1;
                 }

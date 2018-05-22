@@ -62,7 +62,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+                    <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="48"/>
                             <ColumnDefinition Width="*"/>
@@ -86,7 +86,7 @@
                         </AppBarButton>
                     </Grid>
 
-                    <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
+                    <ProgressBar Canvas.ZIndex="2" x:Name="_ProgressBar" VerticalAlignment="Bottom" Background="{x:Null}"/>
 
 
                     <Grid Grid.Row="1" x:Name="MediaPartition">
@@ -99,7 +99,7 @@
                             </interactivity:Interaction.Behaviors>
                             <ListView.Header>
 
-                                <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
+                                <Grid Background="#fafafa" Grid.Row="0" BorderThickness="0,0.2,0,0.2" 
                                       x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
 
                                     <Grid.RowDefinitions>

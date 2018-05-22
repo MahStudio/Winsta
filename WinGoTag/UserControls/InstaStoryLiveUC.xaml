@@ -15,7 +15,19 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" Stroke="#FFBF2A52"/>
+            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="1.8" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <CompositeTransform Rotation="30"/>
+                </Ellipse.RenderTransform>
+                <Ellipse.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#cc0066" Offset="0.354"/>
+                        <GradientStop Color="#990099" Offset="0"/>
+                        <GradientStop Color="#cc3333" Offset="0.673"/>
+                        <GradientStop Color="#ff9933" Offset="1"/>
+                    </LinearGradientBrush>
+                </Ellipse.Stroke>
+            </Ellipse>
             <Ellipse x:Name="EllipsePicture" Width="55" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush>
@@ -26,7 +38,15 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Grid BorderThickness="1.8" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" Background="#FFBF2A52" HorizontalAlignment="Center" Margin="0,0,0,-5">
+            <Grid BorderThickness="1.8" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#cc0066" Offset="0.354"/>
+                        <GradientStop Color="#990099" Offset="0"/>
+                        <GradientStop Color="#cc3333" Offset="0.673"/>
+                        <GradientStop Color="#ff9933" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
                 <TextBlock Text="LIVE" Margin="6,2,6,2" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="8" Foreground="White"/>
             </Grid>
         </Grid>

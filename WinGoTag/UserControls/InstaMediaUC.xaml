@@ -88,11 +88,32 @@
                   Margin="0,12,12,0">
                 <TextBlock Margin="6,2,6,4" Foreground="White" FontSize="14">
                     <Run x:Name="_SelectCount" />
-                    <Run Text="/"/>
+                    <Run Text="/" FontSize="12"/>
                     <Run x:Name="CountIndicator"/>
                 </TextBlock>
             </Grid>
-            
+
+            <!--<GridView SelectedIndex="{Binding ElementName=ThisFlipView, Path=SelectedIndex}" ItemsSource="{Binding Carousel}" SelectionMode="Single" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid CornerRadius="50" Width="8" Height="8"/>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="FrameworkElement">
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </GridView.ItemContainerStyle>
+                
+            </GridView>-->
+
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
