@@ -52,9 +52,21 @@
                     </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <HyperlinkButton Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click">
-                <TextBlock Foreground="Black" Text="{Binding User.UserName}" VerticalAlignment="Center" Margin="0,0,0,3"/>
-            </HyperlinkButton>
+
+            <Grid Grid.Column="1" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <HyperlinkButton Padding="0" Grid.Row="0" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click">
+                    <TextBlock Foreground="Black" Text="{Binding User.UserName}" VerticalAlignment="Center"/>
+                </HyperlinkButton>
+
+                <TextBlock x:Name="_LocationT" Grid.Row="1" FontSize="10" Foreground="Black" Text="{Binding Location.Name}" VerticalAlignment="Center" Visibility="Collapsed"/>
+                
+            </Grid>
+            
             <AppBarButton Icon="More" Grid.Column="2" Click="OptionsBTN_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" FontWeight="SemiBold" Width="48" FontFamily="Segoe UI"/>
         </Grid>
         <Grid Grid.Row="1" MaxHeight="{Binding ConverterParameter=h}">
@@ -98,7 +110,7 @@
                 <Run Text="people like it"/>
             </TextBlock>
 
-            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Visibility="{Binding Caption.Text, Converter={StaticResource TextToVisibilityConverter}, ConverterParameter={Binding}}" Margin="12,0,12,0" FontSize="13"/>
+            <TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Visibility="{Binding Caption.Text, Converter={StaticResource TextToVisibilityConverter}, ConverterParameter={Binding}}" Margin="12,0,12,3" FontSize="13"/>
 
             <HyperlinkButton x:Name="HyperComment" Grid.Row="2" Visibility="{Binding CommentsCount, Converter={StaticResource TextToVisibilityConverter}}" Margin="12,3,12,0" Click="CommentBTN_Click">
                 <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="13">

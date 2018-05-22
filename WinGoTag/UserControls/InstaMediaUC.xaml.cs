@@ -68,9 +68,11 @@ namespace WinGoTag.UserControls
                             break;
                     }
 
-                    
-                    
+                    if (Media.Location != null)
+                    { _LocationT.Visibility = Visibility.Visible; }
 
+                    if (Media.Caption == null)
+                    { txtCaption.Visibility = Visibility.Collapsed; }
 
                     if (Media.LikesCount == 0)
                     { LikeCount.Visibility = Visibility.Collapsed; }
