@@ -55,7 +55,7 @@
                   IsItemClickEnabled="False" SelectionMode="None" x:Name="mylist">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="0,6,0,6">
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="54"/>
                             <ColumnDefinition Width="*"/>
@@ -91,17 +91,17 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Foreground="LightGray" >
+                                    <TextBlock Grid.Column="0" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" VerticalAlignment="Center" >
                                         <Run Text="{Binding CreatedAtUtc, Converter={StaticResource UtcToTextConverter}}" FontSize="12"/>
                                     </TextBlock>
-                                    <HyperlinkButton FontSize="15" Grid.Column="1" Margin="15,-5,0,0" Visibility="{Binding LikesCount,Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}">
-                                        <TextBlock Foreground="LightGray">
+                                    <HyperlinkButton FontSize="12" Grid.Column="1" Margin="15,0,0,0" Visibility="{Binding LikesCount,Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}" VerticalAlignment="Center">
+                                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
                                             <Run Text="{Binding LikesCount}" FontSize="12"/>
                                             <Run Text="like" FontSize="12"/>
                                         </TextBlock>
                                     </HyperlinkButton>
-                                    <HyperlinkButton Tag="{Binding}" Click="Reply_Button" FontSize="15" Grid.Column="2" Margin="15,-5,0,0" >
-                                        <TextBlock Foreground="LightGray">
+                                    <HyperlinkButton FontSize="12" Tag="{Binding}" Click="Reply_Button" Grid.Column="2" Margin="15,0,0,0" VerticalAlignment="Center" >
+                                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
                                             <Run Text="Reply" FontSize="12"/>
                                         </TextBlock>
                                     </HyperlinkButton>
@@ -118,7 +118,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Style="{StaticResource TextBoxStyleInsta}" x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" KeyUp="MessageTextBox_KeyUp" Margin="6" Height="42"/>
+            <TextBox Style="{StaticResource TextBoxStyleInstaChat}" x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" KeyUp="MessageTextBox_KeyUp" Margin="6" Height="42"/>
             
 
             <AppBarButton Grid.Column="1" Name="DynamicButton" Width="48" Click="{x:Bind SendTextMessage}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="48">

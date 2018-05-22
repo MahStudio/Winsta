@@ -75,7 +75,7 @@
             </Grid.ColumnDefinitions>
             <AppBarButton Foreground="{ThemeResource SystemControlHyperlinkTextBrush}" Icon="Camera" Width="48"/>
 
-            <TextBox x:Name="TextBoxChat" Style="{ThemeResource TextBoxStyleInsta}" PlaceholderText="Write a message" Grid.Column="1" Margin="0,6,6,6" TextChanged="TextBoxChat_TextChanged"/>
+            <TextBox x:Name="TextBoxChat" Style="{ThemeResource TextBoxStyleInstaChat}" PlaceholderText="Write a message" Grid.Column="1" Margin="0,6,6,6" TextChanged="TextBoxChat_TextChanged"/>
             
             <AppBarButton Name="DynamicButton" Grid.Column="2" Click="DynamicButton_Click" Width="48">
                 <AppBarButton.Icon>
