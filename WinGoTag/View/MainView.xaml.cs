@@ -1,5 +1,6 @@
 ﻿using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -41,7 +42,7 @@ namespace WinGoTag.View
         bool _loadDirect = true;
         public GenerateHomePage<InstaMedia> HomePageItemssource;
         internal static GridViewItem itemList;
-        public static Grid HeaderD;
+        public static DropShadowPanel HeaderD;
         public static Pivot MainViewPivot;
         public static Frame MainFrame;
         public MainView()

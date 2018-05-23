@@ -1,6 +1,7 @@
 ﻿using InstaSharper.API.Builder;
 using InstaSharper.Classes;
 using InstaSharper.Logger;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,7 @@ namespace WinGoTag
     public sealed partial class MainPage : Page
     {
         public static Frame MainFrame { get; set; }
-        public static Grid Bar { get; set; }
+        public static DropShadowPanel Bar { get; set; }
         public MainPage()
         {
             this.InitializeComponent();

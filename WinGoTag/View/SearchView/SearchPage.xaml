@@ -306,7 +306,7 @@
 
             </Grid>
 
-            <Grid Name="GridAutoSuggest" Visibility="Visible">
+            <Grid Name="GridAutoSuggest" Visibility="Visible" Background="#fafafa">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

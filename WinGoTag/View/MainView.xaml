@@ -162,21 +162,28 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Background="#fafafa" x:Name="HeaderDirect" Height="48" Grid.Row="0" Canvas.ZIndex="1" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="48"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="48"/>
-                        </Grid.ColumnDefinitions>
+                    <controls:DropShadowPanel BlurRadius="5" ShadowOpacity="0.5"
+                                              OffsetX="0" OffsetY="0.8" HorizontalContentAlignment="Stretch"
+                                              Grid.Row="0" Canvas.ZIndex="1" x:Name="HeaderDirect"
+                                              Color="Gray">
 
-                        <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
-                            <AppBarButton.Icon>
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
-                            </AppBarButton.Icon>
-                        </AppBarButton>
-                        <TextBlock Grid.Column="1" Text="Direct" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
-                        <AppBarButton Icon="Add" Grid.Column="2" Width="48"/>
-                    </Grid>
+                        <Grid Background="#fafafa" Height="48" Grid.Row="0" Canvas.ZIndex="1" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="48"/>
+                            </Grid.ColumnDefinitions>
+
+                            <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <TextBlock Grid.Column="1" Text="Direct" VerticalAlignment="Center" Width="120" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
+                            <AppBarButton Icon="Add" Grid.Column="2" Width="48"/>
+                        </Grid>
+
+                    </controls:DropShadowPanel>
                     <Frame Canvas.ZIndex="2"  Grid.Row="1" x:Name="DirectFr"/>
 
                 </Grid>

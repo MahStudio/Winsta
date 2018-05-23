@@ -5,6 +5,7 @@
     xmlns:local="using:WinGoTag"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -43,51 +44,58 @@
             </PivotItem>
         </Pivot>
 
-        <Grid x:Name="InstaBar" BorderThickness="0,0.5,0,0.5" Grid.Row="1" Height="48" VerticalAlignment="Bottom" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+        <controls:DropShadowPanel BlurRadius="5" ShadowOpacity="0.5" Grid.Row="1"
+                                              OffsetX="0" OffsetY="-0.8" HorizontalContentAlignment="Stretch"
+                                              Canvas.ZIndex="1" x:Name="InstaBar"
+                                              Color="Gray">
+            <Grid Grid.Row="1" Height="48" VerticalAlignment="Bottom" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
               HorizontalAlignment="Stretch" Background="#fafafa">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <AppBarButton x:Name="HomeBT" Grid.Column="0" Click="HomeBT_Click">
-                <AppBarButton.Icon>
-                    <FontIcon x:Name="IconBarHome" FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton x:Name="HomeBT" Grid.Column="0" Click="HomeBT_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="IconBarHome" FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
-            <AppBarButton x:Name="FindBT" Grid.Column="1" Click="FindBT_Click">
-                <AppBarButton.Icon>
-                    <FontIcon x:Name="IconBarFind" FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton x:Name="FindBT" Grid.Column="1" Click="FindBT_Click">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="IconBarFind" FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
-            <AppBarButton x:Name="AddBT" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center">
-                <AppBarButton.Icon>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA39;" RenderTransformOrigin="0.5,0.5" >
-                        <FontIcon.RenderTransform>
-                            <CompositeTransform Rotation="45"/>
-                        </FontIcon.RenderTransform>
-                    </FontIcon>
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton x:Name="AddBT" Grid.Column="2"  Click="AddBT_Click" HorizontalAlignment="Center">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA39;" RenderTransformOrigin="0.5,0.5" >
+                            <FontIcon.RenderTransform>
+                                <CompositeTransform Rotation="45"/>
+                            </FontIcon.RenderTransform>
+                        </FontIcon>
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
-            <AppBarButton x:Name="LoveBT" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right">
-                <AppBarButton.Icon>
-                    <FontIcon x:Name="IconBarLover" FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton x:Name="LoveBT" Grid.Column="3" Click="LoveBT_Click" HorizontalAlignment="Right">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="IconBarLover" FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
-            <AppBarButton x:Name="UserBT" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right">
-                <AppBarButton.Icon>
-                    <FontIcon x:Name="IconBarUser" FontFamily="Segoe MDL2 Assets" Glyph="&#xE2AF;" />
-                </AppBarButton.Icon>
-            </AppBarButton>
+                <AppBarButton x:Name="UserBT" Grid.Column="4" Click="UserBT_Click" HorizontalAlignment="Right">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="IconBarUser" FontFamily="Segoe MDL2 Assets" Glyph="&#xE2AF;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
 
-        </Grid>
+            </Grid>
+
+        </controls:DropShadowPanel>
+       
     </Grid>
 </Page>

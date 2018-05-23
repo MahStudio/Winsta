@@ -38,51 +38,63 @@
             
             <GridView.Header>
 
-                <Grid Grid.Row="0" BorderThickness="0,0.2,0,0.2" Background="#fafafa"
-                      x:Name="StoriesPartition" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
+                <Grid Grid.Row="0" Background="#fafafa"
+                      x:Name="StoriesPartition">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <ProgressBar x:Name="_ProgressBar" VerticalAlignment="Top" Background="{x:Null}"/>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <controls:DropShadowPanel BlurRadius="5" ShadowOpacity="0.5"
+                                              OffsetX="0" OffsetY="0.8" HorizontalContentAlignment="Stretch"
+                                              Grid.Row="0" Canvas.ZIndex="1"
+                                              Color="Gray">
+                        <Grid Background="#fafafa" Margin="0,0,0,0" Padding="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid VerticalAlignment="Top" Padding="0" Tapped="Live_Tapped" Margin="12,6,12,0">
-                            <View:InstaStoryLiveUC x:Name="Live"/>
-                        </Grid>
+                            <Grid VerticalAlignment="Top" Padding="0" Tapped="Live_Tapped" Margin="12,6,12,0">
+                                <View:InstaStoryLiveUC x:Name="Live"/>
+                            </Grid>
 
-                        <GridView Grid.Column="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                            <GridView Grid.Column="1" x:Name="StoriesList" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollMode="Enabled"
                               ScrollViewer.VerticalScrollMode="Disabled"
                               SelectionMode="None" IsItemClickEnabled="True"
                               Margin="0,6,0,0" MinHeight="60" ItemClick="StoriesList_ItemClick">
 
-                            <GridView.ItemTemplate>
-                                <DataTemplate>
-                                    <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,6,0"/>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <View:InstaStoryFeedUC Story="{Binding}" Margin="6,0,6,0"/>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
 
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                            </GridView>
 
 
-                    </Grid>
+                        </Grid>
+                    </controls:DropShadowPanel>
+                   
                     
                     <MediaElement IsLooping="True" x:Name="ListVideos" Source="{Binding Media.Videos[0].Url}" IsMuted="True" AutoPlay="True" Grid.Row="1" Height="180" Stretch="UniformToFill" Tag="{Binding}" Tapped="ListVideos_Tapped"/>
 
-                    <TextBlock Text="Videos You Might Like" VerticalAlignment="Bottom" Foreground="White"
-                                   Grid.Row="1" HorizontalAlignment="Left" Margin="12,0,0,12" FontWeight="Bold" FontSize="18" Opacity="0.8"/>
+                    <controls:DropShadowPanel BlurRadius="8" ShadowOpacity="0.5" HorizontalAlignment="Left" Margin="12,0,0,12"
+                                              OffsetX="0" OffsetY="0" HorizontalContentAlignment="Stretch" VerticalAlignment="Bottom"
+                                              Grid.Row="1" Canvas.ZIndex="1"
+                                              Color="Black">
+                        <TextBlock Text="Videos You Might Like" Foreground="White"
+                                   FontWeight="Bold" FontSize="18" Opacity="0.8"/>
+                    </controls:DropShadowPanel>
+                    
                 </Grid>
             </GridView.Header>
 
