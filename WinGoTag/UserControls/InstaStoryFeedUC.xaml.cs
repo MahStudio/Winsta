@@ -63,6 +63,8 @@ namespace WinGoTag.UserControls
                 {
                     var value = DataContext as InstaStory;
 
+                    if (value.LatestReelMedia == value.Seen.ToString()) { } else { return; }
+
                     if (value.Seen == 0)
                     {
 

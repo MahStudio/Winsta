@@ -69,7 +69,7 @@ namespace WinGoTag.View.SearchView
             //
             Live.DataContext = strs.Value.StoryTray.TopLive;
 
-            StoriesList.ItemsSource = strs.Value.StoryTray.Tray.OrderBy(x => x.Seen != 0);
+            StoriesList.ItemsSource = strs.Value.StoryTray.Tray.OrderBy(x => x.SeenRankedPosition != 0);
 
             ListVideos.DataContext = strs.Value.Channel;
             if (ExplorePageItemssource != null)
