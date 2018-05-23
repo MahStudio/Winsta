@@ -98,6 +98,8 @@ namespace WinGoTag.View.StoryView
                     }
                 }
                 //Flipviews.ItemsSource = i.Items;
+
+                //var strs = await AppCore.InstaApi.LiveProcessor.SeenBroadcastAsync(i.Id.ToString(), i.HasBestiesMedia.ToString());
             }
             else
             {

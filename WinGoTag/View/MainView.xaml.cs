@@ -209,7 +209,9 @@ namespace WinGoTag.View
                     return;
                 }
             }
+
             GridViewItem itemAnimation = (GridViewItem)StoriesList.ContainerFromItem(item);
+            
             itemList = itemAnimation;
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", itemAnimation);
             StoryFr.Navigate(typeof(StoryView.StoryViews), item);

@@ -63,6 +63,13 @@ namespace WinGoTag.UserControls
                 {
                     var value = DataContext as InstaStory;
 
+                    if (value.Seen == 0)
+                    {
+
+                    }
+                    else { BorderStory.Stroke = ((SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"]); BorderStory.StrokeThickness = 0.5; ColorInsta.Opacity = 0; }
+
+
                     if (value.User is null)
                     {
                         PictureUser.UriSource = new Uri(value.Owner.ProfilePicture);

@@ -21,7 +21,8 @@ namespace InstaSharper.Converters
                 Muted = SourceObject.Muted,
                 PrefetchCount = SourceObject.PrefetchCount,
                 RankedPosition = SourceObject.RankedPosition,
-                Seen = (SourceObject.Seen ?? 0).FromUnixTimeSeconds(),
+                //Seen = (SourceObject.Seen ?? 0).FromUnixTimeSeconds(),
+                
                 SeenRankedPosition = SourceObject.SeenRankedPosition,
                 SocialContext = SourceObject.SocialContext,
                 SourceToken = SourceObject.SourceToken

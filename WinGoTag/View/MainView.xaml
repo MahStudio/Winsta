@@ -63,8 +63,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <controls:DropShadowPanel BlurRadius="8" ShadowOpacity="0.5"
-                                              OffsetX="2" OffsetY="2" HorizontalContentAlignment="Stretch"
+                    <controls:DropShadowPanel BlurRadius="5" ShadowOpacity="0.5"
+                                              OffsetX="0" OffsetY="0.8" HorizontalContentAlignment="Stretch"
                                               Grid.Row="0" Canvas.ZIndex="1"
                                               Color="Gray">
                        

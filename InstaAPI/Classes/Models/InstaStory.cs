@@ -15,7 +15,8 @@ namespace InstaSharper.Classes.Models
 
         public string SourceToken { get; set; }
 
-        public DateTime Seen { get; set; }
+        //public DateTime Seen { get; set; }
+        public long Seen { get; set; }
 
         public string LatestReelMedia { get; set; }
 
