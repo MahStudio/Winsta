@@ -121,9 +121,18 @@
                 <ColumnDefinition Width="48"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <AppBarButton Content="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Center" Width="48"/>
-            <AppBarButton Content="" Grid.Column="1" Click="CommentBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Center" Width="48"/>
-            <AppBarButton x:Name="AddtoCollection" Grid.Column="2" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Right" Width="48" Click="AddtoCollection_Click" Visibility="Collapsed">
+            <AppBarButton Padding="0" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" Width="48">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" FontSize="22" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton Grid.Column="1" Click="CommentBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" Width="48">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BD;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <!--Content=""-->
+            <AppBarButton x:Name="AddtoCollection" Grid.Column="2" Background="Transparent" FontFamily="Segoe MDL2 Assets" FontSize="22" HorizontalAlignment="Right" Width="48" Click="AddtoCollection_Click" Visibility="Visible">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7C1;" />
                 </AppBarButton.Icon>

@@ -21,6 +21,8 @@ namespace InstaSharper.Classes.ResponseWrappers
 
         [JsonProperty("latest_reel_media")] public long? LatestReelMedia { get; set; }
 
+        [JsonProperty("seen_ranked_position")] public int SeenRankedPosition { get; set; }
+
         [JsonProperty("seen")] public long? Seen { get; set; }
 
         [JsonProperty("user")] public InstaUserShortResponse User { get; set; }

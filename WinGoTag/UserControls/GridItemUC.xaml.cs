@@ -81,7 +81,7 @@ namespace WinGoTag.UserControls
                             break;
                          
                         case InstaMediaType.Video:
-                            SymbolType.Text = "\ue714";
+                            SymbolType.Text = "\ueA0C";
                             //BMI.UriSource = new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
                            /* Image.Source = BMI;*/ /*new BitmapImage(new Uri(Media.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));*/
                             break;

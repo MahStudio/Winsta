@@ -23,6 +23,8 @@ namespace InstaSharper.Classes.Models
 
         public long Seen { get; set; }
 
+        public int Seen_ranked_position { get; set; }
+
         public InstaUserShort User { get; set; }
     }
 }

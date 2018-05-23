@@ -92,13 +92,7 @@ namespace WinGoTag.UserControls
                 if (args.NewValue.GetType() == typeof(InstaReelFeed))
                 {
                     var value = DataContext as InstaReelFeed;
-
-                    if(value.Seen == 0)
-                    {
-                        
-                    }
-                    else { BorderStory.Stroke = ((SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"]); BorderStory.StrokeThickness = 0.5; ColorInsta.Opacity = 0; }
-
+                    
                     if(value.User.UserName == "You")
                     {
                         if (value.Items.Count == 0)
@@ -107,6 +101,15 @@ namespace WinGoTag.UserControls
                             ColorInsta.Opacity = 0;
                         }
                     }
+
+                    if (value.LatestReelMedia == value.Seen) { } else { return; }
+
+                    if (value.Seen == 0)
+                    {
+                       
+                    }
+                    else { BorderStory.Stroke = ((SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"]); BorderStory.StrokeThickness = 0.5; ColorInsta.Opacity = 0; }
+
                     //var s = Story.Items.First();
                 }
             }
