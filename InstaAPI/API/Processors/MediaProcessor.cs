@@ -67,7 +67,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk},
+                    {"_uid", _user.LoggedInUser.Pk},
                     {"_csrftoken", _user.CsrfToken},
                     {"media_id", mediaId}
                 };
@@ -99,7 +99,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk},
+                    {"_uid", _user.LoggedInUser.Pk},
                     {"_csrftoken", _user.CsrfToken},
                     {"caption_text", caption}
                 };
@@ -261,7 +261,7 @@ namespace InstaSharper.API.Processors
                     { "video_result", "deprecated"},
                     {"_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.UserName}
+                    {"_uid", _user.LoggedInUser.UserName}
                 };
 
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -292,10 +292,10 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk},
+                    {"_uid", _user.LoggedInUser.Pk},
                     {"_csrftoken", _user.CsrfToken},
                     {"experiment", "ig_android_profile_contextual_feed"},
-                    {"id", _user.LoggedInUder.Pk},
+                    {"id", _user.LoggedInUser.Pk},
                     {"upload_id", uploadId},
 
                 };
@@ -417,7 +417,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk},
+                    {"_uid", _user.LoggedInUser.Pk},
                     {"_csrftoken", _user.CsrfToken},
                     {"media_folder", "Camera"},
                     {"source_type", "4"},
@@ -490,7 +490,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk},
+                    {"_uid", _user.LoggedInUser.Pk},
                     {"_csrftoken", _user.CsrfToken},
                     {"caption", caption},
                     {"client_sidecar_id", clientSidecarId},
@@ -623,7 +623,7 @@ namespace InstaSharper.API.Processors
             var fields = new Dictionary<string, string>
             {
                 {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                {"_uid", _user.LoggedInUder.Pk.ToString()},
+                {"_uid", _user.LoggedInUser.Pk.ToString()},
                 {"_csrftoken", _user.CsrfToken},
                 {"media_id", mediaId}
             };

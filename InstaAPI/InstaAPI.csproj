@@ -337,6 +337,7 @@
     <Compile Include="Classes\ResponseWrappers\MessageErrorsResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\RankedRecipientResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\RankedRecipientThreadResponse.cs" />
+    <Compile Include="Classes\WebBrowserResponse.cs" />
     <Compile Include="Converters\ConvertersFabric.cs" />
     <Compile Include="Converters\IConvertersFabric.cs" />
     <Compile Include="Converters\InstaCaptionConverter.cs" />

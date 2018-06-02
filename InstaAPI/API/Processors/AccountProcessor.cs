@@ -52,7 +52,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     { "_csrftoken", _user.CsrfToken},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     { "raw_text", bio}
                 };
@@ -106,7 +106,7 @@ namespace InstaSharper.API.Processors
                     {"_csrftoken", _user.CsrfToken},
                     {"username", newUsername},
                     {"first_name", name},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"biography", biography},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     {"email", email},
@@ -165,7 +165,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "_csrftoken", _user.CsrfToken},
                     {"first_name", name},
                     {"phone_number", phoneNumber}
@@ -203,7 +203,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "_csrftoken", _user.CsrfToken}
                 };
 
@@ -239,7 +239,7 @@ namespace InstaSharper.API.Processors
                 var requestContent = new MultipartFormDataContent(uploadId)
                 {
                     {new StringContent(_deviceInfo.DeviceGuid.ToString()), "\"_uuid\""},
-                    {new StringContent(_user.LoggedInUder.Pk.ToString()), "\"_uid\""},
+                    {new StringContent(_user.LoggedInUser.Pk.ToString()), "\"_uid\""},
                     {new StringContent(_user.CsrfToken), "\"_csrftoken\""}
                 };
                 var imageContent = new ByteArrayContent(pictureBytes);
@@ -315,7 +315,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"save_to_camera_roll", 1.ToString()}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -350,7 +350,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"save_to_camera_roll", 0.ToString()}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -386,7 +386,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"reel_auto_archive", "on"}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -421,7 +421,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"check_pending_archive", "1"},
                     {"reel_auto_archive", "off"}
                 };
@@ -457,7 +457,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                 };
                 if (allow)
                     data.Add("allow_story_reshare", "1");
@@ -494,7 +494,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                 };
                 switch (repliesType)
                 {
@@ -548,7 +548,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"username", desiredUsername}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -586,7 +586,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()}
+                    {"_uid", _user.LoggedInUser.Pk.ToString()}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
                 var response = await _httpRequestProcessor.SendAsync(request);
@@ -622,7 +622,7 @@ namespace InstaSharper.API.Processors
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     { "device_id", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "phone_number", phoneNumber},
 
                 };
@@ -656,7 +656,7 @@ namespace InstaSharper.API.Processors
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     { "device_id", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "phone_number", phoneNumber},
                     { "verification_code", verificationCode}
 
@@ -692,7 +692,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()}
+                    {"_uid", _user.LoggedInUser.Pk.ToString()}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
                 var response = await _httpRequestProcessor.SendAsync(request);
@@ -725,7 +725,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"send_source", "edit_profile"}
                 };
                 var request = HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, data);
@@ -760,7 +760,7 @@ namespace InstaSharper.API.Processors
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     { "device_id", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "phone_number", phoneNumber},
 
                 };
@@ -796,7 +796,7 @@ namespace InstaSharper.API.Processors
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
                     { "device_id", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     { "phone_number", phoneNumber},
                     { "verification_code", verificationCode}
 
@@ -831,7 +831,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"disabled", "0"},
                     { "_csrftoken", _user.CsrfToken}
                 };
@@ -865,7 +865,7 @@ namespace InstaSharper.API.Processors
                 var data = new JObject
                 {
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"disabled", "1"},
                     { "_csrftoken", _user.CsrfToken}
                 };
