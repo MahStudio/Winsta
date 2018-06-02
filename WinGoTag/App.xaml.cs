@@ -8,6 +8,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.Helpers;
 
 namespace WinGoTag
 {
@@ -26,6 +27,11 @@ namespace WinGoTag
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
             App.Current.Suspending += Current_Suspending;
+            try
+            {
+                UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
+            }
+            catch { }
         }
 
         private async void Current_Suspending(object sender, SuspendingEventArgs e)

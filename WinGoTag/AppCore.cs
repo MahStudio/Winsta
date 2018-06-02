@@ -77,7 +77,7 @@ namespace WinGoTag
                 }
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception /*ex*/)
             {
                 InstaApi = null;
                 return false;

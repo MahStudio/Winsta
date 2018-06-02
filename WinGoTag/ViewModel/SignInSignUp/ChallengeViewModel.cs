@@ -15,9 +15,9 @@ namespace WinGoTag.ViewModel.SignInSignUp
         private bool? _isemailchoosed;
         private bool? _isphonechoosed;
         private bool _isbusy;
-        private Step_Data _choptions;
+        private StepData _choptions;
         public event PropertyChangedEventHandler PropertyChanged;
-        public Step_Data ChallengeOptions { get { return _choptions; } set { _choptions = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChallengeOptions")); } }
+        public StepData ChallengeOptions { get { return _choptions; } set { _choptions = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChallengeOptions")); } }
         public bool IsBusy { get { return _isbusy; } set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
         public bool? IsEmailChoosed { get { return _isemailchoosed; } set { _isemailchoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEmailChoosed")); } }
         public bool? IsPhoneChoosed { get { return _isphonechoosed; } set { _isphonechoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsPhoneChoosed")); } }
@@ -34,12 +34,12 @@ namespace WinGoTag.ViewModel.SignInSignUp
             SendVerificationCmd.ExecuteFunc = SendVerification;
         }
 
-        private async void SendVerification(object obj)
+        private /*async*/ void SendVerification(object obj)
         {
-            if (IsEmailChoosed == true)
-                await AppCore.InstaApi.SendVerifyForChallenge(1);
-            if(IsPhoneChoosed == true)
-                await AppCore.InstaApi.SendVerifyForChallenge(2);
+            //if (IsEmailChoosed == true)
+            //    await AppCore.InstaApi.SendVerifyForChallenge(1);
+            //if(IsPhoneChoosed == true)
+            //    await AppCore.InstaApi.SendVerifyForChallenge(2);
 
         }
 
@@ -48,17 +48,17 @@ namespace WinGoTag.ViewModel.SignInSignUp
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
 
-        private async void LoadPage()
+        private /*async*/ void LoadPage()
         {
-            var res = await AppCore.InstaApi.GetChallengeChoices();
-            if (res.Succeeded)
-            {
-                ChallengeOptions = res.Value;
-            }
-            else
-            {
-                await new MessageDialog(res.Info.Message).ShowAsync();
-            }
+            //var res = await AppCore.InstaApi.GetChallengeChoices();
+            //if (res.Succeeded)
+            //{
+            //    ChallengeOptions = res.Value;
+            //}
+            //else
+            //{
+            //    await new MessageDialog(res.Info.Message).ShowAsync();
+            //}
             IsBusy = false;
         }
     }
