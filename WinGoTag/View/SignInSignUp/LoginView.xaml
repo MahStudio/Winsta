@@ -23,6 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -41,8 +42,19 @@
             <PasswordBox x:Name="PasswordText" Style="{ThemeResource PasswordBoxStyleInsta}" Grid.Row="1" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="Password" Margin="0,0,0,20" Height="42" KeyDown="PasswordTextKeyDown"/>
             <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Login" Command="{Binding LoginCmd}" HorizontalAlignment="Stretch" Height="42"/>
         </Grid>
-        <WebView x:Name="WebViewChallenge" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
-        <Border Grid.Row="0" Grid.RowSpan="3" Background="#9A000000" Visibility="{Binding LoadingVisibility}">
+        <Grid Grid.Row="2" MinWidth="280" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="____________________ OR ____________________" Margin="0,0,0,12" Height="42" Foreground="#FFAEAEAE"/>
+            <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Log in with Facebook" Command="{Binding FacebookLoginCmd}" HorizontalAlignment="Stretch" Height="42" Foreground="#FF0078D7" Background="{x:Null}"/>
+
+        </Grid>
+        <WebView x:Name="WebViewFacebook" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+        <WebView x:Name="WebViewChallenge" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+      
+        <Border Grid.Row="0" Grid.RowSpan="4" Background="#9A000000" Visibility="{Binding LoadingVisibility}">
             <ProgressRing Width="65" Height="65" Grid.Row="1" IsActive="{Binding IsLoading}" />
         </Border>
     </Grid>

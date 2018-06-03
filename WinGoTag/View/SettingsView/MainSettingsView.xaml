@@ -79,7 +79,7 @@
                 </TextBlock>
                 <Rectangle Margin="12,12,12,0" Grid.Row="14" Fill="DarkGray" Stroke="DarkGray" Height="0.5"/>
                 <HyperlinkButton Grid.Row="15" Margin="12,12,12,0" Content="Insiders Group On Telegram"/>
-                <HyperlinkButton Margin="12,0" Grid.Row="16" Content="Log Out"/>
+                <HyperlinkButton x:Name="LogoutButton" Margin="12,0" Grid.Row="16" Content="Log Out" Click="LogoutButtonClick"/>
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -18,11 +18,11 @@
             
             <SolidColorBrush x:Key="SystemControlPageBackgroundBaseMediumBrush" Color="Transparent"/>
 
-            <Windows10FallCreatorsUpdate:AcrylicBrush x:Key="CustomAcrylicBackgroundBrushColor" BackgroundSource="HostBackdrop"
-                                                      TintOpacity="0.739999983459711" TintColor="#FF993399" FallbackColor="#FF993399" />
+            <!--<Windows10FallCreatorsUpdate:AcrylicBrush x:Key="CustomAcrylicBackgroundBrushColor" BackgroundSource="HostBackdrop"
+                                                      TintOpacity="0.739999983459711" TintColor="#FF993399" FallbackColor="#FF993399" />-->
 
             <!--<Windows10CreatorsUpdate:SolidColorBrush x:Key="CustomAcrylicBackgroundBrushColor" Color="#FF993399"/>-->
-
+            <SolidColorBrush x:Key="CustomAcrylicBackgroundBrushColor" Color="#FF993399"/>
             <Style TargetType="ListViewItem" x:Key="ListViewStrecher">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>

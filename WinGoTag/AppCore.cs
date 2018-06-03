@@ -63,6 +63,10 @@ namespace WinGoTag
                 }
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
                 var r = await FileIO.ReadTextAsync(file);
+                if (string.IsNullOrEmpty(r))
+                    return false;
+                if (r.Length < 100)
+                    return false;
                 string User = "username"; string Pass="password";
                 //LoadUserInfo(out User, out Pass);
                 //if (User == null || Pass == null) return false;
@@ -111,5 +115,6 @@ namespace WinGoTag
                 Username = null; Password = null;
             }
         }
+
     }
 }

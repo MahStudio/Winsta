@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using WinGoTag.Helpers;
 using WinGoTag.ViewModel.SignInSignUp;
 
 
@@ -42,10 +43,14 @@ namespace WinGoTag.View.SignInSignUp
                     {
                         context.WebView = WebViewChallenge;
                         context.AddWebViewEvents();
+
+                        context.WebViewFacebook = WebViewFacebook;
+                        context.AddWebViewFacebookEvents();
                     }
-                }
+                }         
             }
         }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
@@ -56,6 +61,7 @@ namespace WinGoTag.View.SignInSignUp
                     if (context != null)
                     {
                         context.DeleteWebViewEvents();
+                        context.DeleteWebViewFacebookEvents();
                     }
                 }
             }
@@ -107,6 +113,7 @@ namespace WinGoTag.View.SignInSignUp
                 catch { }
             }
         }
+
 
     }
 }

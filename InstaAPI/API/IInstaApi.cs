@@ -35,7 +35,7 @@ namespace InstaSharper.API
         /// <param name="htmlDocument">Html document source</param>
         /// <param name="cookies">Cookies from webview or webbrowser control</param>
         /// <returns>True if logged in, False if not</returns>
-        IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookies);
+        IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookies, bool validate = false);
         /// <summary>
         ///     Get current state info as Memory stream
         /// </summary>

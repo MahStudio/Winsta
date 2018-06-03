@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace InstaAPI.Classes
 {
-    internal class WebBrowserResponse
+    public class WebBrowserResponse
     {
         [JsonProperty("config")]
         public WebBrowserResponseConfig Config { get; set; }
     }
 
-    internal class WebBrowserResponseConfig
+    public class WebBrowserResponseConfig
     {
         [JsonProperty("csrf_token")]
         public string CsrfToken { get; set; }
@@ -21,7 +21,7 @@ namespace InstaAPI.Classes
         public WebBrowserResponseViewer Viewer { get; set; }
     }
 
-    internal class WebBrowserResponseViewer
+    public class WebBrowserResponseViewer
     {
         [JsonProperty("biography")]
         public string Biography { get; set; }

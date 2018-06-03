@@ -1225,7 +1225,7 @@ namespace InstaSharper.API
         /// <param name="htmlDocument">Html document source</param>
         /// <param name="cookies">Cookies from webview or webbrowser control</param>
         /// <returns>True if logged in, False if not</returns>
-        public IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookie)
+        public IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookie, bool invalidate = false)
         {
             if (!string.IsNullOrEmpty(cookie) && !string.IsNullOrEmpty(htmlDocument))
             {
@@ -1261,7 +1261,8 @@ namespace InstaSharper.API
                     _user.CsrfToken = o.Config.CsrfToken;
                     _user.RankToken = $"{o.Config.Viewer.Id}_{_httpRequestProcessor.RequestMessage.phone_id}";
                     IsUserAuthenticated = true;
-
+                    if (invalidate)
+                        InvalidateProcessors();
                     return Result.Success(true);
                 }
                 catch (Exception ex)

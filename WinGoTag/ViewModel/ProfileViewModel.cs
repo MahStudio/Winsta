@@ -59,6 +59,8 @@ namespace WinGoTag.ViewModel
 
         async void LoadPage()
         {
+            if (AppCore.InstaApi == null)
+                return;
             var User = AppCore.InstaApi.GetLoggedUser();
            
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);

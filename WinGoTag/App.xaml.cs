@@ -39,11 +39,11 @@ namespace WinGoTag
             try
             {
                 var def = e.SuspendingOperation.GetDeferral();
-                if (AppCore.InstaApi != null)
+                if (AppCore.InstaApi != null && AppCore.InstaApi.IsUserAuthenticated)
                 {
                     var state = AppCore.InstaApi.GetStateDataAsStream();
                     var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.ReplaceExisting);
-                    await FileIO.WriteTextAsync(file, state); await FileIO.WriteTextAsync(file, state);
+                    await FileIO.WriteTextAsync(file, state);
                 }
                 def.Complete();
             }
@@ -71,6 +71,7 @@ namespace WinGoTag
                     return;
                 }
             }
+            ApplicationData.Current.LocalFolder.Path.ShowInOutput();
             SplashScreen splashScreen = e.SplashScreen;
             ExtendedSplashScreen eSplash = null;
             eSplash = new ExtendedSplashScreen(splashScreen);
