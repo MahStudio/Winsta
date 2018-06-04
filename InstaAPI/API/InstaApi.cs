@@ -618,7 +618,19 @@ namespace InstaSharper.API
             ValidateLoggedIn();
             return await _commentProcessor.CommentMediaAsync(mediaId, text);
         }
-
+        /// <summary>
+        ///     Inline comment media
+        /// </summary>
+        /// <param name="mediaId">Media id</param>
+        /// <param name="targetCommentId">Target comment id</param>
+        /// <param name="text">Comment text</param>
+        /// <returns></returns>
+        public async Task<IResult<InstaComment>> InlineCommentMediaAsync(string mediaId, string targetCommentId, string text)
+        {
+            ValidateUser();
+            ValidateLoggedIn();
+            return await _commentProcessor.InlineCommentMediaAsync(mediaId, targetCommentId, text);
+        }
         /// <summary>
         ///     Delete comment from media
         /// </summary>

@@ -341,6 +341,15 @@ namespace InstaSharper.API
         Task<IResult<InstaComment>> CommentMediaAsync(string mediaId, string text);
 
         /// <summary>
+        ///     Inline comment media
+        /// </summary>
+        /// <param name="mediaId">Media id</param>
+        /// <param name="targetCommentId">Target comment id</param>
+        /// <param name="text">Comment text</param>
+        /// <returns></returns>
+        Task<IResult<InstaComment>> InlineCommentMediaAsync(string mediaId, string targetCommentId, string text);
+
+        /// <summary>
         ///     Delete comment from media
         /// </summary>
         /// <param name="mediaId">Media id</param>

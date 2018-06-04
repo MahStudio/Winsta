@@ -108,6 +108,42 @@ namespace InstaSharper.API.Processors
             }
         }
 
+        public async Task<IResult<InstaComment>> InlineCommentMediaAsync(string mediaId, string targetCommentId, string text)
+        {
+            try
+            {
+                var instaUri = UriCreator.GetPostCommetUri(mediaId);
+                var breadcrumb = CryptoHelper.GetCommentBreadCrumbEncoded(text);
+                var fields = new Dictionary<string, string>
+                {
+                    {"user_breadcrumb", breadcrumb},
+                    {"idempotence_token", Guid.NewGuid().ToString()},
+                    {"_uuid", _deviceInfo.DeviceGuid.ToString()},
+                    {"replied_to_comment_id", targetCommentId},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
+                    {"_csrftoken", _user.CsrfToken},
+                    {"comment_text", text},
+                    {"containermodule", "comments_feed_timeline"},
+                    {"radio_type", "wifi-none"}
+                };
+                var request =
+                    HttpHelper.GetSignedRequest(HttpMethod.Post, instaUri, _deviceInfo, fields);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+                if (response.StatusCode != HttpStatusCode.OK)
+                    return Result.UnExpectedResponse<InstaComment>(response, json);
+                var commentResponse = JsonConvert.DeserializeObject<InstaCommentResponse>(json,
+                    new InstaCommentDataConverter());
+                var converter = ConvertersFabric.Instance.GetCommentConverter(commentResponse);
+                return Result.Success(converter.Convert());
+            }
+            catch (Exception exception)
+            {
+                _logger?.LogException(exception);
+                return Result.Fail(exception.Message, (InstaComment)null);
+            }
+        }
+
         public async Task<IResult<bool>> DeleteCommentAsync(string mediaId, string commentId)
         {
             try

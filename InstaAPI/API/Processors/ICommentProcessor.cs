@@ -11,5 +11,6 @@ namespace InstaSharper.API.Processors
 
         Task<IResult<InstaComment>> CommentMediaAsync(string mediaId, string text);
         Task<IResult<bool>> DeleteCommentAsync(string mediaId, string commentId);
+        Task<IResult<InstaComment>> InlineCommentMediaAsync(string mediaId, string targetCommentId, string text);
     }
 }
