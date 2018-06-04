@@ -41,6 +41,7 @@ namespace WinGoTag.UserControls
         public CarouselItemUC()
         {
             this.InitializeComponent();
+            CarouVideo.TransportControls.IsCompact = true;
             this.DataContextChanged += CarouselItemUC_DataContextChanged;
         }
 

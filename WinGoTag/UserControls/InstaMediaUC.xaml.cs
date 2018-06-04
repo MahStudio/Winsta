@@ -51,6 +51,7 @@ namespace WinGoTag.UserControls
         public InstaMediaUC()
         {
             this.InitializeComponent();
+            MedEl.TransportControls.IsCompact = true;
             this.DataContextChanged += InstaMediaUC_DataContextChanged;
         }
 
