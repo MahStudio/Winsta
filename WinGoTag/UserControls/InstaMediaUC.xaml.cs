@@ -1,15 +1,20 @@
 ﻿using InstaSharper.API.Processors;
 using InstaSharper.Classes.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
+using WinGoTag.Helpers;
 using WinGoTag.View;
 using WinGoTag.View.UserViews;
 
@@ -83,7 +88,13 @@ namespace WinGoTag.UserControls
 
                     //LikeCount.Text = $"{Media.LikesCount} people like it";
                     //CommentCount.Text = "See all " + Media.CommentsCount + " comments";
-               
+                    using (var pg = new PassageHelper())
+                    {
+                        var passages = pg.GetParagraph(Media.Caption.Text, CaptionHyperLinkClick);
+                        txtCaption.Blocks.Clear();
+                        txtCaption.Blocks.Add(passages);
+                    }
+                 
 
                     await Task.Delay(100);
                     Media.PropertyChanged += Media_PropertyChanged;
@@ -94,7 +105,43 @@ namespace WinGoTag.UserControls
             }
             catch { }
         }
+        private void CaptionHyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (sender == null)
+                return;
+            try
+            {
+                if (sender.Inlines.Count > 0)
+                {
+                    if (sender.Inlines[0] is Run run && run != null)
+                    {
+                        var text = run.Text;
+                        text = text.ToLower();
+                        run.Text.ShowInOutput();
+                        if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
+                            OpenUrl(run.Text);
+                        else if (text.StartsWith("#"))
+                        {
+                            // hashtags: 
+                        }
+                        else if (text.StartsWith("@"))
+                        {
+                            // users: 
+                        }
 
+                    }
+                }
+            }
+            catch (Exception ex) { ex.ExceptionMessage("CaptionHyperLinkClick"); }
+        }
+        async void OpenUrl(string url)
+        {
+            var options = new Windows.System.LauncherOptions
+            {
+                TreatAsUntrusted = false
+            };
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url), options);
+        }
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Play")
@@ -159,7 +206,8 @@ namespace WinGoTag.UserControls
         {
             if (!Media.HasLiked)
             {
-                if ((await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value)
+                var like = (await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value;
+                if (like)
                 {
                     Media.HasLiked = true;
                     Media.LikesCount += 1;
@@ -167,7 +215,8 @@ namespace WinGoTag.UserControls
             }
             else
             {
-                if ((await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value)
+                var unlike = (await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value;
+                if (unlike)
                 {
                     Media.HasLiked = false;
                     Media.LikesCount -= 1;
