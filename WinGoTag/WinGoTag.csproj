@@ -368,6 +368,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\MediaTransportControlsStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Pivots.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

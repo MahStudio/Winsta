@@ -76,7 +76,7 @@ namespace WinGoTag.UserControls
                 if (CarouVideo.Source != null)
                 {
                     if (CarouVideo.CurrentState == MediaElementState.Playing)
-                        CarouVideo.IsMuted = !CarouVideo.IsMuted;
+                        CarouVideo.Pause();
                     else CarouVideo.Play();
                 }
             }

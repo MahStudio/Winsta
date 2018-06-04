@@ -190,7 +190,7 @@ namespace WinGoTag.UserControls
                 if (MedEl.Source != null)
                 {
                     if (MedEl.CurrentState == MediaElementState.Playing)
-                        MedEl.IsMuted = !MedEl.IsMuted;
+                        MedEl.Pause();
                     else MedEl.Play();
                 }
             }
