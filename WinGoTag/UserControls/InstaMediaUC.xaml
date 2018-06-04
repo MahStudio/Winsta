@@ -26,6 +26,7 @@
     
     <Grid MaxWidth="600">
         <Grid.Resources>
+            <Converters:LikeButtonColorConverter x:Key="LikeButtonColorConverter"/>
             <Converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
             <Converters:UtcToTextConverterMedia x:Key="UtcToTextConverterMedia"/>
             <Converters:TextToVisibilityConverter x:Key="TextToVisibilityConverter"/>
@@ -121,7 +122,7 @@
                 <ColumnDefinition Width="48"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <AppBarButton Padding="0" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" Width="48">
+            <AppBarButton Padding="0" Grid.Column="0" Click="LikeBTN_Click" Background="Transparent" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" Width="48" Foreground="{Binding HasLiked,Converter={StaticResource LikeButtonColorConverter}, ConverterParameter=foreground, Mode=OneWay}">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding HasLiked, Converter={StaticResource ButtonValueToIconConverter}, ConverterParameter=like, Mode=OneWay}" FontSize="22" />
                 </AppBarButton.Icon>
