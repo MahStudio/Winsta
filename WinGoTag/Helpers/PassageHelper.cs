@@ -44,7 +44,10 @@ namespace WinGoTag.Helpers
                             p.Inlines.Add(new Run() { Text = " " });
                         }
                         else
-                            p.Inlines.Add(new Run() { Text = item.Text + " ", Foreground = new SolidColorBrush(defaultColor.Value) });
+                        {
+                            p.Inlines.Add(new Run() { Text = item.Text, Foreground = new SolidColorBrush(defaultColor.Value) });
+                            p.Inlines.Add(new Run() { Text = " " });
+                        }
                     }
                     else
                     {
