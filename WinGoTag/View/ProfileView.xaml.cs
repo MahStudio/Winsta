@@ -10,12 +10,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.Helpers;
 using WinGoTag.View.SettingsView;
 using WinGoTag.View.UserViews;
+using WinGoTag.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,8 +33,64 @@ namespace WinGoTag.View
         {
             this.InitializeComponent();
             EditFr.Navigate(typeof(Page));
+            DataContextChanged += ProfileView_DataContextChanged;
         }
 
+        private void ProfileView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            try
+            {
+                if (args.NewValue.GetType() == typeof(ProfileViewModel))
+                {
+                    var context = args.NewValue as ProfileViewModel;
+                    if (context != null)
+                    {
+                        using (var pg = new PassageHelper())
+                        {
+                            var passages = pg.GetParagraph(context.UserInfo.Biography, HyperLinkClick);
+                            txtBiography.Blocks.Clear();
+                            txtBiography.Blocks.Add(passages);
+                        }
+                    }
+                }
+            } catch { }
+        }
+        private void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (sender == null)
+                return;
+            try
+            {
+                if (sender.Inlines.Count > 0)
+                {
+                    if (sender.Inlines[0] is Run run && run != null)
+                    {
+                        var text = run.Text;
+                        text = text.ToLower();
+                        run.Text.ShowInOutput();
+                        if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
+                            OpenUrl(run.Text);
+                        else if (text.StartsWith("#"))
+                        {
+                            // hashtags: 
+                        }
+                        else if (text.StartsWith("@"))
+                        {
+                            // users: 
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { ex.ExceptionMessage("CaptionHyperLinkClick"); }
+        }
+        async void OpenUrl(string url)
+        {
+            var options = new Windows.System.LauncherOptions
+            {
+                TreatAsUntrusted = false
+            };
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url), options);
+        }
         private void EditProfileBT_Click(object sender, RoutedEventArgs e)
         {
             var DataUser = ((Button)sender);
@@ -80,6 +139,18 @@ namespace WinGoTag.View
         private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
         {
             EditFr.Navigate(typeof(SinglePostView), e.ClickedItem);
+        }
+
+        private void HyperlinkButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (sender is HyperlinkButton btn && btn != null)
+                {
+                    OpenUrl((string)btn.Content);
+                }
+            }
+            catch { }
         }
     }
 }

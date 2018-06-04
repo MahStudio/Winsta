@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InstaSharper.Classes;
+using InstaSharper.Classes.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,10 +10,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -47,10 +51,9 @@ namespace WinGoTag.View.SignInSignUp
                         context.WebViewFacebook = WebViewFacebook;
                         context.AddWebViewFacebookEvents();
                     }
-                }         
+                }
             }
         }
-
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);

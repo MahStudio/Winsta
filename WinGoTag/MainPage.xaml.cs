@@ -91,6 +91,8 @@ namespace WinGoTag
             if (Fr.Content is MainView)
             {
                 InstaBar.Visibility = Visibility.Visible;
+                if(AppCore.InstaApi != null)
+                    ProfilePivotItem.Content = new ProfileView();
             }
 
         }

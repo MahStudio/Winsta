@@ -33,8 +33,26 @@ namespace WinGoTag.View.SearchView
             this.InitializeComponent();
             EditFr.Navigate(typeof(Page));
             GridAuto = GridAutoSuggest;
+            Loaded += SearchPage_Loaded;
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e != null && e.Parameter != null && e.Parameter is string str && !string.IsNullOrEmpty(str))
+            {
+                SearchBox.Text = str;
 
+            }
+        }
+        private async void SearchPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var recent = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
+                RecentList.ItemsSource = recent.Value.Recent;
+            }
+            catch { }
+        }
 
         private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
@@ -44,32 +62,66 @@ namespace WinGoTag.View.SearchView
         private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             var query = SearchBox.Text;
-
-            switch (PivotSearch.SelectedIndex)
+            //if (PivotSearch.SelectedIndex == 3)
+            //{
+            //    var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+            //    PlacesList.ItemsSource = ForLocation.Value;
+            //}
+            //else
             {
-                case 0:
-                    var recent = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
-                    RecentList.ItemsSource = recent.Value.Recent;
-                    //var t1 = await AppCore.InstaApi.DiscoverProcessor.DiscoverPeopleAsync();
-                    //var t2 = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
-                    //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Users);
-                    break;
-
-                case 1:
+                if (query.StartsWith("@"))
+                {
                     var People = await AppCore.InstaApi.DiscoverProcessor.SearchPeopleAsync(query);
                     PeopleList.ItemsSource = People.Value.Users;
-                    break;
-
-                case 2:
-                    var ForTag = await AppCore.InstaApi.SearchHashtag(query);
+                    PivotSearch.SelectedIndex = 1;
+                }
+                else if (query.StartsWith("#"))
+                {
+                    var ForTag = await AppCore.InstaApi.SearchHashtag(query.Replace("#", ""));
                     TagsList.ItemsSource = ForTag.Value;
-                    break;
-
-                case 3:
-                    var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
-                    PlacesList.ItemsSource = ForLocation.Value;
-                    break;
+                    PivotSearch.SelectedIndex = 2;
+                }
+                else
+                {
+                    if (PivotSearch.SelectedIndex == 3)
+                    {
+                        var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+                        PlacesList.ItemsSource = ForLocation.Value;
+                    }
+                    else
+                    {
+                        var People = await AppCore.InstaApi.DiscoverProcessor.SearchPeopleAsync(query);
+                        PeopleList.ItemsSource = People.Value.Users;
+                        PivotSearch.SelectedIndex = 1;
+                    }
+                }
             }
+
+            //switch (PivotSearch.SelectedIndex)
+            //{
+            //    case 0:
+            //        var recent = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
+            //        RecentList.ItemsSource = recent.Value.Recent;
+            //        //var t1 = await AppCore.InstaApi.DiscoverProcessor.DiscoverPeopleAsync();
+            //        //var t2 = await AppCore.InstaApi.DiscoverProcessor.GetRecentSearchsAsync();
+            //        //var t3 = await AppCore.InstaApi.DiscoverProcessor.GetSuggestedSearchesAsync(InstaSharper.API.Processors.DiscoverSearchType.Users);
+            //        break;
+
+            //    case 1:
+            //        var People = await AppCore.InstaApi.DiscoverProcessor.SearchPeopleAsync(query);
+            //        PeopleList.ItemsSource = People.Value.Users;
+            //        break;
+
+            //    case 2:
+            //        var ForTag = await AppCore.InstaApi.SearchHashtag(query);
+            //        TagsList.ItemsSource = ForTag.Value;
+            //        break;
+
+            //    case 3:
+            //        var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+            //        PlacesList.ItemsSource = ForLocation.Value;
+            //        break;
+            //}
         }
 
 

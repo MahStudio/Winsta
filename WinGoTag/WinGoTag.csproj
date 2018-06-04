@@ -129,6 +129,7 @@
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ExtensionHelper.cs" />
+    <Compile Include="Helpers\PassageHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
