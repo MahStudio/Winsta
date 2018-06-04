@@ -8,6 +8,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.Helpers;
 
 namespace WinGoTag
 {
@@ -26,6 +27,11 @@ namespace WinGoTag
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
             App.Current.Suspending += Current_Suspending;
+            try
+            {
+                UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
+            }
+            catch { }
         }
 
         private async void Current_Suspending(object sender, SuspendingEventArgs e)
@@ -33,11 +39,11 @@ namespace WinGoTag
             try
             {
                 var def = e.SuspendingOperation.GetDeferral();
-                if (AppCore.InstaApi != null)
+                if (AppCore.InstaApi != null && AppCore.InstaApi.IsUserAuthenticated)
                 {
                     var state = AppCore.InstaApi.GetStateDataAsStream();
                     var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.ReplaceExisting);
-                    await FileIO.WriteTextAsync(file, state); await FileIO.WriteTextAsync(file, state);
+                    await FileIO.WriteTextAsync(file, state);
                 }
                 def.Complete();
             }
@@ -65,6 +71,7 @@ namespace WinGoTag
                     return;
                 }
             }
+            ApplicationData.Current.LocalFolder.Path.ShowInOutput();
             SplashScreen splashScreen = e.SplashScreen;
             ExtendedSplashScreen eSplash = null;
             eSplash = new ExtendedSplashScreen(splashScreen);

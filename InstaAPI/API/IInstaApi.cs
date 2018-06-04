@@ -25,12 +25,28 @@ namespace InstaSharper.API
         IAccountProcessor AccountProcessor { get; }
         UserSessionData GetLoggedUser();
         /// <summary>
+        ///     Get challenge login information for grabbing challenge url.
+        /// </summary>
+        /// <returns></returns>
+        InstaChallengeLoginInfo GetChallenge();
+        /// <summary>
+        ///     Set cookie and html document to verify login information.
+        /// </summary>
+        /// <param name="htmlDocument">Html document source</param>
+        /// <param name="cookies">Cookies from webview or webbrowser control</param>
+        /// <returns>True if logged in, False if not</returns>
+        IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookies, bool validate = false);
+        /// <summary>
         ///     Get current state info as Memory stream
         /// </summary>
         /// <returns>State data</returns>
         string GetStateDataAsStream();
-        Task<IResult<bool>> SendVerifyForChallenge(int UserChoice);
-        Task<IResult<Step_Data>> GetChallengeChoices();
+        /// <summary>
+        ///     Update group tile in direct
+        /// </summary>
+        /// <param name="ThreadID"></param>
+        /// <param name="Title"></param>
+        /// <returns></returns>
         Task<IResult<InstaDirectInboxThread>> UpdateGroupTitle(string ThreadID, string Title);
         /// <summary>
         ///     Set state data from provided stream

@@ -166,7 +166,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"user_id", userId},
                     {"radio_type", "wifi"}
                 };
@@ -196,7 +196,7 @@ namespace InstaSharper.API.Processors
                 {
                     { "_csrftoken", _user.CsrfToken},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"user_id", userId},
                     {"radio_type", "wifi"}
                 };

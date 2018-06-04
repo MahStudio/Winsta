@@ -20,11 +20,12 @@
     <PackageCertificateKeyFile>WinGoTag_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>5CA9A520E8EDB076B3AD2EB127F13616593FCFAA</PackageCertificateThumbprint>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>74DCBCD132B7F5A41B69A655BF7AB044B998F1C7</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -126,7 +127,9 @@
     <Compile Include="ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AspectRatioHelper.cs" />
+    <Compile Include="Helpers\ExtensionHelper.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -224,9 +227,6 @@
     <Compile Include="View\SettingsView\StorySettingsView.xaml.cs">
       <DependentUpon>StorySettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SignInSignUp\ChallengeView.xaml.cs">
-      <DependentUpon>ChallengeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\SignInSignUp\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -253,10 +253,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.UI.Xaml">
-      <HintPath>Prebuilt\$(PlatformTarget)\Microsoft.UI.Xaml.winmd</HintPath>
-      <Private>True</Private>
-    </Reference>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
@@ -329,7 +325,6 @@
     <Content Include="Logos\WinstaAppW.png" />
     <Content Include="Logos\WinstappBlack.png" />
     <Content Include="Logos\WinstappW.png" />
-    <Content Include="Microsoft.UI.Xaml\Assets\NoiseAsset_256X256_PNG.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -354,26 +349,6 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Microsoft.UI.Xaml\Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Microsoft.UI.Xaml\Themes\rs1_themeresources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Microsoft.UI.Xaml\Themes\rs2_generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Microsoft.UI.Xaml\Themes\rs2_themeresources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Microsoft.UI.Xaml\Themes\rs3_themeresources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
@@ -500,10 +475,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsView\StorySettingsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SignInSignUp\ChallengeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

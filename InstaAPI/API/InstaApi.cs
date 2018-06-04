@@ -37,7 +37,6 @@ namespace InstaSharper.API
         private IStoryProcessor _storyProcessor;
         private TwoFactorLoginInfo _twoFactorInfo;
         private InstaChallengeLoginInfo _challengeinfo;
-        private InstaLoginChallengeMethodResponse _challengemethods;
         private UserSessionData _user;
         private IUserProcessor _userProcessor;
         private ILiveProcessor _liveProcessor;
@@ -153,7 +152,7 @@ namespace InstaSharper.API
                 {
                     {"user_id", UserID.ToString()},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"_csrftoken", _user.CsrfToken},
                 };
                 var request =
@@ -186,7 +185,7 @@ namespace InstaSharper.API
                 {
                     {"user_id", UserID.ToString()},
                     {"_uuid", _deviceInfo.DeviceGuid.ToString()},
-                    {"_uid", _user.LoggedInUder.Pk.ToString()},
+                    {"_uid", _user.LoggedInUser.Pk.ToString()},
                     {"_csrftoken", _user.CsrfToken},
                 };
                 var request =
@@ -1015,96 +1014,7 @@ namespace InstaSharper.API
                 return Result.Fail<CreationResponse>(exception);
             }
         }
-        public async Task<IResult<bool>> SendVerifyForChallenge(int UserChoice)
-        {
-            ValidateUser();
-            ValidateRequestMessage();
-            if (_challengemethods == null)
-                throw new Exception("We couldn't find any challenge!");
-            try
-            {
-                var cookies =
-                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
-                        .BaseAddress);
-                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
-                _user.CsrfToken = csrftoken;
-                string nothing;
-                var signature =
-                     $"{_httpRequestProcessor.RequestMessage.GenerateSignature(InstaApiConstants.IG_SIGNATURE_KEY, out nothing)}.{_httpRequestProcessor.RequestMessage.GetMessageStringForChallengeVerificationCodeSend(UserChoice).Replace("ReplaceCSRF", csrftoken)}";
-                var instaUri = new Uri((InstaApiConstants.BaseInstagramUri + "challenge/" + _challengemethods.user_id.ToString() + $"/{_challengemethods.nonce_code}"), UriKind.RelativeOrAbsolute);
-                var request = HttpHelper.GetDefaultRequest(HttpMethod.Post, instaUri, _deviceInfo);
-                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
-                var fields = new Dictionary<string, string>
-                {
-                    {InstaApiConstants.HEADER_IG_SIGNATURE, signature},
-                    {InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION}
-                };
-                request.Content = new FormUrlEncodedContent(fields);
-                var response = await _httpRequestProcessor.SendAsync(request);
-                var json = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
-                {
-                    var JRes = JsonConvert.DeserializeObject<InstaLoginChallengeMethodResponse>(json);
-                    return Result.Success(true);
-                }
-                else
-                {
-                    return Result.Fail<bool>("");
-                }
-            }
-            catch (Exception exception)
-            {
-                LogException(exception);
-                return Result.Fail<bool>("");
-                //return Result.Fail(exception, InstaLoginResult.Exception);
-            }
-            finally
-            {
-                InvalidateProcessors();
-            }
-        }
-        public async Task<IResult<Step_Data>> GetChallengeChoices()
-        {
-            ValidateUser();
-            ValidateRequestMessage();
-            if (_challengeinfo == null)
-                throw new Exception("We couldn't find any challenge!");
-            try
-            {
-                _challengeinfo.api_path = _challengeinfo.api_path.Replace("/challenge", "challenge");
-                var cookies =
-                    _httpRequestProcessor.HttpHandler.CookieContainer.GetCookies(_httpRequestProcessor.Client
-                        .BaseAddress);
-                var csrftoken = cookies[InstaApiConstants.CSRFTOKEN]?.Value ?? String.Empty;
-                _user.CsrfToken = csrftoken;
-                var instaUri = new Uri((InstaApiConstants.BaseInstagramUri + _challengeinfo.api_path + $"?guid={_deviceInfo.DeviceGuid}&device_id={_deviceInfo.DeviceId}"), UriKind.RelativeOrAbsolute);
-                //await Launcher.LaunchUriAsync(new Uri(_challengeinfo.url, UriKind.RelativeOrAbsolute));
-                var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, instaUri, _deviceInfo);
-                request.Properties.Add(InstaApiConstants.HEADER_IG_SIGNATURE_KEY_VERSION, InstaApiConstants.IG_SIGNATURE_KEY_VERSION);
-                var response = await _httpRequestProcessor.SendAsync(request);
-                var json = await response.Content.ReadAsStringAsync();
-                if (response.StatusCode == HttpStatusCode.OK) //If the password is correct BUT 2-Factor Authentication is enabled, it will still get a 400 error (bad request)
-                {
-                    var JRes = JsonConvert.DeserializeObject<InstaLoginChallengeMethodResponse>(json);
-                    _challengemethods = JRes;
-                    return Result.Success(JRes.step_data);
-                }
-                else
-                {
-                    return Result.Fail<Step_Data>(response.StatusCode.ToString());
-                }
-            }
-            catch (Exception exception)
-            {
-                LogException(exception);
-                return Result.Fail<Step_Data>(exception);
-                //return Result.Fail(exception, InstaLoginResult.Exception);
-            }
-            finally
-            {
-                InvalidateProcessors();
-            }
-        }
+
         /// <summary>
         ///     Login using given credentials asynchronously
         /// </summary>
@@ -1173,8 +1083,8 @@ namespace InstaSharper.API
                 var loginInfo = JsonConvert.DeserializeObject<InstaLoginResponse>(json);
                 IsUserAuthenticated = loginInfo.User?.UserName.ToLower() == _user.UserName.ToLower();
                 var converter = ConvertersFabric.Instance.GetUserShortConverter(loginInfo.User);
-                _user.LoggedInUder = converter.Convert();
-                _user.RankToken = $"{_user.LoggedInUder.Pk}_{_httpRequestProcessor.RequestMessage.phone_id}";
+                _user.LoggedInUser = converter.Convert();
+                _user.RankToken = $"{_user.LoggedInUser.Pk}_{_httpRequestProcessor.RequestMessage.phone_id}";
                 return Result.Success(InstaLoginResult.Success);
             }
             catch (Exception exception)
@@ -1237,8 +1147,8 @@ namespace InstaSharper.API
                     IsUserAuthenticated = IsUserAuthenticated =
                         loginInfo.User != null && loginInfo.User.UserName.ToLower() == _user.UserName.ToLower();
                     var converter = ConvertersFabric.Instance.GetUserShortConverter(loginInfo.User);
-                    _user.LoggedInUder = converter.Convert();
-                    _user.RankToken = $"{_user.LoggedInUder.Pk}_{_httpRequestProcessor.RequestMessage.phone_id}";
+                    _user.LoggedInUser = converter.Convert();
+                    _user.RankToken = $"{_user.LoggedInUser.Pk}_{_httpRequestProcessor.RequestMessage.phone_id}";
 
                     return Result.Success(InstaLoginTwoFactorResult.Success);
                 }
@@ -1301,7 +1211,67 @@ namespace InstaSharper.API
                 return Result.Fail(exception, false);
             }
         }
+        /// <summary>
+        ///     Get Challenge information
+        /// </summary>
+        /// <returns></returns>
+        public InstaChallengeLoginInfo GetChallenge()
+        {
+            return _challengeinfo;
+        }
+        /// <summary>
+        ///     Set cookie and html document to verify login information.
+        /// </summary>
+        /// <param name="htmlDocument">Html document source</param>
+        /// <param name="cookies">Cookies from webview or webbrowser control</param>
+        /// <returns>True if logged in, False if not</returns>
+        public IResult<bool> SetCookiesAndHtmlForChallenge(string htmlDocument, string cookie, bool invalidate = false)
+        {
+            if (!string.IsNullOrEmpty(cookie) && !string.IsNullOrEmpty(htmlDocument))
+            {
+                try
+                {
+                    var uri = new Uri(InstaApiConstants.INSTAGRAM_URL);
+                    if (cookie.Contains("urlgen"))
+                    {
+                        var removeStart = "urlgen=";
+                        var removeEnd = ";";
+                        var t = cookie.Substring(cookie.IndexOf(removeStart) + 0);
+                        t = t.Substring(0, t.IndexOf(removeEnd) + 2);
+                        cookie = cookie.Replace(t, "");
+                    }
+                    cookie = cookie.Replace(';', ',');
+                    _httpRequestProcessor.HttpHandler.CookieContainer.SetCookies(uri, cookie);
+                    var start = "<script type=\"text/javascript\">window._sharedData";
+                    var end = ";</script>";
 
+                    var str = htmlDocument.Substring(htmlDocument.IndexOf(start) + start.Length);
+                    str = str.Substring(0, str.IndexOf(end));
+                    str = str.Substring(str.IndexOf("=") + 2);
+                    var o = JsonConvert.DeserializeObject<WebBrowserResponse>(str);
+                    InstaUserShort user = new InstaUserShort
+                    {
+                        Pk = long.Parse(o.Config.Viewer.Id),
+                        UserName = _user.UserName,
+                        ProfilePictureId = "unknown",
+                        FullName = o.Config.Viewer.FullName,
+                        ProfilePicture = o.Config.Viewer.ProfilePicUrl
+                    };
+                    _user.LoggedInUser = user;
+                    _user.CsrfToken = o.Config.CsrfToken;
+                    _user.RankToken = $"{o.Config.Viewer.Id}_{_httpRequestProcessor.RequestMessage.phone_id}";
+                    IsUserAuthenticated = true;
+                    if (invalidate)
+                        InvalidateProcessors();
+                    return Result.Success(true);
+                }
+                catch (Exception ex)
+                {
+                    return Result.Fail(ex.Message, false);
+                }
+            }
+            return Result.Fail("", false);
+        }
         /// <summary>
         ///     Get current state info as Memory stream
         /// </summary>

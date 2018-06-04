@@ -4,7 +4,8 @@
     xmlns:local="using:WinGoTag.Styles">
 
     <Style x:Key="ButtonStyleLogin" TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+        <!--<Setter Property="Background" Value="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>-->
+        <Setter Property="Background" Value="DodgerBlue"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>

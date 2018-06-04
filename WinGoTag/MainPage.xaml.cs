@@ -37,9 +37,12 @@ namespace WinGoTag
     {
         public static Frame MainFrame { get; set; }
         public static DropShadowPanel Bar { get; set; }
+        public static MainPage Current { get; private set; }
+        public ProfileView CurrentProfileView;
         public MainPage()
         {
             this.InitializeComponent();
+            Current = this;
             FrameConnect.Navigate(typeof(Page));
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
@@ -72,7 +75,7 @@ namespace WinGoTag
             if (AppCore.InstaApi == null)
                 Fr.Navigate(typeof(LoginView));
             else
-                Fr.Navigate(typeof(MainView));
+                Fr.Navigate(typeof(MainView), true);
         }
         private void Fr_Navigated(object sender, NavigationEventArgs e)
         {
@@ -84,39 +87,36 @@ namespace WinGoTag
             {
                 InstaBar.Visibility = Visibility.Collapsed;
             }
-
+      
             if (Fr.Content is MainView)
             {
                 InstaBar.Visibility = Visibility.Visible;
-                if (AppCore.InstaApi != null)
-                { ProfilePivotItem.Content = new ProfileView(); }
             }
 
         }
-
         private void HomeBT_Click(object sender, RoutedEventArgs e)
         {
-
             //Select &#xEA8A;
             //Unselect &#xE10F;
+            ProfilePivotItem.Content = new ProfileView();
+            MainPivot.SelectedIndex = 0;
             IconLight();
             IconBarHome.Glyph = "\ueA8A";
-            MainPivot.SelectedIndex = 0;
         }
 
         private void FindBT_Click(object sender, RoutedEventArgs e)
         {
             //Unselect &#xE71E;
+            SearchPivotItem.Content = new SearchPage();
+            MainPivot.SelectedIndex = 1;
             IconLight();
             IconBarFind.FontWeight = Windows.UI.Text.FontWeights.Bold;
-            MainPivot.SelectedIndex = 1;
-            SearchPivotItem.Content = new SearchPage();
         }
 
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
             //IconLight();
-            MainPage.Bar.Visibility = Visibility.Collapsed;
+            Bar.Visibility = Visibility.Collapsed;
             FrameConnect.Navigate(typeof(PhotoGalleryView));
         }
 
@@ -124,10 +124,10 @@ namespace WinGoTag
         {
             //Select &#xEB52;
             //Unselect &#xEB51;
+            ActivityPivotItem.Content = new RecentActivityView();
+            MainPivot.SelectedIndex = 3;
             IconLight();
             IconBarLover.Glyph = "\ueB52";
-            MainPivot.SelectedIndex = 3;
-            ActivityPivotItem.Content = new RecentActivityView();
         }
 
         private void UserBT_Click(object sender, RoutedEventArgs e)
