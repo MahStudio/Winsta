@@ -43,5 +43,14 @@ namespace WinGoTag
             else
                 Debug.WriteLine(string.Join("\n", contents));
         }
+
+        public static async void OpenUrl(this string url)
+        {
+            var options = new Windows.System.LauncherOptions
+            {
+                TreatAsUntrusted = false
+            };
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url), options);
+        }
     }
 }

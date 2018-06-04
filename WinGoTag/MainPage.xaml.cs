@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -38,7 +39,6 @@ namespace WinGoTag
         public static Frame MainFrame { get; set; }
         public static DropShadowPanel Bar { get; set; }
         public static MainPage Current { get; private set; }
-        public ProfileView CurrentProfileView;
         public MainPage()
         {
             this.InitializeComponent();
@@ -114,7 +114,6 @@ namespace WinGoTag
             IconLight();
             IconBarFind.FontWeight = Windows.UI.Text.FontWeights.Bold;
         }
-
         private void AddBT_Click(object sender, RoutedEventArgs e)
         {
             //IconLight();
@@ -155,6 +154,13 @@ namespace WinGoTag
             IconBarLover.Glyph = "\ueB51";
 
             IconBarUser.Glyph = "\ue2AF";
+        }
+
+        public async void PushSearch(string query)
+        {
+            FindBT_Click(HomeBT, null);
+            await Task.Delay(50);
+            SearchPage.Current?.PushSearch(query);
         }
     }
 }

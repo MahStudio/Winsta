@@ -121,9 +121,9 @@ namespace WinGoTag.UserControls
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
                             OpenUrl(run.Text);
-                        else if (text.StartsWith("#") || text.StartsWith("@"))
+                        else /*if (text.StartsWith("#") || text.StartsWith("@"))*/
                         {
-
+                            MainPage.Current?.PushSearch(text);
                             // hashtags: 
                         }
                         //else if (text.StartsWith("@"))
