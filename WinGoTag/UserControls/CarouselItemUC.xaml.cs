@@ -41,6 +41,7 @@ namespace WinGoTag.UserControls
         public CarouselItemUC()
         {
             this.InitializeComponent();
+            CarouVideo.TransportControls.IsCompact = true;
             this.DataContextChanged += CarouselItemUC_DataContextChanged;
         }
 
@@ -76,7 +77,7 @@ namespace WinGoTag.UserControls
                 if (CarouVideo.Source != null)
                 {
                     if (CarouVideo.CurrentState == MediaElementState.Playing)
-                        CarouVideo.IsMuted = !CarouVideo.IsMuted;
+                        CarouVideo.Pause();
                     else CarouVideo.Play();
                 }
             }

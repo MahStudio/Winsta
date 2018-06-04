@@ -117,6 +117,7 @@
     <Compile Include="Converters\ConverterDirectItem.cs" />
     <Compile Include="Converters\InstaMediaControlVisibilityConverter.cs" />
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
+    <Compile Include="Converters\LikeButtonColorConverter.cs" />
     <Compile Include="Converters\StorySeenToColorConverter.cs" />
     <Compile Include="Converters\TextToVisibilityConverter.cs" />
     <Compile Include="Converters\UtcToTextConverter.cs" />
@@ -364,6 +365,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\GridViews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MediaTransportControlsStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
