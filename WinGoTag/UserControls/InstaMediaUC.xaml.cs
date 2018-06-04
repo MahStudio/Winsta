@@ -120,14 +120,15 @@ namespace WinGoTag.UserControls
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
                             OpenUrl(run.Text);
-                        else if (text.StartsWith("#"))
+                        else if (text.StartsWith("#") || text.StartsWith("@"))
                         {
+
                             // hashtags: 
                         }
-                        else if (text.StartsWith("@"))
-                        {
-                            // users: 
-                        }
+                        //else if (text.StartsWith("@"))
+                        //{
+                        //    // users: 
+                        //}
 
                     }
                 }
