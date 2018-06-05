@@ -49,6 +49,16 @@ namespace WinGoTag.UserControls
             this.DataContextChanged += CarouselItemUC_DataContextChanged;
         }
 
+        private void CarouselItemUCStories_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "Play")
+            {
+                var value = DataContext as InstaStoryItem;
+                if (value.Play) CarouVideo.Play();
+                else CarouVideo.Stop();
+            }
+        }
+
         private void CarouselItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             if (args.NewValue == null) return;
@@ -56,7 +66,7 @@ namespace WinGoTag.UserControls
             if (args.NewValue.GetType() == typeof(InstaStoryItem))
             {
                 var value = DataContext as InstaStoryItem;
-
+                value.PropertyChanged += CarouselItemUCStories_PropertyChanged;
                 var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
 
                 var bounds = Window.Current.Bounds;
@@ -103,6 +113,7 @@ namespace WinGoTag.UserControls
                         AdLinkText.Text = value.LinkText;
                 }
             }
+            CarouVideo.Stop();
         }
 
         void CalcLocationOfMention()
@@ -151,6 +162,8 @@ namespace WinGoTag.UserControls
         {
             var mention = (sender as Rectangle).Tag as InstaReelMention;
             if (mention == null) return;
+            //MainPage.Current?.PushSearch(mention.User.UserName);
+            
             await new MessageDialog(mention.User.UserName).ShowAsync();
         }
 
@@ -205,7 +218,7 @@ namespace WinGoTag.UserControls
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
         {
-            CarouVideo.Play();
+            //CarouVideo.Play();
         }
 
 

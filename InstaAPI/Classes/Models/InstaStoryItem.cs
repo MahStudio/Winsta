@@ -2,10 +2,11 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace InstaSharper.Classes.Models
 {
-    public class InstaStoryItem
+    public class InstaStoryItem : INotifyPropertyChanged
     {
         public bool HasLiked { get; set; }
 
@@ -67,6 +68,11 @@ namespace InstaSharper.Classes.Models
 
         //Added by NGame
         public List<StoryCTA> StoryCTA { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private bool _play;
+        public bool Play { get { return _play; } set { _play = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Play")); } }
+        public void ForcePlay() { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Play")); }
         //Endof Added by NGame
 
         public List<InstaReelMention> ReelMentions { get; set; } = new List<InstaReelMention>();

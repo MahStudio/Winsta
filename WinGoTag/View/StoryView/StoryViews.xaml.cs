@@ -1,6 +1,8 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -55,6 +57,12 @@ namespace WinGoTag.View.StoryView
                 //timer.Stop();
                 _BarSecond.Value = 0;
                 _BarSecond.Maximum = (SecondItemList[Flipviews.SelectedIndex]);
+
+                var items = Flipviews.ItemsSource as List<InstaStoryItem>;
+                var selecteditem = items[Flipviews.SelectedIndex];
+                var p = items.Where(x => x.Play == true);
+                foreach (var item in p) { item.Play = false; }
+                selecteditem.Play = true;
                 //timer.Start();
             }
             catch
@@ -75,7 +83,7 @@ namespace WinGoTag.View.StoryView
                 AnimationEnter();
                 var i = ((InstaReelFeed)e.Parameter);
                 InstaReelFeed story = null;
-                if( (e.Parameter as InstaReelFeed).Items.Count != 0 )
+                if ((e.Parameter as InstaReelFeed).Items.Count != 0)
                 {
                     story = e.Parameter as InstaReelFeed;
                 }
@@ -83,6 +91,7 @@ namespace WinGoTag.View.StoryView
                 {
                     story = (await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk)).Value;
                 }
+                foreach (var item in story.Items) { item.Play = false; }
                 Flipviews.ItemsSource = story.Items;
                 for (int a = 0; a < Flipviews.Items.Count; a++)
                 {
@@ -97,6 +106,7 @@ namespace WinGoTag.View.StoryView
                             break;
                     }
                 }
+                story.Items[0].Play = true;
                 //Flipviews.ItemsSource = i.Items;
 
                 //var strs = await AppCore.InstaApi.LiveProcessor.SeenBroadcastAsync(i.Id.ToString(), i.HasBestiesMedia.ToString());
@@ -109,6 +119,7 @@ namespace WinGoTag.View.StoryView
                 try
                 {
                     var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
+                    foreach (var item in story.Value.Items) { item.Play = false; }
                     Flipviews.ItemsSource = story.Value.Items;
                     for (int a = 0; a < Flipviews.Items.Count; a++)
                     {
@@ -123,10 +134,12 @@ namespace WinGoTag.View.StoryView
                                 break;
                         }
                     }
+                    story.Value.Items[0].Play = true;
                 }
                 catch
                 {
                     var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.Owner.Pk);
+                    //foreach (var item in story.Items) { item.Play = false; }
                     Flipviews.ItemsSource = story.Value.Items;
                     for (int a = 0; a < Flipviews.Items.Count; a++)
                     {
@@ -142,11 +155,11 @@ namespace WinGoTag.View.StoryView
                         }
                     }
                 }
-                
-                
+
+
             }
 
-
+            
             if (Flipviews.Items.Count > 0)
             {
                 _BarSecond.Maximum = (SecondItemList[0]);
@@ -154,7 +167,7 @@ namespace WinGoTag.View.StoryView
                 timer.Start();
             }
 
-            
+
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -175,8 +188,8 @@ namespace WinGoTag.View.StoryView
             }
             catch
             {
-               
-            }    
+
+            }
         }
 
         public void AnimationEnter()
@@ -185,13 +198,13 @@ namespace WinGoTag.View.StoryView
             if (imageAnimation != null)
             { imageAnimation.TryStart(Frame); }
         }
-
+        
         private void BackBT_Click(object sender, RoutedEventArgs e)
         {
             timer.Stop();
             Frame.Navigate(typeof(Page));
         }
 
-        
+
     }
 }
