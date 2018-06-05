@@ -728,6 +728,8 @@ namespace WinGoTag.View.AddPhotos
             fsp.SuggestedFileName = "WinGoTag";
             fsp.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             var fs = await fsp.PickSaveFileAsync();
+            if (fs == null)
+                return;
             await F2S.CopyAndReplaceAsync(fs);
         //    using (var source = new StorageFileImageSource(imageStorageFile))
         //    using (var contrastEffect = new BlurEffect(source) { KernelSize = 40 })

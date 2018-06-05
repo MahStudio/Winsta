@@ -55,12 +55,20 @@ namespace WinGoTag.ViewModel.SignInSignUp
             get { return _isLoading; }
             set { _isLoading = value; UpdateProperty("IsLoading"); }
         }
+
+
+        Visibility _facebookGridVisibility = Visibility.Collapsed;
+        public Visibility FacebookGridVisibility
+        {
+            get { return _facebookGridVisibility; }
+            set { _facebookGridVisibility = value; UpdateProperty("FacebookGridVisibility"); }
+        }
         #endregion
 
         #region Commands
         public AppCommand LoginCmd { get; set; }
         public AppCommand FacebookLoginCmd { get; set; }
-
+        public AppCommand FacebookCloseCmd { get; set; }
         public AppCommand RegisterCmd { get; set; }
         #endregion
 
@@ -203,10 +211,21 @@ namespace WinGoTag.ViewModel.SignInSignUp
         public WebView WebViewFacebook { get; set; }
         bool FacebookFirstTime = true;
         bool FacebookPassed = false;
+        bool CancelFacebookLogin = false;
         const string FacebookBlockedMsg = "Facebook website is blocked(filtered) in your area.\r\nPlease connect to vpn and try again.";
         public async void RunFacebookLogin(object obj)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, NavigateToInstagramForFacebookLogin);
+        }
+        public async void RunFacebookClose(object obj)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ()=>
+            {
+                CancelFacebookLogin = true;
+                LoadingOff();
+                FacebookGridVisibility = Visibility.Collapsed;
+                WebViewFacebook.Visibility = Visibility.Collapsed;
+            });
         }
         public void AddWebViewFacebookEvents()
         {
@@ -214,7 +233,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 return;
             try
             {
-                FacebookTimer.Interval = TimeSpan.FromSeconds(15);
+                FacebookTimer.Interval = TimeSpan.FromSeconds(12);
                 FacebookTimer.Tick += FacebookTimerTick;
                 WebViewFacebook.NavigationCompleted += WebViewFacebookNavigationCompleted;
                 WebViewFacebook.DOMContentLoaded += WebViewFacebookDOMContentLoaded;
@@ -272,6 +291,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
             DeleteFacebookCookies();
             FacebookFirstTime = true;
             FacebookPassed = false;
+            CancelFacebookLogin = false;
+            FacebookGridVisibility = Visibility.Visible;
             LoadingOn();
             WebViewFacebook.Navigate(InstagramUri);
         }
@@ -326,9 +347,20 @@ namespace WinGoTag.ViewModel.SignInSignUp
         {
             try
             {
+                if(CancelFacebookLogin)
+                {
+                    LoadingOff();
+                    try
+                    {
+                        WebViewFacebook.Stop();
+                    }
+                    catch { }
+                    return;
+                }
                 if (args.Uri.ToString().Contains("facebook.com/") && !FacebookPassed)
                 {
                     LoadingOff();
+                    //FacebookGridVisibility = Visibility.Visible;
                     WebViewFacebook.Visibility = Visibility.Visible;
                 }
                 else
@@ -338,6 +370,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                         args.Uri.ToString().StartsWith("https://www.instagram.com/accounts/onetap/"))
                     {
                         LoadingOn();
+                        //FacebookGridVisibility = Visibility.Collapsed;
                         WebViewFacebook.Visibility = Visibility.Collapsed;
                         if (FacebookFirstTime)
                         {
@@ -444,6 +477,16 @@ namespace WinGoTag.ViewModel.SignInSignUp
         private async void FacebookTimerTick(object sender, object e)
         {
             FacebookTimer.Stop();
+            if(CancelFacebookLogin)
+            {
+                LoadingOff();
+                try
+                {
+                    WebViewFacebook.Stop();
+                }
+                catch { }
+                return;
+            }
             try
             {
                 var functionString = string.Format(@"document.getElementsByClassName('_5f5mN       jIbKX KUBKM      yZn4P   ')[0].click();");
@@ -463,9 +506,11 @@ namespace WinGoTag.ViewModel.SignInSignUp
         {
             LoginCmd = AppCommand.GetInstance();
             FacebookLoginCmd = AppCommand.GetInstance();
+            FacebookCloseCmd = AppCommand.GetInstance();
             RegisterCmd = AppCommand.GetInstance();
             LoginCmd.ExecuteFunc = RunLogin;
             FacebookLoginCmd.ExecuteFunc = RunFacebookLogin;
+            FacebookCloseCmd.ExecuteFunc = RunFacebookClose;
             RegisterCmd.ExecuteFunc = RunRegister;
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             LoadPage();

@@ -83,6 +83,8 @@ namespace WinGoTag.View.SearchView
             }
             else
             {
+                if (string.IsNullOrEmpty(query) || string.IsNullOrWhiteSpace(query))
+                    return;
                 if (PivotSearch.SelectedIndex == 3)
                 {
                     var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
