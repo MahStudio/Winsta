@@ -51,7 +51,10 @@
             <Button Style="{ThemeResource ButtonStyleLogin}" Grid.Row="2" Content="Log in with Facebook" Command="{Binding FacebookLoginCmd}" HorizontalAlignment="Stretch" Height="42" Foreground="#FF0078D7" Background="{x:Null}"/>
 
         </Grid>
-        <WebView x:Name="WebViewFacebook" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+        <Grid Grid.Row="0" Grid.RowSpan="4" Visibility="{Binding FacebookGridVisibility}">
+            <WebView x:Name="WebViewFacebook" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Style="{ThemeResource ButtonStyleLogin}" Content="x" Command="{Binding FacebookCloseCmd}" FontSize="25" FontWeight="SemiBold" VerticalContentAlignment="Top" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Top" Height="52" Width="50" Foreground="White" Background="#C1464646"/>
+        </Grid>
         <WebView x:Name="WebViewChallenge" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed"/>
       
         <Border Grid.Row="0" Grid.RowSpan="4" Background="#9A000000" Visibility="{Binding LoadingVisibility}">
