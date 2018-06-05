@@ -12,6 +12,9 @@
     <Grid x:Name="MainGr">
         <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped"/>
         <MediaElement RealTimePlayback="True" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" GettingFocus="CarouVideo_GettingFocus" Tapped="Media_Tapped"/>
+        <Grid x:Name="AlignGrid"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            
+        </Grid>
         <Grid x:Name="SeeMoreGrid" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="Auto">
             <HyperlinkButton HorizontalAlignment="Center" Click="HyperlinkButton_Click">
                 <Grid>

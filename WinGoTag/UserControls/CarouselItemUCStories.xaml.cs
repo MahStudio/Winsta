@@ -73,9 +73,9 @@ namespace WinGoTag.UserControls
                         var ActualWidth = bounds.Width * value.OriginalWidth;
                         var ActualHeight = bounds.Height * value.OriginalHeight;
 
-                        CarouImage.Height = (int)(value.OriginalHeight * scale);
-                        CarouImage.Width = (int)(value.OriginalWidth * scale);
-                        CalcLocationOfMention((int)(value.OriginalHeight * scale), (int)(value.OriginalWidth * scale));
+                        CarouImage.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
+                        CarouImage.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
+                        CalcLocationOfMention();
                     }
 
                     else
@@ -88,12 +88,12 @@ namespace WinGoTag.UserControls
                         var ActualWidth = bounds.Width * value.OriginalWidth;
                         var ActualHeight = bounds.Height * value.OriginalHeight;
 
-                        CarouVideo.Height = (int)(value.OriginalHeight * scale);
-                        CarouVideo.Width = (int)(value.OriginalWidth * scale);
-                        CalcLocationOfMention((int)(value.OriginalHeight * scale), (int)(value.OriginalWidth * scale));
+                        CarouVideo.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
+                        CarouVideo.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
+                        CalcLocationOfMention();
                     }
 
-                    
+
                     if (value.StoryCTA != null)
                     {
                         SeeMoreGrid.Visibility = Visibility.Visible;
@@ -103,14 +103,14 @@ namespace WinGoTag.UserControls
                 }
         }
 
-        void CalcLocationOfMention(int objheight, int objwidth)
+        void CalcLocationOfMention()
         {
             var value = DataContext as InstaStoryItem;
 
             var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
-            
-            float scaleHeight = (float)objheight / (float)value.OriginalHeight;
-            float scaleWidth = (float)objwidth / (float)value.OriginalWidth;
+
+            float scaleHeight = (float)AlignGrid.Height / (float)value.OriginalHeight;
+            float scaleWidth = (float)AlignGrid.Width / (float)value.OriginalWidth;
 
             float scale = Math.Min(scaleHeight, scaleWidth);
 
@@ -118,22 +118,22 @@ namespace WinGoTag.UserControls
             {
                 foreach (var Mention in value.ReelMentions)
                 {
-                    var ActualX = objwidth * Mention.X * scale;
-                    var ActualY = objheight * Mention.Y * scale;
+                    var ActualX = AlignGrid.Width * Mention.X;
+                    var ActualY = AlignGrid.Height * Mention.Y;
 
-                    var ActualWidth = objwidth * Mention.Width;
-                    var ActualHeight = objheight * Mention.Height;
+                    var ActualWidth = AlignGrid.Width * Mention.Width;
+                    var ActualHeight = AlignGrid.Height * Mention.Height;
 
                     Rectangle rectangle = new Rectangle()
                     {
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        Margin = new Thickness((int)ActualX, (int)ActualY, 0, 0),
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(((int)ActualX), ((int)ActualY), 0, 0),
                         Width = ActualWidth,
                         Height = ActualHeight,
                         Fill = new SolidColorBrush(Colors.DarkRed)
                     };
-                    MainGr.Children.Add(rectangle);
+                    AlignGrid.Children.Add(rectangle);
                     //Mention.X * Window.Current.Bounds.
                 }
             }
