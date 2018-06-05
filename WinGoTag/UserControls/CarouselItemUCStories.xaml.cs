@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -123,7 +124,10 @@ namespace WinGoTag.UserControls
 
                     var ActualWidth = AlignGrid.Width * Mention.Width;
                     var ActualHeight = AlignGrid.Height * Mention.Height;
-                    ActualX -= (ActualWidth * scale); ActualY -= (ActualHeight * scale);
+
+                    ActualX -= (ActualWidth * scale);
+                    ActualY -= (ActualHeight * scale);
+
                     Rectangle rectangle = new Rectangle()
                     {
                         VerticalAlignment = VerticalAlignment.Top,
@@ -131,12 +135,21 @@ namespace WinGoTag.UserControls
                         Margin = new Thickness(((int)ActualX), ((int)ActualY), 0, 0),
                         Width = ActualWidth,
                         Height = ActualHeight,
-                        Fill = new SolidColorBrush(Colors.DarkRed)
+                        Fill = new SolidColorBrush(Colors.DarkRed),
+                        Tag = Mention
                     };
+                    rectangle.Tapped += Rectangle_Tapped;
                     AlignGrid.Children.Add(rectangle);
                     //Mention.X * Window.Current.Bounds.
                 }
             }
+        }
+
+        private async void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var mention = (sender as Rectangle).Tag as InstaReelMention;
+            if (mention == null) return;
+            await new MessageDialog(mention.User.UserName).ShowAsync();
         }
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
