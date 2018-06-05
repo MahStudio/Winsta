@@ -101,10 +101,18 @@ namespace WinGoTag.View
             MyReel.User = You;
             //MyReel.Seen = 0;
             MyReel.Items = items.Value.Items;
-            
+            //var m = (await AppCore.InstaApi.GetUserTimelineFeedAsync(p));
+            //var first = m.Value.Medias.LastOrDefault();
+            //var s = await AppCore.InstaApi.GetMediaCommentsAsync(first.InstaIdentifier.ToString(), p);
+
+            //var sss = "";
+
+            //          var ss = await AppCore.InstaApi.GetMediaLikersAsync(first.InstaIdentifier.ToString());
+
+            //var sssds = "";
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
 
-            if(strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
+            if (strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
             {
                 //strs.Value.Items.OrderBy(x => x.Seen != 0);
                 var MyRemove = strs.Value.Items.FindIndex(x => x.User.Pk == user.Value.Pk);

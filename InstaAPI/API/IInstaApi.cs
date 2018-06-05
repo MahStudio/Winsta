@@ -7,6 +7,7 @@ using InstaAPI.Classes.Models;
 using InstaSharper.API.Processors;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
+using InstaSharper.Classes.ResponseWrappers;
 
 namespace InstaSharper.API
 {
@@ -316,6 +317,16 @@ namespace InstaSharper.API
         /// <param name="mediaId">Media id</param>
         /// <param name="paginationParameters">Pagination parameters: next id and max amount of pages to load</param>
         Task<IResult<InstaCommentList>> GetMediaCommentsAsync(string mediaId, PaginationParameters paginationParameters);
+
+        /// <summary>
+        ///     Get media inline comments
+        /// </summary>
+        /// <param name="mediaId">Media id</param>
+        /// <param name="targetCommentId">Target comment id</param>
+        /// <param name="paginationParameters">Maximum amount of pages to load and start id</param>
+        /// <returns></returns>
+        Task<IResult<InstaInlineCommentListResponse>> GetMediaInlineCommentsAsync(string mediaId, string targetCommentId,
+            PaginationParameters paginationParameters);
 
         /// <summary>
         ///     Get users (short) who liked certain media. Normaly it return around 1000 last users.

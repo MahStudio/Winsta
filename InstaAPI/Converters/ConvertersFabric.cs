@@ -123,6 +123,12 @@ namespace InstaSharper.Converters
             return new InstaCommentListConverter {SourceObject = commentList};
         }
 
+        public IObjectConverter<InstaInlineCommentList, InstaInlineCommentListResponse> GetInlineCommentListConverter(
+            InstaInlineCommentListResponse inlineCommentList)
+        {
+            return new InstaInlineCommentListConverter { SourceObject = inlineCommentList };
+        }
+
         public IObjectConverter<InstaCarousel, InstaCarouselResponse> GetCarouselConverter(
             InstaCarouselResponse carousel)
         {

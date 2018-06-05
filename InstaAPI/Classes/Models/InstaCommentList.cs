@@ -18,4 +18,6 @@ namespace InstaSharper.Classes.Models
 
         public string NextId { get; set; }
     }
+
+
 }

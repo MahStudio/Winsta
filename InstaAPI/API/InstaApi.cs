@@ -531,6 +531,21 @@ namespace InstaSharper.API
         }
 
         /// <summary>
+        ///     Get media inline comments
+        /// </summary>
+        /// <param name="mediaId">Media id</param>
+        /// <param name="targetCommentId">Target comment id</param>
+        /// <param name="paginationParameters">Maximum amount of pages to load and start id</param>
+        /// <returns></returns>
+        public async Task<IResult<InstaInlineCommentListResponse>> GetMediaInlineCommentsAsync(string mediaId, string targetCommentId,
+            PaginationParameters paginationParameters)
+        {
+            ValidateUser();
+            ValidateLoggedIn();
+
+            return await _commentProcessor.GetMediaInlineCommentsAsync(mediaId, targetCommentId, paginationParameters);
+        }
+        /// <summary>
         ///     Get users (short) who liked certain media. Normaly it return around 1000 last users.
         /// </summary>
         /// <param name="mediaId">Media id</param>
