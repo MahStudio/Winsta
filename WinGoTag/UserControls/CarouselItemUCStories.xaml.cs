@@ -77,6 +77,7 @@ namespace WinGoTag.UserControls
                         CarouImage.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
                         CarouImage.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
                         CalcLocationOfMention();
+                        CalcLocationOfHashTags();
                     }
 
                     else
@@ -92,6 +93,7 @@ namespace WinGoTag.UserControls
                         CarouVideo.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
                         CarouVideo.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
                         CalcLocationOfMention();
+                        CalcLocationOfHashTags();
                     }
 
 
@@ -136,20 +138,69 @@ namespace WinGoTag.UserControls
                         Width = ActualWidth,
                         Height = ActualHeight,
                         Fill = new SolidColorBrush(Colors.DarkRed),
+                        RenderTransform = new RotateTransform() { Angle = Mention.Rotation * 360 },
                         Tag = Mention
                     };
-                    rectangle.Tapped += Rectangle_Tapped;
+                    rectangle.Tapped += MentionedUser_Tapped;
                     AlignGrid.Children.Add(rectangle);
                     //Mention.X * Window.Current.Bounds.
                 }
             }
         }
 
-        private async void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void MentionedUser_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var mention = (sender as Rectangle).Tag as InstaReelMention;
             if (mention == null) return;
             await new MessageDialog(mention.User.UserName).ShowAsync();
+        }
+        void CalcLocationOfHashTags()
+        {
+            var value = DataContext as InstaStoryItem;
+
+            var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+
+            float scaleHeight = (float)AlignGrid.Height / (float)value.OriginalHeight;
+            float scaleWidth = (float)AlignGrid.Width / (float)value.OriginalWidth;
+
+            float scale = Math.Min(scaleHeight, scaleWidth);
+
+            if (value.StoryHashtags.Count > 0)
+            {
+                foreach (var HashTag in value.StoryHashtags)
+                {
+                    var ActualX = AlignGrid.Width * HashTag.X;
+                    var ActualY = AlignGrid.Height * HashTag.Y;
+
+                    var ActualWidth = AlignGrid.Width * HashTag.Width;
+                    var ActualHeight = AlignGrid.Height * HashTag.Height;
+
+                    ActualX -= (ActualWidth * scale);
+                    ActualY -= (ActualHeight * scale);
+
+                    Rectangle rectangle = new Rectangle()
+                    {
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(((int)ActualX), ((int)ActualY), 0, 0),
+                        Width = ActualWidth,
+                        Height = ActualHeight,
+                        Fill = new SolidColorBrush(Colors.DarkOrange),
+                        RenderTransform = new RotateTransform() { Angle = HashTag.Rotation * 360 },
+                        Tag = HashTag
+                    };
+                    rectangle.Tapped += HashTag_Tapped;
+                    AlignGrid.Children.Add(rectangle);
+                    //Mention.X * Window.Current.Bounds.
+                }
+            }
+        }
+
+        private async void HashTag_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var mention = (sender as Rectangle).Tag as InstaReelMention;
+            if (mention == null) return;
+            await new MessageDialog(mention.Hashtag.Name).ShowAsync();
         }
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
