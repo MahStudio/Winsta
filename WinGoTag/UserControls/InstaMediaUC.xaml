@@ -61,7 +61,7 @@
                 </Grid.RowDefinitions>
                 
                 <HyperlinkButton Padding="0" Grid.Row="0" VerticalAlignment="Center" FontWeight="SemiBold" FontFamily="Segoe UI" Click="Username_Click">
-                    <TextBlock Foreground="Black" Text="{Binding User.UserName}" VerticalAlignment="Center"/>
+                    <TextBlock Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="{Binding User.UserName}" VerticalAlignment="Center"/>
                 </HyperlinkButton>
 
                 <TextBlock x:Name="_LocationT" Grid.Row="1" FontSize="10" Foreground="Black" Text="{Binding Location.Name}" VerticalAlignment="Center" Visibility="Collapsed"/>

@@ -9,8 +9,20 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid x:Name="MainGr">
         <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped"/>
         <MediaElement RealTimePlayback="True" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" GettingFocus="CarouVideo_GettingFocus" Tapped="Media_Tapped"/>
+        <Grid x:Name="SeeMoreGrid" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="Auto">
+            <HyperlinkButton HorizontalAlignment="Center" Click="HyperlinkButton_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" TextAlignment="Center" FontFamily="Segoe MDL2 Assets" Foreground="White" Text="&#xE70E;"/>
+                    <TextBlock x:Name="AdLinkText" TextAlignment="Center" Text="See More" Grid.Row="1" Foreground="White" />
+                </Grid>
+            </HyperlinkButton>
+        </Grid>
     </Grid>
 </UserControl>

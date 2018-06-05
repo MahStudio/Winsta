@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InstaSharper.Classes.ResponseWrappers;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace InstaSharper.Classes.Models
@@ -62,6 +64,10 @@ namespace InstaSharper.Classes.Models
         public long OriginalHeight { get; set; }
 
         public bool PhotoOfYou { get; set; }
+
+        //Added by NGame
+        public List<StoryCTA> StoryCTA { get; set; }
+        //Endof Added by NGame
 
         public List<InstaReelMention> ReelMentions { get; set; } = new List<InstaReelMention>();
 

@@ -38,6 +38,7 @@ namespace InstaSharper.Converters
                 AdAction = SourceObject.AdAction,
                 SupportsReelReactions = SourceObject.SupportsReelReactions
             };
+            instaStory.StoryCTA = SourceObject.StoryCTA;
 
             if (SourceObject.User != null)
                 instaStory.User = ConvertersFabric.Instance.GetUserShortConverter(SourceObject.User).Convert();
