@@ -61,11 +61,11 @@ namespace WinGoTag.Helpers
                             };
                             hyper.Inlines.Add(new Run()
                             {
-                                Text = item.Text,
+                                Text = Environment.NewLine + item.Text,
                                 Foreground = new SolidColorBrush(hyperColor.Value),
 
                             });
-                            
+
                             hyper.UnderlineStyle = UnderlineStyle.None;
                             hyper.Click += hyperLinkAction;
                             p.Inlines.Add(hyper);
@@ -105,7 +105,7 @@ namespace WinGoTag.Helpers
 
             return parsedList;
         }
-        
+
         bool disposed;
         public void Dispose()
         {
