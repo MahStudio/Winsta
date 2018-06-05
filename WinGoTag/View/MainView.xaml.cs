@@ -276,6 +276,10 @@ namespace WinGoTag.View
             return null;
         }
 
-
+        private async void RefreshBT_Click(object sender, RoutedEventArgs e)
+        {
+            FindChildOfType<ScrollViewer>(mylist).ChangeView(0,0,null);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
+        }
     }
 }
