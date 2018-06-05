@@ -123,7 +123,7 @@ namespace WinGoTag.UserControls
 
                     var ActualWidth = AlignGrid.Width * Mention.Width;
                     var ActualHeight = AlignGrid.Height * Mention.Height;
-
+                    ActualX -= (ActualWidth * scale); ActualY -= (ActualHeight * scale);
                     Rectangle rectangle = new Rectangle()
                     {
                         VerticalAlignment = VerticalAlignment.Top,
