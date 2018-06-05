@@ -205,7 +205,7 @@ namespace WinGoTag.UserControls
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
         {
-            //CarouVideo.Play();
+            CarouVideo.Play();
         }
 
 
