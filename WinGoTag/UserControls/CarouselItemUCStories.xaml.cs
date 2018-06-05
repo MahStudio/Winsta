@@ -75,6 +75,7 @@ namespace WinGoTag.UserControls
 
                         CarouImage.Height = (int)(value.OriginalHeight * scale);
                         CarouImage.Width = (int)(value.OriginalWidth * scale);
+                        CalcLocationOfMention((int)(value.OriginalHeight * scale), (int)(value.OriginalWidth * scale));
                     }
 
                     else
@@ -89,31 +90,10 @@ namespace WinGoTag.UserControls
 
                         CarouVideo.Height = (int)(value.OriginalHeight * scale);
                         CarouVideo.Width = (int)(value.OriginalWidth * scale);
+                        CalcLocationOfMention((int)(value.OriginalHeight * scale), (int)(value.OriginalWidth * scale));
                     }
 
-                    if (value.ReelMentions.Count > 0)
-                    {
-                        foreach (var Mention in value.ReelMentions)
-                        {
-                            var ActualX = bounds.Width * Mention.X * scale;
-                            var ActualY = bounds.Height * Mention.Y * scale;
-
-                            var ActualWidth = bounds.Width * Mention.Width;
-                            var ActualHeight = bounds.Height * Mention.Height;
-
-                            Rectangle rectangle = new Rectangle()
-                            {
-                                VerticalAlignment = VerticalAlignment.Center,
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                Margin = new Thickness(ActualX, ActualY, 0, 0),
-                                Width = ActualWidth,
-                                Height = ActualHeight,
-                                Fill = new SolidColorBrush(Colors.DarkRed)
-                            };
-                            MainGr.Children.Add(rectangle);
-                            //Mention.X * Window.Current.Bounds.
-                        }
-                    }
+                    
                     if (value.StoryCTA != null)
                     {
                         SeeMoreGrid.Visibility = Visibility.Visible;
@@ -123,6 +103,41 @@ namespace WinGoTag.UserControls
                 }
         }
 
+        void CalcLocationOfMention(int objheight, int objwidth)
+        {
+            var value = DataContext as InstaStoryItem;
+
+            var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+            
+            float scaleHeight = (float)objheight / (float)value.OriginalHeight;
+            float scaleWidth = (float)objwidth / (float)value.OriginalWidth;
+
+            float scale = Math.Min(scaleHeight, scaleWidth);
+
+            if (value.ReelMentions.Count > 0)
+            {
+                foreach (var Mention in value.ReelMentions)
+                {
+                    var ActualX = objwidth * Mention.X * scale;
+                    var ActualY = objheight * Mention.Y * scale;
+
+                    var ActualWidth = objwidth * Mention.Width;
+                    var ActualHeight = objheight * Mention.Height;
+
+                    Rectangle rectangle = new Rectangle()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness((int)ActualX, (int)ActualY, 0, 0),
+                        Width = ActualWidth,
+                        Height = ActualHeight,
+                        Fill = new SolidColorBrush(Colors.DarkRed)
+                    };
+                    MainGr.Children.Add(rectangle);
+                    //Mention.X * Window.Current.Bounds.
+                }
+            }
+        }
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
         {
