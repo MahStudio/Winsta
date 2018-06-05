@@ -155,7 +155,9 @@
             </TextBlock>
 
             <!--<TextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Text="{Binding Caption.Text}" Visibility="{Binding Caption.Text, Converter={StaticResource TextToVisibilityConverter}, ConverterParameter={Binding}}" Margin="12,0,12,3" FontSize="13"/>-->
-            <RichTextBlock Grid.Row="1" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Visibility="{Binding Caption.Text, Converter={StaticResource TextToVisibilityConverter}, ConverterParameter={Binding}}" Margin="12,0,12,3" FontSize="13"/>
+            <RichTextBlock Grid.Row="1" IsTextSelectionEnabled="False" x:Name="txtCaption" TextWrapping="Wrap" MaxLines="4" TextAlignment="DetectFromContent" Visibility="{Binding Caption.Text, Converter={StaticResource TextToVisibilityConverter}, ConverterParameter={Binding}}" Margin="12,0,12,3" FontSize="13">
+                
+            </RichTextBlock>
 
             <HyperlinkButton x:Name="MoreBTN" Grid.Row="2" Click="MoreBTN_Click" Margin="12,0,0,0">
                 <TextBlock Text="More" FontWeight="SemiBold"/>

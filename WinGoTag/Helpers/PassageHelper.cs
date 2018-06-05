@@ -17,7 +17,7 @@ namespace WinGoTag.Helpers
         {
             Paragraph p = new Paragraph();
             if (hyperColor == null)
-                hyperColor = Colors.DodgerBlue;
+                hyperColor = Colors.DarkBlue;
             if (defaultColor == null)
                 defaultColor = Colors.Black;
             try
@@ -65,6 +65,8 @@ namespace WinGoTag.Helpers
                                 Foreground = new SolidColorBrush(hyperColor.Value),
 
                             });
+                            
+                            hyper.UnderlineStyle = UnderlineStyle.None;
                             hyper.Click += hyperLinkAction;
                             p.Inlines.Add(hyper);
                             p.Inlines.Add(new Run() { Text = " " });

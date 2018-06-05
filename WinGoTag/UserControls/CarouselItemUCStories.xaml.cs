@@ -51,59 +51,58 @@ namespace WinGoTag.UserControls
 
         private void CarouselItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            if (args.NewValue != null)
+            if (args.NewValue == null) return;
 
-                if (args.NewValue.GetType() == typeof(InstaStoryItem))
+            if (args.NewValue.GetType() == typeof(InstaStoryItem))
+            {
+                var value = DataContext as InstaStoryItem;
+
+                var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+
+                var bounds = Window.Current.Bounds;
+                float scaleHeight = (float)bounds.Height / (float)value.OriginalHeight;
+                float scaleWidth = (float)bounds.Width / (float)value.OriginalWidth;
+
+                float scale = Math.Min(scaleHeight, scaleWidth);
+
+                if (value.MediaType == 1)
                 {
-                    var value = DataContext as InstaStoryItem;
+                    CarouVideo.Visibility = Visibility.Collapsed;
+                    CarouImage.Visibility = Visibility.Visible;
+                    CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
 
-                    var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+                    var ActualWidth = bounds.Width * value.OriginalWidth;
+                    var ActualHeight = bounds.Height * value.OriginalHeight;
 
-                    var bounds = Window.Current.Bounds;
-                    float scaleHeight = (float)bounds.Height / (float)value.OriginalHeight;
-                    float scaleWidth = (float)bounds.Width / (float)value.OriginalWidth;
-
-                    float scale = Math.Min(scaleHeight, scaleWidth);
-
-                    if (value.MediaType == 1)
-                    {
-                        CarouVideo.Visibility = Visibility.Collapsed;
-                        CarouImage.Visibility = Visibility.Visible;
-                        CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-
-                        var ActualWidth = bounds.Width * value.OriginalWidth;
-                        var ActualHeight = bounds.Height * value.OriginalHeight;
-
-                        CarouImage.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
-                        CarouImage.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
-                        CalcLocationOfMention();
-                        CalcLocationOfHashTags();
-                    }
-
-                    else
-                    {
-                        CarouImage.Visibility = Visibility.Collapsed;
-                        CarouVideo.Visibility = Visibility.Visible;
-                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-                        CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
-
-                        var ActualWidth = bounds.Width * value.OriginalWidth;
-                        var ActualHeight = bounds.Height * value.OriginalHeight;
-
-                        CarouVideo.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
-                        CarouVideo.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
-                        CalcLocationOfMention();
-                        CalcLocationOfHashTags();
-                    }
-
-
-                    if (value.StoryCTA != null)
-                    {
-                        SeeMoreGrid.Visibility = Visibility.Visible;
-                        if (value.LinkText != null)
-                            AdLinkText.Text = value.LinkText;
-                    }
+                    CarouImage.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
+                    CarouImage.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
+                    CalcLocationOfMention();
+                    CalcLocationOfHashTags();
                 }
+
+                else
+                {
+                    CarouImage.Visibility = Visibility.Collapsed;
+                    CarouVideo.Visibility = Visibility.Visible;
+                    CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                    CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
+
+                    var ActualWidth = bounds.Width * value.OriginalWidth;
+                    var ActualHeight = bounds.Height * value.OriginalHeight;
+
+                    CarouVideo.Height = AlignGrid.Height = (int)(value.OriginalHeight * scale);
+                    CarouVideo.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
+                    CalcLocationOfMention();
+                    CalcLocationOfHashTags();
+                }
+
+                if (value.StoryCTA != null)
+                {
+                    SeeMoreGrid.Visibility = Visibility.Visible;
+                    if (value.LinkText != null)
+                        AdLinkText.Text = value.LinkText;
+                }
+            }
         }
 
         void CalcLocationOfMention()
@@ -154,6 +153,7 @@ namespace WinGoTag.UserControls
             if (mention == null) return;
             await new MessageDialog(mention.User.UserName).ShowAsync();
         }
+
         void CalcLocationOfHashTags()
         {
             var value = DataContext as InstaStoryItem;
@@ -205,7 +205,7 @@ namespace WinGoTag.UserControls
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
         {
-            CarouVideo.Play();
+            //CarouVideo.Play();
         }
 
 
