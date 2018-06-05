@@ -224,6 +224,7 @@
     <Compile Include="Classes\Models\InstaHashtagSearch.cs" />
     <Compile Include="Classes\Models\InstaImage.cs" />
     <Compile Include="Classes\Models\InstaInboxMedia.cs" />
+    <Compile Include="Classes\Models\InstaInlineCommentList.cs" />
     <Compile Include="Classes\Models\InstaInlineFollow.cs" />
     <Compile Include="Classes\Models\InstaLikersList.cs" />
     <Compile Include="Classes\Models\InstaLikes.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Classes\ResponseWrappers\InstaHashtagSearchResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\InstaImageCandidatesResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\InstaInboxMediaResponse.cs" />
+    <Compile Include="Classes\ResponseWrappers\InstaInlineCommentListResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\InstaInlineFollowResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\InstaLinkResponse.cs" />
     <Compile Include="Classes\ResponseWrappers\InstaLocationFeedResponse.cs" />
@@ -360,6 +362,7 @@
     <Compile Include="Converters\InstaHashtagConverter.cs" />
     <Compile Include="Converters\InstaHashtagSearchConverter.cs" />
     <Compile Include="Converters\InstaInboxMediaConverter.cs" />
+    <Compile Include="Converters\InstaInlineCommentListConverter.cs" />
     <Compile Include="Converters\InstaLocationConverter.cs" />
     <Compile Include="Converters\InstaLocationFeedConverter.cs" />
     <Compile Include="Converters\InstaLocationSearchConverter.cs" />

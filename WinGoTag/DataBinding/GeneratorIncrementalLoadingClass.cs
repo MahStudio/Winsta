@@ -460,6 +460,26 @@ namespace WinGoTag.DataBinding
             var res = await AppCore.InstaApi.GetMediaCommentsAsync(_mediaid, pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Comments.ToList();
+            // inline comment support
+            //if (tres != null)
+            //    foreach (var item in tres)
+            //    {
+            //        // child comment
+            //        if (item.ChildCommentCount > 0)
+            //        {
+            //            var p = PaginationParameters.MaxPagesToLoad(1);
+            //            var inlines = await AppCore.InstaApi.GetMediaInlineCommentsAsync(_mediaid, item.Pk.ToString(),
+            //                PaginationParameters.Empty);
+            //            p.NextId = inlines.Value.NextId;
+            //            // age edame dasht :
+            //            if(inlines.Value.HasMoreTailChildComments)
+            //            {
+            //                var inlines2 = await AppCore.InstaApi
+            //                    .GetMediaInlineCommentsAsync(_mediaid, item.Pk.ToString(), p);
+            //            }
+            //        }
+            //    }
+
             HasMoreItems = res.Value.MoreComentsAvailable;
             // This code simply generates
             if (tres == null)

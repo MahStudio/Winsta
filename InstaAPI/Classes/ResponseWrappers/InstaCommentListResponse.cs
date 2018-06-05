@@ -24,4 +24,5 @@ namespace InstaSharper.Classes.ResponseWrappers
 
         [JsonProperty("comments")] public List<InstaCommentResponse> Comments { get; set; }
     }
+
 }

@@ -249,7 +249,18 @@ namespace InstaSharper.Helpers
                 out var instaUri))
                 throw new Exception("Cant create URI for getting media comments");
             return !string.IsNullOrEmpty(nextId)
-                ? new UriBuilder(instaUri) {Query = $"max_id={nextId}"}.Uri
+                ? new UriBuilder(instaUri) {Query = $"max_id={nextId}&can_support_threading=true" }.Uri
+                : new UriBuilder(instaUri) { Query = $"can_support_threading=true" }.Uri;
+        }
+
+        public static Uri GetMediaInlineCommentsUri(string mediaId, string targetCommentId, string nextId = "")
+        {
+            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.MEDIA_COMMENTS, mediaId)+
+                $"{targetCommentId}/inline_child_comments/",
+                out var instaUri))
+                throw new Exception("Cant create URI for getting media comments");
+            return !string.IsNullOrEmpty(nextId)
+                ? new UriBuilder(instaUri) { Query = $"max_id={nextId}" }.Uri
                 : instaUri;
         }
 
