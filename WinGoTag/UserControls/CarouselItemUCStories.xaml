@@ -5,11 +5,31 @@
     xmlns:local="using:WinGoTag.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:WinGoTag.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid x:Name="MainGr">
+        <Grid.Resources>
+            <Converters:UtcToTextConverter x:Key="UtcToTextConverter"/>
+        </Grid.Resources>
+        <Grid x:Name="HeaderStory" Canvas.ZIndex="1" Height="52" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" ColorInterpolationMode="SRgbLinearInterpolation" Opacity="0.85">
+                    <GradientStop Offset="1"/>
+                    <GradientStop Color="#7F000000" Offset="0.052"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="48"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="1" Text="{Binding User.UserName}" VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
+        </Grid>
         <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped"/>
         <MediaElement AutoPlay="False" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" GettingFocus="CarouVideo_GettingFocus" Tapped="Media_Tapped"/>
         <Grid x:Name="AlignGrid"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

@@ -120,7 +120,7 @@ namespace WinGoTag.View
                 MyReel.LatestReelMedia = strs.Value.Items[MyRemove].LatestReelMedia;
                 strs.Value.Items.RemoveAt(MyRemove);
             }
-            
+
             //
 
             strs.Value.Items.OrderBy(x => x.Seen_ranked_position != 0);
@@ -212,9 +212,9 @@ namespace WinGoTag.View
         private void StoriesList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = ((InstaReelFeed)e.ClickedItem);
-            if(item.User.UserName is "You")
+            if (item.User.UserName is "You")
             {
-              if(item.Items.Count is 0)
+                if (item.Items.Count is 0)
                 {
                     PivotView.SelectedIndex = 0;
                     return;
@@ -222,7 +222,7 @@ namespace WinGoTag.View
             }
 
             GridViewItem itemAnimation = (GridViewItem)StoriesList.ContainerFromItem(item);
-            
+
             itemList = itemAnimation;
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("image", itemAnimation);
             StoryFr.Navigate(typeof(StoryView.StoryViews), item);
@@ -278,7 +278,8 @@ namespace WinGoTag.View
 
         private async void RefreshBT_Click(object sender, RoutedEventArgs e)
         {
-            FindChildOfType<ScrollViewer>(mylist).ChangeView(0,0,null);
+            FindChildOfType<ScrollViewer>(mylist).ChangeView(0, 0, null);
+            await Task.Delay(500);
             FindChildOfType<ScrollViewer>(StoriesList).ChangeView(0, 0, null);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
@@ -300,14 +301,16 @@ namespace WinGoTag.View
                     CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
                     await Task.Delay(6000);
                 }
-                if(item.MediaType == InstaMediaType.Video)
+                if (item.MediaType == InstaMediaType.Video)
                 {
                     CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
                     await Task.Delay(3000);
                     CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
+                    var ms = CinemaPlayer.Position.TotalMilliseconds;
+                    await Task.Delay(2000);
                     await Task.Delay(Convert.ToInt32(CinemaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds));
                 }
-                if(item.MediaType == InstaMediaType.Carousel)
+                if (item.MediaType == InstaMediaType.Carousel)
                 {
                     foreach (var sub in item.Carousel)
                     {
@@ -322,12 +325,14 @@ namespace WinGoTag.View
                             CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
                             await Task.Delay(3000);
                             CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
-                            await Task.Delay(60000);
+                            await Task.Delay(2000);
+                            await Task.Delay(Convert.ToInt32(CinemaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds));
                         }
-                        
+
                     }
                 }
             }
         }
+        
     }
 }
