@@ -279,6 +279,7 @@ namespace WinGoTag.View
         private async void RefreshBT_Click(object sender, RoutedEventArgs e)
         {
             FindChildOfType<ScrollViewer>(mylist).ChangeView(0,0,null);
+            FindChildOfType<ScrollViewer>(StoriesList).ChangeView(0, 0, null);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
 
@@ -304,7 +305,7 @@ namespace WinGoTag.View
                     CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
                     await Task.Delay(3000);
                     CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
-                    await Task.Delay(60000);
+                    await Task.Delay(Convert.ToInt32(CinemaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds));
                 }
                 if(item.MediaType == InstaMediaType.Carousel)
                 {

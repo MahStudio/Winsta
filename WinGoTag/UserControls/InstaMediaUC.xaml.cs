@@ -47,7 +47,7 @@ namespace WinGoTag.UserControls
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        int _tapscount = 0;
+        static int _tapscount = 0;
         public InstaMediaUC()
         {
             this.InitializeComponent();
@@ -184,8 +184,8 @@ namespace WinGoTag.UserControls
         private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (_tapscount > 2) { _tapscount = 0; return; }
-            _tapscount = _tapscount + 1;
-            await Task.Delay(500);
+            _tapscount++;
+            await Task.Delay(1000);
             if (_tapscount == 0) return;
             if (_tapscount == 1)
             {
@@ -198,10 +198,10 @@ namespace WinGoTag.UserControls
             }
             if (_tapscount == 2)
             {
-                await Task.Delay(10);
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
                 LikeAnimation();
             }
+            await Task.Delay(10);
             _tapscount = 0;
         }
 
