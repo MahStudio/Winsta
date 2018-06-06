@@ -5,6 +5,9 @@ namespace InstaSharper.Converters
 {
     public interface IConvertersFabric
     {
+        IObjectConverter<InstaLocationStory, InstaLocationStoryResponse> GetLocationConverter(
+               InstaLocationStoryResponse response);
+
         IObjectConverter<InstaUserShort, InstaUserShortResponse> GetUserShortConverter(
             InstaUserShortResponse instaresponse);
 

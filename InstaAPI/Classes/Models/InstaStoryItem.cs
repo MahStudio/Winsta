@@ -79,7 +79,7 @@ namespace InstaSharper.Classes.Models
 
         public List<InstaReelMention> StoryHashtags { get; set; } = new List<InstaReelMention>();
 
-        public List<InstaLocation> StoryLocations { get; set; } = new List<InstaLocation>();
+        public List<InstaLocationStory> StoryLocations { get; set; } = new List<InstaLocationStory>();
 
         public DateTime TakenAt { get; set; }
 

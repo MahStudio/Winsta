@@ -88,6 +88,7 @@ namespace WinGoTag.UserControls
                     CarouImage.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
                     CalcLocationOfMention();
                     CalcLocationOfHashTags();
+                    CalcLocationOfLocations();
                 }
 
                 else
@@ -104,6 +105,7 @@ namespace WinGoTag.UserControls
                     CarouVideo.Width = AlignGrid.Width = (int)(value.OriginalWidth * scale);
                     CalcLocationOfMention();
                     CalcLocationOfHashTags();
+                    CalcLocationOfLocations();
                 }
 
                 if (value.StoryCTA != null)
@@ -214,6 +216,55 @@ namespace WinGoTag.UserControls
             var mention = (sender as Rectangle).Tag as InstaReelMention;
             if (mention == null) return;
             await new MessageDialog(mention.Hashtag.Name).ShowAsync();
+        }
+
+        void CalcLocationOfLocations()
+        {
+            var value = DataContext as InstaStoryItem;
+
+            var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+
+            float scaleHeight = (float)AlignGrid.Height / (float)value.OriginalHeight;
+            float scaleWidth = (float)AlignGrid.Width / (float)value.OriginalWidth;
+
+            float scale = Math.Min(scaleHeight, scaleWidth);
+
+            if (value.StoryLocations.Count > 0)
+            {
+                foreach (var Location in value.StoryLocations)
+                {
+                    var ActualX = AlignGrid.Width * Location.X;
+                    var ActualY = AlignGrid.Height * Location.Y;
+
+                    var ActualWidth = AlignGrid.Width * Location.Width;
+                    var ActualHeight = AlignGrid.Height * Location.Height;
+
+                    ActualX -= (ActualWidth * scale);
+                    ActualY -= (ActualHeight * scale);
+
+                    Rectangle rectangle = new Rectangle()
+                    {
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(((int)ActualX), ((int)ActualY), 0, 0),
+                        Width = ActualWidth,
+                        Height = ActualHeight,
+                        Fill = new SolidColorBrush(Colors.Gold),
+                        RenderTransform = new RotateTransform() { Angle = Location.Rotation * 360 },
+                        Tag = Location
+                    };
+                    rectangle.Tapped += StoryLocation_Tapped;
+                    AlignGrid.Children.Add(rectangle);
+                    //Mention.X * Window.Current.Bounds.
+                }
+            }
+        }
+
+        private async void StoryLocation_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var mention = (sender as Rectangle).Tag as InstaLocationStory;
+            if (mention == null) return;
+            await new MessageDialog(mention.Location.Address + Environment.NewLine + mention.Location.Name).ShowAsync();
         }
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)
