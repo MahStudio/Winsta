@@ -281,5 +281,52 @@ namespace WinGoTag.View
             FindChildOfType<ScrollViewer>(mylist).ChangeView(0,0,null);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
+
+        private void CinemaBT_Click(object sender, RoutedEventArgs e)
+        {
+            BlurBackground.Visibility = Visibility.Visible;
+            PlayCinema();
+        }
+
+        private async void PlayCinema()
+        {
+            var en = HomePageItemssource.ToList();
+            foreach (InstaMedia item in en)
+            {
+                if (item.MediaType == InstaMediaType.Image)
+                {
+                    CinemaPlayer.Source = null;
+                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                    await Task.Delay(6000);
+                }
+                if(item.MediaType == InstaMediaType.Video)
+                {
+                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                    await Task.Delay(3000);
+                    CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
+                    await Task.Delay(60000);
+                }
+                if(item.MediaType == InstaMediaType.Carousel)
+                {
+                    foreach (var sub in item.Carousel)
+                    {
+                        if (item.MediaType == InstaMediaType.Image)
+                        {
+                            CinemaPlayer.Source = null;// new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute);
+                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                            await Task.Delay(6000);
+                        }
+                        if (item.MediaType == InstaMediaType.Video)
+                        {
+                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                            await Task.Delay(3000);
+                            CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
+                            await Task.Delay(60000);
+                        }
+                        
+                    }
+                }
+            }
+        }
     }
 }

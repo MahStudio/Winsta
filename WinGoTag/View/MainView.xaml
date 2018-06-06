@@ -9,6 +9,7 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:MGSBlur="using:MGS.Controls"
     mc:Ignorable="d">
 
     <Page.Transitions>
@@ -82,9 +83,15 @@
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE114;" FontWeight="Bold" />
                                 </AppBarButton.Icon>
                             </AppBarButton>
+
+                            <AppBarButton Grid.Column="1" Width="48" Click="CinemaBT_Click">
+                                <AppBarButton.Icon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE786;" FontWeight="Bold" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
                             
                             <Image Grid.Column="1" Grid.ColumnSpan="3" Source="ms-appx:///Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
-
+                            
                             <AppBarButton Grid.Column="3" Width="48" Click="RefreshBT_Click">
                                 <AppBarButton.Icon>
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" FontWeight="Bold" />
@@ -200,6 +207,13 @@
 
             </PivotItem>
         </Pivot>
+
+        <MGSBlur:BackDrop x:Name="BlurBackground" Grid.Row="0" Grid.RowSpan="3"
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                          BlurAmount="18.25" x:FieldModifier="public"
+                          Visibility="Collapsed"/>
+        <MediaElement Visibility="{Binding Visibility, ElementName=BlurBackground}" 
+                      x:Name="CinemaPlayer" VerticalAlignment="Center" MaxHeight="400" HorizontalAlignment="Stretch"/>
 
     </Grid>
 </Page>

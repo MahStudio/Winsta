@@ -16,6 +16,10 @@ namespace WinGoTag.DataBinding
     {
 
         #region IList
+        public List<object> ToList()
+        {
+            return _storage;
+        }
 
         public int Add(object value)
         {

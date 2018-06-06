@@ -549,6 +549,10 @@
       <Project>{ec7065c7-6fbf-48c0-879d-ee7a767a0e2c}</Project>
       <Name>InstaAPI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MGSBlur\MGS.BackDrop.csproj">
+      <Project>{c4f5fecd-a48d-408a-a5d0-548d283d4257}</Project>
+      <Name>MGS.BackDrop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.16299.0">

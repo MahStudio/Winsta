@@ -46,7 +46,7 @@ namespace WinGoTag.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        
+
         int _tapscount = 0;
         public InstaMediaUC()
         {
@@ -95,7 +95,7 @@ namespace WinGoTag.UserControls
                         txtCaption.Blocks.Clear();
                         txtCaption.Blocks.Add(passages);
                     }
-                 
+
 
                     await Task.Delay(100);
                     Media.PropertyChanged += Media_PropertyChanged;
@@ -183,8 +183,9 @@ namespace WinGoTag.UserControls
 
         private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            _tapscount++;
-            await Task.Delay(350);
+            if (_tapscount > 2) { _tapscount = 0; return; }
+            _tapscount = _tapscount + 1;
+            await Task.Delay(500);
             if (_tapscount == 0) return;
             if (_tapscount == 1)
             {
@@ -305,7 +306,7 @@ namespace WinGoTag.UserControls
             FlipViewItem item2 = (FlipViewItem)ThisFlipView.ContainerFromItem(t);
             if (item2 == null) { return; }
             var h = (CarouselItemUC)item2.ContentTemplateRoot;
-            if(h.ActualHeight is 0) { return; }
+            if (h.ActualHeight is 0) { return; }
             ThisFlipView.Height = h.ActualHeight;
         }
 
@@ -318,6 +319,6 @@ namespace WinGoTag.UserControls
             //if (h.ActualHeight is 0) { return; }
             //ThisFlipView.Height = h.ActualHeight;
         }
-        
+
     }
 }
