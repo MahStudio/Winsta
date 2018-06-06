@@ -286,6 +286,7 @@ namespace WinGoTag.View
 
         private void CinemaBT_Click(object sender, RoutedEventArgs e)
         {
+            if (HomePageItemssource == null) return;
             BlurBackground.Visibility = Visibility.Visible;
             PlayCinema();
         }
