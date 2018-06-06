@@ -120,29 +120,15 @@ namespace WinGoTag.UserControls
                         text = text.ToLower();
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
-                            OpenUrl(run.Text);
-                        else /*if (text.StartsWith("#") || text.StartsWith("@"))*/
+                            run.Text.OpenUrl();
+                        else
                         {
                             MainPage.Current?.PushSearch(text);
-                            // hashtags: 
                         }
-                        //else if (text.StartsWith("@"))
-                        //{
-                        //    // users: 
-                        //}
-
                     }
                 }
             }
             catch (Exception ex) { ex.ExceptionMessage("CaptionHyperLinkClick"); }
-        }
-        async void OpenUrl(string url)
-        {
-            var options = new Windows.System.LauncherOptions
-            {
-                TreatAsUntrusted = false
-            };
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(url), options);
         }
         private void Media_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

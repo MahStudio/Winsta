@@ -69,29 +69,17 @@ namespace WinGoTag.View
                         text = text.ToLower();
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
-                            OpenUrl(run.Text);
-                        else /*if (text.StartsWith("#") || text.StartsWith("@"))*/
+                            run.Text.OpenUrl();
+                        else
                         {
                             MainPage.Current?.PushSearch(text);
-                            // hashtags: 
                         }
-                        //else if (text.StartsWith("@"))
-                        //{
-                        //    // users: 
-                        //}
                     }
                 }
             }
             catch (Exception ex) { ex.ExceptionMessage("CaptionHyperLinkClick"); }
         }
-        async void OpenUrl(string url)
-        {
-            var options = new Windows.System.LauncherOptions
-            {
-                TreatAsUntrusted = false
-            };
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(url), options);
-        }
+
         private void EditProfileBT_Click(object sender, RoutedEventArgs e)
         {
             var DataUser = ((Button)sender);
@@ -148,7 +136,7 @@ namespace WinGoTag.View
             {
                 if (sender is HyperlinkButton btn && btn != null)
                 {
-                    OpenUrl((string)btn.Content);
+                    ((string)btn.Content).OpenUrl();
                 }
             }
             catch { }

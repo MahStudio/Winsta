@@ -545,6 +545,7 @@ namespace InstaSharper.API
 
             return await _commentProcessor.GetMediaInlineCommentsAsync(mediaId, targetCommentId, paginationParameters);
         }
+
         /// <summary>
         ///     Get users (short) who liked certain media. Normaly it return around 1000 last users.
         /// </summary>
@@ -633,6 +634,7 @@ namespace InstaSharper.API
             ValidateLoggedIn();
             return await _commentProcessor.CommentMediaAsync(mediaId, text);
         }
+
         /// <summary>
         ///     Inline comment media
         /// </summary>
@@ -646,6 +648,7 @@ namespace InstaSharper.API
             ValidateLoggedIn();
             return await _commentProcessor.InlineCommentMediaAsync(mediaId, targetCommentId, text);
         }
+
         /// <summary>
         ///     Delete comment from media
         /// </summary>

@@ -10,9 +10,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.Helpers;
+using WinGoTag.ViewModel.UserViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,6 +30,52 @@ namespace WinGoTag.View.UserViews
         {
             this.InitializeComponent();
             EditFr.Navigate(typeof(Page));
+            DataContextChanged += UserProfileViewDataContextChanged;
+        }
+
+        private void UserProfileViewDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            try
+            {
+                if (args.NewValue.GetType() == typeof(UserProfileViewModel))
+                {
+                    var context = args.NewValue as UserProfileViewModel;
+                    if (context != null)
+                    {
+                        using (var pg = new PassageHelper())
+                        {
+                            var passages = pg.GetParagraph(context.UserInfo.Biography, HyperLinkClick);
+                            txtBiography.Blocks.Clear();
+                            txtBiography.Blocks.Add(passages);
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+        private void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (sender == null)
+                return;
+            try
+            {
+                if (sender.Inlines.Count > 0)
+                {
+                    if (sender.Inlines[0] is Run run && run != null)
+                    {
+                        var text = run.Text;
+                        text = text.ToLower();
+                        run.Text.ShowInOutput();
+                        if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
+                            run.Text.OpenUrl();
+                        else 
+                        {
+                            MainPage.Current?.PushSearch(text);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { ex.ExceptionMessage("HyperLinkClick"); }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -73,6 +122,17 @@ namespace WinGoTag.View.UserViews
         private void Followers_Click(object sender, RoutedEventArgs e)
         {
             EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+        }
+        private void HyperlinkButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (sender is HyperlinkButton btn && btn != null)
+                {
+                    ((string)btn.Content).OpenUrl();
+                }
+            }
+            catch { }
         }
     }
 }
