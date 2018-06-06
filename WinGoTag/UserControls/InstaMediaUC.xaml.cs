@@ -185,7 +185,7 @@ namespace WinGoTag.UserControls
         {
             if (_tapscount > 2) { _tapscount = 0; return; }
             _tapscount++;
-            await Task.Delay(1000);
+            await Task.Delay(350);
             if (_tapscount == 0) return;
             if (_tapscount == 1)
             {
