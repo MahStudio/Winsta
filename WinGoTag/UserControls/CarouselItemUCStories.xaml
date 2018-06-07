@@ -18,7 +18,7 @@
             <TextBlock Margin="54,0,0,0" FontWeight="SemiBold" VerticalAlignment="Bottom" Text="{Binding TakenAt, Converter={StaticResource UtcToTextConverter}, Mode=OneWay}"/>
         </Grid>
         <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped"/>
-        <MediaElement AutoPlay="False" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" GettingFocus="CarouVideo_GettingFocus" Tapped="Media_Tapped"/>
+        <MediaElement AutoPlay="False" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" Tapped="Media_Tapped"/>
         <Grid x:Name="AlignGrid"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             
         </Grid>
