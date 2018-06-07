@@ -296,6 +296,8 @@ namespace WinGoTag.View
             var en = HomePageItemssource.ToList();
             foreach (InstaMedia item in en)
             {
+                if (item.Caption != null)
+                    CinemaCaption.Text = item.Caption.Text;
                 if (item.MediaType == InstaMediaType.Image)
                 {
                     CinemaPlayer.Source = null;
@@ -334,6 +336,6 @@ namespace WinGoTag.View
                 }
             }
         }
-        
+
     }
 }

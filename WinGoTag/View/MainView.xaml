@@ -212,8 +212,19 @@
                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                           BlurAmount="18.25" x:FieldModifier="public"
                           Visibility="Collapsed"/>
-        <MediaElement Visibility="{Binding Visibility, ElementName=BlurBackground}" 
+        <Grid Visibility="{Binding Visibility, ElementName=BlurBackground}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <MediaElement Visibility="{Binding Visibility, ElementName=BlurBackground}" Grid.Row="0"
                       x:Name="CinemaPlayer" VerticalAlignment="Center" MaxHeight="400" HorizontalAlignment="Stretch"/>
+
+                <TextBlock Margin="12" TextAlignment="DetectFromContent"
+                x:Name="CinemaCaption" MaxLines="3" TextWrapping="Wrap" Grid.Row="1" Foreground="Black"/>
+            </Grid>
+        </Grid>
 
     </Grid>
 </Page>
