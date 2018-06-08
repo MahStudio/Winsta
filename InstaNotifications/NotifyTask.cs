@@ -56,6 +56,11 @@ namespace InstaNotifications
                     int ix = 0;
                     foreach (var item in activities.Value.Items)
                     {
+                        var text = item.Text;
+                        if (item.Text.Contains(" "))
+                        {
+                            text = text.Substring(text.IndexOf(" ") +1);
+                        }
                         if (!Notifies.IsExists(item.Text))
                         {
                             try
@@ -65,16 +70,11 @@ namespace InstaNotifications
                                     IsShowing = false,
                                     ProfileId = item.ProfileId,
                                     ProfilePicture = item.ProfileImage,
-                                    Text = item.Text,
+                                    Text = text,
                                     TimeStamp = item.TimeStamp.ToString(),
                                     Type = item.Type,
                                 };
-                                if(item.Text.Contains(" "))
-                                {
-                                    var text = item.Text;
-                                    text = text.Substring(text.IndexOf(" "));
-                                    n.Text = text;
-                                }
+                        
                                 if (item.InlineFollow == null)
                                 {
                                     var user = await InstaApi.GetUserInfoByIdAsync(item.ProfileId);
