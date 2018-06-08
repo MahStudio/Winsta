@@ -60,8 +60,9 @@ namespace InstaNotifications
                         if (item.Text.Contains(" "))
                         {
                             text = text.Substring(text.IndexOf(" ") +1);
+                            text = text.TrimStart();
                         }
-                        if (!Notifies.IsExists(item.Text))
+                        if (!Notifies.IsExists(text))
                         {
                             try
                             {
