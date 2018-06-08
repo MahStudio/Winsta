@@ -5,6 +5,7 @@ using InstaSharper.Logger;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Storage;
 using Windows.UI.Core;
 
@@ -116,5 +117,53 @@ namespace WinGoTag
             }
         }
 
+
+
+        public static async void RegisterNotifyTask()
+        {
+            try
+            {
+                string myTaskName = "NotifyTask";
+                string myTaskEntryPoint = "InstaNotifications.NotifyTask";
+
+                foreach (var cur in BackgroundTaskRegistration.AllTasks)
+                    if (cur.Value.Name == myTaskName)
+                    {
+                        ExtensionHelper.Output($"{myTaskEntryPoint} already registered");
+                        return;
+                    }
+
+                await BackgroundExecutionManager.RequestAccessAsync();
+
+                BackgroundTaskBuilder taskBuilder =
+                    new BackgroundTaskBuilder { Name = myTaskName, TaskEntryPoint = myTaskEntryPoint };
+
+                taskBuilder.SetTrigger(new TimeTrigger(15, false));
+                BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
+            }
+            catch
+            {
+
+            }
+        }
+        public static void UnregisterNotifyTask()
+        {
+            try
+            {
+                string myTaskName = "NotifyTask";
+                string myTaskEntryPoint = "InstaNotifications.NotifyTask";
+
+                foreach (var cur in BackgroundTaskRegistration.AllTasks)
+                    if (cur.Value.Name == myTaskName)
+                    {
+                        cur.Value.Unregister(true);
+                        ExtensionHelper.Output($"{myTaskEntryPoint} unregistered");
+                        return;
+                    }
+            }
+            catch
+            {
+            }
+        }
     }
 }

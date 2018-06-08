@@ -414,6 +414,7 @@
     <Compile Include="Logger\DebugLogger.cs" />
     <Compile Include="Logger\IInstaLogger.cs" />
     <Compile Include="Logger\LogLevel.cs" />
+    <Compile Include="NotifyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\RequestDelay.cs" />
     <Compile Include="Classes\ResponseType.cs" />
