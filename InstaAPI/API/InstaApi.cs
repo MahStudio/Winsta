@@ -42,6 +42,7 @@ namespace InstaSharper.API
         private ILiveProcessor _liveProcessor;
         public ILiveProcessor LiveProcessor => _liveProcessor;
 
+        public IStoryProcessor StoryProcessor => _storyProcessor;
         private IDiscoverProcessor _discoverProcessor;
         public IDiscoverProcessor DiscoverProcessor => _discoverProcessor;
 

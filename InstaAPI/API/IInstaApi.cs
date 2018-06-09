@@ -24,6 +24,7 @@ namespace InstaSharper.API
         ILiveProcessor LiveProcessor { get; }
         IDiscoverProcessor DiscoverProcessor { get; }
         IAccountProcessor AccountProcessor { get; }
+        IStoryProcessor StoryProcessor { get; }
         UserSessionData GetLoggedUser();
         /// <summary>
         ///     Get challenge login information for grabbing challenge url.

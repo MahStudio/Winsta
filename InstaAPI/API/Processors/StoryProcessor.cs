@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using InstaAPI.Classes.Models;
 using InstaSharper.Classes;
 using InstaSharper.Classes.Android.DeviceInfo;
 using InstaSharper.Classes.Models;
@@ -30,7 +31,7 @@ namespace InstaSharper.API.Processors
             _httpRequestProcessor = httpRequestProcessor;
             _logger = logger;
         }
-
+        
         public async Task<IResult<InstaStoryFeed>> GetStoryFeedAsync()
         {
             try
@@ -164,6 +165,30 @@ namespace InstaSharper.API.Processors
             {
                 _logger?.LogException(exception);
                 return Result.Fail(exception.Message, feed);
+            }
+        }
+        public async Task<IResult<InstaReelStoryMediaViewers>> GetStoryMediaViewers(string StoryMediaId, PaginationParameters paginationParameters)
+        {
+
+            try
+            {
+                if (paginationParameters.MaximumPagesToLoad > 1)
+                    throw new Exception("Not supported");
+                var directInboxUri = new Uri($"https://i.instagram.com/api/v1/media/{StoryMediaId}/list_reel_media_viewer/?max_id={paginationParameters.NextId}", UriKind.RelativeOrAbsolute);
+                var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, directInboxUri, _deviceInfo);
+                var response = await _httpRequestProcessor.SendAsync(request);
+                var json = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode != HttpStatusCode.OK)
+                    return Result.UnExpectedResponse<InstaReelStoryMediaViewers>(response, json);
+                var threadResponse = JsonConvert.DeserializeObject<InstaReelStoryMediaViewers>(json);
+                
+                return Result.Success(threadResponse);
+            }
+            catch (Exception exception)
+            {
+                _logger?.LogException(exception);
+                return Result.Fail<InstaReelStoryMediaViewers>(exception.Message);
             }
         }
     }

@@ -245,6 +245,7 @@
     <Compile Include="Classes\Models\InstaRecipients.cs" />
     <Compile Include="Classes\Models\InstaReelFeed.cs" />
     <Compile Include="Classes\Models\InstaReelMention.cs" />
+    <Compile Include="Classes\Models\InstaReelStoryMediaViewers.cs" />
     <Compile Include="Classes\Models\InstaStory.cs" />
     <Compile Include="Classes\Models\InstaStoryFeed.cs" />
     <Compile Include="Classes\Models\InstaStoryItem.cs" />

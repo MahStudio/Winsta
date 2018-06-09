@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstaSharper.Classes;
+using InstaSharper.Classes.Models;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace WinGoTag.UserControls
             }
         }
 
-        private void CarouselItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private async void CarouselItemUC_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             if (args.NewValue == null) return;
 
@@ -116,6 +117,8 @@ namespace WinGoTag.UserControls
                 }
             }
             CarouVideo.Stop();
+
+            var a = await AppCore.InstaApi.StoryProcessor.GetStoryMediaViewers(CarouselItem.Id, PaginationParameters.MaxPagesToLoad(1));
         }
 
         void CalcLocationOfMention()
