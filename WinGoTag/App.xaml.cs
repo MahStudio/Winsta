@@ -72,6 +72,16 @@ namespace WinGoTag
                 }
             }
             ApplicationData.Current.LocalFolder.Path.ShowInOutput();
+            try
+            {
+                AppCore.UnregisterNotifyTask();
+                
+            }
+            catch { }
+            try{
+                AppCore.RegisterNotifyTask();
+            }
+            catch{ }
             SplashScreen splashScreen = e.SplashScreen;
             ExtendedSplashScreen eSplash = null;
             eSplash = new ExtendedSplashScreen(splashScreen);
