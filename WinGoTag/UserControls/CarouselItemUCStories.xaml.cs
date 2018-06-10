@@ -41,12 +41,13 @@ namespace WinGoTag.UserControls
          typeof(CarouselItemUCStories),
          new PropertyMetadata(null)
         );
-
+        private bool _isSwiped;
         public event PropertyChangedEventHandler PropertyChanged;
         //int _tapscount = 0;
         public CarouselItemUCStories()
         {
             this.InitializeComponent();
+            EditFr.Navigate(typeof(Page));
             this.DataContextChanged += CarouselItemUC_DataContextChanged;
         }
 
@@ -332,5 +333,35 @@ namespace WinGoTag.UserControls
             CarouVideo.Play();
             StoryViews.PauseStartTimer(false);
         }
+
+        private void MainGr_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            if (e.IsInertial && !_isSwiped)
+            {
+                var swipedDistance = e.Cumulative.Translation.Y;
+
+                if (Math.Abs(swipedDistance) <= 2) return;
+                _isSwiped = true;
+                if (swipedDistance > 0)
+                {
+                    //SwipeableTextBlock.Text = "Down Swiped";
+                }
+                else
+                {
+                    CarouVideo.Pause();
+                    StoryViews.PauseStartTimer(true);
+                    if(CarouselItem.User.UserName == AppCore.InstaApi.GetLoggedUser().UserName)
+                    {
+                        EditFr.Navigate(typeof(StoryViewersView), CarouselItem.Id);
+                    }
+                    //SwipeableTextBlock.Text = "Up Swiped";
+                }
+            }
+        }
+
+        private void MainGr_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            _isSwiped = false;
+    }
     }
 }

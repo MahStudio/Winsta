@@ -241,6 +241,9 @@
     <Compile Include="View\SinglePostView.xaml.cs">
       <DependentUpon>SinglePostView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\StoryView\StoryViewersView.xaml.cs">
+      <DependentUpon>StoryViewersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StoryView\StoryViews.xaml.cs">
       <DependentUpon>StoryViews.xaml</DependentUpon>
     </Compile>
@@ -522,6 +525,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SinglePostView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StoryView\StoryViewersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

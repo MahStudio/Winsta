@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes;
+﻿using InstaAPI.Classes.Models;
+using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
@@ -644,6 +645,65 @@ namespace WinGoTag.DataBinding
             if (tres == null)
             {
                 return (new List<string>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
+
+
+    public class GenerateStoryMediaViewers<T> : IncrementalLoadingBase
+    {
+        string StoryID;
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateStoryMediaViewers(uint maxCount, Func<int, T> generator, string storyid)
+        {
+            StoryID = storyid;
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if (!HasMoreItems)
+                return (new List<User1>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+            //http://getsongg.com/dapp/getnewcases?lang=en&tested
+            IEnumerable<User1> tres = null;//
+            var res = await AppCore.InstaApi.StoryProcessor.GetStoryMediaViewers(StoryID, pagination);
+            if(res.Value == null)
+            {
+                throw new Exception(res.Info.Message);
+            }
+            if (res.Value.NextMaxId == null) HasMoreItems = false;
+            pagination.NextId = res.Value.NextMaxId;
+            tres = res.Value.Users;
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<User1>()).ToArray();
             }
             var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
                          select (object)_generator(j);
