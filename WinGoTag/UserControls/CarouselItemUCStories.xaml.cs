@@ -118,7 +118,7 @@ namespace WinGoTag.UserControls
             }
             CarouVideo.Stop();
 
-            var a = await AppCore.InstaApi.StoryProcessor.GetStoryMediaViewers(CarouselItem.Id, PaginationParameters.MaxPagesToLoad(1));
+            //var a = await AppCore.InstaApi.StoryProcessor.GetStoryMediaViewers(CarouselItem.Id, PaginationParameters.MaxPagesToLoad(1));
         }
 
         void CalcLocationOfMention()
@@ -319,6 +319,18 @@ namespace WinGoTag.UserControls
             var value = DataContext as InstaStoryItem;
             var uri = value.StoryCTA.FirstOrDefault().Links.FirstOrDefault().WebUri;
             await Launcher.LaunchUriAsync(new Uri(uri, UriKind.RelativeOrAbsolute));
+        }
+        
+        private void AlignGrid_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            CarouVideo.Pause();
+            StoryViews.PauseStartTimer(true);
+        }
+
+        private void AlignGrid_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            CarouVideo.Play();
+            StoryViews.PauseStartTimer(false);
         }
     }
 }

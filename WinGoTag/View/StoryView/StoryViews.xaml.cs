@@ -18,6 +18,7 @@ namespace WinGoTag.View.StoryView
     /// </summary>
     public sealed partial class StoryViews : Page
     {
+        public static event EventHandler<bool> StartStopTimerEvent;
         List<double> SecondItemList = new List<double>();
         public static DispatcherTimer timer;
         public static ProgressBar b = new ProgressBar();
@@ -29,8 +30,25 @@ namespace WinGoTag.View.StoryView
             { Interval = TimeSpan.FromSeconds(1) };
             FlipViewStory = Flipviews;
             b = _BarSecond;
+            StartStopTimerEvent += StoryViews_StartStopTimerEvent;
         }
 
+        private void StoryViews_StartStopTimerEvent(object sender, bool e)
+        {
+            if(e)
+            {
+                timer.Stop();
+            }
+            else
+            {
+                timer.Start();
+            }
+        }
+        
+        public static void PauseStartTimer(bool Pause)
+        {
+            StartStopTimerEvent?.Invoke(null, Pause);
+        }
 
         private void Timer_Tick(object sender, object o)
         {

@@ -17,9 +17,9 @@
         <Grid x:Name="HeaderStory" Canvas.ZIndex="1" Height="52" VerticalAlignment="Top" Margin="0,0,0,0">
             <TextBlock Margin="54,0,0,0" FontWeight="SemiBold" VerticalAlignment="Bottom" Text="{Binding TakenAt, Converter={StaticResource UtcToTextConverter}, Mode=OneWay}"/>
         </Grid>
-        <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped"/>
-        <MediaElement AutoPlay="False" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" Tapped="Media_Tapped"/>
-        <Grid x:Name="AlignGrid"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Image x:Name="CarouImage" Stretch="UniformToFill" Tapped="CarouImage_Tapped" PointerPressed="AlignGrid_PointerPressed" PointerReleased="AlignGrid_PointerReleased"/>
+        <MediaElement AutoPlay="False" x:Name="CarouVideo" AreTransportControlsEnabled="False" Stretch="Fill" PointerPressed="AlignGrid_PointerPressed" PointerReleased="AlignGrid_PointerReleased"/>
+        <Grid x:Name="AlignGrid"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" PointerPressed="AlignGrid_PointerPressed" Tapped="Media_Tapped" PointerReleased="AlignGrid_PointerReleased">
             
         </Grid>
         <Grid x:Name="SeeMoreGrid" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="Auto">
