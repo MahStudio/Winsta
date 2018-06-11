@@ -33,7 +33,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="{Binding UserName, Mode=OneWay}" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Text="{Binding Text}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
+                    <TextBlock Grid.Row="1" Text="{Binding FullName}" MaxLines="1" TextWrapping="Wrap" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" FontSize="14"/>
                 </Grid>
             </Grid>
         </DataTemplate>

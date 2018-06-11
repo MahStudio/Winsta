@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using WinGoTag.ContentDialogs;
 using WinGoTag.Helpers;
 using WinGoTag.View;
+using WinGoTag.View.MediaViews;
 using WinGoTag.View.UserViews;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -306,5 +307,9 @@ namespace WinGoTag.UserControls
             //ThisFlipView.Height = h.ActualHeight;
         }
 
+        private void LikersBTN_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.MainFrame.Navigate(typeof(MediaLikersView), Media.InstaIdentifier);
+        }
     }
 }

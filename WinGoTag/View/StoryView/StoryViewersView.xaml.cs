@@ -35,7 +35,8 @@ namespace WinGoTag.View.StoryView
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             if (StoryViewersItemssource != null)
             {
                 StoryViewersItemssource.CollectionChanged -= StoryViewersItemssource_CollectionChanged;
@@ -60,6 +61,7 @@ namespace WinGoTag.View.StoryView
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
+            Frame.GoBack();
             AppCore.ModerateBack("");
         }
     }

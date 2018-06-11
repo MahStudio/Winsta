@@ -1,11 +1,12 @@
 ﻿<Page
-    x:Class="WinGoTag.View.UserViews.UserFollowingsView"
+    x:Class="WinGoTag.View.MediaViews.MediaLikersView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinGoTag.View.UserViews"
+    xmlns:local="using:WinGoTag.View.MediaViews"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -38,7 +39,7 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Grid.RowDefinitions>
@@ -58,7 +59,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <TextBlock Grid.Column="1" Text="Followings" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+            <TextBlock Grid.Column="1" Text="Likers" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
 
         </Grid>
 

@@ -14,7 +14,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Image VerticalAlignment="Center" Source="Logos/perfectColor.png" Grid.Row="0" Width="70"/>
-            <ProgressRing Width="38" Height="38" Grid.Row="1" IsActive="True" Margin="0,24,0,0"/>
+            <ProgressRing Width="28" Height="28" Grid.Row="1" IsActive="True" Margin="0,24,0,0"/>
         </Grid>
     </Grid>
 </Page>
