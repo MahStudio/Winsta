@@ -250,6 +250,7 @@
     <Compile Include="Classes\Models\InstaStoryFeed.cs" />
     <Compile Include="Classes\Models\InstaStoryItem.cs" />
     <Compile Include="Classes\Models\InstaStoryMedia.cs" />
+    <Compile Include="Classes\Models\InstaStorySharing.cs" />
     <Compile Include="Classes\Models\InstaStoryTray.cs" />
     <Compile Include="Classes\Models\InstaTagFeed.cs" />
     <Compile Include="Classes\Models\InstaTopLive.cs" />
