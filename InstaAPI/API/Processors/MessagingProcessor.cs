@@ -33,13 +33,13 @@ namespace InstaSharper.API.Processors
             _logger = logger;
         }
 
-        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters)
+        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters, string Query = "")
         {
             try
             {
                 if (paginationParameters.MaximumPagesToLoad > 1)
                     throw new Exception("Not supported");
-                var directInboxUri = UriCreator.GetDirectInboxUri(paginationParameters.NextId);
+                var directInboxUri = UriCreator.GetDirectInboxUri(paginationParameters.NextId, Query);
                 var request = HttpHelper.GetDefaultRequest(HttpMethod.Get, directInboxUri, _deviceInfo);
                 var response = await _httpRequestProcessor.SendAsync(request);
                 var json = await response.Content.ReadAsStringAsync();

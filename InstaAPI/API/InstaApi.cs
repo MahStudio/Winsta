@@ -405,11 +405,11 @@ namespace InstaSharper.API
         /// <returns>
         ///     <see cref="T:InstaSharper.Classes.Models.InstaDirectInboxContainer" />
         /// </returns>
-        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters)
+        public async Task<IResult<InstaDirectInboxContainer>> GetDirectInboxAsync(PaginationParameters paginationParameters, string Query = "")
         {
             ValidateUser();
             ValidateLoggedIn();
-            return await _messagingProcessor.GetDirectInboxAsync(paginationParameters);
+            return await _messagingProcessor.GetDirectInboxAsync(paginationParameters, Query);
         }
 
         /// <summary>

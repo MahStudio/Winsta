@@ -41,7 +41,7 @@ namespace InstaSharper.Helpers
         {
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.SEARCH_USERS, out var instaUri))
                 throw new Exception("Cant create search user URI");
-            var userUriBuilder = new UriBuilder(instaUri) {Query = $"q={username}"};
+            var userUriBuilder = new UriBuilder(instaUri) { Query = $"q={username}" };
             return userUriBuilder.Uri;
         }
 
@@ -64,7 +64,7 @@ namespace InstaSharper.Helpers
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.TIMELINEFEED, out var instaUri))
                 throw new Exception("Cant create timeline feed URI");
             return !string.IsNullOrEmpty(maxId)
-                ? new UriBuilder(instaUri) {Query = $"max_id={maxId}"}.Uri
+                ? new UriBuilder(instaUri) { Query = $"max_id={maxId}" }.Uri
                 : instaUri;
         }
 
@@ -73,7 +73,7 @@ namespace InstaSharper.Helpers
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.USEREFEED + userPk, out var instaUri))
                 throw new Exception("Cant create URI for user media retrieval");
             return !string.IsNullOrEmpty(nextId)
-                ? new UriBuilder(instaUri) {Query = $"max_id={nextId}"}.Uri
+                ? new UriBuilder(instaUri) { Query = $"max_id={nextId}" }.Uri
                 : instaUri;
         }
         public static Uri GetCreateAccountUri()
@@ -100,7 +100,7 @@ namespace InstaSharper.Helpers
         {
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.TIMELINEFEED, out var instaUri))
                 throw new Exception("Cant create search URI for timeline");
-            var uriBuilder = new UriBuilder(instaUri) {Query = $"max_id={nextId}"};
+            var uriBuilder = new UriBuilder(instaUri) { Query = $"max_id={nextId}" };
             return uriBuilder.Uri;
         }
 
@@ -136,7 +136,7 @@ namespace InstaSharper.Helpers
             if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.GET_TAG_FEED, tag), out var instaUri))
                 throw new Exception("Cant create URI for discover tag feed");
             return !string.IsNullOrEmpty(maxId)
-                ? new UriBuilder(instaUri) {Query = $"max_id={maxId}"}.Uri
+                ? new UriBuilder(instaUri) { Query = $"max_id={maxId}" }.Uri
                 : instaUri;
         }
 
@@ -153,7 +153,7 @@ namespace InstaSharper.Helpers
                 throw new Exception("Cant create URI for explore posts");
             var query = string.Empty;
             if (!string.IsNullOrEmpty(maxId)) query += $"max_id={maxId}";
-            var uriBuilder = new UriBuilder(instaUri) {Query = query};
+            var uriBuilder = new UriBuilder(instaUri) { Query = query };
             return uriBuilder.Uri;
         }
 
@@ -164,13 +164,16 @@ namespace InstaSharper.Helpers
             return instaUri;
         }
 
-        public static Uri GetDirectInboxUri(string NextId)
+        public static Uri GetDirectInboxUri(string NextId, string Query = "")
         {
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.GET_DIRECT_INBOX, out var instaUri))
                 throw new Exception("Cant create URI for get inbox");
             return !string.IsNullOrEmpty(NextId)
-                ? new UriBuilder(instaUri) { Query = $"cursor={NextId}" }.Uri
-                : instaUri;
+                ? string.IsNullOrEmpty(Query)
+                    ? new UriBuilder(instaUri) { Query = $"cursor={NextId}" }.Uri
+                    : new UriBuilder(instaUri) { Query = $"cursor={NextId}&query={Uri.EscapeUriString(Query)}" }.Uri
+                : string.IsNullOrEmpty(Query) ? instaUri
+                : new UriBuilder(instaUri) { Query = $"query={Uri.EscapeUriString(Query)}" }.Uri;
         }
 
         public static Uri GetDirectInboxThreadUri(string threadId, string NextId)
@@ -190,7 +193,7 @@ namespace InstaSharper.Helpers
                 throw new Exception("Cant create URI for get user tags");
             var query = $"rank_token={rankToken}&ranked_content=true";
             if (!string.IsNullOrEmpty(maxId)) query += $"max_id={maxId}";
-            var uriBuilder = new UriBuilder(instaUri) {Query = query};
+            var uriBuilder = new UriBuilder(instaUri) { Query = query };
             return uriBuilder.Uri;
         }
 
@@ -213,7 +216,7 @@ namespace InstaSharper.Helpers
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.GET_RECENT_ACTIVITY, out var instaUri))
                 throw new Exception("Cant create URI (get recent activity)");
             var query = $"activity_module=all";
-            var uriBuilder = new UriBuilder(instaUri) {Query = query};
+            var uriBuilder = new UriBuilder(instaUri) { Query = query };
             return uriBuilder.Uri;
         }
 
@@ -223,7 +226,7 @@ namespace InstaSharper.Helpers
                 throw new Exception("Cant create URI (get following recent activity");
             var query = string.Empty;
             if (!string.IsNullOrEmpty(maxId)) query += $"max_id={maxId}";
-            var uriBuilder = new UriBuilder(instaUri) {Query = query};
+            var uriBuilder = new UriBuilder(instaUri) { Query = query };
             return uriBuilder.Uri;
         }
 
@@ -249,13 +252,13 @@ namespace InstaSharper.Helpers
                 out var instaUri))
                 throw new Exception("Cant create URI for getting media comments");
             return !string.IsNullOrEmpty(nextId)
-                ? new UriBuilder(instaUri) {Query = $"max_id={nextId}&can_support_threading=true" }.Uri
+                ? new UriBuilder(instaUri) { Query = $"max_id={nextId}&can_support_threading=true" }.Uri
                 : new UriBuilder(instaUri) { Query = $"can_support_threading=true" }.Uri;
         }
 
         public static Uri GetMediaInlineCommentsUri(string mediaId, string targetCommentId, string nextId = "")
         {
-            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.MEDIA_COMMENTS, mediaId)+
+            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.MEDIA_COMMENTS, mediaId) +
                 $"{targetCommentId}/inline_child_comments/",
                 out var instaUri))
                 throw new Exception("Cant create URI for getting media comments");
@@ -417,7 +420,7 @@ namespace InstaSharper.Helpers
         public static Uri GetDeleteMediaUri(string mediaId, InstaMediaType mediaType)
         {
             if (!Uri.TryCreate(BaseInstagramUri,
-                string.Format(InstaApiConstants.DELETE_MEDIA, mediaId, (int) mediaType), out var instaUri))
+                string.Format(InstaApiConstants.DELETE_MEDIA, mediaId, (int)mediaType), out var instaUri))
                 throw new Exception("Can't create URI for deleting media");
             return instaUri;
         }
@@ -436,7 +439,7 @@ namespace InstaSharper.Helpers
                 throw new Exception("Can't create URI for getting like feed");
             var query = string.Empty;
             if (!string.IsNullOrEmpty(maxId)) query += $"max_id={maxId}";
-            var uriBuilder = new UriBuilder(instaUri) {Query = query};
+            var uriBuilder = new UriBuilder(instaUri) { Query = query };
             return uriBuilder.Uri;
         }
 
