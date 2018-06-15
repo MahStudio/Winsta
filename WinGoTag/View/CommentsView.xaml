@@ -119,7 +119,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBox Style="{StaticResource TextBoxStyleInstaChat}" x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment" KeyUp="MessageTextBox_KeyUp" Margin="6" Height="42"/>
+            <TextBox Style="{StaticResource TextBoxStyleInstaChat}" x:Name="MessageTextBox" Grid.Column="0" PlaceholderText="Add a comment..." KeyUp="MessageTextBox_KeyUp" Margin="6" Height="42"/>
             
 
             <AppBarButton Grid.Column="1" Name="DynamicButton" Width="48" Click="{x:Bind SendTextMessage}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="48">
