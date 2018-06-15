@@ -1,13 +1,8 @@
 # Winsta
-Unofficial Windows INSTAgram client/UWP 
 
-It is a start. We are in the first step.
+Unofficial Instagram client for Windows 10 devices.
 
-# Insider group on Telegram
-
-[Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw)
-
-# What is supported in current branch
+## Features
 - Login (Two Factor login supported | Challenge require supported)
 - Login with Facebook
 - Logout
@@ -23,6 +18,25 @@ It is a start. We are in the first step.
 - Accept and Ignore friend requests
 - Download posts (Available for Public profiles, Your own medias, and medias you are tagged in)
 
-# InstaApi changes
+![image](https://user-images.githubusercontent.com/22152065/41449041-de216aa4-7073-11e8-9deb-89295b9a247c.png)
+
+
+## Contributing
+
+### Build Prerequisites
+
+1. Windows 10
+2. Visual Studio 2017 (latest build) with universal windows development features installed.
+3. GIT for Windows ([install from here](http://gitforwindows.org/))
+4. Knowledge about C#, Xaml, MVVM, Windows development and Couchbase NoSQL
+
+### Insider chat on Telegram
+
+Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) to stay tuned about the development of this application, exchanging feedback and the insider builds.
+
+## InstaApi
+
+This project uses [https://github.com/ramtinak/InstagramApiSharp](https://github.com/ramtinak/InstagramApiSharp) which is based on [InstaSharper](https://github.com/a-legotin/InstaSharper) with more functions and flexibility.
+
 See api changes at [Api changes](https://github.com/NGame1/Winsta/blob/master/apichanges.md)
 
