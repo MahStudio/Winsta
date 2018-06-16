@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml.Documents;
@@ -15,7 +11,7 @@ namespace WinGoTag.Helpers
     {
         public Paragraph GetParagraph(string text, TypedEventHandler<Hyperlink, HyperlinkClickEventArgs> hyperLinkAction, Color? defaultColor = null, Color? hyperColor = null)
         {
-            Paragraph p = new Paragraph();
+            var p = new Paragraph();
             if (hyperColor == null)
                 hyperColor = Colors.DarkBlue;
             if (defaultColor == null)
@@ -79,8 +75,10 @@ namespace WinGoTag.Helpers
                 p.Inlines.Clear();
                 p.Inlines.Add(new Run() { Text = text, Foreground = new SolidColorBrush(defaultColor.Value) });
             }
+
             return p;
         }
+
         public List<Passage> GetParsedPassage(string text)
         {
             var parsedList = new List<Passage>();
@@ -112,13 +110,14 @@ namespace WinGoTag.Helpers
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)
                 return;
-            //if (disposing)
-            //{
-            //}
+            // if (disposing)
+            // {
+            // }
             disposed = true;
         }
     }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WinGoTag.Helpers
 {
@@ -12,16 +8,16 @@ namespace WinGoTag.Helpers
         const int URLMON_OPTION_USERAGENT = 0x10000001;
 
         [DllImport("urlmon.dll", CharSet = CharSet.Ansi)]
-        private static extern int UrlMkSetSessionOption(int dwOption, string pBuffer, int dwBufferLength, int dwReserved);
+        static extern int UrlMkSetSessionOption(int dwOption, string pBuffer, int dwBufferLength, int dwReserved);
 
         [DllImport("urlmon.dll", CharSet = CharSet.Ansi)]
-        private static extern int UrlMkGetSessionOption(int dwOption, StringBuilder pBuffer, int dwBufferLength, ref int pdwBufferLength, int dwReserved);
+        static extern int UrlMkGetSessionOption(int dwOption, StringBuilder pBuffer, int dwBufferLength, ref int pdwBufferLength, int dwReserved);
 
         public static string GetUserAgent()
         {
-            int capacity = 255;
+            var capacity = 255;
             var buf = new StringBuilder(capacity);
-            int length = 0;
+            var length = 0;
 
             UrlMkGetSessionOption(URLMON_OPTION_USERAGENT, buf, capacity, ref length, 0);
 
@@ -38,11 +34,7 @@ namespace WinGoTag.Helpers
             }
         }
 
-        public static void AppendUserAgent(string suffix)
-        {
-            SetUserAgent(GetUserAgent() + suffix);
-        }
-
+        public static void AppendUserAgent(string suffix) => SetUserAgent(GetUserAgent() + suffix);
 
         /*[DllImport("urlmon.dll", CharSet = CharSet.Ansi, ExactSpelling = true)]
         private static extern int UrlMkSetSessionOption(int dwOption, string pBuffer, int dwBufferLength, int dwReserved);

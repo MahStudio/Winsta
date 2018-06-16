@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Windows.UI.Popups;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 
 namespace WinGoTag
 {
@@ -18,6 +14,7 @@ namespace WinGoTag
             else
                 await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await new MessageDialog(source, title).ShowAsync());
         }
+
         public static void ExceptionMessage(this Exception ex, string name = "")
         {
             Output($"{name} ex: {ex.Message}");
@@ -25,10 +22,9 @@ namespace WinGoTag
             Output($"StackTrace: {ex.StackTrace}");
             Output();
         }
-        public static void ShowInOutput(this object obj)
-        {
-            Output(obj);
-        }
+
+        public static void ShowInOutput(this object obj) => Output(obj);
+
         public static void Output(object content = null)
         {
             if (content == null)
@@ -36,6 +32,7 @@ namespace WinGoTag
             else
                 Debug.WriteLine(Convert.ToString(content));
         }
+
         public static void Output(params string[] contents)
         {
             if (contents == null)

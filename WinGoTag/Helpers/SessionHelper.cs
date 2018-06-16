@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -30,6 +27,7 @@ namespace WinGoTag.Helpers
             }
             catch (Exception ex) { ex.ExceptionMessage("SessionHelper.BackupCurrentSession"); }
         }
+
         public static async Task<string> GetBackupSession(string username)
         {
             try
@@ -42,6 +40,7 @@ namespace WinGoTag.Helpers
             catch (Exception ex) { ex.ExceptionMessage("SessionHelper.GetBackupSession"); }
             return string.Empty;
         }
+
         public static async Task<bool> IsBackupSessionAvailable(string username)
         {
             try
@@ -58,6 +57,7 @@ namespace WinGoTag.Helpers
             catch (Exception ex) { ex.ExceptionMessage("SessionHelper.GetBackupSession"); }
             return false;
         }
+
         public static async Task DeleteBackupSession(string username)
         {
             try
@@ -70,6 +70,7 @@ namespace WinGoTag.Helpers
             }
             catch (Exception ex) { ex.ExceptionMessage("SessionHelper.DeleteBackupSession"); }
         }
+
         public static async Task DeleteCurrentSession()
         {
             try
