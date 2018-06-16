@@ -142,7 +142,7 @@
                                           ScrollViewer.HorizontalScrollMode="Enabled" 
                                           ScrollViewer.VerticalScrollMode="Disabled"
                                           SelectionMode="None" IsItemClickEnabled="True"
-                                          Margin="0,6,0,0" ItemClick="StoriesList_ItemClick" MinHeight="60">
+                                          Margin="0,6,0,0" ItemClick="StoriesList_ItemClick" MinHeight="60" ItemContainerStyle="{StaticResource GridViewItemExpanded}" >
 
                                         <GridView.ItemTemplate>
                                             <DataTemplate>
