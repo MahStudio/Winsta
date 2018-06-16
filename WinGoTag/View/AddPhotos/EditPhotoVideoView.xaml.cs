@@ -3,28 +3,14 @@ using Lumia.Imaging.Adjustments;
 using Lumia.Imaging.Artistic;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Imaging;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using WinGoTag.View.AddPhotos.EditItem;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -64,7 +50,7 @@ namespace WinGoTag.View.AddPhotos
         }
         IImageProvider LastEffect;
         StorageFile imageStorageFile;
-        private class FilterListItem
+        class FilterListItem
         {
             public Uri bitmapSource { get; set; }
             public string FilterName { get; set; }
@@ -72,7 +58,7 @@ namespace WinGoTag.View.AddPhotos
         int EffectIndex = -1;
         public EditPhotoVideoView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -87,18 +73,18 @@ namespace WinGoTag.View.AddPhotos
             base.OnNavigatedTo(e);
             AppCore.ModerateBack(Frame.GoBack);
             imageStorageFile = e.Parameter as StorageFile;
-            //bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
+            // bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
 
-            //EditItem.AddEditItem vm = new EditItem.AddEditItem();
-            //this.DataContext = vm;
-            //EditsList.ItemsSource = vm.GridViewItems;
+            // EditItem.AddEditItem vm = new EditItem.AddEditItem();
+            // this.DataContext = vm;
+            // EditsList.ItemsSource = vm.GridViewItems;
             foreach (var item in Enum.GetNames(typeof(ImageFiltersEnum)))
             {
                 FiltersList.Items.Add(new FilterListItem() { bitmapSource = await AddFilter((ImageFiltersEnum)Enum.Parse(typeof(ImageFiltersEnum), item)), FilterName = item });
             }
-            //(new FilterListItem()).bitmapSource.Source
-            //Vibrance(100);
+            // (new FilterListItem()).bitmapSource.Source
+            // Vibrance(100);
             Preview_Image.Source = new BitmapImage(await NoFilter());
         }
 
@@ -157,12 +143,12 @@ namespace WinGoTag.View.AddPhotos
                 default:
                     return await NoFilter();
             }
-            //using (var source = new StorageFileImageSource(imageStorageFile))
-            //using (var sharpnessEffect = new BlurEffect(source) { KernelSize = 40 })
-            //using (var renderer = new JpegRenderer(sharpnessEffect))
-            //{
+            // using (var source = new StorageFileImageSource(imageStorageFile))
+            // using (var sharpnessEffect = new BlurEffect(source) { KernelSize = 40 })
+            // using (var renderer = new JpegRenderer(sharpnessEffect))
+            // {
             //    return await SaveToImage();
-            //}
+            // }
         }
 
         async Task<Uri> NoFilter()
@@ -518,7 +504,7 @@ namespace WinGoTag.View.AddPhotos
 
         async Task<Uri> Despeckle(int EffectPercentage)
         {
-            DespeckleLevel Level = DespeckleLevel.Minimum;
+            var Level = DespeckleLevel.Minimum;
             if (EffectPercentage < 25) Level = DespeckleLevel.Minimum;
             if (EffectPercentage > 25 && EffectPercentage <= 50) Level = DespeckleLevel.Low;
             if (EffectPercentage > 50 && EffectPercentage <= 75) Level = DespeckleLevel.High;
@@ -577,7 +563,7 @@ namespace WinGoTag.View.AddPhotos
 
         async Task<Uri> Noise(int EffectPercentage)
         {
-            NoiseLevel level = NoiseLevel.Minimum;
+            var level = NoiseLevel.Minimum;
             if (EffectPercentage <= 35) level = NoiseLevel.Minimum;
             else if (EffectPercentage > 70) level = NoiseLevel.Maximum;
             else level = NoiseLevel.Medium;
@@ -634,21 +620,17 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-
-        private void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
+        void FiltersList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as FilterListItem;
             FiltersList.SelectedItem = e.ClickedItem;
             Preview_Image.Source = new BitmapImage(item.bitmapSource);
         }
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.GoBack();
-        }
+        void ToBackBT_Click(object sender, RoutedEventArgs e) => Frame.GoBack();
 
-        //private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        //{
+        // private void SliderContrast_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        // {
         //    if (EffectIndex is -1) { return; }
 
         //    int value = Convert.ToInt32(SliderContrast.Value);
@@ -664,25 +646,25 @@ namespace WinGoTag.View.AddPhotos
         //        case 5: /*Add*/ break;
         //        case 6: /*add*/ break;
         //    }
-        //}
+        // }
 
-        //private void EditsList_ItemClick(object sender, ItemClickEventArgs e)
-        //{
+        // private void EditsList_ItemClick(object sender, ItemClickEventArgs e)
+        // {
         //    var data = e.ClickedItem as GridViewEditItem;
         //    EffectIndex = data.Target;
         //    _NameEffect.Text = data.Text;
         //    EditRoot.Visibility = Visibility.Visible;
-        //}
+        // }
 
-        //private void Cancel_Click(object sender, RoutedEventArgs e)
-        //{
+        // private void Cancel_Click(object sender, RoutedEventArgs e)
+        // {
         //    EditRoot.Visibility = Visibility.Collapsed;
-        //}
+        // }
 
-        //private void Done_Click(object sender, RoutedEventArgs e)
-        //{
+        // private void Done_Click(object sender, RoutedEventArgs e)
+        // {
         //    EditRoot.Visibility = Visibility.Collapsed;
-        //}
+        // }
 
         async Task<Uri> SaveToImage()
         {
@@ -691,7 +673,7 @@ namespace WinGoTag.View.AddPhotos
             {
                 var info = await source.GetInfoAsync();
                 var max = Math.Max(info.ImageSize.Height, info.ImageSize.Width);
-                renderer.Size = new Size(max,max);
+                renderer.Size = new Size(max, max);
                 var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("file.Jpg", CreationCollisionOption.GenerateUniqueName);
                 var render = await renderer.RenderAsync();
                 using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
@@ -703,53 +685,52 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-        private async void Next_Click(object sender, RoutedEventArgs e)
+        async void Next_Click(object sender, RoutedEventArgs e)
         {
-            //Width of Photo should be 1080 at last
-            //photo that has a width between 320 and 1080 pixels,
-            //photo's aspect ratio is between 1.91:1 and 4:5 (a height between 566 and 1350 pixels with a width of 1080 pixels)
+            // Width of Photo should be 1080 at last
+            // photo that has a width between 320 and 1080 pixels,
+            // photo's aspect ratio is between 1.91:1 and 4:5 (a height between 566 and 1350 pixels with a width of 1080 pixels)
             using (var source = new StorageFileImageSource(imageStorageFile))
             {
                 var size = (await source.GetInfoAsync()).ImageSize;
                 var res = await AppCore.InstaApi.UploadPhotoAsync(
                     new InstaSharper.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
             }
+
             StorageFile F2S = null;
             if (FiltersList.SelectedItem == null)
-            {
                 F2S = imageStorageFile;
-            }
+
             else
-            {
                 F2S = await StorageFile.GetFileFromApplicationUriAsync((FiltersList.SelectedItem as FilterListItem).bitmapSource);
-            }
-            FileSavePicker fsp = new FileSavePicker();
-            fsp.FileTypeChoices.Add(".jpg", new List<string> { ".jpg" } );
+
+            var fsp = new FileSavePicker();
+            fsp.FileTypeChoices.Add(".jpg", new List<string> { ".jpg" });
             fsp.SuggestedFileName = "WinGoTag";
             fsp.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             var fs = await fsp.PickSaveFileAsync();
             if (fs == null)
                 return;
             await F2S.CopyAndReplaceAsync(fs);
-        //    using (var source = new StorageFileImageSource(imageStorageFile))
-        //    using (var contrastEffect = new BlurEffect(source) { KernelSize = 40 })
-        //    using (var renderer = new JpegRenderer(contrastEffect, JpegOutputColorMode.Yuv420))
-        //    {
-        //        var info = await source.GetInfoAsync();
-        //        var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("TempImage1.Jpg", CreationCollisionOption.OpenIfExists);
-        //        var render = await renderer.RenderAsync();
-        //        using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
-        //        {
-        //            await fs.WriteAsync(render);
-        //            await fs.FlushAsync();
-        //        }
-        //    }
-        //    var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
-        //    {
-        //        URI = new Uri("ms-appdata:///TempImage1.Jpg", UriKind.Absolute).LocalPath,
-        //        Width = 391,
-        //        Height = 428
-        //    }, "از بیرون تحریم؛ از داخل فیلتر :|");
+            //    using (var source = new StorageFileImageSource(imageStorageFile))
+            //    using (var contrastEffect = new BlurEffect(source) { KernelSize = 40 })
+            //    using (var renderer = new JpegRenderer(contrastEffect, JpegOutputColorMode.Yuv420))
+            //    {
+            //        var info = await source.GetInfoAsync();
+            //        var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("TempImage1.Jpg", CreationCollisionOption.OpenIfExists);
+            //        var render = await renderer.RenderAsync();
+            //        using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
+            //        {
+            //            await fs.WriteAsync(render);
+            //            await fs.FlushAsync();
+            //        }
+            //    }
+            //    var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
+            //    {
+            //        URI = new Uri("ms-appdata:///TempImage1.Jpg", UriKind.Absolute).LocalPath,
+            //        Width = 391,
+            //        Height = 428
+            //    }, "از بیرون تحریم؛ از داخل فیلتر :|");
         }
     }
 }

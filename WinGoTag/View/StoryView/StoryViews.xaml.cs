@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -25,7 +24,7 @@ namespace WinGoTag.View.StoryView
         public static FlipView FlipViewStory = new FlipView();
         public StoryViews()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             timer = new DispatcherTimer
             { Interval = TimeSpan.FromSeconds(1) };
             FlipViewStory = Flipviews;
@@ -33,26 +32,19 @@ namespace WinGoTag.View.StoryView
             StartStopTimerEvent += StoryViews_StartStopTimerEvent;
         }
 
-        private void StoryViews_StartStopTimerEvent(object sender, bool e)
+        void StoryViews_StartStopTimerEvent(object sender, bool e)
         {
-            if(e)
-            {
+            if (e)
                 timer.Stop();
-            }
             else
-            {
                 timer.Start();
-            }
-        }
-        
-        public static void PauseStartTimer(bool Pause)
-        {
-            StartStopTimerEvent?.Invoke(null, Pause);
         }
 
-        private void Timer_Tick(object sender, object o)
+        public static void PauseStartTimer(bool Pause) => StartStopTimerEvent?.Invoke(null, Pause);
+
+        void Timer_Tick(object sender, object o)
         {
-            //_BarSecond.Value = _BarSecond.Value + 0.1;
+            // _BarSecond.Value = _BarSecond.Value + 0.1;
             _BarSecond.Value++;
             if (_BarSecond.Value == SecondItemList[Flipviews.SelectedIndex])
             {
@@ -67,28 +59,26 @@ namespace WinGoTag.View.StoryView
             }
         }
 
-
-        private void Flipviews_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void Flipviews_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                //timer.Stop();
+                // timer.Stop();
                 _BarSecond.Value = 0;
                 _BarSecond.Maximum = (SecondItemList[Flipviews.SelectedIndex]);
 
                 var items = Flipviews.ItemsSource as List<InstaStoryItem>;
                 var selecteditem = items[Flipviews.SelectedIndex];
                 var p = items.Where(x => x.Play == true);
-                foreach (var item in p) { item.Play = false; }
+                foreach (var item in p) item.Play = false;
+
                 selecteditem.Play = true;
-                //timer.Start();
+                // timer.Start();
             }
             catch
             {
-
             }
         }
-
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -97,22 +87,20 @@ namespace WinGoTag.View.StoryView
                 AppCore.ModerateBack(CloseStories);
             if (e.Parameter is InstaReelFeed)
             {
-                this.DataContext = ((InstaReelFeed)e.Parameter);
+                DataContext = ((InstaReelFeed)e.Parameter);
                 AnimationEnter();
                 var i = ((InstaReelFeed)e.Parameter);
                 InstaReelFeed story = null;
                 if ((e.Parameter as InstaReelFeed).Items.Count != 0)
-                {
                     story = e.Parameter as InstaReelFeed;
-                }
                 else
-                {
                     story = (await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk)).Value;
-                }
-                foreach (var item in story.Items) { item.Play = false; }
+
+                foreach (var item in story.Items) item.Play = false;
+
+
                 Flipviews.ItemsSource = story.Items;
                 for (int a = 0; a < Flipviews.Items.Count; a++)
-                {
                     switch (story.Items[a].MediaType)
                     {
                         case 1:
@@ -123,21 +111,23 @@ namespace WinGoTag.View.StoryView
                             SecondItemList.Add(story.Items[a].VideoDuration);
                             break;
                     }
-                }
-                story.Items[0].Play = true;
-                //Flipviews.ItemsSource = i.Items;
 
-                //var strs = await AppCore.InstaApi.LiveProcessor.SeenBroadcastAsync(i.Id.ToString(), i.HasBestiesMedia.ToString());
+                story.Items[0].Play = true;
+                // Flipviews.ItemsSource = i.Items;
+
+                // var strs = await AppCore.InstaApi.LiveProcessor.SeenBroadcastAsync(i.Id.ToString(), i.HasBestiesMedia.ToString());
             }
             else
             {
-                this.DataContext = ((InstaStory)e.Parameter);
+                DataContext = ((InstaStory)e.Parameter);
                 AnimationEnter();
                 var i = ((InstaStory)e.Parameter);
                 try
                 {
                     var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
-                    foreach (var item in story.Value.Items) { item.Play = false; }
+                    foreach (var item in story.Value.Items) item.Play = false;
+
+
                     Flipviews.ItemsSource = story.Value.Items;
                     for (int a = 0; a < Flipviews.Items.Count; a++)
                     {
@@ -152,15 +142,15 @@ namespace WinGoTag.View.StoryView
                                 break;
                         }
                     }
+
                     story.Value.Items[0].Play = true;
                 }
                 catch
                 {
                     var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.Owner.Pk);
-                    //foreach (var item in story.Items) { item.Play = false; }
+                    // foreach (var item in story.Items) { item.Play = false; }
                     Flipviews.ItemsSource = story.Value.Items;
                     for (int a = 0; a < Flipviews.Items.Count; a++)
-                    {
                         switch (story.Value.Items[a].MediaType)
                         {
                             case 1:
@@ -171,21 +161,15 @@ namespace WinGoTag.View.StoryView
                                 SecondItemList.Add(story.Value.Items[a].VideoDuration);
                                 break;
                         }
-                    }
                 }
-
-
             }
 
-            
             if (Flipviews.Items.Count > 0)
             {
                 _BarSecond.Maximum = (SecondItemList[0]);
                 timer.Tick += Timer_Tick;
                 timer.Start();
             }
-
-
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -197,7 +181,8 @@ namespace WinGoTag.View.StoryView
             }
             catch { }
         }
-        private void CloseStories()
+
+        void CloseStories()
         {
             try
             {
@@ -206,23 +191,20 @@ namespace WinGoTag.View.StoryView
             }
             catch
             {
-
             }
         }
 
         public void AnimationEnter()
         {
-            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
+            var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("image");
             if (imageAnimation != null)
             { imageAnimation.TryStart(Frame); }
         }
-        
-        private void BackBT_Click(object sender, RoutedEventArgs e)
+
+        void BackBT_Click(object sender, RoutedEventArgs e)
         {
             timer.Stop();
             Frame.Navigate(typeof(Page));
         }
-
-
     }
 }

@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Media.Capture;
 using Windows.System.Display;
 using Windows.System.Profile;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // Il modello di elemento Pagina vuota è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234238
@@ -31,10 +20,8 @@ namespace WinGoTag.View.CameraView
         bool isPreviewing;
         DisplayRequest displayRequest = new DisplayRequest();
 
-        public CameraView()
-        {
-            this.InitializeComponent();
-        }
+        public CameraView() => InitializeComponent();
+
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -44,17 +31,11 @@ namespace WinGoTag.View.CameraView
             await StartPreviewAsync();
         }
 
-        void BackFunc()
-        {
-            MainView.MainViewPivot.SelectedIndex = 1;
-        }
+        void BackFunc() => MainView.MainViewPivot.SelectedIndex = 1;
 
-        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            await CleanupCameraAsync();
-        }
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e) => await CleanupCameraAsync();
 
-        private async Task StartPreviewAsync()
+        async Task StartPreviewAsync()
         {
             try
             {
@@ -68,12 +49,12 @@ namespace WinGoTag.View.CameraView
                     mediaCapture.SetPreviewRotation(VideoRotation.Clockwise270Degrees);
                 }
 
-                //DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
+                // DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
             }
             catch (UnauthorizedAccessException)
             {
                 // This will be thrown if the user denied access to the camera in privacy settings
-                //ShowMessageToUser("The app was denied access to the camera");
+                // ShowMessageToUser("The app was denied access to the camera");
                 return;
             }
 
@@ -89,11 +70,10 @@ namespace WinGoTag.View.CameraView
             }
         }
 
-        private async void _mediaCapture_CaptureDeviceExclusiveControlStatusChanged(MediaCapture sender, MediaCaptureDeviceExclusiveControlStatusChangedEventArgs args)
+        async void _mediaCapture_CaptureDeviceExclusiveControlStatusChanged(MediaCapture sender, MediaCaptureDeviceExclusiveControlStatusChangedEventArgs args)
         {
             if (args.Status == MediaCaptureDeviceExclusiveControlStatus.SharedReadOnlyAvailable)
             {
-
             }
 
             else if (args.Status == MediaCaptureDeviceExclusiveControlStatus.ExclusiveControlAvailable && !isPreviewing)
@@ -105,22 +85,18 @@ namespace WinGoTag.View.CameraView
             }
         }
 
-        private async Task CleanupCameraAsync()
+        async Task CleanupCameraAsync()
         {
             if (mediaCapture != null)
             {
                 if (isPreviewing)
-                {
                     await mediaCapture.StopPreviewAsync();
-                }
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     PreviewControl.Source = null;
                     if (displayRequest != null)
-                    {
                         displayRequest.RequestRelease();
-                    }
 
                     mediaCapture.Dispose();
                     mediaCapture = null;

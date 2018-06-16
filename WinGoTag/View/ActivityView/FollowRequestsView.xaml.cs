@@ -1,17 +1,6 @@
 ﻿using InstaSharper.Classes.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.View.UserViews;
 
@@ -24,10 +13,8 @@ namespace WinGoTag.View.ActivityView
     /// </summary>
     public sealed partial class FollowRequestsView : Page
     {
-        public FollowRequestsView()
-        {
-            this.InitializeComponent();
-        }
+        public FollowRequestsView() => InitializeComponent();
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -37,24 +24,21 @@ namespace WinGoTag.View.ActivityView
             myList.ItemsSource = e.Parameter;
         }
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
 
-        private void User_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Frame.Navigate(typeof(UserProfileView), e.ClickedItem);
-        }
+        void User_ItemClick(object sender, ItemClickEventArgs e) => Frame.Navigate(typeof(UserProfileView), e.ClickedItem);
 
-        private void Accept_Click(object sender, RoutedEventArgs e)
+        void Accept_Click(object sender, RoutedEventArgs e)
         {
             var user = (sender as Button).Tag as InstaUserShort;
             AppCore.InstaApi.AcceptFriendshipRequest(user.Pk);
         }
 
-        private void Ignore_Click(object sender, RoutedEventArgs e)
+        void Ignore_Click(object sender, RoutedEventArgs e)
         {
             var user = (sender as Button).Tag as InstaUserShort;
             AppCore.InstaApi.IgnoreFriendshipRequest(user.Pk);

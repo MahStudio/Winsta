@@ -2,17 +2,8 @@
 using InstaSharper.Classes.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.DataBinding;
 
@@ -32,64 +23,60 @@ namespace WinGoTag.View.DirectMessages
         GenerateDirectThreadList<InstaDirectInboxItem> ItemsList;
 
         List<InstaDirectInboxItem> listTest = new List<InstaDirectInboxItem>();
-        public DirectChatView()
-        {
-            this.InitializeComponent();
-        }
+        public DirectChatView() => InitializeComponent();
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(BackFunc);
-            this.DataContext = ((InstaDirectInboxThread)e.Parameter);
+            DataContext = ((InstaDirectInboxThread)e.Parameter);
             var source = ((InstaDirectInboxThread)e.Parameter);
-            ItemsList = new GenerateDirectThreadList<InstaDirectInboxItem>(100000, (count) =>
-            {
-                return new InstaDirectInboxItem();
-            }, source.ThreadId);
-            var Message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
-            VieweIds = Message.Value.VieweId;
-            ThreadIds = Message.Value.ThreadId;
-            DataUser = Message.Value.Users[0];
+            ItemsList = new GenerateDirectThreadList<InstaDirectInboxItem>(100000, (count) => new InstaDirectInboxItem()
+            , source.ThreadId);
+            var message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
+            VieweIds = message.Value.VieweId;
+            ThreadIds = message.Value.ThreadId;
+            DataUser = message.Value.Users[0];
             try
             {
-                UserId = Message.Value.Users[0].Pk;
+                UserId = message.Value.Users[0].Pk;
             }
             catch
             {
                 UserId = (await AppCore.InstaApi.GetCurrentUserAsync()).Value.Pk;
             }
-            //MessageList.ItemsSource = Message.Value.Items;
-            Message.Value.Items.Reverse();
-            //for (int a = 0; a < Message.Value.Items.Count; a++)
-            //{
+
+            // MessageList.ItemsSource = Message.Value.Items;
+            message.Value.Items.Reverse();
+            // for (int a = 0; a < Message.Value.Items.Count; a++)
+            // {
             //    MessageList.Items.Add(Message.Value.Items[a]);
-            //}
+            // }
 
-
-
-            //foreach (InstaDirectInboxItem item in ItemsList)
-            //{
+            // foreach (InstaDirectInboxItem item in ItemsList)
+            // {
             //    MessageList.Items.Insert(0, item);
-            //}
+            // }
 
             MessageList.ItemsSource = ItemsList;
 
-            //var test = await AppCore.InstaApi.GetRecentRecipientsAsync();
+            // var test = await AppCore.InstaApi.GetRecentRecipientsAsync();
         }
+
         void BackFunc()
         {
             MainView.HeaderD.Visibility = Visibility.Visible;
             Frame.GoBack();
         }
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             BackFunc();
             AppCore.ModerateBack("");
         }
 
-        private void TextBoxChat_TextChanged(object sender, TextChangedEventArgs e)
+        void TextBoxChat_TextChanged(object sender, TextChangedEventArgs e)
         {
             switch (TextBoxChat.Text.Length)
             {
@@ -101,37 +88,30 @@ namespace WinGoTag.View.DirectMessages
             DynamicIcon.Glyph = "\ue122";
         }
 
-        private async void DynamicButton_Click(object sender, RoutedEventArgs e)
+        async void DynamicButton_Click(object sender, RoutedEventArgs e)
         {
             switch (TextBoxChat.Text.Length)
             {
                 case 0:
-
                     return;
             }
-
 
             var MessageSend = await AppCore.InstaApi.SendDirectMessage(UserId.ToString(), ThreadIds, TextBoxChat.Text);
             TextBoxChat.Text = "";
             for (int a = 0; a < MessageSend.Value[0].Items.Count; a++)
-            {
                 ItemsList.Add(MessageSend.Value[0].Items[a]);
-                //MessageList.Items.Add(MessageSend.Value[0].Items[a]);
-            }
+            // MessageList.Items.Add(MessageSend.Value[0].Items[a]);
 
 
-            //FOR TEST
-            //var addItem = new InstaDirectInboxItem() { ItemType = InstaDirectThreadItemType.Text, Text = TextBoxChat.Text };
-            //TextBoxChat.Text = "";
-            //MessageList.Items.Add(addItem);
-
+            // FOR TEST
+            // var addItem = new InstaDirectInboxItem() { ItemType = InstaDirectThreadItemType.Text, Text = TextBoxChat.Text };
+            // TextBoxChat.Text = "";
+            // MessageList.Items.Add(addItem);
         }
 
-        private void MessageList_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        void MessageList_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            //MessageList.Items.OrderBy(x => ((InstaDirectInboxItem)x).TimeStamp);
+            // MessageList.Items.OrderBy(x => ((InstaDirectInboxItem)x).TimeStamp);
         }
-
-       
     }
 }

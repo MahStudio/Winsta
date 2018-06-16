@@ -22,9 +22,6 @@ namespace WinGoTag.View.SignInSignUp
     /// </summary>
     public sealed partial class TwoStepFactorView : Page
     {
-        public TwoStepFactorView()
-        {
-            this.InitializeComponent();
-        }
+        public TwoStepFactorView() => this.InitializeComponent();
     }
 }

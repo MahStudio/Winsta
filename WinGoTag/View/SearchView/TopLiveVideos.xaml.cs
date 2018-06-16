@@ -1,17 +1,6 @@
 ﻿using InstaSharper.Classes.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -24,26 +13,23 @@ namespace WinGoTag.View.SearchView
     /// </summary>
     public sealed partial class TopLiveVideos : Page
     {
-        public TopLiveVideos()
-        {
-            this.InitializeComponent();
-        }
+        public TopLiveVideos() => InitializeComponent();
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             SearchPage.GridAuto.Visibility = Visibility.Collapsed;
-            //this.DataContext = e.Parameter as InstaTopLive;
+            // this.DataContext = e.Parameter as InstaTopLive;
             var top = await AppCore.InstaApi.LiveProcessor.GetDiscoverTopLiveAsync();
-            
+
             AdaptiveGridViewControl.ItemsSource = top.Value.Broadcasts;
-            //var src = await FFmpegInteropMSS.CreateFromUriAsync(top.Value.Broadcasts.FirstOrDefault().RtmpPlaybackUrl, new FFmpegInteropConfig() {  });
-            //var src2 = src.GetMediaStreamSource();
-            //Element.SetMediaStreamSource(src2);
-            //Element.Play();
+            // var src = await FFmpegInteropMSS.CreateFromUriAsync(top.Value.Broadcasts.FirstOrDefault().RtmpPlaybackUrl, new FFmpegInteropConfig() {  });
+            // var src2 = src.GetMediaStreamSource();
+            // Element.SetMediaStreamSource(src2);
+            // Element.Play();
         }
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
             try
@@ -51,14 +37,13 @@ namespace WinGoTag.View.SearchView
                 SearchPage.GridAuto.Visibility = Visibility.Visible;
             }
             catch { }
-            
         }
 
-        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
+        void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
         {
             var data = ((InstaBroadcast)e.ClickedItem);
-            GridViewItem itemAnimation = (GridViewItem)AdaptiveGridViewControl.ContainerFromItem(data);
-            
+            var itemAnimation = (GridViewItem)AdaptiveGridViewControl.ContainerFromItem(data);
+
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Poster", itemAnimation);
             MainPage.MainFrame.Navigate(typeof(StoryViewLive), data);
         }

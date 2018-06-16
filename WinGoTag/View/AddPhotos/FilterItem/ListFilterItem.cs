@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Imaging;
+﻿using Windows.UI.Xaml.Media.Imaging;
 
 namespace WinGoTag.View.AddPhotos.FilterItem
 {
@@ -11,7 +6,6 @@ namespace WinGoTag.View.AddPhotos.FilterItem
     {
         public string Name { get; set; }
         public int Filter { get; set; }
-
         public BitmapImage Image { get; set; }
     }
 }

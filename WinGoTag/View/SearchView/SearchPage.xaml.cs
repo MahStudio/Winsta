@@ -1,19 +1,7 @@
-﻿using InstaSharper.Classes.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.View.UserViews;
@@ -31,7 +19,7 @@ namespace WinGoTag.View.SearchView
         public static SearchPage Current;
         public SearchPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Current = this;
             EditFr.Navigate(typeof(Page));
             GridAuto = GridAutoSuggest;
@@ -41,17 +29,17 @@ namespace WinGoTag.View.SearchView
         {
             base.OnNavigatedTo(e);
             if (e != null && e.Parameter != null && e.Parameter is string str)
-            {
                 PushSearch(str);
-            }
         }
+
         public void PushSearch(string query)
         {
             if (!string.IsNullOrEmpty(query))
                 SearchBox.Text = query;
             SearchBox.Focus(FocusState.Pointer);
         }
-        private async void SearchPage_Loaded(object sender, RoutedEventArgs e)
+
+        async void SearchPage_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -61,12 +49,11 @@ namespace WinGoTag.View.SearchView
             catch { }
         }
 
-        private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-
         }
 
-        private async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        async void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             var query = SearchBox.Text;
             if (query.StartsWith("@"))
@@ -96,31 +83,29 @@ namespace WinGoTag.View.SearchView
                     PeopleList.ItemsSource = People.Value.Users;
                     PivotSearch.SelectedIndex = 1;
                 }
-
             }
         }
 
-
-        private void CancelBT_Click(object sender, RoutedEventArgs e)
+        void CancelBT_Click(object sender, RoutedEventArgs e)
         {
             AnimationGrid(GridSearch, 1, 0, Visibility.Collapsed);
-            //GridSearch.Visibility = Visibility.Collapsed;
+            // GridSearch.Visibility = Visibility.Collapsed;
             CancelBT.Visibility = Visibility.Collapsed;
         }
 
-        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(CancelBT.Visibility != Visibility.Visible)
+            if (CancelBT.Visibility != Visibility.Visible)
             {
                 AnimationGrid(GridSearch, 0, 1, Visibility.Visible);
-                //GridSearch.Visibility = Visibility.Visible;
+                // GridSearch.Visibility = Visibility.Visible;
                 CancelBT.Visibility = Visibility.Visible;
             }
         }
 
-        private void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
+        void AnimationGrid(Grid sender, double From, double To, Visibility visibility)
         {
-            DoubleAnimation fade = new DoubleAnimation()
+            var fade = new DoubleAnimation()
             {
                 From = From,
                 To = To,
@@ -129,26 +114,18 @@ namespace WinGoTag.View.SearchView
             };
             Storyboard.SetTarget(fade, sender);
             Storyboard.SetTargetProperty(fade, "Opacity");
-            Storyboard openpane = new Storyboard();
+            var openpane = new Storyboard();
             openpane.Children.Add(fade);
             openpane.Begin();
             Task.Delay(04);
             GridSearch.Visibility = visibility;
         }
 
+        void ExploreFr_Loaded(object sender, RoutedEventArgs e) => ExploreFr.Navigate(typeof(ExploreView));
 
+        void PeopleList_ItemClick(object sender, ItemClickEventArgs e) => EditFr.Navigate(typeof(UserProfileView), e.ClickedItem);
 
-        private void ExploreFr_Loaded(object sender, RoutedEventArgs e)
-        {
-            ExploreFr.Navigate(typeof(ExploreView));
-        }
-
-        private void PeopleList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserProfileView), e.ClickedItem);
-        }
-
-        private void PivotSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void PivotSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {

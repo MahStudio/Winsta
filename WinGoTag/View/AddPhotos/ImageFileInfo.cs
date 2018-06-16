@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
@@ -17,12 +14,12 @@ namespace WinGoTag.View.AddPhotos
         public ImageFileInfo(ImageProperties properties, StorageFile imageFile, string name, string type)
         {
             ImageProperties = properties;
-            //ImageName = name;
-            //ImageFileType = type;
+            // ImageName = name;
+            // ImageFileType = type;
             ImageFile = imageFile;
-            //var rating = (int)properties.Rating;
-            //var random = new Random();
-            //ImageRating = rating == 0 ? random.Next(1, 5) : rating;
+            // var rating = (int)properties.Rating;
+            // var random = new Random();
+            // ImageRating = rating == 0 ? random.Next(1, 5) : rating;
         }
 
         public StorageFile ImageFile { get; }
@@ -34,7 +31,7 @@ namespace WinGoTag.View.AddPhotos
             using (IRandomAccessStream fileStream = await ImageFile.OpenReadAsync())
             {
                 // Create a bitmap to be the image source.
-                BitmapImage bitmapImage = new BitmapImage();
+                var bitmapImage = new BitmapImage();
                 bitmapImage.SetSource(fileStream);
 
                 return bitmapImage;
@@ -45,7 +42,7 @@ namespace WinGoTag.View.AddPhotos
         {
             var thumbnail = await ImageFile.GetThumbnailAsync(ThumbnailMode.PicturesView);
             // Create a bitmap to be the image source.
-            BitmapImage bitmapImage = new BitmapImage();
+            var bitmapImage = new BitmapImage();
             bitmapImage.SetSource(thumbnail);
             thumbnail.Dispose();
 
@@ -60,7 +57,7 @@ namespace WinGoTag.View.AddPhotos
 
         public string ImageTitle
         {
-            get => String.IsNullOrEmpty(ImageProperties.Title) ? ImageName : ImageProperties.Title;
+            get => string.IsNullOrEmpty(ImageProperties.Title) ? ImageName : ImageProperties.Title;
             set
             {
                 if (ImageProperties.Title != value)
@@ -86,53 +83,53 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-        private float _exposure = 0;
+        float exposure = 0;
         public float Exposure
         {
-            get => _exposure;
-            set => SetEditingProperty(ref _exposure, value);
+            get => exposure;
+            set => SetEditingProperty(ref exposure, value);
         }
 
-        private float _temperature = 0;
+        float temperature = 0;
         public float Temperature
         {
-            get => _temperature;
-            set => SetEditingProperty(ref _temperature, value);
+            get => temperature;
+            set => SetEditingProperty(ref temperature, value);
         }
 
-        private float _tint = 0;
+        float tint = 0;
         public float Tint
         {
-            get => _tint;
-            set => SetEditingProperty(ref _tint, value);
+            get => tint;
+            set => SetEditingProperty(ref tint, value);
         }
 
-        private float _contrast = 0;
+        float contrast = 0;
         public float Contrast
         {
-            get => _contrast;
-            set => SetEditingProperty(ref _contrast, value);
+            get => contrast;
+            set => SetEditingProperty(ref contrast, value);
         }
 
-        private float _saturation = 1;
+        float saturation = 1;
         public float Saturation
         {
-            get => _saturation;
-            set => SetEditingProperty(ref _saturation, value);
+            get => saturation;
+            set => SetEditingProperty(ref saturation, value);
         }
 
-        private float _blur = 0;
+        float blur = 0;
         public float Blur
         {
-            get => _blur;
-            set => SetEditingProperty(ref _blur, value);
+            get => blur;
+            set => SetEditingProperty(ref blur, value);
         }
 
-        private bool _needsSaved = false;
+        bool needsSaved;
         public bool NeedsSaved
         {
-            get => _needsSaved;
-            set => SetProperty(ref _needsSaved, value);
+            get => needsSaved;
+            set => SetProperty(ref needsSaved, value);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -140,7 +137,7 @@ namespace WinGoTag.View.AddPhotos
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        protected bool SetEditingProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        protected bool SetEditingProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (SetProperty(ref storage, value, propertyName))
             {
@@ -152,6 +149,7 @@ namespace WinGoTag.View.AddPhotos
                 {
                     NeedsSaved = false;
                 }
+
                 return true;
             }
             else
@@ -160,7 +158,7 @@ namespace WinGoTag.View.AddPhotos
             }
         }
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             if (object.Equals(storage, value))
             {
@@ -174,5 +172,4 @@ namespace WinGoTag.View.AddPhotos
             }
         }
     }
-
 }

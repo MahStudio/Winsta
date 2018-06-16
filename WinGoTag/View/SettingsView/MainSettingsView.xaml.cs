@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using WinGoTag.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -24,12 +14,9 @@ namespace WinGoTag.View.SettingsView
     /// </summary>
     public sealed partial class MainSettingsView : Page
     {
-        public MainSettingsView()
-        {
-            this.InitializeComponent();
-        }
+        public MainSettingsView() => InitializeComponent();
 
-        private void LVI_Tapped(object sender, TappedRoutedEventArgs e)
+        void LVI_Tapped(object sender, TappedRoutedEventArgs e)
         {
             switch ((sender as ListViewItem).Content.ToString())
             {
@@ -41,7 +28,7 @@ namespace WinGoTag.View.SettingsView
             }
         }
 
-        private async void LogoutButtonClick(object sender, RoutedEventArgs e)
+        async void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -57,7 +44,7 @@ namespace WinGoTag.View.SettingsView
                 {
                     if (label1.Label == "Yes")
                         await SessionHelper.BackupCurrentSession();
-                   
+
                     var content2 = $"Are you sure you want to log out?";
                     var md2 = new MessageDialog(content2);
                     md2.Commands.Add(new UICommand("Yes"));
@@ -72,15 +59,13 @@ namespace WinGoTag.View.SettingsView
                             await SessionHelper.DeleteBackupSession(AppCore.InstaApi.GetLoggedUser().UserName);
 
                         AppCore.InstaApi = null;
-                        Frame frame = new Frame();
+                        var frame = new Frame();
                         Window.Current.Content = frame;
                         frame.Navigate(typeof(MainPage));
                         Window.Current.Activate();
                     }
-                
                 }
                 // else do nothing
-
             }
             catch (Exception ex)
             {

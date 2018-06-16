@@ -1,29 +1,8 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.Web.Http;
-using Windows.Web.Http.Filters;
-using WinGoTag.Helpers;
 using WinGoTag.ViewModel.SignInSignUp;
-
 
 namespace WinGoTag.View.SignInSignUp
 {
@@ -34,10 +13,10 @@ namespace WinGoTag.View.SignInSignUp
     {
         public LoginView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Loaded += LoginViewLoaded;
         }
-        private void LoginViewLoaded(object sender, RoutedEventArgs e)
+        void LoginViewLoaded(object sender, RoutedEventArgs e)
         {
             if (sender != null)
             {
@@ -54,6 +33,7 @@ namespace WinGoTag.View.SignInSignUp
                 }
             }
         }
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
@@ -71,7 +51,7 @@ namespace WinGoTag.View.SignInSignUp
             catch { }
         }
 
-        private void UsernameTextKeyDown(object sender, KeyRoutedEventArgs e)
+        void UsernameTextKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (sender != null)
             {
@@ -89,7 +69,7 @@ namespace WinGoTag.View.SignInSignUp
             }
         }
 
-        private void PasswordTextKeyDown(object sender, KeyRoutedEventArgs e)
+        void PasswordTextKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (sender != null)
             {
@@ -116,7 +96,5 @@ namespace WinGoTag.View.SignInSignUp
                 catch { }
             }
         }
-
-
     }
 }

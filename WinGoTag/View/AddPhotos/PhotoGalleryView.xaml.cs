@@ -84,11 +84,11 @@ namespace WinGoTag.View.AddPhotos
 
             foreach (StorageFolder folder in folderList)
             {
-                ListFolder.Items.Add(new Folder { folder = folder, Name = folder.DisplayName});
+                ListFolder.Items.Add(new Folder { folder = folder, Name = folder.DisplayName });
             }
 
             ListFolder.SelectedIndex = 0;
-         
+
         }
 
 
@@ -124,12 +124,12 @@ namespace WinGoTag.View.AddPhotos
             var result = folder.CreateFileQueryWithOptions(options);
             IReadOnlyList<StorageFile> imageFiles = await result.GetFilesAsync();
             bool unsupportedFilesFound = false;
-        
-            foreach (StorageFile file in imageFiles.OrderBy(x=> x.DateCreated).Reverse())
+
+            foreach (StorageFile file in imageFiles.OrderBy(x => x.DateCreated).Reverse())
             {
                 // Only files on the local computer are supported. 
                 // Files on OneDrive or a network location are excluded.
-            
+
                 if (file.Provider.Id == "computer")
                 {
                     Images.Add(await LoadImageInfo(file));
@@ -139,7 +139,7 @@ namespace WinGoTag.View.AddPhotos
                     unsupportedFilesFound = true;
                 }
 
-                
+
             }
 
             if (unsupportedFilesFound == true)
@@ -154,7 +154,7 @@ namespace WinGoTag.View.AddPhotos
                 ContentDialogResult resultNotUsed = await unsupportedFilesDialog.ShowAsync();
             }
         }
-       
+
 
 
 
@@ -193,20 +193,20 @@ namespace WinGoTag.View.AddPhotos
 
         private async void ShowImage(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
-        
+
             if (args.Phase == 1)
             {
                 // It's phase 1, so show this item's image.
                 var templateRoot = args.ItemContainer.ContentTemplateRoot as Grid;
                 var image = (Image)templateRoot.FindName("ItemImage");
-                
+
                 var item = args.Item as ImageFileInfo;
                 try
                 {
                     image.Source = await item.GetImageThumbnailAsync();
                     AnimationImage(image);
                 }
-            
+
                 catch (Exception)
                 {
                     // File could be corrupt, or it might have an image file
@@ -295,19 +295,19 @@ namespace WinGoTag.View.AddPhotos
                     MainImageScroller.ChangeView(null, null, 1); fullSize = false;
                 }
             }
-            catch(Exception x)
+            catch (Exception x)
             {
-                
+
             }
         }
 
         private void MultiSelect_Click(object sender, RoutedEventArgs e)
         {
-            if(IsMultiSelect is false)
+            if (IsMultiSelect is false)
             {
                 ListImage.SelectionMode = ListViewSelectionMode.Multiple; IsMultiSelect = true; return;
             }
-             if(IsMultiSelect is true)
+            if (IsMultiSelect is true)
             {
                 ListImage.SelectionMode = ListViewSelectionMode.Single; IsMultiSelect = false;
             }

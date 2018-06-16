@@ -1,21 +1,11 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.DataBinding;
 using WinGoTag.Helpers;
@@ -32,19 +22,17 @@ namespace WinGoTag.View
     {
         string MediaID = "";
         public GenerateComments<InstaComment> PageItemssource;
-        public CommentsView()
-        {
-            this.InitializeComponent();
-        }
-        private void MessageTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        public CommentsView() => InitializeComponent();
+        void MessageTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
                 SendTextMessage();
         }
+
         async void SendTextMessage()
         {
             var res = await AppCore.InstaApi.CommentMediaAsync(MediaID, MessageTextBox.Text);
-            if(!res.Succeeded)
+            if (!res.Succeeded)
             {
                 await new MessageDialog(res.Info.Message).ShowAsync();
                 return;
@@ -63,41 +51,28 @@ namespace WinGoTag.View
                 AppCore.ModerateBack(Frame.GoBack);
             MediaID = e.Parameter.ToString();
             if (PageItemssource != null)
-            {
                 PageItemssource.CollectionChanged -= PageItemssource_CollectionChanged;
-            }
 
-            PageItemssource = new GenerateComments<InstaComment>(100000, (count) =>
-            {
-                //return tres[count];
-                return new InstaComment();
-            }, e.Parameter.ToString());
+            PageItemssource = new GenerateComments<InstaComment>(100000, (count) => new InstaComment(), e.Parameter.ToString());
             PageItemssource.CollectionChanged += PageItemssource_CollectionChanged;
             mylist.ItemsSource = PageItemssource;
         }
 
-        private void PageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void PageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
         }
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
 
-        private void Username_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(UserProfileView), (sender as HyperlinkButton).Tag);
-        }
+        void Username_Click(object sender, RoutedEventArgs e) => Frame.Navigate(typeof(UserProfileView), (sender as HyperlinkButton).Tag);
 
-        private void Reply_Button(object sender, RoutedEventArgs e)
-        {
-            MessageTextBox.Text = $"@{((sender as HyperlinkButton).Tag as InstaComment).User.UserName}";
-        }
+        void Reply_Button(object sender, RoutedEventArgs e) => MessageTextBox.Text = $"@{((sender as HyperlinkButton).Tag as InstaComment).User.UserName}";
 
-        private void RichTextBlock_Loaded(object sender, RoutedEventArgs e)
+        void RichTextBlock_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender != null)
             {
@@ -106,46 +81,41 @@ namespace WinGoTag.View
                     try
                     {
                         if (richText.DataContext is InstaComment comment && comment != null)
-                        {
                             using (var pg = new PassageHelper())
                             {
                                 var passages = pg.GetParagraph(comment.Text, HyperLinkClick);
                                 richText.Blocks.Clear();
                                 richText.Blocks.Add(passages);
                             }
-                        }
+
                     }
                     catch { }
                 }
             }
         }
 
-        private void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
         {
             if (sender == null)
                 return;
             try
             {
                 if (sender.Inlines.Count > 0)
-                {
                     if (sender.Inlines[0] is Run run && run != null)
                     {
                         var text = run.Text;
                         text = text.ToLower();
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
-                           run.Text.OpenUrl();
+                            run.Text.OpenUrl();
                         else
                         {
                             ToBackBT_Click(ToBackBT, null);
                             MainPage.Current?.PushSearch(text);
                         }
-
                     }
-                }
             }
             catch (Exception ex) { ex.ExceptionMessage("CommentsView.HyperLinkClick"); }
         }
-
     }
 }

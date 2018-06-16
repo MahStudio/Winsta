@@ -1,20 +1,9 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
 using WinGoTag.Helpers;
 using WinGoTag.View.SettingsView;
 using WinGoTag.View.UserViews;
@@ -31,12 +20,12 @@ namespace WinGoTag.View
     {
         public ProfileView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             EditFr.Navigate(typeof(Page));
             DataContextChanged += ProfileView_DataContextChanged;
         }
 
-        private void ProfileView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        void ProfileView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             try
             {
@@ -44,25 +33,24 @@ namespace WinGoTag.View
                 {
                     var context = args.NewValue as ProfileViewModel;
                     if (context != null)
-                    {
                         using (var pg = new PassageHelper())
                         {
                             var passages = pg.GetParagraph(context.UserInfo.Biography, HyperLinkClick);
                             txtBiography.Blocks.Clear();
                             txtBiography.Blocks.Add(passages);
                         }
-                    }
                 }
-            } catch { }
+            }
+            catch { }
         }
-        private void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+
+        void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
         {
             if (sender == null)
                 return;
             try
             {
                 if (sender.Inlines.Count > 0)
-                {
                     if (sender.Inlines[0] is Run run && run != null)
                     {
                         var text = run.Text;
@@ -71,44 +59,32 @@ namespace WinGoTag.View
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
                             run.Text.OpenUrl();
                         else
-                        {
                             MainPage.Current?.PushSearch(text);
-                        }
                     }
-                }
             }
             catch (Exception ex) { ex.ExceptionMessage("CaptionHyperLinkClick"); }
         }
 
-        private void EditProfileBT_Click(object sender, RoutedEventArgs e)
+        void EditProfileBT_Click(object sender, RoutedEventArgs e)
         {
             var DataUser = ((Button)sender);
             var Data = ((InstaUserInfo)DataUser.DataContext);
             EditFr.Navigate(typeof(EditProfile.EditProfile), Data);
         }
 
-        private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserFollowersView), AppCore.InstaApi.GetLoggedUser().UserName);
-        }
+        void Followers_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), AppCore.InstaApi.GetLoggedUser().UserName);
 
-        //Following_Tapped
-        private void Following_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserFollowingsView), AppCore.InstaApi.GetLoggedUser().UserName);
-        }
+        // Following_Tapped
+        void Following_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowingsView), AppCore.InstaApi.GetLoggedUser().UserName);
 
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(MainSettingsView));
-        }
+        void Settings_Click(object sender, RoutedEventArgs e) => EditFr.Navigate(typeof(MainSettingsView));
 
-        private void PivotUserView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void PivotUserView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (PivotUserView.SelectedIndex)
             {
                 case 0:
-                    
+
                     break;
 
                 case 1:
@@ -125,19 +101,14 @@ namespace WinGoTag.View
             }
         }
 
-        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            EditFr.Navigate(typeof(SinglePostView), e.ClickedItem);
-        }
+        void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e) => EditFr.Navigate(typeof(SinglePostView), e.ClickedItem);
 
-        private void HyperlinkButtonClick(object sender, RoutedEventArgs e)
+        void HyperlinkButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (sender is HyperlinkButton btn && btn != null)
-                {
                     ((string)btn.Content).OpenUrl();
-                }
             }
             catch { }
         }

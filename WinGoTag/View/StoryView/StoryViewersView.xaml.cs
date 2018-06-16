@@ -1,18 +1,7 @@
 ﻿using InstaAPI.Classes.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.DataBinding;
 
@@ -27,10 +16,7 @@ namespace WinGoTag.View.StoryView
     {
         public GenerateStoryMediaViewers<User1> StoryViewersItemssource;
 
-        public StoryViewersView()
-        {
-            this.InitializeComponent();
-        }
+        public StoryViewersView() => InitializeComponent();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -38,28 +24,20 @@ namespace WinGoTag.View.StoryView
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
             if (StoryViewersItemssource != null)
-            {
                 StoryViewersItemssource.CollectionChanged -= StoryViewersItemssource_CollectionChanged;
-            }
 
-            StoryViewersItemssource = new GenerateStoryMediaViewers<User1>(100000, (count) =>
-            {
-                //return tres[count];
-                return new User1();
-            }, e.Parameter.ToString());
+            StoryViewersItemssource = new GenerateStoryMediaViewers<User1>(100000, (count) => new User1(), e.Parameter.ToString());
 
             StoryViewersItemssource.CollectionChanged += StoryViewersItemssource_CollectionChanged;
-            //MediasCVS.Source = HomePageItemssource;
+            // MediasCVS.Source = HomePageItemssource;
             myList.ItemsSource = StoryViewersItemssource;
-
         }
 
-        private void StoryViewersItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void StoryViewersItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
         }
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
             AppCore.ModerateBack("");

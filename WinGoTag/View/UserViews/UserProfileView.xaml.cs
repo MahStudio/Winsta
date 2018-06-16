@@ -1,18 +1,9 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.Helpers;
 using WinGoTag.ViewModel.UserViews;
@@ -28,12 +19,12 @@ namespace WinGoTag.View.UserViews
     {
         public UserProfileView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             EditFr.Navigate(typeof(Page));
             DataContextChanged += UserProfileViewDataContextChanged;
         }
 
-        private void UserProfileViewDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        void UserProfileViewDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             try
             {
@@ -53,7 +44,8 @@ namespace WinGoTag.View.UserViews
             }
             catch { }
         }
-        private void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
+
+        void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
         {
             if (sender == null)
                 return;
@@ -68,10 +60,8 @@ namespace WinGoTag.View.UserViews
                         run.Text.ShowInOutput();
                         if (text.StartsWith("http://") || text.StartsWith("https://") || text.StartsWith("www."))
                             run.Text.OpenUrl();
-                        else 
-                        {
+                        else
                             MainPage.Current?.PushSearch(text);
-                        }
                     }
                 }
             }
@@ -83,54 +73,47 @@ namespace WinGoTag.View.UserViews
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
-            if(e.Parameter.GetType() == typeof(BroadcastUser))
+            if (e.Parameter.GetType() == typeof(BroadcastUser))
             {
                 var user = e.Parameter as BroadcastUser;
                 UserProfileViewModel.User = new InstaUser(new InstaUserShort()
                 {
-                    FullName = user.FullName, IsPrivate = user.IsPrivate, IsVerified = user.IsVerified, Pk = user.Pk,
-                    ProfilePictureId = user.ProfilePicId, profile_pic_url = user.ProfilePicUrl, UserName = user.Username
+                    FullName = user.FullName,
+                    IsPrivate = user.IsPrivate,
+                    IsVerified = user.IsVerified,
+                    Pk = user.Pk,
+                    ProfilePictureId = user.ProfilePicId,
+                    profile_pic_url = user.ProfilePicUrl,
+                    UserName = user.Username
                 });
             }
+
             if (e.Parameter.GetType() == typeof(InstaUser))
                 UserProfileViewModel.User = (e.Parameter as InstaUser);
             if (e.Parameter.GetType() == typeof(InstaUserShort))
                 UserProfileViewModel.User = new InstaUser(e.Parameter as InstaUserShort);
         }
 
-        private void Followers_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
-        }
+        void Followers_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
 
-        private void Following_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
-        }
-        
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
+        void Following_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
+
+        void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
             AppCore.ModerateBack("");
         }
 
-        private void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
-        }
+        void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e) => EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
 
-        private void Followers_Click(object sender, RoutedEventArgs e)
-        {
-            EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
-        }
-        private void HyperlinkButtonClick(object sender, RoutedEventArgs e)
+        void Followers_Click(object sender, RoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+
+        void HyperlinkButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (sender is HyperlinkButton btn && btn != null)
-                {
                     ((string)btn.Content).OpenUrl();
-                }
             }
             catch { }
         }
