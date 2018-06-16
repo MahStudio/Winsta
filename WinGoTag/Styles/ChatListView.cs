@@ -7,23 +7,23 @@ namespace WinGoTag.Styles
 {
     public class ChatListView : ListView
     {
-        private uint itemsSeen;
-        private double averageContainerHeight;
-        private bool loadingInProcess = false;
+        uint itemsSeen;
+        double averageContainerHeight;
+        bool loadingInProcess;
 
         public ChatListView()
         {
             // We'll manually trigger the loading of data incrementally and buffer for 2 pages worth of data
-            this.IncrementalLoadingTrigger = IncrementalLoadingTrigger.None;
+            IncrementalLoadingTrigger = IncrementalLoadingTrigger.None;
 
             // Since we'll have variable sized items we compute a running average of height to help estimate
             // how much data to request for incremental loading
-            this.ContainerContentChanging += this.UpdateRunningAverageContainerHeight;
+            ContainerContentChanging += UpdateRunningAverageContainerHeight;
         }
 
         protected override void OnApplyTemplate()
         {
-            var scrollViewer = this.GetTemplateChild("ScrollViewer") as ScrollViewer;
+            var scrollViewer = GetTemplateChild("ScrollViewer") as ScrollViewer;
 
             if (scrollViewer != null)
             {
@@ -31,7 +31,7 @@ namespace WinGoTag.Styles
                 {
                     // Check if we should load more data when the scroll position changes.
                     // We only get this once the content/panel is large enough to be scrollable.
-                    this.ProcessDataVirtualizationScrollOffsetsAsync(this.ActualHeight);
+                    ProcessDataVirtualizationScrollOffsetsAsync(ActualHeight);
                 };
             }
 
@@ -49,39 +49,37 @@ namespace WinGoTag.Styles
             return result;
         }
 
-        private async void ProcessDataVirtualizationScrollOffsetsAsync(double actualHeight)
+        async void ProcessDataVirtualizationScrollOffsetsAsync(double actualHeight)
         {
-            var panel = this.ItemsPanelRoot as ItemsStackPanel;
-            
-            if (panel != null && !this.loadingInProcess)
+            var panel = ItemsPanelRoot as ItemsStackPanel;
+
+            if (panel != null && !loadingInProcess)
             {
-                if ((panel.FirstVisibleIndex != -1 && panel.FirstVisibleIndex * this.averageContainerHeight < actualHeight * this.IncrementalLoadingThreshold) ||
+                if ((panel.FirstVisibleIndex != -1 && panel.FirstVisibleIndex * averageContainerHeight < actualHeight * IncrementalLoadingThreshold) ||
                     (panel.FirstVisibleIndex == -1 && Items.Count <= 1))
                 {
-                    var virtualizingDataSource = this.ItemsSource as ISupportIncrementalLoading;
+                    var virtualizingDataSource = ItemsSource as ISupportIncrementalLoading;
                     if (virtualizingDataSource != null)
                     {
                         if (virtualizingDataSource.HasMoreItems)
                         {
-                            double avgItemsPerPage = actualHeight / this.averageContainerHeight;
-                            var itemsToLoad = (uint)(this.DataFetchSize * avgItemsPerPage);
+                            var avgItemsPerPage = actualHeight / averageContainerHeight;
+                            var itemsToLoad = (uint)(DataFetchSize * avgItemsPerPage);
                             if (itemsToLoad <= 0)
-                            {
-                                // We know there's data to be loaded so load at least one item
                                 itemsToLoad = 1;
-                            }
 
-                            this.loadingInProcess = true;
-                            
+
+                            loadingInProcess = true;
+
                             await virtualizingDataSource.LoadMoreItemsAsync(itemsToLoad);
-                            this.loadingInProcess = false;
+                            loadingInProcess = false;
                         }
                     }
                 }
             }
         }
 
-        private void UpdateRunningAverageContainerHeight(ListViewBase sender, ContainerContentChangingEventArgs args)
+        void UpdateRunningAverageContainerHeight(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
             if (args.ItemContainer != null && args.InRecycleQueue != true)
             {
@@ -89,31 +87,27 @@ namespace WinGoTag.Styles
                 {
                     // use the size of the very first placeholder as a starting point until
                     // we've seen the first item
-                    if (this.averageContainerHeight == 0)
-                    {
-                        this.averageContainerHeight = args.ItemContainer.DesiredSize.Height;
-                    }
+                    if (averageContainerHeight == 0)
+                        averageContainerHeight = args.ItemContainer.DesiredSize.Height;
 
-                    args.RegisterUpdateCallback(1, this.UpdateRunningAverageContainerHeight);
+
+                    args.RegisterUpdateCallback(1, UpdateRunningAverageContainerHeight);
                     args.Handled = true;
                 }
                 else if (args.Phase == 1)
                 {
                     // set the content
                     args.ItemContainer.Content = args.Item;
-                    args.RegisterUpdateCallback(2, this.UpdateRunningAverageContainerHeight);
+                    args.RegisterUpdateCallback(2, UpdateRunningAverageContainerHeight);
                     args.Handled = true;
                 }
                 else if (args.Phase == 2)
                 {
                     // refine the estimate based on the item's DesiredSize
-                    this.averageContainerHeight = (this.averageContainerHeight * itemsSeen + args.ItemContainer.DesiredSize.Height) / ++itemsSeen;
+                    averageContainerHeight = (averageContainerHeight * itemsSeen + args.ItemContainer.DesiredSize.Height) / ++itemsSeen;
                     args.Handled = true;
                 }
             }
-
-            
         }
     }
-
 }
