@@ -1,26 +1,21 @@
 ﻿using InstaAPI.Classes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 
 namespace WinGoTag.ViewModel.SignInSignUp
 {
     class ChallengeViewModel : INotifyPropertyChanged
     {
-        private bool? _isemailchoosed;
-        private bool? _isphonechoosed;
-        private bool _isbusy;
-        private StepData _choptions;
+        bool? isemailchoosed;
+        bool? isphonechoosed;
+        bool isbusy;
+        StepData choptions;
         public event PropertyChangedEventHandler PropertyChanged;
-        public StepData ChallengeOptions { get { return _choptions; } set { _choptions = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChallengeOptions")); } }
-        public bool IsBusy { get { return _isbusy; } set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
-        public bool? IsEmailChoosed { get { return _isemailchoosed; } set { _isemailchoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEmailChoosed")); } }
-        public bool? IsPhoneChoosed { get { return _isphonechoosed; } set { _isphonechoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsPhoneChoosed")); } }
+        public StepData ChallengeOptions { get => choptions; set { choptions = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChallengeOptions")); } }
+        public bool IsBusy { get => isbusy; set { isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
+        public bool? IsEmailChoosed { get => isemailchoosed; set { isemailchoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEmailChoosed")); } }
+        public bool? IsPhoneChoosed { get => isphonechoosed; set { isphonechoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsPhoneChoosed")); } }
         CoreDispatcher Dispatcher;
 
         public AppCommand SendVerificationCmd { get; set; }
@@ -34,31 +29,27 @@ namespace WinGoTag.ViewModel.SignInSignUp
             SendVerificationCmd.ExecuteFunc = SendVerification;
         }
 
-        private /*async*/ void SendVerification(object obj)
+        void SendVerification(object obj)
         {
-            //if (IsEmailChoosed == true)
+            // if (IsEmailChoosed == true)
             //    await AppCore.InstaApi.SendVerifyForChallenge(1);
-            //if(IsPhoneChoosed == true)
+            // if(IsPhoneChoosed == true)
             //    await AppCore.InstaApi.SendVerifyForChallenge(2);
-
         }
 
-        private async void RunLoadPage()
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
-        }
+        async void RunLoadPage() => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
 
-        private /*async*/ void LoadPage()
+        void LoadPage()
         {
-            //var res = await AppCore.InstaApi.GetChallengeChoices();
-            //if (res.Succeeded)
-            //{
+            // var res = await AppCore.InstaApi.GetChallengeChoices();
+            // if (res.Succeeded)
+            // {
             //    ChallengeOptions = res.Value;
-            //}
-            //else
-            //{
+            // }
+            // else
+            // {
             //    await new MessageDialog(res.Info.Message).ShowAsync();
-            //}
+            // }
             IsBusy = false;
         }
     }

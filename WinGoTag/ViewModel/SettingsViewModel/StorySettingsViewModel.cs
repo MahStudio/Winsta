@@ -15,10 +15,10 @@ namespace WinGoTag.ViewModel.SettingsViewModel
         private bool _savetocamerarool;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsBusy { get { return _isbusy; } set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
+        public bool IsBusy { get => _isbusy; set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
         public bool AllowStoryReshare
         {
-            get { return _allowstoryreshare; }
+            get => _allowstoryreshare;
             set
             {
                 _allowstoryreshare = value;
@@ -29,7 +29,7 @@ namespace WinGoTag.ViewModel.SettingsViewModel
         }
         public bool SaveToCameraRoll
         {
-            get { return _savetocamerarool; }
+            get => _savetocamerarool;
             set
             {
                 _savetocamerarool = value;
@@ -47,10 +47,7 @@ namespace WinGoTag.ViewModel.SettingsViewModel
             RunLoadPage();
         }
 
-        private async void RunLoadPage()
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
-        }
+        private async void RunLoadPage() => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
 
         private async void LoadPage()
         {

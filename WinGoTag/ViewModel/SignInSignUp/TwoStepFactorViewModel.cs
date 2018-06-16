@@ -1,12 +1,6 @@
-﻿using InstaSharper.API.Builder;
-using InstaSharper.Classes;
-using InstaSharper.Logger;
+﻿using InstaSharper.Classes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using WinGoTag.View;
@@ -16,25 +10,27 @@ namespace WinGoTag.ViewModel.SignInSignUp
     class TwoStepFactorViewModel : INotifyPropertyChanged
     {
         #region Properties
-        private string _verificationcode;
-        private bool _isbusy;
-        private void UpdateProperty(string PropertyName)
+        string verificationcode;
+        bool isbusy;
+
+        public TwoStepFactorViewModel()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            LoginCmd = AppCommand.GetInstance();
+            LoginCmd.ExecuteFunc = RunLogin;
+            Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
+        void UpdateProperty(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         public event PropertyChangedEventHandler PropertyChanged;
         public string VerificationCode
         {
-            get { return _verificationcode; }
-            set { _verificationcode = value; UpdateProperty("VerificationCode"); }
+            get => verificationcode;
+            set { verificationcode = value; UpdateProperty("VerificationCode"); }
         }
         public bool IsBusy
         {
-            get
-            {
-                return _isbusy;
-            }
-            set { _isbusy = value; UpdateProperty("IsBusy"); }
+            get => isbusy;
+            set { isbusy = value; UpdateProperty("IsBusy"); }
         }
         #endregion
 
@@ -43,19 +39,10 @@ namespace WinGoTag.ViewModel.SignInSignUp
         #endregion
         CoreDispatcher Dispatcher { get; set; }
 
-        public TwoStepFactorViewModel()
-        {
-            LoginCmd = AppCommand.GetInstance();
-            LoginCmd.ExecuteFunc = RunLogin;
-            Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-        }
-
-        private async void RunLogin(object obj)
-        {
+        async void RunLogin(object obj) =>
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoginAsync);
-        }
 
-        private async void LoginAsync()
+        async void LoginAsync()
         {
             var res = await AppCore.InstaApi.TwoFactorLoginAsync(VerificationCode);
             switch (res.Value)
@@ -63,7 +50,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 case InstaLoginTwoFactorResult.Success:
                     AppCore.SaveUserInfo(null, null, true);
                     MainPage.MainFrame.Navigate(typeof(MainView));
-                    //NavigateToMainView
+                    // NavigateToMainView
                     break;
                 case InstaLoginTwoFactorResult.InvalidCode:
                     await new MessageDialog(res.Info.Message).ShowAsync();

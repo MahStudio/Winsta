@@ -27,32 +27,29 @@ namespace WinGoTag.ViewModel.SignInSignUp
         #region Properties
         private string _username;
         private string _password;
-        private void UpdateProperty(string PropertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
+        private void UpdateProperty(string PropertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         public event PropertyChangedEventHandler PropertyChanged;
         public string UserName
         {
-            get { return _username; }
+            get => _username;
             set { _username = value; UpdateProperty("UserName"); }
         }
         public string Password
         {
-            get { return _password; }
+            get => _password;
             set { _password = value; UpdateProperty("Password"); }
         }
 
         Visibility _visibility = Visibility.Collapsed;
         public Visibility LoadingVisibility
         {
-            get { return _visibility; }
+            get => _visibility;
             set { _visibility = value; UpdateProperty("LoadingVisibility"); }
         }
         bool _isLoading = false;
         public bool IsLoading
         {
-            get { return _isLoading; }
+            get => _isLoading;
             set { _isLoading = value; UpdateProperty("IsLoading"); }
         }
 
@@ -60,7 +57,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
         Visibility _facebookGridVisibility = Visibility.Collapsed;
         public Visibility FacebookGridVisibility
         {
-            get { return _facebookGridVisibility; }
+            get => _facebookGridVisibility;
             set { _facebookGridVisibility = value; UpdateProperty("FacebookGridVisibility"); }
         }
         #endregion
@@ -80,7 +77,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
         private WebView _webView;
         public WebView WebView
         {
-            get { return _webView; }
+            get => _webView;
             set { _webView = value; UpdateProperty("WebView"); }
         }
         public void AddWebViewEvents()
@@ -120,16 +117,13 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
                 HttpCookieCollection myCookieJar = cookieManager.GetCookies(InstagramUri);
                 foreach (HttpCookie cookie in myCookieJar)
-                {
                     cookieManager.DeleteCookie(cookie);
-                }
+
             }
             catch { }
         }
-        private void WebViewNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            LoadingOn();
-        }
+        private void WebViewNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) => LoadingOn();
+
 
         private async void WebViewDOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
@@ -141,25 +135,22 @@ namespace WinGoTag.ViewModel.SignInSignUp
                     var cookies = GetBrowserCookie(args.Uri);
                     var sb = new StringBuilder();
                     foreach (var item in cookies)
-                    {
                         sb.Append($"{item.Name}={item.Value}; ");
-                    }
+
                     string html = await WebView.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
                     var result = AppCore.InstaApi.SetCookiesAndHtmlForChallenge(html, sb.ToString());
                     WebView.Visibility = Visibility.Collapsed;
                     IsWebBrowserInUse = true;
                     if (result.Succeeded)
-                    {
                         await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
                         {
                             AppCore.SaveUserInfo(UserName, Password);
                             MainPage.MainFrame.Navigate(typeof(MainView));
                         });
-                    }
+
                     else
-                    {
                         await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
-                    }
+
                     WebView.Stop();
                 }
             }
@@ -170,8 +161,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
         {
             try
             {
-                 await WebView.InvokeScriptAsync("eval", new[]
-                 {
+                await WebView.InvokeScriptAsync("eval", new[]
+                {
                     @"(function()
                     {
                         var hyperlinks = document.getElementsByTagName('a');
@@ -213,20 +204,17 @@ namespace WinGoTag.ViewModel.SignInSignUp
         bool FacebookPassed = false;
         bool CancelFacebookLogin = false;
         const string FacebookBlockedMsg = "Facebook website is blocked(filtered) in your area.\r\nPlease connect to vpn and try again.";
-        public async void RunFacebookLogin(object obj)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, NavigateToInstagramForFacebookLogin);
-        }
-        public async void RunFacebookClose(object obj)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ()=>
+        public async void RunFacebookLogin(object obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, NavigateToInstagramForFacebookLogin);
+
+        public async void RunFacebookClose(object obj) =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 CancelFacebookLogin = true;
                 LoadingOff();
                 FacebookGridVisibility = Visibility.Collapsed;
                 WebViewFacebook.Visibility = Visibility.Collapsed;
             });
-        }
+
         public void AddWebViewFacebookEvents()
         {
             if (WebViewFacebook == null)
@@ -306,9 +294,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
                 HttpCookieCollection myCookieJar = cookieManager.GetCookies(new Uri("https://facebook.com/"));
                 foreach (HttpCookie cookie in myCookieJar)
-                {
                     cookieManager.DeleteCookie(cookie);
-                }
+
             }
             catch { }
             try
@@ -319,9 +306,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
                 HttpCookieCollection myCookieJar = cookieManager.GetCookies(new Uri("https://www.facebook.com/"));
                 foreach (HttpCookie cookie in myCookieJar)
-                {
                     cookieManager.DeleteCookie(cookie);
-                }
+
             }
             catch { }
             try
@@ -332,22 +318,19 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
                 HttpCookieCollection myCookieJar = cookieManager.GetCookies(new Uri("https://m.facebook.com/"));
                 foreach (HttpCookie cookie in myCookieJar)
-                {
                     cookieManager.DeleteCookie(cookie);
-                }
+
             }
             catch { }
         }
-        private void WebViewFacebookNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            LoadingOn();
-        }
+        private void WebViewFacebookNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args) => LoadingOn();
+
 
         private async void WebViewFacebookDOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
             try
             {
-                if(CancelFacebookLogin)
+                if (CancelFacebookLogin)
                 {
                     LoadingOff();
                     try
@@ -384,9 +367,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
                             var cookies = GetBrowserCookie(args.Uri);
                             var sb = new StringBuilder();
                             foreach (var item in cookies)
-                            {
                                 sb.Append($"{item.Name}={item.Value}; ");
-                            }
+
                             var start = "<script type=\"text/javascript\">window._sharedData";
                             var end = ";</script>";
 
@@ -405,7 +387,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                                         UserName = UserName,
                                         Password = Password
                                     };
-                                 
+
                                     AppCore.InstaApi = InstaApiBuilder.CreateBuilder()
                                         .SetUser(userSession)
                                         .UseLogger(new DebugLogger(LogLevel.Exceptions))
@@ -423,9 +405,8 @@ namespace WinGoTag.ViewModel.SignInSignUp
                                         });
                                     }
                                     else
-                                    {
                                         await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
-                                    }
+
                                     WebViewFacebook.Stop();
                                 }
                             }
@@ -477,7 +458,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
         private async void FacebookTimerTick(object sender, object e)
         {
             FacebookTimer.Stop();
-            if(CancelFacebookLogin)
+            if (CancelFacebookLogin)
             {
                 LoadingOff();
                 try
@@ -530,10 +511,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
             }
         }
 
-        public async void RunLogin(object obj)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoginAskSessionAsync);
-        }
+        public async void RunLogin(object obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoginAskSessionAsync);
         private async void LoginAskSessionAsync()
         {
             try
@@ -600,25 +578,25 @@ namespace WinGoTag.ViewModel.SignInSignUp
             switch (loginres.Value)
             {
                 case InstaLoginResult.ChallengeRequired:
-                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                     {
-                         var challenge = AppCore.InstaApi.GetChallenge();
-                         if (WebView != null && challenge != null)
-                         {
-                             try
-                             {
-                                 UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
-                             }
-                             catch { }
-                             DeleteInstagramCookies();
-                             LoadingOn();
-                             WebView.Visibility = Visibility.Visible;
-                             IsWebBrowserInUse = false;
-                             WebView.Navigate(new Uri(challenge.Url));
-                         }
-                         else
-                             LoadingOff();
-                     });
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        var challenge = AppCore.InstaApi.GetChallenge();
+                        if (WebView != null && challenge != null)
+                        {
+                            try
+                            {
+                                UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
+                            }
+                            catch { }
+                            DeleteInstagramCookies();
+                            LoadingOn();
+                            WebView.Visibility = Visibility.Visible;
+                            IsWebBrowserInUse = false;
+                            WebView.Navigate(new Uri(challenge.Url));
+                        }
+                        else
+                            LoadingOff();
+                    });
                     break;
                 case InstaLoginResult.Success:
                     LoadingOff();
