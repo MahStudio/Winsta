@@ -90,7 +90,7 @@
                                 </AppBarButton.Icon>
                             </AppBarButton>
 
-                            <Image Grid.Column="1" Grid.ColumnSpan="3" Source="ms-appx:///Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
+                            <Image Grid.Column="1" Grid.ColumnSpan="3" Source="ms-appx:///Assets/Logos/WinstappBlack.png" Stretch="Uniform" VerticalAlignment="Center" Height="26"/>
 
                             <AppBarButton Grid.Column="3" Width="48" Click="RefreshBT_Click">
                                 <AppBarButton.Icon>
