@@ -72,5 +72,7 @@ namespace WinGoTag.View.SettingsView
                 ex.ExceptionMessage("MainSettingsView.LogoutButtonClick");
             }
         }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e) => "https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw".OpenUrl();
     }
 }

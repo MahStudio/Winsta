@@ -73,12 +73,12 @@
                     <LineBreak/>
                     <Run Text="Ramtin Jokar for help in reverse engineering APIs and developing them."/>
                     <LineBreak/>
-                    <Run Text="Ali Noshahi and Pouria Riahi for develope and bugfixing."/>
+                    <Run Text="Ali Noshahi, Mohsen Seifi and Pouria Riahi for develope and bugfixing."/>
                     <LineBreak/>
                     <Run Text="Thanks to our insiders that made a huge app development so much easier for us with their testings and reports. :)"/>
                 </TextBlock>
                 <Rectangle Margin="12,12,12,0" Grid.Row="14" Fill="DarkGray" Stroke="DarkGray" Height="0.5"/>
-                <HyperlinkButton Grid.Row="15" Margin="12,12,12,0" Content="Insiders Group On Telegram"/>
+                <HyperlinkButton Click="HyperlinkButton_Click" Grid.Row="15" Margin="12,12,12,0" Content="Insiders Group On Telegram"/>
                 <HyperlinkButton x:Name="LogoutButton" Margin="12,0" Grid.Row="16" Content="Log Out" Click="LogoutButtonClick"/>
             </Grid>
         </ScrollViewer>
