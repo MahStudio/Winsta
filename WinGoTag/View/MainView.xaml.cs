@@ -48,7 +48,6 @@ namespace WinGoTag.View
         public MainView()
         {
             this.InitializeComponent();
-            //StoryFr.Navigate(typeof(Page));
             HeaderD = HeaderDirect;
             MainFrame = StoryFr;
             MainViewPivot = PivotView;
@@ -65,9 +64,8 @@ namespace WinGoTag.View
         private void StoryFr_Navigated(object sender, NavigationEventArgs e)
         {
             if (StoryFr.Content is StoryView.StoryViews)
-            {
                 return;
-            }
+
 
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("imageReturn");
             if (imageAnimation != null)
@@ -84,14 +82,13 @@ namespace WinGoTag.View
             var res2 = await AppCore.InstaApi.GetDirectInboxAsync(p);
             if (res.Info.Message == "login_required")
             {
-                //AppCore.InstaApi = null;
                 AppCore.SaveUserInfo(null, null, false);
                 MainPage.MainFrame.GoBack();
                 return;
             }
 
 
-            //TEST
+
             var User = AppCore.InstaApi.GetLoggedUser();
             var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
             var items = await AppCore.InstaApi.GetUserStoryFeedAsync(user.Value.Pk);
@@ -99,17 +96,8 @@ namespace WinGoTag.View
             InstaReelFeed MyReel = new InstaReelFeed();
 
             MyReel.User = You;
-            //MyReel.Seen = 0;
             MyReel.Items = items.Value.Items;
-            //var m = (await AppCore.InstaApi.GetUserTimelineFeedAsync(p));
-            //var first = m.Value.Medias.LastOrDefault();
-            //var s = await AppCore.InstaApi.GetMediaCommentsAsync(first.InstaIdentifier.ToString(), p);
 
-            //var sss = "";
-
-            //          var ss = await AppCore.InstaApi.GetMediaLikersAsync(first.InstaIdentifier.ToString());
-
-            //var sssds = "";
             var strs = await AppCore.InstaApi.GetStoryFeedAsync();
 
             if (strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
@@ -121,22 +109,17 @@ namespace WinGoTag.View
                 strs.Value.Items.RemoveAt(MyRemove);
             }
 
-            //
 
             strs.Value.Items.OrderBy(x => x.Seen_ranked_position != 0);
             strs.Value.Items.Insert(0, MyReel);
 
             StoriesList.ItemsSource = strs.Value.Items;
             if (HomePageItemssource != null)
-            {
                 HomePageItemssource.CollectionChanged -= HomePageItemssource_CollectionChanged;
-            }
 
-            HomePageItemssource = new GenerateHomePage<InstaMedia>(100000, (count) =>
-            {
-                //return tres[count];
-                return new InstaMedia();
-            });
+
+
+            HomePageItemssource = new GenerateHomePage<InstaMedia>(100000, (count) => new InstaMedia());
 
             HomePageItemssource.CollectionChanged += HomePageItemssource_CollectionChanged;
             //MediasCVS.Source = HomePageItemssource;
@@ -157,10 +140,7 @@ namespace WinGoTag.View
         }
 
 
-        private void HomePageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-
-        }
+        private void HomePageItemssource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) { }
 
 
 
@@ -188,20 +168,11 @@ namespace WinGoTag.View
             });
         }
 
-        private void DirectBT_Click(object sender, RoutedEventArgs e)
-        {
-            PivotView.SelectedIndex = 2;
-        }
+        private void DirectBT_Click(object sender, RoutedEventArgs e) => PivotView.SelectedIndex = 2;
 
-        private void CameraBT_Click(object sender, RoutedEventArgs e)
-        {
-            PivotView.SelectedIndex = 0;
-        }
+        private void CameraBT_Click(object sender, RoutedEventArgs e) => PivotView.SelectedIndex = 0;
 
-        private void ToBackBT_Click(object sender, RoutedEventArgs e)
-        {
-            PivotView.SelectedIndex = 1;
-        }
+        private void ToBackBT_Click(object sender, RoutedEventArgs e) => PivotView.SelectedIndex = 1;
 
         private void BackFromCameraBT_Click(object sender, RoutedEventArgs e)
         {
@@ -337,5 +308,7 @@ namespace WinGoTag.View
             }
         }
 
+        private void CloseCinemaMode_Click(object sender, RoutedEventArgs e) => BlurBackground.Visibility = Visibility.Collapsed;
+        
     }
 }

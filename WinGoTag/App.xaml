@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/ContentDialog.xaml"/>
+                <ResourceDictionary Source="/Styles/GlobalStyles.xaml"/>
                 <fluent:DEPControlsThemeResources/>
             </ResourceDictionary.MergedDictionaries>
 
