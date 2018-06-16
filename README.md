@@ -36,7 +36,5 @@ Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) 
 
 ## InstaApi
 
-This project uses [https://github.com/ramtinak/InstagramApiSharp](https://github.com/ramtinak/InstagramApiSharp) which is based on [InstaSharper](https://github.com/a-legotin/InstaSharper) with more functions and flexibility.
-
-See api changes at [Api changes](https://github.com/NGame1/Winsta/blob/master/apichanges.md)
+This project uses [https://github.com/MahStudio/InstagramAPI](https://github.com/MahStudio/InstagramAPI).
 
