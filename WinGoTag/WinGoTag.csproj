@@ -561,6 +561,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="InstagramUWPAPI">
+      <Version>1.0.5</Version>
+    </PackageReference>
     <PackageReference Include="LumiaImagingSDK.UWP">
       <Version>3.0.593</Version>
     </PackageReference>
@@ -587,10 +590,6 @@
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InstaAPI\InstaAPI.csproj">
-      <Project>{ec7065c7-6fbf-48c0-879d-ee7a767a0e2c}</Project>
-      <Name>InstaAPI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\InstaNotifications\InstaNotifications.csproj">
       <Project>{8acd1df5-d67e-4d31-8986-f613d2121bf3}</Project>
       <Name>InstaNotifications</Name>
