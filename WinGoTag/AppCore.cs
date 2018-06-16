@@ -13,12 +13,12 @@ namespace WinGoTag
 {
     public class AppCore
     {
-        private static Stack<DispatchedHandler> _NavigationManager = new Stack<DispatchedHandler>();
-        public static void ModerateBack(string EmptyString)
+        static Stack<DispatchedHandler> NavigationManager = new Stack<DispatchedHandler>();
+        public static void ModerateBack(string emptyString)
         {
             try
             {
-                _NavigationManager.Pop();
+                NavigationManager.Pop();
             }
             catch
             {
@@ -29,31 +29,26 @@ namespace WinGoTag
         {
             try
             {
-                var f = _NavigationManager.Pop();
+                var f = NavigationManager.Pop();
                 f.Invoke();
             }
-            catch 
+            catch
             {
                 App.Current.Exit();
             }
         }
 
-        public static void ModerateBack(DispatchedHandler Callback)
-        {
-            _NavigationManager.Push(Callback);
-        }
+        public static void ModerateBack(DispatchedHandler Callback) => NavigationManager.Push(Callback);
+
 
         public static IInstaApi InstaApi
         {
             get; set;
         }
 
-        public static async Task<bool> RunAsync()
-        {
-            return await IsUserSessionStored();
-        }
+        public static Task<bool> RunAsync() => IsUserSessionStored();
 
-        private static async Task<bool> IsUserSessionStored()
+        static async Task<bool> IsUserSessionStored()
         {
             try
             {
@@ -62,24 +57,24 @@ namespace WinGoTag
                     InstaApi = null;
                     return false;
                 }
+
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
                 var r = await FileIO.ReadTextAsync(file);
                 if (string.IsNullOrEmpty(r))
                     return false;
                 if (r.Length < 100)
                     return false;
-                string User = "username"; string Pass="password";
-                //LoadUserInfo(out User, out Pass);
-                //if (User == null || Pass == null) return false;
+                var User = "username"; var Pass = "password";
+                // LoadUserInfo(out User, out Pass);
+                // if (User == null || Pass == null) return false;
                 InstaApi = InstaApiBuilder.CreateBuilder()
                     .SetUser(new UserSessionData { UserName = User, Password = Pass })
                     .UseLogger(new DebugLogger(LogLevel.Exceptions))
                     .Build();
                 InstaApi.LoadStateDataFromStream(r);
-                if(!InstaApi.IsUserAuthenticated)
-                {
+                if (!InstaApi.IsUserAuthenticated)
                     await InstaApi.LoginAsync();
-                }
+
                 return true;
             }
             catch (Exception /*ex*/)
@@ -96,10 +91,12 @@ namespace WinGoTag
                 ApplicationData.Current.LocalSettings.Values["TwoFactorAccepted"] = true;
                 return;
             }
+
             ApplicationData.Current.LocalSettings.Values["Username"] = Username;
             ApplicationData.Current.LocalSettings.Values["Password"] = Password;
             ApplicationData.Current.LocalSettings.Values["TwoFactorAccepted"] = TwoFactorAccepted;
         }
+
         public static void LoadUserInfo(out string Username, out string Password)
         {
             try
@@ -117,14 +114,12 @@ namespace WinGoTag
             }
         }
 
-
-
         public static async void RegisterNotifyTask()
         {
             try
             {
-                string myTaskName = "NotifyTask";
-                string myTaskEntryPoint = "InstaNotifications.NotifyTask";
+                var myTaskName = "NotifyTask";
+                var myTaskEntryPoint = "InstaNotifications.NotifyTask";
 
                 foreach (var cur in BackgroundTaskRegistration.AllTasks)
                     if (cur.Value.Name == myTaskName)
@@ -135,23 +130,23 @@ namespace WinGoTag
 
                 await BackgroundExecutionManager.RequestAccessAsync();
 
-                BackgroundTaskBuilder taskBuilder =
+                var taskBuilder =
                     new BackgroundTaskBuilder { Name = myTaskName, TaskEntryPoint = myTaskEntryPoint };
 
                 taskBuilder.SetTrigger(new TimeTrigger(15, false));
-                BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
+                var myFirstTask = taskBuilder.Register();
             }
             catch
             {
-
             }
         }
+
         public static void UnregisterNotifyTask()
         {
             try
             {
-                string myTaskName = "NotifyTask";
-                string myTaskEntryPoint = "InstaNotifications.NotifyTask";
+                var myTaskName = "NotifyTask";
+                var myTaskEntryPoint = "InstaNotifications.NotifyTask";
 
                 foreach (var cur in BackgroundTaskRegistration.AllTasks)
                     if (cur.Value.Name == myTaskName)
