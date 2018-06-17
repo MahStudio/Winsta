@@ -22,26 +22,29 @@ namespace WinGoTag.View
         {
             InitializeComponent();
             EditFr.Navigate(typeof(Page));
-            DataContextChanged += ProfileView_DataContextChanged;
+            ProfileViewModel.PropertyChanged += ProfileViewModel_PropertyChanged;
         }
 
-        void ProfileView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private void ProfileViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "UserInfo")
+            {
+                HandleBiography();
+            }
+        }
+
+        void HandleBiography()
         {
             try
             {
-                if (args.NewValue.GetType() == typeof(ProfileViewModel))
+                using (var pg = new PassageHelper())
                 {
-                    var context = args.NewValue as ProfileViewModel;
-                    if (context != null)
-                        using (var pg = new PassageHelper())
-                        {
-                            var passages = pg.GetParagraph(context.UserInfo.Biography, HyperLinkClick);
-                            txtBiography.Blocks.Clear();
-                            txtBiography.Blocks.Add(passages);
-                        }
+                    var passages = pg.GetParagraph(ProfileViewModel.UserInfo.Biography, HyperLinkClick);
+                    txtBiography.Blocks.Clear();
+                    txtBiography.Blocks.Add(passages);
                 }
             }
-            catch { }
+            catch { var p = new Paragraph(); p.Inlines.Add(new Run() { Text = ProfileViewModel.UserInfo.Biography }); txtBiography.Blocks.Add(p); }
         }
 
         void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)

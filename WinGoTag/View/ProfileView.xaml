@@ -23,7 +23,7 @@
     </Page.Resources>
     
     <Page.DataContext>
-        <VM:ProfileViewModel/>
+        <VM:ProfileViewModel x:Name="ProfileViewModel"/>
     </Page.DataContext>
 
     <Grid x:Name="RootGrid">
