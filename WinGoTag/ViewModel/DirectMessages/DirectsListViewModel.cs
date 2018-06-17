@@ -30,13 +30,14 @@ namespace WinGoTag.ViewModel.DirectMessages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
         }
 
-        void LoadPage()
+        async void LoadPage()
         {
             InboxThreads = new GenerateDirectsList<InstaDirectInboxThread>(100000, (count) =>
             {
                 //return tres[count];
                 return new InstaDirectInboxThread();
             });
+            await InboxThreads.LoadMoreItemsAsync(1);
             //InboxContainer = inb.Value;
             IsBusy = false;
         }
