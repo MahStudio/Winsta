@@ -1,5 +1,6 @@
 ﻿using InstaSharper.Classes.Models;
 using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -21,28 +22,20 @@ namespace WinGoTag.View.UserViews
         {
             InitializeComponent();
             EditFr.Navigate(typeof(Page));
-            DataContextChanged += UserProfileViewDataContextChanged;
         }
 
-        void UserProfileViewDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        void HandleBiography()
         {
             try
             {
-                if (args.NewValue.GetType() == typeof(UserProfileViewModel))
+                using (var pg = new PassageHelper())
                 {
-                    var context = args.NewValue as UserProfileViewModel;
-                    if (context != null)
-                    {
-                        using (var pg = new PassageHelper())
-                        {
-                            var passages = pg.GetParagraph(context.UserInfo.Biography, HyperLinkClick);
-                            txtBiography.Blocks.Clear();
-                            txtBiography.Blocks.Add(passages);
-                        }
-                    }
+                    var passages = pg.GetParagraph(UserProfileViewModel.User.Biography, HyperLinkClick);
+                    txtBiography.Blocks.Clear();
+                    txtBiography.Blocks.Add(passages);
                 }
             }
-            catch { }
+            catch { var p = new Paragraph(); p.Inlines.Add(new Run() { Text = UserProfileViewModel.User.Biography }); txtBiography.Blocks.Add(p); }
         }
 
         void HyperLinkClick(Hyperlink sender, HyperlinkClickEventArgs args)
@@ -68,7 +61,7 @@ namespace WinGoTag.View.UserViews
             catch (Exception ex) { ex.ExceptionMessage("HyperLinkClick"); }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
@@ -76,27 +69,36 @@ namespace WinGoTag.View.UserViews
             if (e.Parameter.GetType() == typeof(BroadcastUser))
             {
                 var user = e.Parameter as BroadcastUser;
-                UserProfileViewModel.User = new InstaUser(new InstaUserShort()
-                {
-                    FullName = user.FullName,
-                    IsPrivate = user.IsPrivate,
-                    IsVerified = user.IsVerified,
-                    Pk = user.Pk,
-                    ProfilePictureId = user.ProfilePicId,
-                    profile_pic_url = user.ProfilePicUrl,
-                    UserName = user.Username
-                });
+                //UserProfileViewModel.User = new InstaUser(new InstaUserShort()
+                //{
+                //    FullName = user.FullName,
+                //    IsPrivate = user.IsPrivate,
+                //    IsVerified = user.IsVerified,
+                //    Pk = user.Pk,
+                //    ProfilePictureId = user.ProfilePicId,
+                //    profile_pic_url = user.ProfilePicUrl,
+                //    UserName = user.Username
+                //});
+                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync(user.Username)).Value;
+                UserProfileViewModel.RunLoadPage();
             }
 
             if (e.Parameter.GetType() == typeof(InstaUser))
-                UserProfileViewModel.User = (e.Parameter as InstaUser);
+            {
+                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync((e.Parameter as InstaUser).UserName)).Value;
+                UserProfileViewModel.RunLoadPage();
+            }
             if (e.Parameter.GetType() == typeof(InstaUserShort))
-                UserProfileViewModel.User = new InstaUser(e.Parameter as InstaUserShort);
+            {
+                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync((e.Parameter as InstaUserShort).UserName)).Value;
+                UserProfileViewModel.RunLoadPage();
+            }
+            HandleBiography();
         }
 
-        void Followers_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+        void Followers_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.Username);
 
-        void Following_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.UserName);
+        void Following_Tapped(object sender, TappedRoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowingsView), UserProfileViewModel.User.Username);
 
         void ToBackBT_Click(object sender, RoutedEventArgs e)
         {
@@ -106,7 +108,7 @@ namespace WinGoTag.View.UserViews
 
         void AdaptiveGridViewControl_ItemClick(object sender, ItemClickEventArgs e) => EditFr.Navigate(typeof(SinglePostView), e.ClickedItem as InstaMedia);
 
-        void Followers_Click(object sender, RoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.UserName);
+        void Followers_Click(object sender, RoutedEventArgs e) => EditFr.Navigate(typeof(UserFollowersView), UserProfileViewModel.User.Username);
 
         void HyperlinkButtonClick(object sender, RoutedEventArgs e)
         {

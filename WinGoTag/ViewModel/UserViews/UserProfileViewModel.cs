@@ -46,7 +46,7 @@ namespace WinGoTag.ViewModel.UserViews
 
         CoreDispatcher Dispatcher { get; set; }
 
-        public InstaUser User { get; set; }
+        public InstaUserInfo User { get; set; }
 
         public AppCommand FollowBTNCmd { get; set; }
         public UserProfileViewModel()
@@ -54,7 +54,6 @@ namespace WinGoTag.ViewModel.UserViews
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             FollowBTNCmd = AppCommand.GetInstance();
             FollowBTNCmd.ExecuteFunc = Follow;
-            RunLoadPage();
         }
 
         async void Follow(object obj)
@@ -90,11 +89,11 @@ namespace WinGoTag.ViewModel.UserViews
             }
         }
 
-        async void RunLoadPage() => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
+        public async void RunLoadPage() => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
 
         async void LoadPage()
         {
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.Username);
             var status = await AppCore.InstaApi.GetFriendshipStatusAsync(user.Value.Pk);
             if (!status.Value.Following)
                 FollowBTNContent = "Follow";
@@ -119,14 +118,14 @@ namespace WinGoTag.ViewModel.UserViews
             UserInfo = user.Value;
 
             MediaList = new GenerateUserMedia<InstaMedia>(100000, (count) => new InstaMedia()
-            , User.UserName);
+            , User.Username);
             // GridList = media.Value;
             MediaList.CollectionChanged += MediaList_CollectionChanged;
             UserTag = new GenerateUserTags<InstaMedia>(100000, (count) =>
             {
                 // return tres[count];
                 return new InstaMedia();
-            }, User.UserName);
+            }, User.Username);
             // UserTag = mediaUserTag.Value;
         }
 
