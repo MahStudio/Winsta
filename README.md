@@ -15,6 +15,7 @@ Unofficial Instagram client for Windows 10 devices.
 - View Stories
 - Search and Explore
 - Direct messages
+- Cinema mode
 - Accept and Ignore friend requests
 - Download posts (Available for Public profiles, Your own medias, and medias you are tagged in)
 
