@@ -195,7 +195,6 @@ namespace WinGoTag.UserControls
         {
             _tapscount = 2;
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
-            LikeAnimation();
         }
 
         private async void LikeDislikeRunner()
@@ -208,6 +207,7 @@ namespace WinGoTag.UserControls
                 {
                     Media.HasLiked = true;
                     Media.LikesCount += 1;
+                    LikeAnimation(true);
                 }
             }
             else
@@ -218,6 +218,7 @@ namespace WinGoTag.UserControls
                 {
                     Media.HasLiked = false;
                     Media.LikesCount -= 1;
+                    LikeAnimation(false);
                 }
             }
         }
@@ -238,16 +239,32 @@ namespace WinGoTag.UserControls
             openpane.Begin();
         }
 
-        private void LikeAnimation()
+        private async void LikeAnimation(bool Like)
         {
             LikeAnimations.Visibility = Visibility.Visible;
-            DoubleAnimation fade = new DoubleAnimation()
+            DoubleAnimation fade = null;
+            if(Like)
             {
-                From = 0,
-                To = 1,
-                Duration = TimeSpan.FromSeconds(0.6),
-                EnableDependentAnimation = true
-            };
+                fade = new DoubleAnimation()
+                {
+                    From = 0,
+                    To = 1,
+                    EasingFunction = new SineEase() { EasingMode = EasingMode.EaseIn },
+                    Duration = TimeSpan.FromSeconds(3),
+                    EnableDependentAnimation = true
+                };
+            }
+            else
+            {
+                fade = new DoubleAnimation()
+                {
+                    From = 1,
+                    To = 0,
+                    EasingFunction = new SineEase() { EasingMode = EasingMode.EaseOut },
+                    Duration = TimeSpan.FromSeconds(3),
+                    EnableDependentAnimation = true
+                };
+            }
             Storyboard.SetTarget(fade, LikeAnimations);
             Storyboard.SetTargetProperty(fade, "Opacity");
             Storyboard openpane = new Storyboard();
@@ -255,19 +272,34 @@ namespace WinGoTag.UserControls
             openpane.Begin();
 
             Task.Delay(5000);
-
-            DoubleAnimation fadeC = new DoubleAnimation()
+            DoubleAnimation fadeC = null;
+            if(!Like)
             {
-                From = 1,
-                To = 0,
-                Duration = TimeSpan.FromSeconds(0.6),
-                EnableDependentAnimation = true
-            };
+                fadeC = new DoubleAnimation()
+                {
+                    From = 1,
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(1.5),
+                    EnableDependentAnimation = true
+                };
+            }
+            else
+            {
+                fadeC = new DoubleAnimation()
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = TimeSpan.FromSeconds(1.5),
+                    EnableDependentAnimation = true
+                };
+            }
             Storyboard.SetTarget(fadeC, LikeAnimations);
             Storyboard.SetTargetProperty(fadeC, "Opacity");
             Storyboard openpaneC = new Storyboard();
             openpaneC.Children.Add(fadeC);
             openpaneC.Begin();
+            await Task.Delay(3000);
+            LikeAnimations.Visibility = Visibility.Collapsed;
             //LikeAnimations.Visibility = Visibility.Visible;
         }
 
