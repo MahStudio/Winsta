@@ -170,10 +170,10 @@ namespace WinGoTag.UserControls
 
         private async void Media_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (_tapscount > 2) { _tapscount = 0; return; }
-            _tapscount++;
+            //if (_tapscount > 2) { _tapscount = 0; return; }
+            _tapscount = 1;
             await Task.Delay(350);
-            if (_tapscount == 0) return;
+            //if (_tapscount == 0) return;
             if (_tapscount == 1)
             {
                 if (MedEl.Source != null)
@@ -183,19 +183,26 @@ namespace WinGoTag.UserControls
                     else MedEl.Play();
                 }
             }
-            if (_tapscount == 2)
-            {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
-                LikeAnimation();
-            }
-            await Task.Delay(10);
-            _tapscount = 0;
+            //if (_tapscount == 2)
+            //{
+            //    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
+            //    LikeAnimation();
+            //}
+            //await Task.Delay(10);
+            //_tapscount = 0;
+        }
+        private async void Media_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            _tapscount = 2;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, LikeDislikeRunner);
+            LikeAnimation();
         }
 
         private async void LikeDislikeRunner()
         {
             if (!Media.HasLiked)
             {
+                Media.HasLiked = !Media.HasLiked;
                 var like = (await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value;
                 if (like)
                 {
@@ -205,6 +212,7 @@ namespace WinGoTag.UserControls
             }
             else
             {
+                Media.HasLiked = !Media.HasLiked;
                 var unlike = (await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value;
                 if (unlike)
                 {
