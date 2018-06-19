@@ -117,5 +117,6 @@ namespace WinGoTag.View
             }
             catch (Exception ex) { ex.ExceptionMessage("CommentsView.HyperLinkClick"); }
         }
+        
     }
 }

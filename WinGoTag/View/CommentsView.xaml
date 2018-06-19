@@ -32,9 +32,11 @@
         </Grid.RowDefinitions>
 
         <Grid.Resources>
+            <Converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <Converters:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
             <Converters:UtcToTextConverter x:Key="UtcToTextConverter"/>
         </Grid.Resources>
+        
         <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="1" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -55,12 +57,16 @@
                   IsItemClickEnabled="False" SelectionMode="None" x:Name="mylist">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="54"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Ellipse Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="30" Height="30" Margin="0,6,0,6">
+                        <Ellipse Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="30" Height="30" Margin="0,6,0,6">
                             <Ellipse.Fill>
                                 <ImageBrush>
                                     <ImageBrush.ImageSource>
@@ -69,7 +75,7 @@
                                 </ImageBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <Grid Grid.Column="1" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+                        <Grid Grid.Column="1" Grid.Row="0" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                             
                             <Grid Margin="0,6,0,6">
                                 <Grid.RowDefinitions>
@@ -110,6 +116,70 @@
                             </Grid>
                             
                         </Grid>
+
+                        <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" Margin="30,5" ItemsSource="{Binding PreviewChildComments}" Visibility="{Binding PreviewChildComments.Comments.Count, Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="54"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="30" Height="30" Margin="0,6,0,6">
+                                            <Ellipse.Fill>
+                                                <ImageBrush>
+                                                    <ImageBrush.ImageSource>
+                                                        <BitmapImage UriSource="{Binding User.profile_pic_url, Mode=OneWay}"/>
+                                                    </ImageBrush.ImageSource>
+                                                </ImageBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Grid Grid.Column="1" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+
+                                            <Grid Margin="0,6,0,6">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <!--<TextBlock Grid.Row="1" Text="{Binding User.UserName, Mode=OneWay}"/>-->
+                                                <HyperlinkButton Padding="0" Grid.Row="0" Tag="{Binding User}" Click="Username_Click">
+                                                    <TextBlock Foreground="Black" Text="{Binding User.UserName, Mode=OneWay}" FontWeight="SemiBold"/>
+                                                </HyperlinkButton>
+
+                                                <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
+                                                <!--<RichTextBlock IsTextSelectionEnabled="False" Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Tag="{Binding Text, Mode=OneWay}" Loaded="RichTextBlock_Loaded" />-->
+
+                                                <Grid Grid.Row="2" Margin="0,3,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" VerticalAlignment="Center" >
+                                        <Run Text="{Binding CreatedAtUtc, Converter={StaticResource UtcToTextConverter}}" FontSize="12"/>
+                                                    </TextBlock>
+                                                    <HyperlinkButton FontSize="12" Grid.Column="1" Margin="15,0,0,0" Visibility="{Binding LikesCount,Converter={StaticResource IntToVisibilityConverter}, Mode=OneWay}" VerticalAlignment="Center">
+                                                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
+                                            <Run Text="{Binding LikesCount}" FontSize="12"/>
+                                            <Run Text="like" FontSize="12"/>
+                                                        </TextBlock>
+                                                    </HyperlinkButton>
+                                                    <HyperlinkButton FontSize="12" Tag="{Binding}" Click="Reply_Button" Grid.Column="2" Margin="15,0,0,0" VerticalAlignment="Center" >
+                                                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}">
+                                            <Run Text="Reply" FontSize="12"/>
+                                                        </TextBlock>
+                                                    </HyperlinkButton>
+                                                </Grid>
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

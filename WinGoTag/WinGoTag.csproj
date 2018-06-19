@@ -108,6 +108,7 @@
     <Compile Include="ContentDialogs\InstaMediaContentDialog.xaml.cs">
       <DependentUpon>InstaMediaContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ButtonValueToIconConverter.cs" />
     <Compile Include="Converters\CarouselSizeConverter.cs" />
     <Compile Include="Converters\ConverterGridItemSource.cs" />
@@ -562,28 +563,28 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="InstagramUWPAPI">
-      <Version>1.0.5</Version>
+      <Version>1.0.7</Version>
     </PackageReference>
     <PackageReference Include="LumiaImagingSDK.UWP">
       <Version>3.0.593</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.4</Version>
+      <Version>6.1.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
       <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
