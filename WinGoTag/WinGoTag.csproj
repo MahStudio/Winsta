@@ -130,6 +130,7 @@
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AspectRatioHelper.cs" />
+    <Compile Include="Helpers\ClassInfo.cs" />
     <Compile Include="Helpers\ExtensionHelper.cs" />
     <Compile Include="Helpers\PassageHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />

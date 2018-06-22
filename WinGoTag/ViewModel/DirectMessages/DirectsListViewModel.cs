@@ -37,7 +37,8 @@ namespace WinGoTag.ViewModel.DirectMessages
                 //return tres[count];
                 return new InstaDirectInboxThread();
             });
-            await InboxThreads.LoadMoreItemsAsync(1);
+            if (ClassInfo.DeviceType() == ClassInfo.DeviceTypeEnum.Phone)
+                await InboxThreads.LoadMoreItemsAsync(1);
             //InboxContainer = inb.Value;
             IsBusy = false;
         }
