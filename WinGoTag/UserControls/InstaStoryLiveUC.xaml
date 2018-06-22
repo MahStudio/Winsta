@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="2.2" RenderTransformOrigin="0.5,0.5">
+            <Ellipse Width="62" Height="62" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="2.0" RenderTransformOrigin="0.5,0.5">
                 <Ellipse.RenderTransform>
                     <CompositeTransform Rotation="30"/>
                 </Ellipse.RenderTransform>
@@ -38,7 +38,7 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Grid BorderThickness="1.8" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5">
+            <Grid BorderThickness="1.0" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-5">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#cc0066" Offset="0.354"/>

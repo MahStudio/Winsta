@@ -121,7 +121,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding UserInfo.FullName}" FontWeight="SemiBold" Grid.Row="0" FontSize="14"/>
                 <!--<TextBlock Text="{Binding UserInfo.Biography}" Grid.Row="1" FontSize="12"/>-->
-                <RichTextBlock x:Name="txtBiography" Grid.Row="1" FontSize="12"/>
+                <RichTextBlock IsTextSelectionEnabled="True" x:Name="txtBiography" Grid.Row="1" FontSize="12"/>
                 <HyperlinkButton Content="{Binding UserInfo.ExternalUrl}" Grid.Row="2" FontSize="12" Click="HyperlinkButtonClick"/>
                 <HyperlinkButton Grid.Row="4" Click="Followers_Click" Foreground="Black" FontSize="12">
                     <TextBlock>
