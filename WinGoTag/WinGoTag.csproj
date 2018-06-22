@@ -129,6 +129,7 @@
     <Compile Include="ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AspectRatioHelper.cs" />
     <Compile Include="Helpers\ExtensionHelper.cs" />
     <Compile Include="Helpers\PassageHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
@@ -187,6 +188,9 @@
     </Compile>
     <Compile Include="View\AddPhotos\FilterItem\AddFilterItem.cs" />
     <Compile Include="View\AddPhotos\FilterItem\ListFilterItem.cs" />
+    <Compile Include="View\AddPhotos\FinalizeAddView.xaml.cs">
+      <DependentUpon>FinalizeAddView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddPhotos\ImageFileInfo.cs" />
     <Compile Include="View\AddPhotos\PhotoGalleryView.xaml.cs">
       <DependentUpon>PhotoGalleryView.xaml</DependentUpon>
@@ -461,6 +465,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddPhotos\EditPhotoVideoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddPhotos\FinalizeAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

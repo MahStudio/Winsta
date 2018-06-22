@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using WinGoTag.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -71,7 +73,8 @@ namespace WinGoTag.View.AddPhotos
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            AppCore.ModerateBack(Frame.GoBack);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
             imageStorageFile = e.Parameter as StorageFile;
             // bitmapImage = await ((ImageFileInfo)e.Parameter).GetImageSourceAsync();
             await Task.Delay(1000);
@@ -672,8 +675,12 @@ namespace WinGoTag.View.AddPhotos
             using (var renderer = new JpegRenderer(LastEffect, JpegOutputColorMode.Yuv420))
             {
                 var info = await source.GetInfoAsync();
-                var max = Math.Max(info.ImageSize.Height, info.ImageSize.Width);
-                renderer.Size = new Size(max, max);
+                var R = AspectRatioHelper.Aspect(Convert.ToInt32(info.ImageSize.Width), Convert.ToInt32(info.ImageSize.Height));
+                if (!SupportedAspectRatio(R))
+                {
+                    var max = Math.Max(info.ImageSize.Height, info.ImageSize.Width);
+                    renderer.Size = new Size(max, max);
+                }
                 var saveAsTarget = await ApplicationData.Current.LocalFolder.CreateFileAsync("file.Jpg", CreationCollisionOption.GenerateUniqueName);
                 var render = await renderer.RenderAsync();
                 using (var fs = await saveAsTarget.OpenAsync(FileAccessMode.ReadWrite))
@@ -693,8 +700,10 @@ namespace WinGoTag.View.AddPhotos
             using (var source = new StorageFileImageSource(imageStorageFile))
             {
                 var size = (await source.GetInfoAsync()).ImageSize;
-                var res = await AppCore.InstaApi.UploadPhotoAsync(
-                    new InstaSharper.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
+                var R = AspectRatioHelper.Aspect(Convert.ToInt32(size.Width), Convert.ToInt32(size.Height));
+                Frame.Navigate(typeof(FinalizeAddView), (FiltersList.SelectedItem as FilterListItem).bitmapSource);
+                //var res = await AppCore.InstaApi.UploadPhotoAsync(
+                //    new InstaSharper.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
             }
 
             StorageFile F2S = null;
@@ -731,6 +740,23 @@ namespace WinGoTag.View.AddPhotos
             //        Width = 391,
             //        Height = 428
             //    }, "از بیرون تحریم؛ از داخل فیلتر :|");
+        }
+
+        bool SupportedAspectRatio(string Aspect)
+        {
+            var sp = Aspect.Split(':');
+            if (int.Parse(sp[1]) > int.Parse(sp[0]))
+            {
+                return false;
+            }
+            if (int.Parse(sp[0]) < 4 && int.Parse(sp[0]) > 1 && int.Parse(sp[1]) > 1 && int.Parse(sp[1]) < 5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
