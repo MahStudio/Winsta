@@ -90,7 +90,7 @@
                                 </HyperlinkButton>
 
                                 <!--<TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>-->
-                                <RichTextBlock IsTextSelectionEnabled="False" Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Tag="{Binding Text, Mode=OneWay}" Loaded="RichTextBlock_Loaded" />
+                                <RichTextBlock IsTextSelectionEnabled="True" Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Tag="{Binding Text, Mode=OneWay}" Loaded="RichTextBlock_Loaded" />
 
                                 <Grid Grid.Row="2" Margin="0,3,0,0">
                                     <Grid.ColumnDefinitions>
@@ -149,7 +149,7 @@
                                                     <TextBlock Foreground="Black" Text="{Binding User.UserName, Mode=OneWay}" FontWeight="SemiBold"/>
                                                 </HyperlinkButton>
 
-                                                <TextBlock Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
+                                                <TextBlock IsTextSelectionEnabled="True" Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Text="{Binding Text, Mode=OneWay}"/>
                                                 <!--<RichTextBlock IsTextSelectionEnabled="False" Margin="0,0,20,0" Grid.Row="1" FontSize="13" TextWrapping="Wrap" TextAlignment="DetectFromContent" Tag="{Binding Text, Mode=OneWay}" Loaded="RichTextBlock_Loaded" />-->
 
                                                 <Grid Grid.Row="2" Margin="0,3,0,0">

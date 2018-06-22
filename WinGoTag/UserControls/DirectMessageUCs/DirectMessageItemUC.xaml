@@ -49,8 +49,8 @@
               Background="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=color, Mode=OneWay}" 
               Visibility="{Binding Converter={StaticResource DirectMessageControlVisibilityConverter}, ConverterParameter=1, Mode=OneWay}"
               HorizontalAlignment="{Binding Converter={StaticResource ConverterDirectItem}, ConverterParameter=align, Mode=OneWay}">
-            
-            <TextBlock TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
+
+            <TextBlock IsTextSelectionEnabled="True" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
         </Grid>
 
         <Grid Grid.Column="1" Name="Post" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" 
@@ -90,7 +90,7 @@
 
             <Image Grid.Row="1" Source="{Binding MediaShare.Images[0].URI}" Stretch="UniformToFill"/>
 
-            <TextBlock MaxLines="3" FontSize="12" TextWrapping="Wrap" Grid.Row="2" Text="{Binding MediaShare.Caption.Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
+            <TextBlock IsTextSelectionEnabled="True" MaxLines="3" FontSize="12" TextWrapping="Wrap" Grid.Row="2" Text="{Binding MediaShare.Caption.Text}" VerticalAlignment="Center" Margin="12,12,12,12"/>
 
             <Grid Grid.Row="3" CornerRadius="0,0,20,20" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
                 <Grid.ColumnDefinitions>
