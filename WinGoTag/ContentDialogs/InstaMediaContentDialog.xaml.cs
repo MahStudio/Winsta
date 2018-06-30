@@ -35,13 +35,13 @@ namespace WinGoTag.ContentDialogs
             this.InitializeComponent();
             this.DataContext = Media;
             _med = Media;
-#if RELEASE
+#if !DEBUG
             if (!Media.User.IsPrivate || Media.PhotoOfYou || Media.User.UserName == AppCore.InstaApi.GetLoggedUser().UserName)
             {
 #endif
-            Commands.Items.Add(new LVItem { Text = "Copy URL", Tag = "Copy" });
-            Commands.Items.Add(new LVItem { Text = "Download content", Tag = "Download" });
-#if RELEASE
+                Commands.Items.Add(new LVItem { Text = "Copy URL", Tag = "Copy" });
+                Commands.Items.Add(new LVItem { Text = "Download content", Tag = "Download" });
+#if !DEBUG
             }
 #endif
             Commands.Items.Add(new LVItem { Text = "Copy caption", Tag = "CC" });
