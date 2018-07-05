@@ -3,6 +3,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using WinGoTag.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -14,14 +15,31 @@ namespace WinGoTag.View.SettingsView
     /// </summary>
     public sealed partial class MainSettingsView : Page
     {
-        public MainSettingsView() => InitializeComponent();
+        public MainSettingsView()
+        {
+            InitializeComponent();
+            EditFr.Navigate(typeof(Page));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode != NavigationMode.Back)
+                AppCore.ModerateBack(Frame.GoBack);
+        }
+
+        public void Return()
+        {
+            Frame.GoBack();
+            AppCore.ModerateBack("");
+        }
 
         void LVI_Tapped(object sender, TappedRoutedEventArgs e)
         {
             switch ((sender as ListViewItem).Content.ToString())
             {
                 case "Story Settings":
-                    Frame.Navigate(typeof(StorySettingsView));
+                    EditFr.Navigate(typeof(StorySettingsView));
                     break;
                 default:
                     break;
@@ -74,5 +92,8 @@ namespace WinGoTag.View.SettingsView
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e) => "https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw".OpenUrl();
+
+        private void ToBackBT_Click(object sender, RoutedEventArgs e) => Return();
+
     }
 }
