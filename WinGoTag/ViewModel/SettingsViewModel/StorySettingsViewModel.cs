@@ -15,7 +15,7 @@ namespace WinGoTag.ViewModel.SettingsViewModel
         private bool _savetocamerarool;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool IsBusy { get => _isbusy; set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
+        public bool IsBusy { get => _isbusy; set { _isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEnabled")); } }
         public bool AllowStoryReshare
         {
             get => _allowstoryreshare;
@@ -38,6 +38,8 @@ namespace WinGoTag.ViewModel.SettingsViewModel
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SaveToCameraRoll"));
             }
         }
+
+        public bool IsEnabled => !IsBusy;
 
         CoreDispatcher Dispatcher;
         public StorySettingsViewModel()

@@ -5,6 +5,7 @@
     xmlns:local="using:WinGoTag.View.SettingsView"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:VM="using:WinGoTag.ViewModel.SettingsViewModel"
     mc:Ignorable="d">
 
     <Page.Transitions>
@@ -13,6 +14,10 @@
         </TransitionCollection>
     </Page.Transitions>
 
+    <Page.DataContext>
+        <VM:StorySettingsViewModel/>
+    </Page.DataContext>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -34,6 +39,10 @@
             <TextBlock Grid.Column="1" Text="Story Settings" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
             <!--<Button x:Name="EndBT" Grid.Column="2" Content="End" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="EndBT_Click"/>-->
         </Grid>
-        
+
+        <StackPanel Padding="12,0" Grid.Row="1">
+            <ToggleSwitch Header="Allow Story Reshare" IsOn="{Binding AllowStoryReshare, Mode=TwoWay}" IsEnabled="{Binding IsEnabled, Mode=OneWay}"/>
+            <ToggleSwitch Header="Save To Camera Roll" IsOn="{Binding SaveToCameraRoll, Mode=TwoWay}" IsEnabled="{Binding IsEnabled, Mode=OneWay}"/>
+        </StackPanel>
     </Grid>
 </Page>
