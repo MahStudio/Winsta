@@ -41,6 +41,9 @@ namespace WinGoTag.View.SettingsView
                 case "Story Settings":
                     EditFr.Navigate(typeof(StorySettingsView));
                     break;
+                case "Change Password":
+                    EditFr.Navigate(typeof(ChangePasswordView));
+                    break;
                 default:
                     break;
             }

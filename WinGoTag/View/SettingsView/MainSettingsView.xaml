@@ -75,7 +75,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" FontSize="16" Text="Account"  Margin="12,12" FontWeight="SemiBold"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Story Settings" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="1"/>
-                <ListViewItem Tapped="LVI_Tapped" Content="Change Password" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="2"/>
+                <ListViewItem Tapped="LVI_Tapped" Content="Change Password" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="2"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Posts You've Liked" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="3"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Two Factor Authentication" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="4"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Blocked Users" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="5"/>

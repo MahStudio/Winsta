@@ -171,6 +171,7 @@
     <Compile Include="ViewModel\DirectMessages\DirectsListViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel\ChangePasswordVM.cs" />
     <Compile Include="ViewModel\SettingsViewModel\StorySettingsViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\ChallengeViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\LoginViewModel.cs" />
@@ -231,6 +232,9 @@
     </Compile>
     <Compile Include="View\SearchView\TopLiveVideos.xaml.cs">
       <DependentUpon>TopLiveVideos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsView\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsView\MainSettingsView.xaml.cs">
       <DependentUpon>MainSettingsView.xaml</DependentUpon>
@@ -522,6 +526,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SearchView\TopLiveVideos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsView\ChangePasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
