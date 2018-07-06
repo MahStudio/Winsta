@@ -79,7 +79,7 @@
                 <ListViewItem Tapped="LVI_Tapped" Content="Posts You've Liked" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="3"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Two Factor Authentication" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="4"/>
                 <ListViewItem Tapped="LVI_Tapped" Content="Blocked Users" IsEnabled="False" ContentTemplate="{StaticResource SettingsItemTemplate}" Style="{StaticResource ListViewStrecher}" Grid.Row="5"/>
-                <ToggleSwitch Margin="12,0" IsEnabled="False" Header="Private Account" Grid.Row="6"/>
+                <ToggleSwitch x:Name="PrivateTS" Margin="12,0" Header="Private Account" Grid.Row="6" Toggled="PrivateTS_Toggled"/>
                 <TextBlock Margin="12,0" Foreground="DarkGray" Text="When your account is private, only people you approve can see your photos and videos on Instagram. Your existing followers won't be affected." TextWrapping="Wrap" FontSize="12" Grid.Row="7" />
                 <Rectangle Margin="12,12,12,0" Grid.Row="8" Fill="DarkGray" Stroke="DarkGray" Height="0.5"/>
                 <TextBlock Grid.Row="9" FontSize="16" FontWeight="SemiBold" Margin="12,12" Text="Settings"/>

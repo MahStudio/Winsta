@@ -15,17 +15,22 @@ namespace WinGoTag.View.SettingsView
     /// </summary>
     public sealed partial class MainSettingsView : Page
     {
+        private bool _naviigated = false;
         public MainSettingsView()
         {
             InitializeComponent();
             EditFr.Navigate(typeof(Page));
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
+            var r = await AppCore.InstaApi.GetCurrentUserAsync();
+            if (r.Value == null) { PrivateTS.IsEnabled = false; return; }
+            PrivateTS.IsOn = r.Value.IsPrivate;
+            _naviigated = true;
         }
 
         public void Return()
@@ -104,5 +109,31 @@ namespace WinGoTag.View.SettingsView
 
         private void ToBackBT_Click(object sender, RoutedEventArgs e) => Return();
 
+        private async void PrivateTS_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (_naviigated == false || PrivateTS.IsEnabled == false) return;
+            PrivateTS.IsEnabled = false;
+            if (PrivateTS.IsOn)
+            {
+                var r = await AppCore.InstaApi.SetAccountPrivateAsync();
+                if (r.Value != null)
+                {
+                    PrivateTS.IsOn = r.Value.IsPrivate;
+                    await new MessageDialog(r.Info.Message).ShowAsync();
+                }
+                else PrivateTS.IsOn = !PrivateTS.IsOn;
+            }
+            else
+            {
+                var r = await AppCore.InstaApi.SetAccountPublicAsync();
+                if (r.Value != null)
+                {
+                    PrivateTS.IsOn = r.Value.IsPrivate;
+                    await new MessageDialog(r.Info.Message).ShowAsync();
+                }
+                else PrivateTS.IsOn = !PrivateTS.IsOn;
+            }
+            PrivateTS.IsEnabled = true;
+        }
     }
 }
