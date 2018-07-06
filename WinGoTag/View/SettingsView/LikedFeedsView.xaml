@@ -31,6 +31,32 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Canvas.ZIndex="1"  Name="EditFr"/>
+
+        <Grid Background="#fafafa" Grid.Row="0" Canvas.ZIndex="5" Height="48" VerticalAlignment="Top" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0,0,0.2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="48"/>
+            </Grid.ColumnDefinitions>
+
+            <AppBarButton x:Name="ToBackBT" Grid.Column="0" Width="48" Click="ToBackBT_Click" Height="48">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <!--<AppBarButton Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
+            <TextBlock Grid.Column="1" Text="Liked Feeds" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+            <!--<AppBarButton Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}"/>-->
+        </Grid>
+
         <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}">
             <Pivot.HeaderTemplate>
                 <DataTemplate>
