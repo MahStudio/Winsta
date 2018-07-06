@@ -726,4 +726,59 @@ namespace WinGoTag.DataBinding
 
         #endregion 
     }
+    public class GenerateLikedFeeds<T> : IncrementalLoadingBase
+    {
+        private int _LastPage = 1;
+        PaginationParameters pagination;
+        public GenerateLikedFeeds(uint maxCount, Func<int, T> generator)
+        {
+            HasMoreItems = true;
+            _generator = generator;
+            _maxCount = maxCount;
+            pagination = PaginationParameters.MaxPagesToLoad(1);
+        }
+
+        protected async override Task<IList<object>> LoadMoreItemsOverrideAsync(System.Threading.CancellationToken c, uint count)
+        {
+            if (!HasMoreItems)
+                return (new List<InstaMedia>()).ToArray();
+            uint toGenerate = System.Math.Min(count, _maxCount - _count);
+            // Wait for work 
+            await Task.Delay(10);
+            //http://getsongg.com/dapp/getnewcases?lang=en&tested
+            IEnumerable<InstaMedia> tres = null;//
+            var res = await AppCore.InstaApi.GetLikeFeedAsync(pagination);
+            if (res.Value == null)
+            {
+                throw new Exception(res.Info.Message);
+            }
+            if (res.Value.NextId == null) HasMoreItems = false;
+            pagination.NextId = res.Value.NextId;
+            tres = res.Value.ToList();
+            // This code simply generates
+            if (tres == null)
+            {
+                return (new List<InstaMedia>()).ToArray();
+            }
+            var values = from j in Enumerable.Range((int)_count, (int)toGenerate)
+                         select (object)_generator(j);
+            _count += Convert.ToUInt32(tres.Count());
+            _LastPage++;
+            //App._MainPageInt++;
+            return tres.ToArray();
+        }
+
+        protected override bool HasMoreItemsOverride()
+        {
+            return _count < _maxCount;
+        }
+
+        #region State
+
+        Func<int, T> _generator;
+        uint _count = 0;
+        uint _maxCount;
+
+        #endregion 
+    }
 }

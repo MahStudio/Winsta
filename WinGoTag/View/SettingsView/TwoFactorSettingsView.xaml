@@ -59,8 +59,16 @@
                     </TextBlock>
                     <TextBlock Grid.Row="2" FontSize="16" Text="Backup Access"  Margin="0,12" FontWeight="SemiBold"/>
                     <ListView ItemsSource="{Binding BackupCodes, Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" Grid.Row="3"/>
-                    <HyperlinkButton Content="Copy Backup Codes" Command="{Binding CopyBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="4"/>
-                    <HyperlinkButton Content="Regenerate Backup Codes" Command="{Binding RegenerateBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="5"/>
+                    <HyperlinkButton Command="{Binding CopyBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="4">
+                        <HyperlinkButton.Content>
+                            <TextBlock Text="Copy Backup Codes" FontWeight="SemiBold"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                    <HyperlinkButton Command="{Binding RegenerateBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="5">
+                        <HyperlinkButton.Content>
+                            <TextBlock Text="Regenerate Backup Codes" FontWeight="SemiBold"/>
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
                     <TextBlock Foreground="DarkGray" TextWrapping="Wrap" FontSize="12" Grid.Row="6" Text="Your backup codes can get you back into your account if you aren't able to receive a security code by text. Be sure you keep them in a safe place."/>
                 </Grid>
             </ScrollViewer>

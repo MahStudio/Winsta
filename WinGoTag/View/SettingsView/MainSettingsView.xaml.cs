@@ -47,6 +47,9 @@ namespace WinGoTag.View.SettingsView
                 case "Two Factor Authentication":
                     EditFr.Navigate(typeof(TwoFactorSettingsView));
                     break;
+                case "Posts You've Liked":
+                    EditFr.Navigate(typeof(LikedFeedsView));
+                    break;
                 default:
                     break;
             }

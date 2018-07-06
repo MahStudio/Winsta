@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="WinGoTag.View.SettingsView.LikedFeedsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinGoTag.View.SettingsView"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:View="using:WinGoTag.UserControls"
+    xmlns:VM="using:WinGoTag.ViewModel.SettingsViewModel"
+    mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <EdgeUIThemeTransition Edge="Right"/>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="/Styles/Pivots.xaml"/>
+                <ResourceDictionary Source="/Styles/GridViews.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <VM:LikedFeedsVM/>
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot Grid.Row="1" Style="{ThemeResource CustomPivotTab}">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock FontSize="18" Text="{Binding}" FontFamily="Segoe MDL2 Assets" Margin="20,0,20,0"/>
+                    </Grid>
+
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+
+            <PivotItem Header="&#xE80A;" Margin="0">
+
+                <controls:AdaptiveGridView Name="AdaptiveGridViewControl"
+                                                   OneRowModeEnabled="False"
+                                                   ItemHeight="138"
+                                                   Style="{ThemeResource CustomGridView}"
+                                                   ItemsSource="{Binding MediaList}"
+                                                   DesiredWidth="150"
+                                                   SelectionMode="None"
+                                                   ItemClick="AdaptiveGridViewControl_ItemClick"
+                                                   IsItemClickEnabled="True">
+
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="FrameworkElement">
+                            <Setter Property="Margin" Value="0.5"/>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <controls:AdaptiveGridView.ItemTemplate>
+                        <DataTemplate>
+                            <View:GridItemUC Media="{Binding}"/>
+                        </DataTemplate>
+                    </controls:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView>
+
+            </PivotItem>
+
+            <PivotItem Header="&#xE7BC;" Margin="0">
+                <ListView ItemsSource="{Binding MediaList}" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewStrecher}" BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" BorderThickness="0,0.5,0,0.5"
+                                  IncrementalLoadingThreshold="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <View:InstaMediaUC Media="{Binding}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+
+        </Pivot>
+    </Grid>
+</Page>
