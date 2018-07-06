@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Core;
 
 namespace WinGoTag.ViewModel.SettingsViewModel
@@ -47,7 +48,8 @@ namespace WinGoTag.ViewModel.SettingsViewModel
 
         public bool IsEnabled => !IsBusy;
 
-        public AppCommand ChangePasswordCmd { get; set; }
+        public AppCommand CopyBackupCodesCmd { get; set; }
+        public AppCommand RegenerateBackupCodesCmd { get; set; }
 
         CoreDispatcher Dispatcher;
         public TwoFactorSettingsVM()
@@ -55,10 +57,12 @@ namespace WinGoTag.ViewModel.SettingsViewModel
             IsBusy = false;
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             RunLoadPage();
-            ChangePasswordCmd = AppCommand.GetInstance();
-            ChangePasswordCmd.ExecuteFunc = ChangePass;
+            CopyBackupCodesCmd = AppCommand.GetInstance();
+            RegenerateBackupCodesCmd = AppCommand.GetInstance();
+            CopyBackupCodesCmd.ExecuteFunc = CopyBackupCodes;
+            RegenerateBackupCodesCmd.ExecuteFunc = RegenerateBackupCodes;
         }
-
+        
         async void RunLoadPage()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, LoadPage);
@@ -73,39 +77,33 @@ namespace WinGoTag.ViewModel.SettingsViewModel
             var st = res.Value.Status;
             IsBusy = false;
         }
-
-        private async void ChangePass(object obj)
+        
+        void CopyBackupCodes(object obj)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, ChangePassFunc);
+            var dp = new DataPackage();
+            string BC = "";
+            foreach (var item in BackupCodes)
+            {
+                BC += item + Environment.NewLine; 
+            }
+            dp.SetText(BC);
+            Clipboard.SetContent(dp);
         }
 
-        async void ChangePassFunc()
+        async void RegenerateBackupCodes(object obj)
         {
-            //IsBusy = true;
-            //if (NewPassword != NewPassword2)
-            //{
-            //    await new MessageDialog("New password and repeat of new password must be the same.").ShowAsync();
-            //    IsBusy = false;
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(OldPassword) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(NewPassword2))
-            //{
-            //    await new MessageDialog("All fields are required for changing password.").ShowAsync();
-            //    IsBusy = false;
-            //    return;
-            //}
-            //var res = await AppCore.InstaApi.ChangePasswordAsync(OldPassword, NewPassword);
-            //if (res.Value != true)
-            //{
-            //    await new MessageDialog(res.Info.Message).ShowAsync();
-            //    IsBusy = false;
-            //    return;
-            //}
-            //else
-            //{
-            //    OldPassword = NewPassword = NewPassword2 = "";
-            //    IsBusy = false;
-            //}
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, RegenerateBackupCodes);
+        }
+
+        async void RegenerateBackupCodes()
+        {
+            IsBusy = true;
+            var b = await AppCore.InstaApi.AccountProcessor.RegenerateTwoFactorBackupCodes();
+            if(b.Succeeded && b.Value != null)
+            {
+                BackupCodes = b.Value.BackupCodes.ToList();
+            }
+            IsBusy = false;
         }
 
     }

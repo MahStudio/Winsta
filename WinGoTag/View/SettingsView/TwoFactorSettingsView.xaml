@@ -36,7 +36,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE00E;" />
                 </AppBarButton.Icon>
             </AppBarButton>
-            <TextBlock Grid.Column="1" Text="Story Settings" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
+            <TextBlock Grid.Column="1" Text="Two-Factor Authentication" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="16"/>
             <!--<Button x:Name="EndBT" Grid.Column="2" Content="End" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{x:Null}" Click="EndBT_Click"/>-->
         </Grid>
 
@@ -49,14 +49,19 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <ToggleSwitch Header="Require Security Code" IsOn="{Binding IsTwoFactorEnabled, Mode=TwoWay}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="0"/>
                     <TextBlock Foreground="DarkGray" TextWrapping="Wrap" FontSize="12" Grid.Row="1">
-                <Run>Turning this on means we'll send you a security code when we need to confirm that it's you logged in.</Run>
-                <Hyperlink Click="Hyperlink_Click">Learn more</Hyperlink>
+                        <Run>Turning this on means we'll send you a security code when we need to confirm that it's you logged in.</Run>
+                        <Hyperlink Click="Hyperlink_Click">Learn more</Hyperlink>
                     </TextBlock>
                     <TextBlock Grid.Row="2" FontSize="16" Text="Backup Access"  Margin="0,12" FontWeight="SemiBold"/>
                     <ListView ItemsSource="{Binding BackupCodes, Mode=OneWay}" IsItemClickEnabled="True" SelectionMode="None" Grid.Row="3"/>
+                    <HyperlinkButton Content="Copy Backup Codes" Command="{Binding CopyBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="4"/>
+                    <HyperlinkButton Content="Regenerate Backup Codes" Command="{Binding RegenerateBackupCodesCmd}" IsEnabled="{Binding IsEnabled, Mode=OneWay}" Grid.Row="5"/>
+                    <TextBlock Foreground="DarkGray" TextWrapping="Wrap" FontSize="12" Grid.Row="6" Text="Your backup codes can get you back into your account if you aren't able to receive a security code by text. Be sure you keep them in a safe place."/>
                 </Grid>
             </ScrollViewer>
         </Grid>
