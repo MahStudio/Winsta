@@ -173,6 +173,7 @@
     <Compile Include="ViewModel\Search\SearchViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel\ChangePasswordVM.cs" />
     <Compile Include="ViewModel\SettingsViewModel\StorySettingsViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel\TwoFactorSettingsVM.cs" />
     <Compile Include="ViewModel\SignInSignUp\ChallengeViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\LoginViewModel.cs" />
     <Compile Include="ViewModel\SignInSignUp\TwoStepFactorViewModel.cs" />
@@ -241,6 +242,9 @@
     </Compile>
     <Compile Include="View\SettingsView\StorySettingsView.xaml.cs">
       <DependentUpon>StorySettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsView\TwoFactorSettingsView.xaml.cs">
+      <DependentUpon>TwoFactorSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SignInSignUp\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -538,6 +542,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SettingsView\StorySettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsView\TwoFactorSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

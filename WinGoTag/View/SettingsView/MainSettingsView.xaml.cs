@@ -44,6 +44,9 @@ namespace WinGoTag.View.SettingsView
                 case "Change Password":
                     EditFr.Navigate(typeof(ChangePasswordView));
                     break;
+                case "Two Factor Authentication":
+                    EditFr.Navigate(typeof(TwoFactorSettingsView));
+                    break;
                 default:
                     break;
             }
