@@ -39,3 +39,7 @@ Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) 
 
 This project uses [https://github.com/MahStudio/InstagramAPI](https://github.com/MahStudio/InstagramAPI).
 
+## License
+Copyright © 2017-2018 [Winsta Authors](https://github.com/Mahstudio/Winsta/graphs/contributors).
+
+Winsta is not going to be a free software. If you want to create your own Instagram Client feel free to use our [private API NuGet](https://www.nuget.org/packages/Instagram_UWP)
