@@ -29,13 +29,13 @@ Unofficial Instagram client for Windows 10 devices.
 1. Windows 10
 2. Visual Studio 2017 (latest build) with universal windows development features installed.
 3. GIT for Windows ([install from here](http://gitforwindows.org/))
-4. Knowledge about C#, Xaml, MVVM, Windows development and Couchbase NoSQL
+4. Knowledge about C#, Xaml, MVVM and Windows developmen.
 
 ### Insider chat on Telegram
 
 Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) to stay tuned about the development of this application, exchanging feedback and the insider builds.
 
-## InstaApi
+### InstaApi
 
 This project uses [https://github.com/MahStudio/InstagramAPI](https://github.com/MahStudio/InstagramAPI).
 
