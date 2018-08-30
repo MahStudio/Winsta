@@ -1,6 +1,19 @@
-# Winsta
+<p align="center">
+    <img src="https://github.com/MahStudio/Winsta/raw/master/WinGoTag/Assets/Logos/perfectColor.png" width=80 height=80>
 
-Unofficial Instagram client for Windows 10 devices.
+  <h3 align="center">Winsta</h3>
+
+  <p align="center">
+   Unofficial Instagram client for Windows 10 devices.
+    <br>
+    <a href="https://t.me/joinchat/EJ9gLURDAcbOxpoIGSdD8g">Insiders Group</a>
+  &middot;
+    <a href="https://www.paypal.me/mohsens22">Donate</a>
+    <br>
+  </p>
+</p>
+
+<br>
 
 ## Features
 - Login (Two Factor login supported | Challenge require supported)
@@ -18,8 +31,9 @@ Unofficial Instagram client for Windows 10 devices.
 - Cinema mode
 - Accept and Ignore friend requests
 - Download posts (Available for Public profiles, Your own medias, and medias you are tagged in)
-
-![image](https://user-images.githubusercontent.com/22152065/41449041-de216aa4-7073-11e8-9deb-89295b9a247c.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/22152065/41449041-de216aa4-7073-11e8-9deb-89295b9a247c.png">
+<p/>
 
 
 ## Contributing
@@ -40,6 +54,6 @@ Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) 
 This project uses [https://github.com/MahStudio/InstagramAPI](https://github.com/MahStudio/InstagramAPI).
 
 ## License
-Copyright © 2017-2018 [Winsta Authors](https://github.com/Mahstudio/Winsta/graphs/contributors).
+Copyright © 2017-2018 [Winsta Authors](https://github.com/Mahstudio/Winsta/graphs/contributors) // [Mah Studio](https://mahstudio.github.io).
 
-Winsta is not going to be a free software. If you want to create your own Instagram Client feel free to use our [private API NuGet](https://www.nuget.org/packages/InstagramUWPAPI)
+Winsta is not going to be a freeware. If you want to create your own Instagram Client feel free to use our [private API NuGet](https://www.nuget.org/packages/InstagramUWPAPI)
