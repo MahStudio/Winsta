@@ -43,7 +43,7 @@
 1. Windows 10
 2. Visual Studio 2017 (latest build) with universal windows development features installed.
 3. GIT for Windows ([install from here](http://gitforwindows.org/))
-4. Knowledge about C#, Xaml, MVVM and Windows developmen.
+4. Knowledge about C#, Xaml, MVVM and Windows development.
 
 ### Insider chat on Telegram
 
