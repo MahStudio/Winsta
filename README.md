@@ -4,14 +4,20 @@
   <h3 align="center">Winsta</h3>
 
   <p align="center">
-   Unofficial Instagram client for Windows 10 devices.
+    Denna is a fully featured and productive To-Do list for Windows 10 devices.
     <br>
-    <a href="https://t.me/joinchat/EJ9gLURDAcbOxpoIGSdD8g">Insiders Group</a>
+    <a href="https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw">Insiders chat</a>
   &middot;
-    <a href="https://www.paypal.me/mohsens22">Donate</a>
+    <a href="https://install.appcenter.ms/orgs/mahstudio-u5ev/apps/winsta/distribution_groups/insiders">Nightly builds</a>
     <br>
+    <br>
+  <a href="https://install.appcenter.ms/orgs/mahstudio-u5ev/apps/winsta/distribution_groups/insiders">
+    <img src="https://build.appcenter.ms/v0.1/apps/24d698cf-df43-48bd-8300-404b9dc3854a/branches/master/badge">
+    </a>
+  <a href="https://www.paypal.me/mohsens22">
+    <img src="https://img.shields.io/badge/Donate-Paypal-blue.svg" />
+  </a>
   </p>
-</p>
 
 <br>
 
@@ -56,4 +62,7 @@ This project uses [https://github.com/MahStudio/InstagramAPI](https://github.com
 ## License
 Copyright © 2017-2018 [Winsta Authors](https://github.com/Mahstudio/Winsta/graphs/contributors) // [Mah Studio](https://mahstudio.github.io).
 
-Winsta is not going to be a freeware. If you want to create your own Instagram Client feel free to use our [private API NuGet](https://www.nuget.org/packages/InstagramUWPAPI)
+If you want to create your own Instagram Client feel free to use our [private API NuGet](https://www.nuget.org/packages/InstagramUWPAPI)
+ and feel free to use this source code as a sample code.
+ 
+> **NOTE**: Winsta is not going to be a freeware and we decided to continue this project in a private repository.
