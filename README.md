@@ -38,7 +38,7 @@
 - Accept and Ignore friend requests
 - Download posts (Available for Public profiles, Your own medias, and medias you are tagged in)
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/22152065/41449041-de216aa4-7073-11e8-9deb-89295b9a247c.png">
+    <img src="https://user-images.githubusercontent.com/22152065/46222594-b3c1d680-c35d-11e8-97eb-42f74111fc99.png">
 <p/>
 
 
