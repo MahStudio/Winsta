@@ -4,7 +4,7 @@
   <h3 align="center">Winsta</h3>
 
   <p align="center">
-    Denna is a fully featured and productive To-Do list for Windows 10 devices.
+    Unofficial Instagram client for Windows 10 devices.
     <br>
     <a href="https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw">Insiders chat</a>
   &middot;
