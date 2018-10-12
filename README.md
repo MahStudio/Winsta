@@ -21,6 +21,25 @@
 
 <br>
 
+## Installation
+
+1- First download our latest insider build from [App center](https://install.appcenter.ms/orgs/mahstudio-u5ev/apps/winsta/distribution_groups/insiders) or [Github release](https://github.com/MahStudio/Winsta/releases/latest).
+2- Follow [these instructions](https://www.maketecheasier.com/install-appx-files-windows-10/) and install the appx package.
+
+[DOWNLOAD CERTIFICATE](https://github.com/MahStudio/Winsta/raw/master/UnofficialInstagram_1.1.3.0_x86_ARM.cer)
+
+### FAQ
+
+> I have installation problems related to certificate.
+
+Use [Colin Kiama's Easy Cert install](https://github.com/colinkiama/EasyCertInstall) and install the certificate.
+
+Alternatively, you can download [FULL PACKAGE](https://github.com/MahStudio/Winsta/releases/latest) and right click on the `Add-AppDevPackage.ps1` script and click `Run with Powershell`. If Windows complained about running the scrip, write `Set-ExecutionPolicy Unrestricted` in the powershell to allow running external scripts.
+
+> How the fuck should I install it on mobile?
+
+Get the appx file and tap it on mobile. It will be installed. If it didn't, download and extract full package use device portal to install the package with it's dependencies.
+
 ## Features
 - Login (Two Factor login supported | Challenge require supported)
 - Login with Facebook
