@@ -36,9 +36,9 @@ Use [Colin Kiama's Easy Cert install](https://github.com/colinkiama/EasyCertInst
 
 Alternatively, you can download [FULL PACKAGE](https://github.com/MahStudio/Winsta/releases/latest) and right click on the `Add-AppDevPackage.ps1` script and click `Run with Powershell`. If Windows complained about running the scrip, write `Set-ExecutionPolicy Unrestricted` in the powershell to allow running external scripts.
 
-> How the fuck should I install it on mobile?
+> How should I install it on mobile?
 
-Get the appx file and tap it on mobile. It will be installed. If it didn't, download and extract full package use device portal to install the package with it's dependencies.
+Get the appx file and tap it on mobile File Explorer. It will be installed. If it didn't, download and extract full package use device portal to install the package with it's dependencies.
 
 ## Features
 - Login (Two Factor login supported | Challenge require supported)
