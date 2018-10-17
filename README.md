@@ -23,8 +23,8 @@
 
 ## Installation
 
-1- First download our latest insider build from [App center](https://install.appcenter.ms/orgs/mahstudio-u5ev/apps/winsta/distribution_groups/insiders) or [Github release](https://github.com/MahStudio/Winsta/releases/latest).
-2- Follow [these instructions](https://www.maketecheasier.com/install-appx-files-windows-10/) and install the appx package.
+1. First download our latest insider build from [App center](https://install.appcenter.ms/orgs/mahstudio-u5ev/apps/winsta/distribution_groups/insiders) or [Github release](https://github.com/MahStudio/Winsta/releases/latest).
+2. Follow [these instructions](https://www.maketecheasier.com/install-appx-files-windows-10/) and install the appx package.
 
 [DOWNLOAD CERTIFICATE](https://github.com/MahStudio/Winsta/raw/master/UnofficialInstagram_1.1.3.0_x86_ARM.cer)
 
