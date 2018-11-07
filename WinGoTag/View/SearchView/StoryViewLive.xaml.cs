@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;

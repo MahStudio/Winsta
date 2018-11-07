@@ -1,5 +1,5 @@
 ﻿using InstaNotifications;
-using InstaSharper.Classes.Models;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,13 +96,13 @@ namespace WinGoTag.ContentDialogs
                 case InstaMediaType.Image:
                     Files.Add(await f.CreateFileAsync("Img.jpg", CreationCollisionOption.GenerateUniqueName));
                     var file = Files.FirstOrDefault();
-                    var tsk = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Images[0].URI, UriKind.RelativeOrAbsolute), file).StartAsync().AsTask();
+                    var tsk = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Images[0].Uri, UriKind.RelativeOrAbsolute), file).StartAsync().AsTask();
                     NotifyHelper.CreateNotifyEmpty("Download successfull", $"Image saved into {file.Path}");
                     break;
                 case InstaMediaType.Video:
                     Files.Add(await f.CreateFileAsync("Video.mp4", CreationCollisionOption.GenerateUniqueName));
                     var file2 = Files.FirstOrDefault();
-                    var tsk2 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Videos[0].Url, UriKind.RelativeOrAbsolute), file2).StartAsync().AsTask();
+                    var tsk2 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(_med.Videos[0].Uri, UriKind.RelativeOrAbsolute), file2).StartAsync().AsTask();
                     NotifyHelper.CreateNotifyEmpty("Download successfull", $"Image saved into {file2.Path}");
                     break;
                 case InstaMediaType.Carousel:
@@ -111,13 +111,13 @@ namespace WinGoTag.ContentDialogs
                         if (item.MediaType == InstaMediaType.Image)
                         {
                             var file3 = await f.CreateFileAsync("Img.jpg", CreationCollisionOption.GenerateUniqueName);
-                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
+                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Images[0].Uri, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
                             NotifyHelper.CreateNotifyEmpty("Download successfull", $"Image saved into {file3.Path}");
                         }
                         else
                         {
                             var file3 = await f.CreateFileAsync("Video.mp4", CreationCollisionOption.GenerateUniqueName);
-                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
+                            var tsk3 = new Windows.Networking.BackgroundTransfer.BackgroundDownloader().CreateDownload(new Uri(item.Videos[0].Uri, UriKind.RelativeOrAbsolute), file3).StartAsync().AsTask();
                             NotifyHelper.CreateNotifyEmpty("Download successfull", $"Video saved into {file3.Path}");
                         }
                     }

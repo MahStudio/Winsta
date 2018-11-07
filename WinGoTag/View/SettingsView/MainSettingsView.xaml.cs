@@ -115,7 +115,7 @@ namespace WinGoTag.View.SettingsView
             PrivateTS.IsEnabled = false;
             if (PrivateTS.IsOn)
             {
-                var r = await AppCore.InstaApi.SetAccountPrivateAsync();
+                var r = await AppCore.InstaApi.AccountProcessor.SetAccountPrivateAsync();
                 if (r.Value != null)
                 {
                     PrivateTS.IsOn = r.Value.IsPrivate;
@@ -125,7 +125,7 @@ namespace WinGoTag.View.SettingsView
             }
             else
             {
-                var r = await AppCore.InstaApi.SetAccountPublicAsync();
+                var r = await AppCore.InstaApi.AccountProcessor.SetAccountPublicAsync();
                 if (r.Value != null)
                 {
                     PrivateTS.IsOn = r.Value.IsPrivate;

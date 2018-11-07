@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -79,18 +79,18 @@ namespace WinGoTag.View.UserViews
                 //    profile_pic_url = user.ProfilePicUrl,
                 //    UserName = user.Username
                 //});
-                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync(user.Username)).Value;
+                UserProfileViewModel.User = (await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync(user.Username)).Value;
                 UserProfileViewModel.RunLoadPage();
             }
 
             if (e.Parameter.GetType() == typeof(InstaUser))
             {
-                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync((e.Parameter as InstaUser).UserName)).Value;
+                UserProfileViewModel.User = (await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync((e.Parameter as InstaUser).UserName)).Value;
                 UserProfileViewModel.RunLoadPage();
             }
             if (e.Parameter.GetType() == typeof(InstaUserShort))
             {
-                UserProfileViewModel.User = (await AppCore.InstaApi.GetUserInfoByUsernameAsync((e.Parameter as InstaUserShort).UserName)).Value;
+                UserProfileViewModel.User = (await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync((e.Parameter as InstaUserShort).UserName)).Value;
                 UserProfileViewModel.RunLoadPage();
             }
             HandleBiography();

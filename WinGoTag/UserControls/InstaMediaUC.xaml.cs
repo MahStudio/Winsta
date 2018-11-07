@@ -1,5 +1,5 @@
-﻿using InstaSharper.API.Processors;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.API.Processors;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -202,7 +202,7 @@ namespace WinGoTag.UserControls
             if (!Media.HasLiked)
             {
                 Media.HasLiked = !Media.HasLiked;
-                var like = (await AppCore.InstaApi.LikeMediaAsync(Media.InstaIdentifier)).Value;
+                var like = (await AppCore.InstaApi.MediaProcessor.LikeMediaAsync(Media.InstaIdentifier)).Value;
                 if (like)
                 {
                     Media.HasLiked = true;
@@ -213,7 +213,7 @@ namespace WinGoTag.UserControls
             else
             {
                 Media.HasLiked = !Media.HasLiked;
-                var unlike = (await AppCore.InstaApi.UnLikeMediaAsync(Media.InstaIdentifier)).Value;
+                var unlike = (await AppCore.InstaApi.MediaProcessor.UnLikeMediaAsync(Media.InstaIdentifier)).Value;
                 if (unlike)
                 {
                     Media.HasLiked = false;
@@ -321,7 +321,7 @@ namespace WinGoTag.UserControls
 
         private async void AddToCollectionRunner()
         {
-            var AddToCollection = await AppCore.InstaApi.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
+            var AddToCollection = await AppCore.InstaApi.CollectionProcessor.AddItemsToCollectionAsync(0, Media.Caption.MediaId);
         }
 
         private void ThisFlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)

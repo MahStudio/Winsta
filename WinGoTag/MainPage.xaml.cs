@@ -1,6 +1,6 @@
-﻿using InstaSharper.API.Builder;
-using InstaSharper.Classes;
-using InstaSharper.Logger;
+﻿using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Logger;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;

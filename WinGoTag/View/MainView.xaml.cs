@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -77,9 +77,7 @@ namespace WinGoTag.View
         {
             _ProgressBar.IsIndeterminate = true;
             var p = PaginationParameters.MaxPagesToLoad(1);
-            var res = await AppCore.InstaApi.GetDirectInboxAsync(p);
-            p.NextId = res.Value.Inbox.OldestCursor;
-            var res2 = await AppCore.InstaApi.GetDirectInboxAsync(p);
+            var res = await AppCore.InstaApi.AccountProcessor.GetRequestForEditProfileAsync();
             if (res.Info.Message == "login_required")
             {
                 AppCore.SaveUserInfo(null, null, false);
@@ -90,15 +88,15 @@ namespace WinGoTag.View
 
 
             var User = AppCore.InstaApi.GetLoggedUser();
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
-            var items = await AppCore.InstaApi.GetUserStoryFeedAsync(user.Value.Pk);
+            var user = await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync(User.UserName);
+            var items = await AppCore.InstaApi.StoryProcessor.GetUserStoryFeedAsync(user.Value.Pk);
             InstaUserShort You = new InstaUserShort() { UserName = "You", ProfilePicture = user.Value.ProfilePicUrl, Pk = user.Value.Pk };
             InstaReelFeed MyReel = new InstaReelFeed();
 
             MyReel.User = You;
             MyReel.Items = items.Value.Items;
 
-            var strs = await AppCore.InstaApi.GetStoryFeedAsync();
+            var strs = await AppCore.InstaApi.StoryProcessor.GetStoryFeedAsync();
 
             if (strs.Value.Items.Exists(x => x.User.Pk == user.Value.Pk))
             {
@@ -110,7 +108,7 @@ namespace WinGoTag.View
             }
 
 
-            strs.Value.Items.OrderBy(x => x.Seen_ranked_position != 0);
+            strs.Value.Items.OrderBy(x => x.Seen != 0);
             strs.Value.Items.Insert(0, MyReel);
 
             StoriesList.ItemsSource = strs.Value.Items;
@@ -272,14 +270,14 @@ namespace WinGoTag.View
                 if (item.MediaType == InstaMediaType.Image)
                 {
                     CinemaPlayer.Source = null;
-                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].Uri, UriKind.RelativeOrAbsolute));
                     await Task.Delay(6000);
                 }
                 if (item.MediaType == InstaMediaType.Video)
                 {
-                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                    CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].Uri, UriKind.RelativeOrAbsolute));
                     await Task.Delay(3000);
-                    CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
+                    CinemaPlayer.Source = new Uri(item.Videos[0].Uri, UriKind.RelativeOrAbsolute);
                     var ms = CinemaPlayer.Position.TotalMilliseconds;
                     await Task.Delay(2000);
                     await Task.Delay(Convert.ToInt32(CinemaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds));
@@ -291,14 +289,14 @@ namespace WinGoTag.View
                         if (item.MediaType == InstaMediaType.Image)
                         {
                             CinemaPlayer.Source = null;// new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute);
-                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].Uri, UriKind.RelativeOrAbsolute));
                             await Task.Delay(6000);
                         }
                         if (item.MediaType == InstaMediaType.Video)
                         {
-                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].URI, UriKind.RelativeOrAbsolute));
+                            CinemaPlayer.PosterSource = new BitmapImage(new Uri(item.Images[0].Uri, UriKind.RelativeOrAbsolute));
                             await Task.Delay(3000);
-                            CinemaPlayer.Source = new Uri(item.Videos[0].Url, UriKind.RelativeOrAbsolute);
+                            CinemaPlayer.Source = new Uri(item.Videos[0].Uri, UriKind.RelativeOrAbsolute);
                             await Task.Delay(2000);
                             await Task.Delay(Convert.ToInt32(CinemaPlayer.NaturalDuration.TimeSpan.TotalMilliseconds));
                         }

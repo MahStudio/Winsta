@@ -64,7 +64,7 @@ namespace WinGoTag.View.SearchView
             }
             else if (query.StartsWith("#"))
             {
-                var ForTag = await AppCore.InstaApi.SearchHashtag(query.Replace("#", ""));
+                var ForTag = await AppCore.InstaApi.HashtagProcessor.SearchHashtagAsync(query.Replace("#", ""));
                 TagsList.ItemsSource = ForTag.Value;
                 PivotSearch.SelectedIndex = 2;
             }
@@ -74,7 +74,7 @@ namespace WinGoTag.View.SearchView
                     return;
                 if (PivotSearch.SelectedIndex == 3)
                 {
-                    var ForLocation = await AppCore.InstaApi.SearchLocation(0, 0, query);
+                    var ForLocation = await AppCore.InstaApi.LocationProcessor.SearchLocationAsync(0, 0, query);
                     PlacesList.ItemsSource = ForLocation.Value;
                 }
                 else

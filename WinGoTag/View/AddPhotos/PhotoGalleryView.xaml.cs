@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
@@ -242,7 +242,7 @@ namespace WinGoTag.View.AddPhotos
 
         public async Task Upload()
         {
-            var UploadTest = await AppCore.InstaApi.UploadPhotoAsync(instaImage, "");
+            var UploadTest = await AppCore.InstaApi.MediaProcessor.UploadPhotoAsync(instaImage, "");
         }
 
         private void CancelBT_Click(object sender, RoutedEventArgs e)

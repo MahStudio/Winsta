@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -55,14 +55,14 @@ namespace WinGoTag.UserControls
                     {
                         CarouVideo.Visibility = Visibility.Collapsed;
                         CarouImage.Visibility = Visibility.Visible;
-                        CarouImage.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                        CarouImage.Source = new BitmapImage(new Uri(value.Images.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute));
                     }
                     else
                     {
                         CarouImage.Visibility = Visibility.Collapsed;
                         CarouVideo.Visibility = Visibility.Visible;
-                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-                        CarouVideo.Source = new Uri(value.Videos.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
+                        CarouVideo.PosterSource = new BitmapImage(new Uri(value.Images.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute));
+                        CarouVideo.Source = new Uri(value.Videos.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute);
                     }
                 }
         }

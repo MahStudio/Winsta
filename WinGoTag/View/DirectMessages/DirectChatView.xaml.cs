@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -34,10 +34,11 @@ namespace WinGoTag.View.DirectMessages
             var source = ((InstaDirectInboxThread)e.Parameter);
             ItemsList = new GenerateDirectThreadList<InstaDirectInboxItem>(100000, (count) => new InstaDirectInboxItem()
             , source.ThreadId);
-            var message = await AppCore.InstaApi.GetDirectInboxThreadAsync(source.ThreadId, PaginationParameters.MaxPagesToLoad(1));
+            var message = await AppCore.InstaApi.MessagingProcessor.GetDirectInboxThreadAsync(source.ThreadId, "");
             VieweIds = message.Value.VieweId;
             ThreadIds = message.Value.ThreadId;
             DataUser = message.Value.Users[0];
+            
             try
             {
                 UserId = message.Value.Users[0].Pk;
@@ -96,7 +97,7 @@ namespace WinGoTag.View.DirectMessages
                     return;
             }
 
-            var MessageSend = await AppCore.InstaApi.SendDirectMessage(UserId.ToString(), ThreadIds, TextBoxChat.Text);
+            var MessageSend = await AppCore.InstaApi.MessagingProcessor.SendDirectMessageAsync(UserId.ToString(), ThreadIds, TextBoxChat.Text);
             TextBoxChat.Text = "";
             for (int a = 0; a < MessageSend.Value[0].Items.Count; a++)
                 ItemsList.Add(MessageSend.Value[0].Items[a]);

@@ -703,7 +703,7 @@ namespace WinGoTag.View.AddPhotos
                 var R = AspectRatioHelper.Aspect(Convert.ToInt32(size.Width), Convert.ToInt32(size.Height));
                 Frame.Navigate(typeof(FinalizeAddView), (FiltersList.SelectedItem as FilterListItem).bitmapSource);
                 //var res = await AppCore.InstaApi.UploadPhotoAsync(
-                //    new InstaSharper.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
+                //    new InstagramApiSharp.Classes.Models.InstaImage((FiltersList.SelectedItem as FilterListItem).bitmapSource.LocalPath, (int)size.Width, (int)size.Height), "#تست #موقت");
             }
 
             StorageFile F2S = null;
@@ -734,7 +734,7 @@ namespace WinGoTag.View.AddPhotos
             //            await fs.FlushAsync();
             //        }
             //    }
-            //    var res = await AppCore.InstaApi.UploadPhotoAsync(new InstaSharper.Classes.Models.InstaImage()
+            //    var res = await AppCore.InstaApi.UploadPhotoAsync(new InstagramApiSharp.Classes.Models.InstaImage()
             //    {
             //        URI = new Uri("ms-appdata:///TempImage1.Jpg", UriKind.Absolute).LocalPath,
             //        Width = 391,

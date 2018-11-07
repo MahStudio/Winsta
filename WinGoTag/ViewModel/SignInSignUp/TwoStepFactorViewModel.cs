@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes;
+﻿using InstagramApiSharp.Classes;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;

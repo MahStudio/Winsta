@@ -1,6 +1,5 @@
-﻿using InstaAPI.Classes.Models;
-using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
+using InstagramApiSharp.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaMedia> tres = null;//
-            var res = await AppCore.InstaApi.GetUserTimelineFeedAsync(pagination);
+            var res = await AppCore.InstaApi.FeedProcessor.GetUserTimelineFeedAsync(pagination);
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Medias;
@@ -84,7 +83,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaDirectInboxThread> tres = null;//
-            var res = await AppCore.InstaApi.GetDirectInboxAsync(pagination);
+            var res = await AppCore.InstaApi.MessagingProcessor.GetDirectInboxAsync(pagination.NextId);
             if (res.Value.Inbox.OldestCursor == null) HasMoreItems = false;
             pagination.NextId = res.Value.Inbox.OldestCursor;
             tres = res.Value.Inbox.Threads;
@@ -138,7 +137,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaDirectInboxItem> tres = null;//
-            var res = await AppCore.InstaApi.GetDirectInboxThreadAsync(ThreadID, pagination);
+            var res = await AppCore.InstaApi.MessagingProcessor.GetDirectInboxThreadAsync(ThreadID, pagination.NextId);
             if (res.Value.OldestCursor == null) HasMoreItems = false;
             pagination.NextId = res.Value.OldestCursor;
 
@@ -193,7 +192,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaMedia> tres = null;//
-            var res = await AppCore.InstaApi.GetExploreFeedAsync(pagination);
+            var res = await AppCore.InstaApi.FeedProcessor.GetExploreFeedAsync(pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Medias;
             // This code simply generates
@@ -246,7 +245,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaUserShort> tres = null;//
-            var res = await AppCore.InstaApi.GetUserFollowersAsync(_username, pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetUserFollowersAsync(_username, pagination);
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
@@ -300,7 +299,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaUserShort> tres = null;//
-            var res = await AppCore.InstaApi.GetUserFollowingAsync(_username, pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetUserFollowingAsync(_username, pagination);
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
@@ -353,7 +352,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaRecentActivityFeed> tres = null;//
-            var res = await AppCore.InstaApi.GetFollowingRecentActivityAsync(pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetFollowingRecentActivityFeedAsync(pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Items;
             // This code simply generates
@@ -404,7 +403,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaRecentActivityFeed> tres = null;//
-            var res = await AppCore.InstaApi.GetRecentActivityAsync(pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetRecentActivityFeedAsync(pagination);
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Items;
@@ -458,7 +457,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
 
             IEnumerable<InstaComment> tres = null;//
-            var res = await AppCore.InstaApi.GetMediaCommentsAsync(_mediaid, pagination);
+            var res = await AppCore.InstaApi.CommentProcessor.GetMediaCommentsAsync(_mediaid, pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.Comments.ToList();
             // inline comment support
@@ -532,7 +531,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
 
             IEnumerable<InstaMedia> tres = null;//
-            var res = await AppCore.InstaApi.GetUserMediaAsync(_username, pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetUserMediaAsync(_username, pagination);
             if (res.Value == null) { HasMoreItems = false; return new List<InstaMedia>().ToArray(); }
             if (res.Value.NextId == null) HasMoreItems = false;
             pagination.NextId = res.Value.NextId;
@@ -586,7 +585,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
 
             IEnumerable<InstaMedia> tres = null;//
-            var res = await AppCore.InstaApi.GetUserTagsAsync(_username, pagination);
+            var res = await AppCore.InstaApi.UserProcessor.GetUserTagsAsync(_username, pagination);
             pagination.NextId = res.Value.NextId;
             tres = res.Value.ToList();
             if (_LastPage == res.Value.Pages) HasMoreItems = false;
@@ -747,7 +746,7 @@ namespace WinGoTag.DataBinding
             await Task.Delay(10);
             //http://getsongg.com/dapp/getnewcases?lang=en&tested
             IEnumerable<InstaMedia> tres = null;//
-            var res = await AppCore.InstaApi.GetLikeFeedAsync(pagination);
+            var res = await AppCore.InstaApi.FeedProcessor.GetLikeFeedAsync(pagination);
             if (res.Value == null)
             {
                 throw new Exception(res.Info.Message);

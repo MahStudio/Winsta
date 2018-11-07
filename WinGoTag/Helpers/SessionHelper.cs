@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -23,7 +25,13 @@ namespace WinGoTag.Helpers
                 var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(BackupFolder, CreationCollisionOption.OpenIfExists);
                 var file = await folder.CreateFileAsync($"{username}.dat", CreationCollisionOption.ReplaceExisting);
                 var state = AppCore.InstaApi.GetStateDataAsStream();
-                await FileIO.WriteTextAsync(file, state);
+                using (var stream = AppCore.InstaApi.GetStateDataAsStream())
+                {
+                    var mem = new MemoryStream();
+                    await state.CopyToAsync(mem);
+                    var fst = (await file.OpenAsync(FileAccessMode.ReadWrite));
+                    await fst.WriteAsync(mem.GetWindowsRuntimeBuffer());
+                }
             }
             catch (Exception ex) { ex.ExceptionMessage("SessionHelper.BackupCurrentSession"); }
         }

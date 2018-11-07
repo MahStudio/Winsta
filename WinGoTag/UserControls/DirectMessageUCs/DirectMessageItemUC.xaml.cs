@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.ComponentModel;
 using Windows.UI.Xaml;
@@ -53,7 +53,7 @@ namespace WinGoTag.UserControls.DirectMessageUCs
         {
             if (!InboxItem.MediaShare.HasLiked)
             {
-                if ((await AppCore.InstaApi.LikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+                if ((await AppCore.InstaApi.MediaProcessor.LikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
                 {
                     InboxItem.MediaShare.HasLiked = true;
                     InboxItem.MediaShare.LikesCount += 1;
@@ -61,7 +61,7 @@ namespace WinGoTag.UserControls.DirectMessageUCs
             }
             else
             {
-                if ((await AppCore.InstaApi.UnLikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
+                if ((await AppCore.InstaApi.MediaProcessor.UnLikeMediaAsync(InboxItem.MediaShare.InstaIdentifier)).Value)
                 {
                     InboxItem.MediaShare.HasLiked = false;
                     InboxItem.MediaShare.LikesCount -= 1;

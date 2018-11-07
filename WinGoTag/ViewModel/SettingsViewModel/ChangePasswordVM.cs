@@ -79,7 +79,7 @@ namespace WinGoTag.ViewModel.SettingsViewModel
                 IsBusy = false;
                 return;
             }
-            var res = await AppCore.InstaApi.ChangePasswordAsync(OldPassword, NewPassword);
+            var res = await AppCore.InstaApi.AccountProcessor.ChangePasswordAsync(OldPassword, NewPassword);
             if (res.Value != true)
             {
                 await new MessageDialog(res.Info.Message).ShowAsync();

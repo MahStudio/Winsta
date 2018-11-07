@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -56,8 +56,8 @@ namespace WinGoTag.UserControls
             if(e.PropertyName == "Play")
             {
                 var value = DataContext as InstaStoryItem;
-                if (value.Play) CarouVideo.Play();
-                else CarouVideo.Stop();
+                //if (value.Play) CarouVideo.Play();
+                //else CarouVideo.Stop();
             }
         }
 
@@ -68,7 +68,7 @@ namespace WinGoTag.UserControls
             if (args.NewValue.GetType() == typeof(InstaStoryItem))
             {
                 var value = DataContext as InstaStoryItem;
-                value.PropertyChanged += CarouselItemUCStories_PropertyChanged;
+                //value.PropertyChanged += CarouselItemUCStories_PropertyChanged;
                 var DPI = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
 
                 var bounds = Window.Current.Bounds;
@@ -81,7 +81,7 @@ namespace WinGoTag.UserControls
                 {
                     CarouVideo.Visibility = Visibility.Collapsed;
                     CarouImage.Visibility = Visibility.Visible;
-                    CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
+                    CarouImage.Source = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute));
 
                     var ActualWidth = bounds.Width * value.OriginalWidth;
                     var ActualHeight = bounds.Height * value.OriginalHeight;
@@ -97,8 +97,8 @@ namespace WinGoTag.UserControls
                 {
                     CarouImage.Visibility = Visibility.Collapsed;
                     CarouVideo.Visibility = Visibility.Visible;
-                    CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().URI, UriKind.RelativeOrAbsolute));
-                    CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Url, UriKind.RelativeOrAbsolute);
+                    CarouVideo.PosterSource = new BitmapImage(new Uri(value.ImageList.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute));
+                    CarouVideo.Source = new Uri(value.VideoList.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute);
 
                     var ActualWidth = bounds.Width * value.OriginalWidth;
                     var ActualHeight = bounds.Height * value.OriginalHeight;
@@ -266,9 +266,9 @@ namespace WinGoTag.UserControls
 
         private async void StoryLocation_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var mention = (sender as Rectangle).Tag as InstaLocationStory;
+            var mention = (sender as Rectangle).Tag as InstaLocation;
             if (mention == null) return;
-            await new MessageDialog(mention.Location.Address + Environment.NewLine + mention.Location.Name).ShowAsync();
+            await new MessageDialog(mention.Address + Environment.NewLine + mention.Name).ShowAsync();
         }
 
         private void CarouVideo_GettingFocus(UIElement sender, GettingFocusEventArgs args)

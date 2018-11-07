@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 using WinGoTag.Helpers;
 
@@ -23,7 +24,8 @@ namespace WinGoTag
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            if (!ClassProInfo.SystemVersion.StartsWith("10.0.14393"))
+                this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
             App.Current.Suspending += Current_Suspending;
@@ -43,7 +45,13 @@ namespace WinGoTag
                 {
                     var state = AppCore.InstaApi.GetStateDataAsStream();
                     var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.ReplaceExisting);
-                    await FileIO.WriteTextAsync(file, state);
+                    using (var stream = AppCore.InstaApi.GetStateDataAsStream())
+                    {
+                        var mem = new MemoryStream();
+                        await state.CopyToAsync(mem);
+                        var fst = (await file.OpenAsync(FileAccessMode.ReadWrite));
+                        await fst.WriteAsync(mem.GetWindowsRuntimeBuffer());
+                    }
                 }
                 def.Complete();
             }
@@ -63,6 +71,12 @@ namespace WinGoTag
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            if (ClassProInfo.SystemVersion.StartsWith("10.0.14393"))
+            {
+                #region Initialize Page
+                Application.LoadComponent(this, new Uri("ms-appx:///App.AUSupport.xaml", UriKind.RelativeOrAbsolute), ComponentResourceLocation.Application);
+                #endregion
+            }
             if (e != null)
             {
                 if (e.PreviousExecutionState == ApplicationExecutionState.Running)
@@ -75,13 +89,14 @@ namespace WinGoTag
             try
             {
                 AppCore.UnregisterNotifyTask();
-                
+
             }
             catch { }
-            try{
+            try
+            {
                 AppCore.RegisterNotifyTask();
             }
-            catch{ }
+            catch { }
             SplashScreen splashScreen = e.SplashScreen;
             ExtendedSplashScreen eSplash = null;
             eSplash = new ExtendedSplashScreen(splashScreen);

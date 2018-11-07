@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -35,13 +35,13 @@ namespace WinGoTag.View.ActivityView
         void Accept_Click(object sender, RoutedEventArgs e)
         {
             var user = (sender as Button).Tag as InstaUserShort;
-            AppCore.InstaApi.AcceptFriendshipRequest(user.Pk);
+            AppCore.InstaApi.UserProcessor.AcceptFriendshipRequestAsync(user.Pk);
         }
 
         void Ignore_Click(object sender, RoutedEventArgs e)
         {
             var user = (sender as Button).Tag as InstaUserShort;
-            AppCore.InstaApi.IgnoreFriendshipRequest(user.Pk);
+            AppCore.InstaApi.UserProcessor.IgnoreFriendshipRequestAsync(user.Pk);
         }
     }
 }

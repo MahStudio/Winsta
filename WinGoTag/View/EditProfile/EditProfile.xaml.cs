@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;

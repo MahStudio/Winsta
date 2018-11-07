@@ -1,4 +1,5 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
+using InstagramApiSharp.Classes.ResponseWrappers;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace WinGoTag.View.ActivityView
          typeof(RecentActivityView),
          new PropertyMetadata(null)
         );
-        List<InstaUserShort> PendingUsers;
+        List<InstaUserShortResponse> PendingUsers;
         public RecentActivity<InstaRecentActivityFeed> RecentActivityItemssource;
         public RecentActivityView()
         {
@@ -44,7 +45,7 @@ namespace WinGoTag.View.ActivityView
 
         public async void OnNavigatedTo()
         {
-            PendingUsers = (await AppCore.InstaApi.GetPendingFriendRequests()).Value.Users.ToList();
+            PendingUsers = (await AppCore.InstaApi.UserProcessor.GetPendingFriendRequestsAsync()).Value.Users.ToList();
             if (PendingUsers == null || PendingUsers.Count == 0)
                 FollowReqItem.Visibility = Visibility.Collapsed;
 

@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;
@@ -61,7 +61,7 @@ namespace WinGoTag.ViewModel.UserViews
             switch (FollowBTNContent)
             {
                 case "Follow":
-                    var flwstat = await AppCore.InstaApi.FollowUserAsync(User.Pk);
+                    var flwstat = await AppCore.InstaApi.UserProcessor.FollowUserAsync(User.Pk);
                     if (flwstat.Value.OutgoingRequest)
                         FollowBTNContent = "Requested";
 
@@ -72,7 +72,7 @@ namespace WinGoTag.ViewModel.UserViews
 
                     break;
                 case "Unfollow":
-                    var flw = await AppCore.InstaApi.UnFollowUserAsync(User.Pk);
+                    var flw = await AppCore.InstaApi.UserProcessor.UnFollowUserAsync(User.Pk);
                     if (!flw.Value.Following)
                         FollowBTNContent = "Follow";
 
@@ -93,8 +93,8 @@ namespace WinGoTag.ViewModel.UserViews
 
         async void LoadPage()
         {
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.Username);
-            var status = await AppCore.InstaApi.GetFriendshipStatusAsync(user.Value.Pk);
+            var user = await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync(User.Username);
+            var status = await AppCore.InstaApi.UserProcessor.GetFriendshipStatusAsync(user.Value.Pk);
             if (!status.Value.Following)
                 FollowBTNContent = "Follow";
 

@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -53,7 +53,7 @@ namespace WinGoTag.View.SearchView
         {
             _ProgressBar.IsIndeterminate = true;
 
-            var strs = await AppCore.InstaApi.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
+            var strs = await AppCore.InstaApi.FeedProcessor.GetExploreFeedAsync(PaginationParameters.MaxPagesToLoad(1));
 
             //
 
@@ -97,7 +97,7 @@ namespace WinGoTag.View.SearchView
         InstaMedia VisibleItems()
         {
             List<InstaMedia> med = new List<InstaMedia>();
-            var meds = mylist.ItemsSource as GenerateExplorePage<InstaSharper.Classes.Models.InstaMedia>;
+            var meds = mylist.ItemsSource as GenerateExplorePage<InstagramApiSharp.Classes.Models.InstaMedia>;
             var i = 0;
 
             foreach (InstaMedia item in meds)

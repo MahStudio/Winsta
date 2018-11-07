@@ -1,4 +1,4 @@
-﻿using InstaAPI.Classes;
+﻿using InstagramApiSharp.Classes;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;
@@ -10,9 +10,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
         bool? isemailchoosed;
         bool? isphonechoosed;
         bool isbusy;
-        StepData choptions;
         public event PropertyChangedEventHandler PropertyChanged;
-        public StepData ChallengeOptions { get => choptions; set { choptions = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ChallengeOptions")); } }
         public bool IsBusy { get => isbusy; set { isbusy = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy")); } }
         public bool? IsEmailChoosed { get => isemailchoosed; set { isemailchoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsEmailChoosed")); } }
         public bool? IsPhoneChoosed { get => isphonechoosed; set { isphonechoosed = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsPhoneChoosed")); } }

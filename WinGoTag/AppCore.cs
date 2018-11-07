@@ -1,9 +1,10 @@
-﻿using InstaSharper.API;
-using InstaSharper.API.Builder;
-using InstaSharper.Classes;
-using InstaSharper.Logger;
+﻿using InstagramApiSharp.API;
+using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Logger;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Storage;
@@ -59,11 +60,8 @@ namespace WinGoTag
                 }
 
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("UserSession.dat", CreationCollisionOption.OpenIfExists);
-                var r = await FileIO.ReadTextAsync(file);
-                if (string.IsNullOrEmpty(r))
-                    return false;
-                if (r.Length < 100)
-                    return false;
+                var stream = (await file.OpenAsync(FileAccessMode.Read)).AsStream();
+
                 var User = "username"; var Pass = "password";
                 // LoadUserInfo(out User, out Pass);
                 // if (User == null || Pass == null) return false;
@@ -71,7 +69,7 @@ namespace WinGoTag
                     .SetUser(new UserSessionData { UserName = User, Password = Pass })
                     .UseLogger(new DebugLogger(LogLevel.Exceptions))
                     .Build();
-                InstaApi.LoadStateDataFromStream(r);
+                InstaApi.LoadStateDataFromStream(stream);
                 if (!InstaApi.IsUserAuthenticated)
                     await InstaApi.LoginAsync();
 

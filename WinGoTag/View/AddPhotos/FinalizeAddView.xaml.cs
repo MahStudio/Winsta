@@ -52,8 +52,8 @@ namespace WinGoTag.View.AddPhotos
             var sf = await StorageFile.GetFileFromApplicationUriAsync(ImageFileUri);
             var size = await sf.Properties.GetImagePropertiesAsync();
 
-            var v = await (AppCore.InstaApi.UploadPhotoAsync(
-                    new InstaSharper.Classes.Models.InstaImage(ImageFileUri.LocalPath, (int)size.Width, (int)size.Height), txtcaption.Text));
+            var v = await (AppCore.InstaApi.MediaProcessor.UploadPhotoAsync(
+                    new InstagramApiSharp.Classes.Models.InstaImage(ImageFileUri.LocalPath, (int)size.Width, (int)size.Height), txtcaption.Text));
             if(v.Succeeded)
             {
                 await new MessageDialog("Your photo uploaded successfully").ShowAsync();

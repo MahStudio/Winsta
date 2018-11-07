@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Specialized;
 using Windows.UI.Popups;
@@ -31,7 +31,7 @@ namespace WinGoTag.View
 
         async void SendTextMessage()
         {
-            var res = await AppCore.InstaApi.CommentMediaAsync(MediaID, MessageTextBox.Text);
+            var res = await AppCore.InstaApi.CommentProcessor.CommentMediaAsync(MediaID, MessageTextBox.Text);
             if (!res.Succeeded)
             {
                 await new MessageDialog(res.Info.Message).ShowAsync();

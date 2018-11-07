@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +19,17 @@ namespace WinGoTag.Converters
                 {
                     case InstaMediaType.Image:
                         
-                        return new Uri(med.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
+                        return new Uri(med.Images.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute);
 
 
                     case InstaMediaType.Carousel:
                    
-                        return new Uri(med.Carousel.FirstOrDefault().Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
+                        return new Uri(med.Carousel.FirstOrDefault().Images.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute);
                       
 
                     case InstaMediaType.Video:
              
-                        return new Uri(med.Images.FirstOrDefault().URI, UriKind.RelativeOrAbsolute);
+                        return new Uri(med.Images.FirstOrDefault().Uri, UriKind.RelativeOrAbsolute);
                 }
                 return null;
             }

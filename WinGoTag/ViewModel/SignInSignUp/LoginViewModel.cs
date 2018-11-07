@@ -1,6 +1,6 @@
-﻿using InstaSharper.API.Builder;
-using InstaSharper.Classes;
-using InstaSharper.Logger;
+﻿using InstagramApiSharp.API.Builder;
+using InstagramApiSharp.Classes;
+using InstagramApiSharp.Logger;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +18,7 @@ using Windows.Web.Http.Filters;
 using Windows.UI.Xaml;
 using WinGoTag.Helpers;
 using Newtonsoft.Json;
-using InstaAPI.Classes;
+using InstagramApiSharp.Classes;
 
 namespace WinGoTag.ViewModel.SignInSignUp
 {
@@ -127,56 +127,56 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
         private async void WebViewDOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
-            try
-            {
-                LoadingOff();
-                if (args.Uri.ToString() == InstagramUri.ToString() && !IsWebBrowserInUse)
-                {
-                    var cookies = GetBrowserCookie(args.Uri);
-                    var sb = new StringBuilder();
-                    foreach (var item in cookies)
-                        sb.Append($"{item.Name}={item.Value}; ");
+            //try
+            //{
+            //    LoadingOff();
+            //    if (args.Uri.ToString() == InstagramUri.ToString() && !IsWebBrowserInUse)
+            //    {
+            //        var cookies = GetBrowserCookie(args.Uri);
+            //        var sb = new StringBuilder();
+            //        foreach (var item in cookies)
+            //            sb.Append($"{item.Name}={item.Value}; ");
 
-                    string html = await WebView.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
-                    var result = AppCore.InstaApi.SetCookiesAndHtmlForChallenge(html, sb.ToString());
-                    WebView.Visibility = Visibility.Collapsed;
-                    IsWebBrowserInUse = true;
-                    if (result.Succeeded)
-                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
-                        {
-                            AppCore.SaveUserInfo(UserName, Password);
-                            MainPage.MainFrame.Navigate(typeof(MainView));
-                        });
+            //        string html = await WebView.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+            //        var result = AppCore.InstaApi.SetCookiesAndHtmlForChallenge(html, sb.ToString());
+            //        WebView.Visibility = Visibility.Collapsed;
+            //        IsWebBrowserInUse = true;
+            //        if (result.Succeeded)
+            //            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
+            //            {
+            //                AppCore.SaveUserInfo(UserName, Password);
+            //                MainPage.MainFrame.Navigate(typeof(MainView));
+            //            });
 
-                    else
-                        await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
+            //        else
+            //            await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
 
-                    WebView.Stop();
-                }
-            }
-            catch (Exception) { }
+            //        WebView.Stop();
+            //    }
+            //}
+            //catch (Exception) { }
         }
 
         private async void WebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            try
-            {
-                await WebView.InvokeScriptAsync("eval", new[]
-                {
-                    @"(function()
-                    {
-                        var hyperlinks = document.getElementsByTagName('a');
-                        for(var i = 0; i < hyperlinks.length; i++)
-                        {
-                            if(hyperlinks[i].getAttribute('target') != null)
-                            {
-                                hyperlinks[i].setAttribute('target', '_self');
-                            }
-                        }
-                    })()"
-                });
-            }
-            catch { }
+            //try
+            //{
+            //    await WebView.InvokeScriptAsync("eval", new[]
+            //    {
+            //        @"(function()
+            //        {
+            //            var hyperlinks = document.getElementsByTagName('a');
+            //            for(var i = 0; i < hyperlinks.length; i++)
+            //            {
+            //                if(hyperlinks[i].getAttribute('target') != null)
+            //                {
+            //                    hyperlinks[i].setAttribute('target', '_self');
+            //                }
+            //            }
+            //        })()"
+            //    });
+            //}
+            //catch { }
         }
         private void WebViewNewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
         {
@@ -328,98 +328,98 @@ namespace WinGoTag.ViewModel.SignInSignUp
 
         private async void WebViewFacebookDOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
-            try
-            {
-                if (CancelFacebookLogin)
-                {
-                    LoadingOff();
-                    try
-                    {
-                        WebViewFacebook.Stop();
-                    }
-                    catch { }
-                    return;
-                }
-                if (args.Uri.ToString().Contains("facebook.com/") && !FacebookPassed)
-                {
-                    LoadingOff();
-                    //FacebookGridVisibility = Visibility.Visible;
-                    WebViewFacebook.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    if (args.Uri.ToString() == InstagramUri.ToString() ||
-                        args.Uri.ToString() == "https://www.instagram.com/#reactivated" ||
-                        args.Uri.ToString().StartsWith("https://www.instagram.com/accounts/onetap/"))
-                    {
-                        LoadingOn();
-                        //FacebookGridVisibility = Visibility.Collapsed;
-                        WebViewFacebook.Visibility = Visibility.Collapsed;
-                        if (FacebookFirstTime)
-                        {
-                            FacebookFirstTime = false;
-                            FacebookTimer.Start();
-                        }
-                        else
-                        {
-                            string html = await WebViewFacebook.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+            //try
+            //{
+            //    if (CancelFacebookLogin)
+            //    {
+            //        LoadingOff();
+            //        try
+            //        {
+            //            WebViewFacebook.Stop();
+            //        }
+            //        catch { }
+            //        return;
+            //    }
+            //    if (args.Uri.ToString().Contains("facebook.com/") && !FacebookPassed)
+            //    {
+            //        LoadingOff();
+            //        //FacebookGridVisibility = Visibility.Visible;
+            //        WebViewFacebook.Visibility = Visibility.Visible;
+            //    }
+            //    else
+            //    {
+            //        if (args.Uri.ToString() == InstagramUri.ToString() ||
+            //            args.Uri.ToString() == "https://www.instagram.com/#reactivated" ||
+            //            args.Uri.ToString().StartsWith("https://www.instagram.com/accounts/onetap/"))
+            //        {
+            //            LoadingOn();
+            //            //FacebookGridVisibility = Visibility.Collapsed;
+            //            WebViewFacebook.Visibility = Visibility.Collapsed;
+            //            if (FacebookFirstTime)
+            //            {
+            //                FacebookFirstTime = false;
+            //                FacebookTimer.Start();
+            //            }
+            //            else
+            //            {
+            //                string html = await WebViewFacebook.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
 
-                            var cookies = GetBrowserCookie(args.Uri);
-                            var sb = new StringBuilder();
-                            foreach (var item in cookies)
-                                sb.Append($"{item.Name}={item.Value}; ");
+            //                var cookies = GetBrowserCookie(args.Uri);
+            //                var sb = new StringBuilder();
+            //                foreach (var item in cookies)
+            //                    sb.Append($"{item.Name}={item.Value}; ");
 
-                            var start = "<script type=\"text/javascript\">window._sharedData";
-                            var end = ";</script>";
+            //                var start = "<script type=\"text/javascript\">window._sharedData";
+            //                var end = ";</script>";
 
-                            if (html.Contains(start))
-                            {
-                                var str = html.Substring(html.IndexOf(start) + start.Length);
-                                str = str.Substring(0, str.IndexOf(end));
-                                str = str.Substring(str.IndexOf("=") + 2);
-                                var o = JsonConvert.DeserializeObject<WebBrowserResponse>(str);
-                                if (o.Config.Viewer != null)
-                                {
-                                    UserName = o.Config.Viewer.Username;
-                                    Password = "AlakiMasalanYePassworde";
-                                    var userSession = new UserSessionData
-                                    {
-                                        UserName = UserName,
-                                        Password = Password
-                                    };
+            //                if (html.Contains(start))
+            //                {
+            //                    var str = html.Substring(html.IndexOf(start) + start.Length);
+            //                    str = str.Substring(0, str.IndexOf(end));
+            //                    str = str.Substring(str.IndexOf("=") + 2);
+            //                    var o = JsonConvert.DeserializeObject<WebBrowserResponse>(str);
+            //                    if (o.Config.Viewer != null)
+            //                    {
+            //                        UserName = o.Config.Viewer.Username;
+            //                        Password = "AlakiMasalanYePassworde";
+            //                        var userSession = new UserSessionData
+            //                        {
+            //                            UserName = UserName,
+            //                            Password = Password
+            //                        };
 
-                                    AppCore.InstaApi = InstaApiBuilder.CreateBuilder()
-                                        .SetUser(userSession)
-                                        .UseLogger(new DebugLogger(LogLevel.Exceptions))
-                                        .Build();
+            //                        AppCore.InstaApi = InstaApiBuilder.CreateBuilder()
+            //                            .SetUser(userSession)
+            //                            .UseLogger(new DebugLogger(LogLevel.Exceptions))
+            //                            .Build();
 
-                                    var result = AppCore.InstaApi.SetCookiesAndHtmlForChallenge(html, sb.ToString(), true);
+            //                        var result = AppCore.InstaApi.SetCookiesAndHtmlForChallenge(html, sb.ToString(), true);
 
-                                    IsWebBrowserInUse = true;
-                                    if (result.Succeeded)
-                                    {
-                                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
-                                        {
-                                            AppCore.SaveUserInfo(UserName, Password);
-                                            MainPage.MainFrame.Navigate(typeof(MainView));
-                                        });
-                                    }
-                                    else
-                                        await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
+            //                        IsWebBrowserInUse = true;
+            //                        if (result.Succeeded)
+            //                        {
+            //                            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, delegate
+            //                            {
+            //                                AppCore.SaveUserInfo(UserName, Password);
+            //                                MainPage.MainFrame.Navigate(typeof(MainView));
+            //                            });
+            //                        }
+            //                        else
+            //                            await new MessageDialog($"{UserName} couldn't login.\r\nPlease try again.", "Unknown error").ShowAsync();
 
-                                    WebViewFacebook.Stop();
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //LoadingOff();
-                        //WebViewFacebook.Visibility = Visibility.Visible;
-                    }
-                }
-            }
-            catch { }
+            //                        WebViewFacebook.Stop();
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //LoadingOff();
+            //            //WebViewFacebook.Visibility = Visibility.Visible;
+            //        }
+            //    }
+            //}
+            //catch { }
         }
 
 
@@ -537,7 +537,7 @@ namespace WinGoTag.ViewModel.SignInSignUp
                             .SetUser(new UserSessionData { UserName = User, Password = Pass })
                             .UseLogger(new DebugLogger(LogLevel.Exceptions))
                             .Build();
-                        AppCore.InstaApi.LoadStateDataFromStream(json);
+                        AppCore.InstaApi.LoadStateDataFromString(json);
                         if (!AppCore.InstaApi.IsUserAuthenticated)
                         {
                             await AppCore.InstaApi.LoginAsync();
@@ -580,22 +580,22 @@ namespace WinGoTag.ViewModel.SignInSignUp
                 case InstaLoginResult.ChallengeRequired:
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        var challenge = AppCore.InstaApi.GetChallenge();
-                        if (WebView != null && challenge != null)
-                        {
-                            try
-                            {
-                                UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
-                            }
-                            catch { }
-                            DeleteInstagramCookies();
-                            LoadingOn();
-                            WebView.Visibility = Visibility.Visible;
-                            IsWebBrowserInUse = false;
-                            WebView.Navigate(new Uri(challenge.Url));
-                        }
-                        else
-                            LoadingOff();
+                        //var challenge = AppCore.InstaApi.GetChallenge();
+                        //if (WebView != null && challenge != null)
+                        //{
+                        //    try
+                        //    {
+                        //        UserAgentHelper.SetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36");
+                        //    }
+                        //    catch { }
+                        //    DeleteInstagramCookies();
+                        //    LoadingOn();
+                        //    WebView.Visibility = Visibility.Visible;
+                        //    IsWebBrowserInUse = false;
+                        //    WebView.Navigate(new Uri(challenge.Url));
+                        //}
+                        //else
+                        //    LoadingOff();
                     });
                     break;
                 case InstaLoginResult.Success:

@@ -98,7 +98,7 @@ namespace WinGoTag.ViewModel.SettingsViewModel
         async void RegenerateBackupCodes()
         {
             IsBusy = true;
-            var b = await AppCore.InstaApi.AccountProcessor.RegenerateTwoFactorBackupCodes();
+            var b = await AppCore.InstaApi.AccountProcessor.RegenerateTwoFactorBackupCodesAsync();
             if(b.Succeeded && b.Value != null)
             {
                 BackupCodes = b.Value.BackupCodes.ToList();

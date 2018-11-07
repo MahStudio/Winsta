@@ -1,5 +1,5 @@
-﻿using InstaSharper.Classes;
-using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes;
+using InstagramApiSharp.Classes.Models;
 using System;
 using System.ComponentModel;
 using Windows.UI.Core;
@@ -58,7 +58,7 @@ namespace WinGoTag.ViewModel
                 return;
             var User = AppCore.InstaApi.GetLoggedUser();
 
-            var user = await AppCore.InstaApi.GetUserInfoByUsernameAsync(User.UserName);
+            var user = await AppCore.InstaApi.UserProcessor.GetUserInfoByUsernameAsync(User.UserName);
 
             UserInfo = user.Value;
 
@@ -69,7 +69,7 @@ namespace WinGoTag.ViewModel
             UserTag = new GenerateUserTags<InstaMedia>(100000, (count) => new InstaMedia()
             , User.UserName); ;
 
-            var collections = await AppCore.InstaApi.GetCollectionsAsync();
+            var collections = await AppCore.InstaApi.CollectionProcessor.GetCollectionsAsync();
             Collection = collections;
             // collections.Value.Items[0].CoverMedia
             // InstaCollections

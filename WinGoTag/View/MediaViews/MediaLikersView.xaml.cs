@@ -18,7 +18,7 @@ namespace WinGoTag.View.MediaViews
             base.OnNavigatedTo(e);
             if (e.NavigationMode != NavigationMode.Back)
                 AppCore.ModerateBack(Frame.GoBack);
-            var likers = await AppCore.InstaApi.GetMediaLikersAsync(e.Parameter.ToString());
+            var likers = await AppCore.InstaApi.MediaProcessor.GetMediaLikersAsync(e.Parameter.ToString());
             myList.ItemsSource = likers.Value;
         }
 

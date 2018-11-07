@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,9 +63,10 @@ namespace WinGoTag.UserControls
                 {
                     var value = DataContext as InstaStory;
 
-                    if (value.LatestReelMedia == value.Seen.ToString()) { } else { return; }
-
-                    if (value.Seen == 0)
+                    if (value.LatestReelMedia == value.Seen.ToString()) { }
+                    else { return; }
+                    //Check Seen for unseen value
+                    if (value.Seen.Year == 1970)
                     {
 
                     }

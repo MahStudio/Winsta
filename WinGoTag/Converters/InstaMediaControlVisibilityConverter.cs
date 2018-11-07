@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;

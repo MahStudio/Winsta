@@ -1,4 +1,4 @@
-﻿using InstaSharper.Classes.Models;
+﻿using InstagramApiSharp.Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,10 +69,10 @@ namespace WinGoTag.View.StoryView
 
                 var items = Flipviews.ItemsSource as List<InstaStoryItem>;
                 var selecteditem = items[Flipviews.SelectedIndex];
-                var p = items.Where(x => x.Play == true);
-                foreach (var item in p) item.Play = false;
+                //var p = items.Where(x => x.Play == true);
+                //foreach (var item in p) item.Play = false;
 
-                selecteditem.Play = true;
+                //selecteditem.Play = true;
                 // timer.Start();
             }
             catch
@@ -94,9 +94,9 @@ namespace WinGoTag.View.StoryView
                 if ((e.Parameter as InstaReelFeed).Items.Count != 0)
                     story = e.Parameter as InstaReelFeed;
                 else
-                    story = (await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk)).Value;
+                    story = (await AppCore.InstaApi.StoryProcessor.GetUserStoryFeedAsync(i.User.Pk)).Value;
 
-                foreach (var item in story.Items) item.Play = false;
+                //foreach (var item in story.Items) item.Play = false;
 
 
                 Flipviews.ItemsSource = story.Items;
@@ -112,7 +112,7 @@ namespace WinGoTag.View.StoryView
                             break;
                     }
 
-                story.Items[0].Play = true;
+                //story.Items[0].Play = true;
                 // Flipviews.ItemsSource = i.Items;
 
                 // var strs = await AppCore.InstaApi.LiveProcessor.SeenBroadcastAsync(i.Id.ToString(), i.HasBestiesMedia.ToString());
@@ -124,8 +124,8 @@ namespace WinGoTag.View.StoryView
                 var i = ((InstaStory)e.Parameter);
                 try
                 {
-                    var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.User.Pk);
-                    foreach (var item in story.Value.Items) item.Play = false;
+                    var story = await AppCore.InstaApi.StoryProcessor.GetUserStoryFeedAsync(i.User.Pk);
+                    //foreach (var item in story.Value.Items) item.Play = false;
 
 
                     Flipviews.ItemsSource = story.Value.Items;
@@ -143,11 +143,11 @@ namespace WinGoTag.View.StoryView
                         }
                     }
 
-                    story.Value.Items[0].Play = true;
+                    //story.Value.Items[0].Play = true;
                 }
                 catch
                 {
-                    var story = await AppCore.InstaApi.GetUserStoryFeedAsync(i.Owner.Pk);
+                    var story = await AppCore.InstaApi.StoryProcessor.GetUserStoryFeedAsync(i.Owner.Pk);
                     // foreach (var item in story.Items) { item.Play = false; }
                     Flipviews.ItemsSource = story.Value.Items;
                     for (int a = 0; a < Flipviews.Items.Count; a++)
