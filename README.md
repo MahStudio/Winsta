@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/MahStudio/Winsta/raw/master/WinGoTag/Assets/Logos/perfectColor.png" width=80 height=80>
+    <img src="https://raw.githubusercontent.com/MahStudio/Winsta/d1ce2988a7456fb928f333aa686e3076d9ac228a/WinGoTag/Assets/Logos/perfectColor.png" width=80 height=80>
 
   <h3 align="center">Winsta</h3>
 
