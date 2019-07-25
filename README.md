@@ -72,7 +72,7 @@ Get the appx file and tap it on mobile File Explorer. It will be installed. If i
 
 ### Insider chat on Telegram
 
-Join [Insiders group on Telegram](https://t.me/joinchat/DQwGRg9P42TzBSJgGOYoJw) to stay tuned about the development of this application, exchanging feedback and the insider builds.
+Join [Insiders group on Telegram](https://t.me/WinstaInsiders) to stay tuned about the development of this application, exchanging feedback and the insider builds.
 
 ### InstaApi
 
